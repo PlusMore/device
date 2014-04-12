@@ -1,20 +1,69 @@
-#Plus More
+# Plus More
 
-## Set Up
+## Installation
 
-### Setting up MongoDb
+If you already have Meteor and [Meteorite](https://github.com/oortcloud/meteorite/), Plus More is ready to go. Just clone it locally, run it with `mrt`, and start coding!
 
-Open two terminal windows. 
-In the first window run:
+If not, here are the full instructions:
 
-    make mongod
+```
+curl https://install.meteor.com | /bin/sh
+npm install -g meteorite
+git clone https://github.com/patrickleet/plus-more.git plusmore
+cd plusmore
+mrt
+```
 
-In the second window run:
+## Features
 
-	mongo
-	> var config = {_id: "meteor", members: [{_id: 0, host: "127.0.0.1:27017"}]}
-	> rs.initiate(config)
+- Client-side routing
+- Publications/subscriptions
+- Basic permissions
+- Common templates
 
-### Running
+## Principles
 
-Each app is in it's own subdirectory. ```cd``` into the app you want to run, and run ```make start```
+Void adopts a modular approach, where code is broken down in different files rather than all kept in one place. It also uses the “template/mapper” pattern, where the `item.html` template has a similarly named `item.js` JavaScript file that holds its helper code.
+
+Void uses the `Items` collection as an example, but you would probably replace this with your own collection name (`Posts`, `Sales`, `Projects`, etc.) and change the file and variables names accordingly.
+
+## File Structure
+
+- **client**
+	- **CSS**
+	- **helpers**
+		- handlebars.js
+		- router.js
+	- **views**
+		- **common**
+			- footer.html
+			- header.html
+			- layout.html
+			- loading.html
+			- notFound.html
+		- **items**
+			- item.html
+			- item.js
+			- items.html
+		- **pages**
+			- homepage.html
+	- main.html
+	- main.js
+- **collections**
+	- items.js
+- **lib**
+	- helpers.js
+	- permissions.js
+- **packages**
+	- iron-router
+	- sample-package
+- **public**
+- **server**
+	- fixtures.js
+	- publications.js
+
+## Other Boilerplates
+
+- [meteor-boilerplate](https://github.com/matteodem/meteor-boilerplate) by matteodem
+- [meteor-jw-opinionated-skeleton](https://github.com/jamesdwilson/meteor-jw-opinionated-skeleton) by jamesdwilson (CoffeeScript)
+- [meteor-boilerplate](https://github.com/BeDifferential/meteor-boilerplate) by BeDifferential (CoffeeScript)

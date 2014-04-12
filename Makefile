@@ -1,11 +1,23 @@
-debug:
-	export NODE_OPTIONS="--debug"
+PORT?=4000
+MONGO_URL?=mongodb://localhost:27017/plusmore
+MONGO_OPLOG_URL?=mongodb://localhost:27017/local
+USE_JSESSIONID?=1
 
-start-admin:
-	cd admin && make start
+start:
+	USE_JSESSIONID=$(USE_JSESSIONID) \
+	MONGO_URL=$(MONGO_URL) \
+	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
+	meteor -p $(PORT)
 
-start-device:
-	cd device && make start
+start-production:
+	USE_JSESSIONID=$(USE_JSESSIONID) \
+	MONGO_URL=$(MONGO_URL) \
+	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
+	meteor -p $(PORT) --production
 
-mongod:
-	mongod --replSet plusmore
+ddp:
+	ddp-analyzer-proxy
+
+start-ddp:
+	DDP_DEFAULT_CONNECTION_URL=http://localhost:3030 \
+	meteor
