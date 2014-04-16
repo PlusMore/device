@@ -11,6 +11,7 @@
     "nprogress": {},
     "font-awesome": {},
     "accounts-entry": {},
-    "percolatestudio-mixpanel": {}
+    "percolatestudio-mixpanel": {},
+    "user-status": {}
   }
 }

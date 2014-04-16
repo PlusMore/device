@@ -1,6 +1,9 @@
 <template name="deviceLayout">
-  <div class="deviceLayout">
+  <div class="deviceLayout {{idleStatus}} {{connectionStatus}}">
     {{> deviceHeader}}
+    
+    {{> idle}}
+
     <div class="device-container {{deviceContainerClass}}">
       {{> yield}}
     </div>

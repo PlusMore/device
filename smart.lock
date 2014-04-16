@@ -12,13 +12,14 @@
       "nprogress": {},
       "font-awesome": {},
       "accounts-entry": {},
-      "percolatestudio-mixpanel": {}
+      "percolatestudio-mixpanel": {},
+      "user-status": {}
     },
     "packages": {
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
-        "tag": "v0.7.0",
-        "commit": "05f34bc48c4cad9fdaa366c1ddcabe6980232ece"
+        "tag": "v0.7.1",
+        "commit": "d1ffb3f06ea4c112132b030f2eb1a70b81675ecb"
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
@@ -70,15 +71,20 @@
         "tag": "v0.5.0",
         "commit": "d92c8fd6c0504d3f1c195cf972354ab2e81b4e20"
       },
+      "user-status": {
+        "git": "https://github.com/mizzao/meteor-user-status.git",
+        "tag": "v0.3.4",
+        "commit": "741df5e3304807ba42fbe0aca5b8251c5683e1f7"
+      },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
-        "tag": "v0.2.2",
-        "commit": "8bc53798fe5965669ae67c72f91829fcfdceabfd"
+        "tag": "v0.2.4",
+        "commit": "b40e9b0612329288d75cf52ad14a7da64bb8618f"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
-        "tag": "v0.2.46",
-        "commit": "30b5d3e08433fbbfe49f09845559bf3ca0ab9101"
+        "tag": "v0.2.47",
+        "commit": "d97bf419498efb560771e94a8a3e2c92db33d06d"
       },
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",
@@ -94,6 +100,11 @@
         "git": "https://github.com/softwarerero/meteor-accounts-t9n.git",
         "tag": "v0.0.3",
         "commit": "d1710f979d6955459d9ce0374df81d22c3c6a6ab"
+      },
+      "timesync": {
+        "git": "https://github.com/mizzao/meteor-timesync.git",
+        "tag": "v0.1.5",
+        "commit": "3ee7eb21f60650de2ca32661b7c964e464e578e3"
       }
     }
   }
