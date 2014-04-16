@@ -1,19 +1,18 @@
+APP_ENV=development
 PORT?=4000
 MONGO_URL?=mongodb://localhost:27017/plusmore
 MONGO_OPLOG_URL?=mongodb://localhost:27017/local
-USE_JSESSIONID?=1
+
 
 start:
-	USE_JSESSIONID=$(USE_JSESSIONID) \
 	MONGO_URL=$(MONGO_URL) \
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
-	meteor -p $(PORT)
+	meteor -p $(PORT) --settings ./config/$(APP_ENV)/settings.json
 
 start-production:
-	USE_JSESSIONID=$(USE_JSESSIONID) \
 	MONGO_URL=$(MONGO_URL) \
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
-	meteor -p $(PORT) --production
+	meteor -p $(PORT) --production --settings ./config/$(APP_ENV)/settings.json
 
 ddp:
 	ddp-analyzer-proxy

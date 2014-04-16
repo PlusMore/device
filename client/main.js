@@ -8,10 +8,14 @@ Global client-side code. Loads last.
 
 //
 
+window.addEventListener('load', function() {
+    FastClick.attach(document.body);
+}, false);
+
 Meteor.startup(function () {
 
   // Add FastClick
-  FastClick.attach(document.body);
+  // FastClick.attach(document.body);
 
 
   // Allow touch scrolling on .touch-scrollable elements
@@ -24,7 +28,7 @@ Meteor.startup(function () {
 
 
   // Initialize Mixpanel Analytics
-  mixpanel.init('37f6902be1f2618c7cf2a5b37dbef276'); //YOUR TOKEN
+  mixpanel.init(Meteor.settings.public.mixpanel); //YOUR TOKEN
 
 
   // Subscribe to device data when a device ID is available

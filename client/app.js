@@ -1,3 +1,4 @@
+App = {};
 var isUserAgentBlacklisted = function() {
   var blacklist = ['PhantomJS', 'Googlebot', 'Bing', 'Yahoo'];
 
@@ -27,10 +28,16 @@ _.extend(App, {
         var user = Deps.nonreactive(function() { return Meteor.user(); });
         var email;
 
-        if (user && user.emails.length > 0) {
+        if (user && user.emails && user.emails.length > 0) {
           email = user.emails[0].address;
         } else {
           email = 'anonymous';
+        }
+
+        if (user && user.deviceId) {
+          _.extend(meta, {
+            deviceId: user.deviceId
+          });
         }
 
         _.extend(meta, {
