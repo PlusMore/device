@@ -126,7 +126,7 @@ Meteor.methods({
     this.unblock();
 
     if (Meteor.isServer) {
-      var url = stripTrailingSlash(Meteor.absoluteUrl()) + Router.routes["patronOrderPage"].path({_id: orderId});
+      var url = stripTrailingSlash(Meteor.settings.apps.device.url) + Router.routes["patronOrderPage"].path({_id: orderId});
       var date = moment(reservation.date);
       var formattedDate = date.format("dddd, MMM Do YYYY");
 

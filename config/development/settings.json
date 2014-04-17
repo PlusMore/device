@@ -1,5 +1,13 @@
 {
   "public": {
     "mixpanel": "aea97f2a24f15d245f6ab2e09043e8fe"
+  },
+  "apps": {
+    "admin": {
+      "url": "http://localhost:3000"
+    },
+    "device": {
+      "url": "http://localhost:4000"
+    }
   }
 }
