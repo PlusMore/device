@@ -59,7 +59,9 @@ _.each(App.helpers, function (helper, key) {
   Handlebars.registerHelper(key, helper);
 });
 
-Deps.autorun(function () {
-  var path = IronLocation.path();
-  App.track('Page Views')
-}); 
+Meteor.startup(function() {
+  Deps.autorun(function () {
+    var path = IronLocation.path();
+    App.track('Page Views')
+  }); 
+});

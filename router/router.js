@@ -154,28 +154,6 @@ Router.map(function() {
     }
   });
 
-  this.route('patronOrderPage', {
-    path: 'patron-order/:_id',
-    onBeforeAction: function(pause) {
-      filters.isLoggedIn(pause, this, filters.isHotelStaff());
-    },
-    waitOn: function() {
-      return [
-        Meteor.subscribe('patronOrder', this.params._id)
-      ]
-    },
-    data: function() {
-      var order = Orders.findOne(this.params._id);
-      if (order) {
-        var experience = Experiences.findOne(order.reservation.experienceId)
-        return {
-          order: order,
-          experience: experience
-        }
-      }
-    }
-  });
-
   // Patron Interface
   this.route('welcome', {
     path: '/',
