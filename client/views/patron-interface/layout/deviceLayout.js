@@ -1,7 +1,6 @@
 Template.deviceLayout.helpers({
   deviceContainerClass: function () {
-    var isRegistered = Session.get('deviceIsRegistered')
-
+    var isRegistered = Session.get('deviceIsRegistered')    
     if (isRegistered) {
       var current = Router.current();
       if (current) {
@@ -12,12 +11,19 @@ Template.deviceLayout.helpers({
       } else {
         return "";
       }
-
-
       
     } else {
       return 'unregistered';
     }
+  },
+  idleStatus: function() {
+    return UserStatus.isIdle() ? 'idle' : ''
+  },
+  isIdle: function() {
+    return UserStatus.isIdle();
+  },
+  connectionStatus: function () {
+    return Meteor.status().status;
   }
 });
 
