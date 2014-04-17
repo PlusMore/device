@@ -15,25 +15,36 @@
 </template>
 
 <template name="order">
-  <div class="order section">
+  <div class="order section {{status}}">
     {{#if isReservation}}
       <header>
         <h3>
           Reservation for {{experience.title}}
           <small class="pull-right">
-            {{#if open}}
+            {{#if isPending}}
               (In Progress)
-            {{else}}
+            {{/if}}
+            {{#if isConfirmed}}
               Confirmed
+            {{/if}}
+            {{#if isCancelled}}
+              Cancelled
             {{/if}}
           </small>
         </h3>
       </header>
       
-      <p class="lead">{{reservation.partyName}} - Party of {{reservation.partySize}}</p>
-      {{#with experience}}
-      <a class="btn btn-default" href="{{pathFor 'experience'}}">See Details</a>
-      {{/with}}
+      {{#if isCancelled}}
+        <p>Cancelled on {{cancelledDate}}</p>
+      {{else}}
+        <p class="lead">{{reservation.partyName}} - Party of {{reservation.partySize}}</p>
+        {{#with experience}}
+          <a class="btn btn-default" href="{{pathFor 'experience'}}">See Details</a>
+        {{/with}}
+        <hr class="soften" />
+        <a class="btn btn-danger cancel-reservation">Cancel Reservation</a>
+      {{/if}}
+      
     {{/if}}
   </div>
 </template>
