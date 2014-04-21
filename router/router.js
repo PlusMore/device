@@ -17,10 +17,6 @@ Router.configure({
 // Filters
 
 var filters = {
-  baseSubscriptions: function() {
-    this.subscribe('userHotelData').wait();
-    this.subscribe('userDeviceData').wait();
-  },
   isLoggedIn: function(pause, router, extraCondition) {
     if (! Meteor.user()) {
       if (Meteor.loggingIn()) {
@@ -33,12 +29,6 @@ var filters = {
         Router.go(path);
       }
       pause()
-    }
-  },
-  isLoggedOut: function(pause) {
-    if (Meteor.user()) {
-      pause();
-      Router.go('dashboard');
     }
   },
   isAdmin: function() {
@@ -71,45 +61,8 @@ var filters = {
   }
 };
 
-var helpers = {
-  identify: function () {
-    var user = Meteor.user();
 
-    if (! user)
-      return;
-      
-    var device = Devices.findOne(user.deviceId);
-
-    if (device) {
-      mixpanel.identify(user._id);
-      mixpanel.people.set({
-        "Device": device.location
-      });
-    } else if (user.emails && user.emails[0].address) {
-      mixpanel.identify(user._id);
-      mixpanel.people.set({
-        '$email': user.emails[0].address
-      });
-    }
-  },
-  analyticsRequest: function() {
-    if (Meteor.isClient) {  
-      var name = Router.current().route.name;
-      mixpanel.track("page view", {name: name});
-    }
-  },
-  showLoadingBar: function(pause) {
-    if (this.ready()) {
-      NProgress.done();
-    } else {
-      NProgress.start();
-    }
-  }
-};
 Router.onBeforeAction('loading');
-Router.onBeforeAction(filters.baseSubscriptions);
-
-Router.onBeforeAction(helpers.identify);
 
 // Ensure user has a device account, otherwise,
 // redirect to device list?
@@ -123,8 +76,6 @@ Router.onBeforeAction(filters.ensureDeviceAccount, {only: [
   'orders'
 ]});
 
-Router.onRun(_.debounce(helpers.analyticsRequest, 300));
-
 // Routes
 
 Router.map(function() {
@@ -133,6 +84,11 @@ Router.map(function() {
   this.route('setupDevice', {
     path: '/setup-device',
     layoutTemplate: 'deviceLayout',
+    waitOn: function() {
+      return [
+        this.subscribe('userHotelData')
+      ]
+    },
     onBeforeAction: function(pause) {
       filters.isLoggedIn(pause, this, filters.isHotelStaff());
     },

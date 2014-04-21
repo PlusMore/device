@@ -9,7 +9,6 @@
       "fastclick": {},
       "collection2": {},
       "inspector": {},
-      "nprogress": {},
       "font-awesome": {},
       "accounts-entry": {},
       "percolatestudio-mixpanel": {},
@@ -33,8 +32,8 @@
       },
       "autoform": {
         "git": "https://github.com/aldeed/meteor-autoform.git",
-        "tag": "v0.6.1",
-        "commit": "5c0f36950c7ca91e91d4917a1b4209495151bf1b"
+        "tag": "v0.6.2",
+        "commit": "032bc8180adca7c40a7d518f994ee07ef54d0100"
       },
       "fastclick": {
         "git": "https://github.com/percolatestudio/meteor-fastclick",
@@ -50,11 +49,6 @@
         "git": "https://github.com/broth-eu/meteor-inspector.git",
         "tag": "v0.2.2",
         "commit": "d3e5e4a760133f8d97b6457befc6e8ea1b42a010"
-      },
-      "nprogress": {
-        "git": "https://github.com/zhouzhuojie/meteor-nprogress.git",
-        "tag": "v0.0.4",
-        "commit": "8333206b751a24fac1fbd1b03fa37621bcefe50c"
       },
       "font-awesome": {
         "git": "https://github.com/nate-strauser/meteor-font-awesome.git",
@@ -83,8 +77,8 @@
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
-        "tag": "v0.2.47",
-        "commit": "d97bf419498efb560771e94a8a3e2c92db33d06d"
+        "tag": "v0.4.0",
+        "commit": "2cc6aac0d35a4e00b065c1437d540b2aefba5241"
       },
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",
