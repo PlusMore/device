@@ -1,14 +1,29 @@
 <template name="deviceLayout">
-  <div class="deviceLayout {{idleStatus}} {{connectionStatus}}">
+  <div class="device-layout {{idleStatus}} {{section}}">
     {{> deviceHeader}}
-    
-    {{> idle}}
+     
+    {{> idleOverlay}}
+    {{> ordersSection}}
 
-    <div class="device-container {{deviceContainerClass}}">
+    <div class="experiences-section">
+      {{> experiences}}
+    </div>
+    
+    <div class="content">
       {{> yield}}
     </div>
+    <!-- <div class="device-container {{deviceContainerClass}}">
+      {{> yield}}
+    </div> -->
+    <div data-status="{{connectionStatus}}"></div>
   </div>
-  {{> preload}}
+
+  <div class="overlays">
+    {{#each experiencesOverlays}}
+      {{> experience}}
+    {{/each}} 
+  </div>
+  
 </template>
 
 <template name="preload">

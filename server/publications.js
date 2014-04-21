@@ -73,13 +73,25 @@ Meteor.publish('deviceData', function(deviceId) {
     var device = Devices.findOne(deviceId);
 
     if (device) {
+      var experienceFields = {
+        active: 1,
+        category: 1,
+        lead: 1,
+        photoUrl: 1,
+        title: 1
+      }
       return [
-        Orders.find({userId: this.userId}),
         Categories.find({active: true}),
-        Experiences.find({active: true}, {sort: {sortOrder: 1}})
+        Experiences.find({active: true}, {sort: {sortOrder: 1}, fields: experienceFields})
       ]
     }
   } else {
     return null;
   }
+});
+
+Meteor.publish('orders', function() {
+  return [
+    Orders.find({userId: this.userId})
+  ]
 });

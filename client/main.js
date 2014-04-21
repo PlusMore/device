@@ -35,14 +35,25 @@ Meteor.startup(function () {
 
   }
 
+});
+
+Meteor.startup(function() {
   // Subscribe to device data when a device ID is available
   Deps.autorun(function () {
-    var deviceId = Session.get('deviceId'),
-      device = Devices.findOne(deviceId);
+    var user = Meteor.user();
 
-    if (device) {
-      Meteor.subscribe('deviceData');
+    if (user) {
+      var deviceId = user.deviceId || null;
+
+      if (deviceId) {
+        var deviceId = Meteor.user().deviceId,
+        device = Devices.findOne(deviceId);
+
+        if (device) {
+          Meteor.subscribe('deviceData');
+        }
+      }
     }
+    
   });
-
-});
+})

@@ -1,6 +1,6 @@
 Template.welcome.helpers({
   device: function() {
-    var deviceId = Session.get('deviceId');
+    var deviceId = Meteor.user().deviceId;
     return Devices.findOne(deviceId);
   }
 });

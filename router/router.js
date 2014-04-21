@@ -64,6 +64,7 @@ var filters = {
 
 Router.onBeforeAction('loading');
 
+
 // Ensure user has a device account, otherwise,
 // redirect to device list?
 // TODO: Need to think about this.. Can we get patron's
@@ -113,10 +114,12 @@ Router.map(function() {
   // Patron Interface
   this.route('welcome', {
     path: '/',
-    controller: DeviceController
   });
 
   this.route('orders', {
+    waitOn: function() {
+      this.subscribe('orders')
+    },
     controller: DeviceController
   });
 
@@ -132,12 +135,11 @@ Router.map(function() {
     path: '/experiences/:category?',
     onBeforeAction: function() {
       Session.set('experienceState', '');
+      Session.set('activeCategory', this.params.category);
     },
-    controller: DeviceController,
-    data: function () {
-      return {
-        experiences: Experiences.find({category: this.params.category}, {sort: {sortOrder: 1}})
-      };
+    onRun: function() {
+      var section = Router.current().route.name;
+      Session.set('section', section.toLowerCase());
     }
   });
 

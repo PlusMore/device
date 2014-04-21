@@ -24,6 +24,15 @@ Template.deviceLayout.helpers({
   },
   connectionStatus: function () {
     return Meteor.status().status;
+  },
+  section: function() {
+    return Session.get('section');
+  },
+  experiencesOverlays: function() {
+    return Experiences.find();
+  },
+  categories: function() {
+    return Categories.find();
   }
 });
 
@@ -32,3 +41,4 @@ Template.preload.helpers({
     return Experiences.find();
   }
 });
+

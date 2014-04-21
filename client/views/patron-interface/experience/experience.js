@@ -4,7 +4,10 @@ var callToActionHelpers = {
   },
   callToActionIsPurchase: function() {
     return this.callToAction === "purchase";
-  }
+  },
+  activeExperience: function(/* route names */) {
+    //
+  },
 }
 
 Template.experience.helpers(_.extend(callToActionHelpers, {
