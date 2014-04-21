@@ -82,7 +82,7 @@ Meteor.publish('deviceData', function(deviceId) {
       }
       return [
         Categories.find({active: true}),
-        Experiences.find({active: true}, {sort: {sortOrder: 1}, fields: experienceFields})
+        Experiences.find({active: true}, {sort: {sortOrder: 1}})
       ]
     }
   } else {
@@ -95,3 +95,9 @@ Meteor.publish('orders', function() {
     Orders.find({userId: this.userId})
   ]
 });
+
+// Meteor.publish('experience', function(id) {
+//   return [
+//     Experiences.find(id)
+//   ];
+// });

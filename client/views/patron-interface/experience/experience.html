@@ -46,9 +46,15 @@
   <div class="venue">
     <div class="name">{{venueName}}</div>
     <div>{{street}}</div>
-    <div>{{city}}, {{state}} {{zip}}</div>
-    <div>{{phone}}</div>
-    <a>{{website}}</a>
+    {{#if city}}
+      <div>{{city}}, {{state}} {{zip}}</div>
+    {{/if}}
+    {{#if phone}}
+      <div>{{phone}}</div>
+    {{/if}}
+    {{#if website}}
+      <a>{{website}}</a>
+    {{/if}}
   </div>
   <p class="description">{{description}}</p>
 </template>
