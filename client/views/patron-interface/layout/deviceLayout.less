@@ -93,6 +93,25 @@
 
 .overlays {
   visibility: hidden;
+
+  > div[class*="-overlay"] {
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    .scale(1.5, 1.5);
+    .transition(all 250ms ease-in-out);
+  }
+
+  > div[class*="-overlay"].show {
+    opacity: 1;
+    z-index: 8000;
+    visibility: visible;
+    .scale(1,1);
+  }
 }
 
 
