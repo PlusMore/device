@@ -1,9 +1,12 @@
 <template name="welcome">
-  <div class="big-text ">
-    {{#with device}}
-      <h1>Welcome to {{location}}</h1>
-      <p class="lead">Select one of the services above to begin</p>
-      <a class="btn" href="{{pathFor 'orders'}}">Orders</a>
-    {{/with}}
+  <div class="fill-height welcome-container">
+  	<div class="big-text">
+	    {{#with device}}
+	      <h1>Plus More</h1>
+	      <p class="lead">YOUR PRIVATE CONCIERGE</p>
+	      <br />
+	      <p class="lead">Tap anywhere to begin</p>
+	    {{/with}}
+	  </div>
   </div>
 </template>
