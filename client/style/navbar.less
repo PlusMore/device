@@ -1,3 +1,5 @@
+@import '/client/style/imports.import.less';
+
 .navbar-plusmore {
   background : #A5DFF9;
   background : rgba(165, 223, 249, 1);
@@ -18,37 +20,39 @@
 
   .nav {
     li {
-      background: transparent;
+      background: rgba(255,255,255,0);
+      .transition(all 250ms ease-in-out);
+
       &:hover, &:active, &:focus, &:visited {
-        background: transparent;
+        background: rgba(255,255,255,0);
       }
 
       &.inactive {
-        background: transparent;
+        background: rgba(255,255,255,0);
         &:hover, &:active, &:focus, &:visited {
-          background: transparent;
+          background: rgba(255,255,255,0);
         }
       }
 
       &.active {
-        background-color: #fff;
-        border-bottom: 1px solid #fff;
+        background: rgba(255,255,255,1);
+        border-bottom: 1px solid rgba(255,255,255,1);
 
         &:hover, &:active {
-          background-color: #fff;
+          background: rgba(255,255,255,1);
         }
         a {
-          color: #000;
+          color: rgba(0,0,0,1);
           &:hover, &:active, &:focus , &:visited {
-            color: #000;
+            color: rgba(0,0,0,1);
           }
         }
       }
 
       a {
-        color: #fff;
+        color: rgba(255,255,255,1);
         &:hover, &:active, &:focus , &:visited {
-          background: transparent;
+          background: rgba(255,255,255,0);
         }
       }
 
