@@ -74,6 +74,10 @@ span.gc-cs-link {
   text-align: center;
 }
 
+.center-vertically {
+  .vertical-center();
+}
+
 #nprogress {
   .bar {
     z-index: 3000 !important;
@@ -141,30 +145,6 @@ input.time-component, select.time-component {
     margin-right: 0;
     float: right;
   }
-}
-
-.idle {
-  & > .idle-cover {
-    display: table-cell;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
-    vertical-align: middle;
-    width: 100%;
-    z-index: 9000;
-    background-color: #000;
-    opacity: 1;
-    .transition(all .2s linear)
-  }
-}
-
-
-.debug {
-  background-color: #FF0000;
-  position: fixed;
 }
 
 // small

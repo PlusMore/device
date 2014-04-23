@@ -1,17 +1,19 @@
-<template name="orders">
-  {{#if hasOrders}}
-    <div class="orders-list touch-scrollable">
-      <div class="orders">
-        {{#each orders}}
-          {{> order}}
-        {{/each}}
+<template name="ordersSection">
+  <div class="orders-section">
+    {{#if hasOrders}}
+      <div class="orders-list touch-scrollable">
+        <div class="orders">
+          {{#each orders}}
+            {{> order}}
+          {{/each}}
+        </div>
       </div>
-    </div>
-  {{else}}
-    <div class="no-orders big-text">
-      <p class="lead">You have no open orders.</p>
-    </div>
-  {{/if}}
+    {{else}}
+      <div class="no-orders big-text">
+        <p class="lead">You have no open orders.</p>
+      </div>
+    {{/if}}  
+  </div>
 </template>
 
 <template name="order">
