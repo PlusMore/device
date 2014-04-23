@@ -18,27 +18,42 @@ Meteor.startup(function () {
   // FastClick.attach(document.body);
 
 
-  // Allow touch scrolling on .touch-scrollable elements
-  document.body.addEventListener('touchmove', function(event) {
-    if (! $(event.target).parents().hasClass("touch-scrollable" ))
-    {
-      event.preventDefault();
-    }
-  }, false);
+  // // Allow touch scrolling on .touch-scrollable elements
+  // document.body.addEventListener('touchmove', function(event) {
+  //   if (! $(event.target).parents().hasClass("touch-scrollable" ))
+  //   {
+  //     event.preventDefault();
+  //   }
+  // }, false);
 
 
   // Initialize Mixpanel Analytics
-  mixpanel.init(Meteor.settings.public.mixpanel); //YOUR TOKEN
+  if (mixpanel) {
+    mixpanel.init(Meteor.settings.public.mixpanel); 
+  }
+  else {
 
-
-  // Subscribe to device data when a device ID is available
-  Deps.autorun(function () {
-    var deviceId = Session.get('deviceId'),
-      device = Devices.findOne(deviceId);
-
-    if (device) {
-      Meteor.subscribe('deviceData');
-    }
-  });
+  }
 
 });
+
+Meteor.startup(function() {
+  // Subscribe to device data when a device ID is available
+  Deps.autorun(function () {
+    var user = Meteor.user();
+
+    if (user) {
+      var deviceId = user.deviceId || null;
+
+      if (deviceId) {
+        var deviceId = Meteor.user().deviceId,
+        device = Devices.findOne(deviceId);
+
+        if (device) {
+          Meteor.subscribe('deviceData');
+        }
+      }
+    }
+    
+  });
+})

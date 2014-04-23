@@ -6,17 +6,12 @@ Code related to the items template
 
 /+ ---------------------------------------------------- */
 
-Template.experiences.created = function () {
-  //
-};
-
 Template.experiences.helpers({
-  //
+  experiences: function() {
+    var activeCategory = Session.get('activeCategory');
+    return Experiences.find({category: activeCategory}); 
+  }
 });
-
-Template.experiences.rendered = function () {
-  //
-};
 
 Template.experiences.events({
   'click .experience': function(e) {

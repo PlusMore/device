@@ -1,3 +1,120 @@
+@import '/client/style/imports.import.less';
+
+.device-layout {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: url('/backgrounds/body-bg-blue.png');
+  background-size: 101% 101%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: white;
+
+  > div[class*="-overlay"], > div[class*="-section"] {
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    .scale(1.5, 1.5);
+    .transition(all 250ms ease-in-out);
+  }
+
+  > div[class*="-section"] {
+    margin-top: 105px;
+    padding-top: 5px;
+  }
+
+  & > .content {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3000;
+    background: url('/backgrounds/body-bg-blue.png');
+    background-size: 101% 101%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  // hide content when other section is shown
+  &.orders > .content,
+  &.experience > .content,
+  &.experiences > .content {
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    .scale(1.5, 1.5);
+    .transition(all 250ms ease-in-out);
+  }
+
+
+  &.idle > .idle-overlay {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    z-index: 9000;
+    background-color: #000;
+    opacity: 1;
+    .scale(1,1);
+  }
+
+  &.orders > .orders-section {
+    opacity: 1;
+    z-index: 1000;
+    .scale(1,1);
+  }
+
+  &.experience > .experience-overlay {
+    opacity: 1;
+    z-index: 3000;
+    .scale(1,1);
+  }
+
+  
+  &.experiences > .experiences-section {
+    opacity: 1;
+    z-index: 1000;
+    overflow-y: auto;
+    background: #fff;
+    .scale(1,1)
+  }
+}
+
+.overlays {
+  visibility: hidden;
+
+  > div[class*="-overlay"] {
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    .scale(1.5, 1.5);
+    .transition(all 250ms ease-in-out);
+  }
+
+  > div[class*="-overlay"].show {
+    opacity: 1;
+    z-index: 8000;
+    visibility: visible;
+    .scale(1,1);
+  }
+}
+
+
 .device-container {
   position: absolute;
   bottom: 0;
@@ -8,11 +125,7 @@
   background: #A5DFF9;
   background: #a5dff9;
   filter: alpha(opacity=60) progid:DXImageTransform.Microsoft.Alpha(opacity=60);
-  background: url('/backgrounds/body-bg-blue.png');
-  background-size: 101% 101%;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  color: white;
+  
   overflow-x: hidden;
   overflow-y: auto;
   z-index: 3000;

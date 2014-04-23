@@ -19,12 +19,10 @@ jquery
 inspector
 accounts-ui
 accounts-entry
-nprogress
 font-awesome
 accounts-plusmore-device
 percolatestudio-mixpanel
 plus-more-fonts
-jquery-idle-timer
 moment
-appcache
 user-status
+appcache

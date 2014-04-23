@@ -1,6 +1,6 @@
 <template name="experience">
-  {{#with experience}}
-    <div class="experience {{experienceState}}" style="background: url('{{photoUrl}}?cache=true') #000 no-repeat center center fixed">
+  <div class="experience  experience-overlay {{experienceState}} {{activeExperienceClass}}" style="background: url('{{photoUrl}}/convert?w=1024&h=768&fit=scale&cache=true') #000 no-repeat center center fixed">
+    {{#if showContent}}
       <div class="back">
         <a href="{{pathFor 'experiences'}}"><i class="fa fa-arrow-left"></i>&nbsp;Back</a>
       </div>
@@ -15,8 +15,8 @@
           {{> makeReservationForm}}
         {{/if}}
       </div>
-    </div>
-  {{/with}}
+    {{/if}}
+  </div>
 </template>
 
 <template name="experienceDetails">
@@ -46,9 +46,15 @@
   <div class="venue">
     <div class="name">{{venueName}}</div>
     <div>{{street}}</div>
-    <div>{{city}}, {{state}} {{zip}}</div>
-    <div>{{phone}}</div>
-    <a>{{website}}</a>
+    {{#if city}}
+      <div>{{city}}, {{state}} {{zip}}</div>
+    {{/if}}
+    {{#if phone}}
+      <div>{{phone}}</div>
+    {{/if}}
+    {{#if website}}
+      <a>{{website}}</a>
+    {{/if}}
   </div>
   <p class="description">{{description}}</p>
 </template>
