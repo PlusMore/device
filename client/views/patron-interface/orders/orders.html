@@ -17,7 +17,7 @@
 </template>
 
 <template name="order">
-  <div class="order section {{status}}">
+  <div class="order section col-md-12 {{status}}">
     {{#if isReservation}}
       <header>
         <h3>
@@ -37,14 +37,22 @@
       </header>
       
       {{#if isCancelled}}
-        <p>Cancelled on {{cancelledDate}}</p>
+        <p>Cancelled {{cancelledDateMomentAgo}}</p>
       {{else}}
-        <p class="lead">{{reservation.partyName}} - Party of {{reservation.partySize}}</p>
-        {{#with experience}}
-          <a class="btn btn-default" href="{{pathFor 'experience'}}">See Details</a>
-        {{/with}}
-        <hr class="soften" />
-        <a class="btn btn-danger cancel-reservation">Cancel Reservation</a>
+        <div class="reservation-details">
+          <p>{{when}}</p>
+          <p>{{reservation.partyName}} - Party of {{reservation.partySize}}</p>
+        </div>
+        <div class="venue">
+          {{#with experience}}
+            <strong>{{venueName}}</strong>
+            <span>{{street}}</span>
+            <span>{{city}}, {{state}}</span>
+          {{/with}}
+        </div>
+       
+        <a class="btn btn-default btn-cancel-reservation pull-right">Cancel Reservation</a>
+        <p>Requested {{requestedDateTimeAgo}}</p>
       {{/if}}
       
     {{/if}}

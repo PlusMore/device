@@ -32,8 +32,8 @@
       },
       "autoform": {
         "git": "https://github.com/aldeed/meteor-autoform.git",
-        "tag": "v0.6.2",
-        "commit": "032bc8180adca7c40a7d518f994ee07ef54d0100"
+        "tag": "v0.7.2",
+        "commit": "5d3265ab2607949ca776a45411ce11072413546d"
       },
       "fastclick": {
         "git": "https://github.com/percolatestudio/meteor-fastclick",
@@ -67,8 +67,8 @@
       },
       "user-status": {
         "git": "https://github.com/mizzao/meteor-user-status.git",
-        "tag": "v0.3.4",
-        "commit": "741df5e3304807ba42fbe0aca5b8251c5683e1f7"
+        "tag": "v0.3.5",
+        "commit": "d325a3ab62742659e195085ead76b1ed736aab35"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

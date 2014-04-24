@@ -17,12 +17,23 @@ Template.order.helpers({
   },
   isCancelled: function() {
     return (this.status === 'cancelled');
+  },
+  cancelledDateMomentAgo: function() {
+    return moment(this.cancelledDate).fromNow();
+  },
+  requestedDateTimeAgo: function() {
+    return moment(this.requestedAt).fromNow();
+  },
+  when: function() {
+    return moment(this.reservation.date).calendar();
   }
 });
 
 Template.order.events({
-  'click .btn.cancel-reservation': function(event) {
-    event.preventDefault();
-    Meteor.call('cancelReservation', this._id);
+  'click .btn.btn-cancel-reservation': function(event) {
+    event.preventDefault(); 
+    if (confirm("Are you sure you want to cancel this reservation?")) {
+      Meteor.call('cancelReservation', this._id);
+    } 
   }
 });
