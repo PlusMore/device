@@ -58,15 +58,18 @@
   }
 
 
-  &.idle > .idle-overlay {
-    display: table-cell;
-    text-align: center;
-    vertical-align: middle;
-    width: 100%;
+  &.idle {
     z-index: 9000;
-    background-color: #000;
-    opacity: 1;
-    .scale(1,1);
+    & > .idle-overlay {
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+      width: 100%;
+      z-index: 9000;
+      background-color: #000;
+      opacity: 1;
+      .scale(1,1);
+    }
   }
 
   &.orders > .orders-section {

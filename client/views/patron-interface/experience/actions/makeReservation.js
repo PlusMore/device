@@ -3,10 +3,15 @@ Template.makeReservationCallToAction.events({
     e.preventDefault();
     Session.set('experienceState', 'in-progress');
 
-    debugger;
-    // App.track("Click Make Reservation", {
-    //   "Experience Name": ""
-    // });
+    var experience = tmpl.data;
+    App.track("Click Make Reservation", {
+      "Experience Title": experience.title,
+      "Experience Id": experience._id,
+      "Experience Lead": experience.lead,
+      "Experience PhotoUrl": experience.photoUrl,
+      "Experience Category": experience.category,
+      "City": experience.city
+    });
   }
 });
 

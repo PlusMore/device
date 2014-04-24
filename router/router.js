@@ -144,12 +144,11 @@ Router.map(function() {
     onBeforeAction: function() {
       Session.set('experienceState', '');
       Session.set('activeCategory', this.params.category);
+      var section = this.route.name;
+      Session.set('section', section.toLowerCase());
     },
     onRun: function() {
       Deps.nonreactive(function() {
-        var section = Router.current().route.name;
-        Session.set('section', section.toLowerCase());
-
         App.track("View Category", {
           "Name": Router.current().params.category
         });
@@ -168,12 +167,11 @@ Router.map(function() {
 
         App.track("View Experience", {
           "Experience Title": experience.title,
-          "Category": experience.category,
-          "Lead": experience.lead,
-          "Photo Name": experience.photoName,
-          "Photo URL": experience.photoUrl,
+          "Experience Category": experience.category,
+          "Experience Lead": experience.lead,
+          "Experience PhotoUrl": experience.photoUrl,
           "Experience Id": experience._id,
-          "Description": experience.description,
+          "Experience Description": experience.description,
           "City": experience.city
         });
       });
