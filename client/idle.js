@@ -17,23 +17,17 @@ Meteor.startup(function () {
     var status = Meteor.status().status;
 
     if (isIdle) {
-
-      console.log('user went idle');
       if (status === "connecting" || status === "waiting") {
-        console.log('attempting to connect');
       } else if (status === "connected") {
-        console.log('disconnecting');
+        App.track("User Idle");
         Meteor.disconnect();
       }
 
     } else {
-      
-      console.log('user is active');
       if (status === "connecting" || status === "waiting") {
-        console.log('attempting to connect');
       } else if (status === "offline") {
-        console.log('initiate reconnect');
         Meteor.reconnect();
+        App.track("Tap To Resume");
       }
 
     }

@@ -1,9 +1,17 @@
 Template.makeReservationCallToAction.events({
   'click .btn': function(e, tmpl) {
     e.preventDefault();
-    console.log('make Reservation button clicked');
-    mixpanel.track("Started Reservation Process");
     Session.set('experienceState', 'in-progress');
+
+    var experience = tmpl.data;
+    App.track("Click Make Reservation", {
+      "Experience Title": experience.title,
+      "Experience Id": experience._id,
+      "Experience Lead": experience.lead,
+      "Experience PhotoUrl": experience.photoUrl,
+      "Experience Category": experience.category,
+      "City": experience.city
+    });
   }
 });
 

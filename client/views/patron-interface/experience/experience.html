@@ -36,9 +36,6 @@
         {{#if callToActionIsReserve}}
           {{> makeReservationCallToAction}}
         {{/if}}
-        {{#if callToActionIsPurchase}}
-          {{> buyExperienceCallToAction}}
-        {{/if}}
       </div>
     </div>
 
@@ -48,12 +45,6 @@
     <div>{{street}}</div>
     {{#if city}}
       <div>{{city}}, {{state}} {{zip}}</div>
-    {{/if}}
-    {{#if phone}}
-      <div>{{phone}}</div>
-    {{/if}}
-    {{#if website}}
-      <a>{{website}}</a>
     {{/if}}
   </div>
   <p class="description">{{description}}</p>

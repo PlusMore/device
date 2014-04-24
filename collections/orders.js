@@ -134,6 +134,17 @@ Meteor.methods({
 
     this.unblock();
 
+    if (Meteor.isClient) {
+      App.track("Submit Reservation Request", {
+        "Experience Title": experience.title,
+        "Experience Id": experience._id,
+        "Experience Lead": experience.lead,
+        "Experience PhotoUrl": experience.photoUrl,
+        "Experience Category": experience.category,
+        "City": experience.city
+      });
+    }
+
     if (Meteor.isServer) {
       var url = stripTrailingSlash(Meteor.settings.apps.admin.url) + "/patron-order/{0}".format(orderId);
       var date = moment(reservation.date);

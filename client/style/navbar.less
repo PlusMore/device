@@ -20,39 +20,39 @@
 
   .nav {
     li {
-      background: rgba(255,255,255,0);
+      background: transparent;
       .transition(all 250ms ease-in-out);
 
       &:hover, &:active, &:focus, &:visited {
-        background: rgba(255,255,255,0);
+        background: transparent;
       }
 
       &.inactive {
-        background: rgba(255,255,255,0);
+        background: transparent;
         &:hover, &:active, &:focus, &:visited {
-          background: rgba(255,255,255,0);
+          background: transparent;
         }
       }
 
       &.active {
-        background: rgba(255,255,255,1);
-        border-bottom: 1px solid rgba(255,255,255,1);
+        background: #fff;
+        border-bottom: 1px solid #fff;
 
         &:hover, &:active {
-          background: rgba(255,255,255,1);
+          background: #fff;
         }
         a {
-          color: rgba(0,0,0,1);
+          color: #000;
           &:hover, &:active, &:focus , &:visited {
-            color: rgba(0,0,0,1);
+            color: #000;
           }
         }
       }
 
       a {
-        color: rgba(255,255,255,1);
+        color: #fff;
         &:hover, &:active, &:focus , &:visited {
-          background: rgba(255,255,255,0);
+          background: transparent;
         }
       }
 

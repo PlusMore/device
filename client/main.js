@@ -14,19 +14,6 @@ window.addEventListener('load', function() {
 
 Meteor.startup(function () {
 
-  // Add FastClick
-  // FastClick.attach(document.body);
-
-
-  // // Allow touch scrolling on .touch-scrollable elements
-  // document.body.addEventListener('touchmove', function(event) {
-  //   if (! $(event.target).parents().hasClass("touch-scrollable" ))
-  //   {
-  //     event.preventDefault();
-  //   }
-  // }, false);
-
-
   // Initialize Mixpanel Analytics
   if (mixpanel) {
     mixpanel.init(Meteor.settings.public.mixpanel); 
@@ -34,6 +21,25 @@ Meteor.startup(function () {
   else {
 
   }
+
+  window.addEventListener('error', function(errorEvent) {
+    // You can view the information in an alert to see things working
+    // like so:
+    var message = errorEvent.message;
+    var fileName = errorEvent.filename;
+    var line = errorEvent.lineno;
+
+    App.track('Client Error', {
+      "Error Message": message,
+      "Error FileName": fileName,
+      "Error Line Number": line
+    });
+
+    var suppressErrorAlert = true;
+    // If you return true, then error alerts (like in older versions of 
+    // Internet Explorer) will be suppressed.
+    return suppressErrorAlert;
+  });
 
 });
 
