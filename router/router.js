@@ -64,7 +64,6 @@ var filters = {
   }
 };
 
-
 Router.onBeforeAction('loading');
 
 Router.onBeforeAction(filters.resetActiveCategory, {only: [
@@ -120,6 +119,9 @@ Router.map(function() {
   // Patron Interface
   this.route('welcome', {
     path: '/',
+    onStop: function() {
+      App.track('First Use');
+    }
   });
 
   this.route('orders', {
@@ -144,16 +146,37 @@ Router.map(function() {
       Session.set('activeCategory', this.params.category);
     },
     onRun: function() {
-      var section = Router.current().route.name;
-      Session.set('section', section.toLowerCase());
-    }
+      Deps.nonreactive(function() {
+        var section = Router.current().route.name;
+        Session.set('section', section.toLowerCase());
+
+        App.track("View Category", {
+          "Name": Router.current().params.category
+        });
+      });
+    },
   });
 
   this.route('experience', {
     path: '/experience/:_id',
     layoutTemplate: 'deviceLayout',
     onRun: function () {
-      Session.set('currentExperienceId', this.params._id);
+      Deps.nonreactive(function() {
+        Session.set('currentExperienceId', Router.current().params._id);
+        var experience = Experiences.findOne(Router.current().params._id);
+        console.log(experience);
+
+        App.track("View Experience", {
+          "Experience Title": experience.title,
+          "Category": experience.category,
+          "Lead": experience.lead,
+          "Photo Name": experience.photoName,
+          "Photo URL": experience.photoUrl,
+          "Experience Id": experience._id,
+          "Description": experience.description,
+          "City": experience.city
+        });
+      });
     },
     data: function () {
       return {
