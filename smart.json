@@ -11,6 +11,7 @@
     "font-awesome": {},
     "accounts-entry": {},
     "percolatestudio-mixpanel": {},
-    "user-status": {}
+    "user-status": {},
+    "pickadate": {}
   }
 }

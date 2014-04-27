@@ -8,6 +8,9 @@ Template.welcome.helpers({
 Template.welcome.events({
 	'click .welcome-container': function (e) {
 		e.preventDefault();
-		Router.go('orders');
+
+    App.track('First Use');
+
+		Router.go('enterCheckoutDate');
 	}
 });

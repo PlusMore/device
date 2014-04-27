@@ -119,9 +119,17 @@ Router.map(function() {
   // Patron Interface
   this.route('welcome', {
     path: '/',
-    onStop: function() {
-      App.track('First Use');
+    onBeforeAction: function() {
+      Session.set('experienceState', '');
     },
+    onRun: function () {
+      var section = Router.current().route.name;
+      Session.set('section', section.toLowerCase());
+    }
+  });
+
+  this.route('enterCheckoutDate', {
+    path: '/enter-checkout-date',
     onBeforeAction: function() {
       Session.set('experienceState', '');
     },

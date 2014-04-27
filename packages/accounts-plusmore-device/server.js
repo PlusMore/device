@@ -12,17 +12,10 @@ Accounts.registerLoginHandler(function (options) {
   if (!device)
     throw new Meteor.error(403, "Device not found");
 
-  var meteorUser = Meteor.users.findOne({'deviceId': options.deviceId}),
-      meteorUserId;
-
-  if (!meteorUser) {
-    meteorUserId = Meteor.users.insert({
-      deviceId: options.deviceId,
-      roles: ['device']
-    });
-  } else {
-    meteorUserId = meteorUser._id;
-  }
+  var meteorUserId = Meteor.users.insert({
+    deviceId: options.deviceId,
+    roles: ['device']
+  });
 
   return {userId: meteorUserId};
 });
