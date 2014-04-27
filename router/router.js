@@ -154,6 +154,8 @@ Router.map(function() {
         });
       });
     },
+    action: function () {
+    }
   });
 
   this.route('experience', {
@@ -180,6 +182,8 @@ Router.map(function() {
       return {
         experience: Experiences.findOne(this.params._id)
       };
+    },
+    action: function () {
     }
   });
 
