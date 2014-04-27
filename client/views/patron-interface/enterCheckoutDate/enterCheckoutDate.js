@@ -9,7 +9,7 @@ Template.enterCheckoutDate.rendered = function () {
         console.log(selectedDate);
         Meteor.call('registerStay', selectedDate, function (error, result) {
           if (error) throw new Meteor.Error(error);
-          Router.go('orders');
+          Router.go('experiences', {category: 'Dining'});
         });
       }
     }

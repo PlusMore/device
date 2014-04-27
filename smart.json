@@ -12,6 +12,8 @@
     "accounts-entry": {},
     "percolatestudio-mixpanel": {},
     "user-status": {},
-    "pickadate": {}
+    "pickadate": {
+        "git": "https://github.com/patrickleet/meteor-pickadate.git"
+    }
   }
 }

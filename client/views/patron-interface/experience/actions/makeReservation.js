@@ -16,6 +16,9 @@ Template.makeReservationCallToAction.events({
 });
 
 Template.makeReservationForm.helpers({
+  today: function() {
+    return new Date();
+  },
   makeReservationSchema: function () {
     var schema = Schema.makeReservation._schema;
     var _this = this;
@@ -44,20 +47,9 @@ Template.makeReservationForm.rendered = function () {
   });
 
   $('.timepicker').pickatime({
-    today: false,
-    clear: false,
-    min: moment({hour: 12, minute: 0}).add('days', 1).toDate(),
-    onSet: function(date) {
-      if (date.select) {
-        var selectedDate = moment(date.select).hour(12).minute(0).second(0).toDate();
-        console.log(selectedDate);
-        Meteor.call('registerStay', selectedDate, function (error, result) {
-          if (error) throw new Meteor.Error(error);
-          Router.go('orders');
-        });
-      }
-    }
-  })
+    min: +1,
+    max: [4,0]
+  });
 
 };
 

@@ -9,7 +9,7 @@
     <div class="col-xs-12">
       {{#autoForm schema=makeReservationSchema id="makeReservation" type="method" meteormethod="makeReservation"}}
         <legend>Make a Reservation</legend>
-        {{> afQuickField name='date' class='datepicker'}}
+        {{> afQuickField name='date' class='datepicker' value="{{today}}" }}
         {{> afQuickField name='time' class='timepicker'}}
         {{> afQuickField name='partyName'}}
         {{> afQuickField name='partySize'}}

@@ -13,7 +13,10 @@
       "accounts-entry": {},
       "percolatestudio-mixpanel": {},
       "user-status": {},
-      "pickadate": {}
+      "pickadate": {
+        "git": "https://github.com/patrickleet/meteor-pickadate.git",
+        "branch": "master"
+      }
     },
     "packages": {
       "iron-router": {
@@ -72,9 +75,9 @@
         "commit": "d325a3ab62742659e195085ead76b1ed736aab35"
       },
       "pickadate": {
-        "git": "https://github.com/mervas/meteor-pickadate.git",
-        "tag": "v3.3.1",
-        "commit": "830c2774a1e58af03c143e7f76c9a26b79aa48a3"
+        "git": "https://github.com/patrickleet/meteor-pickadate.git",
+        "branch": "master",
+        "commit": "5158805cbe4fa2d116a851964d2cdf1459524156"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
