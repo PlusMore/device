@@ -29,6 +29,8 @@ Meteor.methods({
       deviceId: device._id,
       active: true
     });
+
+    return stayId;
   },
   endStay: function (stay) {
     var currentDeviceId = Meteor.user().deviceId;

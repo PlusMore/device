@@ -1,9 +1,25 @@
 Template.enterCheckoutDate.rendered = function () {
   $('.datepicker').pickadate({
-    min: new Date(),
+    today: false,
+    clear: false,
+    min: moment({hour: 12, minute: 0}).add('days', 1).toDate(),
     onSet: function(date) {
-      console.log(new Date(date.select));
+      if (date.select) {
+        var selectedDate = moment(date.select).hour(12).minute(0).second(0).toDate();
+        console.log(selectedDate);
+        Meteor.call('registerStay', selectedDate, function (error, result) {
+          if (error) throw new Meteor.Error(error);
+          Router.go('orders');
+        });
+      }
     }
   }).click();
 
 };
+
+Template.enterCheckoutDate.events({
+  'click .picker__holder': function (e) {
+    e.preventDefault();
+    return false;  
+  }
+});

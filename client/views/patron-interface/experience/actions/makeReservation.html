@@ -9,27 +9,11 @@
     <div class="col-xs-12">
       {{#autoForm schema=makeReservationSchema id="makeReservation" type="method" meteormethod="makeReservation"}}
         <legend>Make a Reservation</legend>
-        <div class="col-xs-12 no-padding">
-          <div class="col-xs-5 no-padding date">
-            {{> afQuickField name='date'}}
-          </div>
-          <div class="col-xs-7 no-padding time">
-            <div class="form-group{{#if afFieldIsInvalid name='timeHour'}} has-error{{/if}}">
-              {{> afFieldLabel name="timeHour"}}
-              <div class="time-picker">
-                {{> afFieldInput name="timeHour" class="time-component" options=hourOptions}}
-                {{> afFieldInput name="timeMinute" class="time-component" options=minuteOptions}}
-                {{> afFieldInput name="timePeriod" class="time-component" options=timePeriodOptions}}
-              </div>
-              {{#if afFieldIsInvalid name="timeHour"}}
-                <span class="help-block">{{afFieldMessage name="timeHour"}}</span>
-              {{/if}}
-            </div>
-          </div>  
-        </div>
+        {{> afQuickField name='date' class='datepicker'}}
+        {{> afQuickField name='time' class='timepicker'}}
         {{> afQuickField name='partyName'}}
         {{> afQuickField name='partySize'}}
-        {{> afQuickField name='phoneNumber' type="tel"}}
+        {{> afQuickField name='phoneNumber' type="tel" }}
         {{> afQuickField name='emailAddress'}}
         <div class="buttons">
           <button type="submit" data-meteor-method="makeReservation" class="btn btn-default btn-lg col-xs-12">Submit</button>

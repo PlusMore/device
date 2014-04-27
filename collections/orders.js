@@ -66,15 +66,9 @@ Schema.makeReservation = new SimpleSchema({
     type: Date,
     label: "Date"
   },
-  timeHour: {
+  time: {
     type: String,
     label: "Time"
-  },
-  timeMinute: {
-    type: String
-  },
-  timePeriod: {
-    type: String
   },
   phoneNumber: {
     type: String,
