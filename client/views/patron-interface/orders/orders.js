@@ -2,7 +2,7 @@ Template.ordersSection.helpers({
   hasOrders: function() {
     return Orders.find().count() > 0;
   },
-  orders: function() {
-    return Orders.find();
+  upcomingOrders: function() {
+    return Orders.find({'reservation.dateDatetime': {$gt: new Date()}});
   }
 });

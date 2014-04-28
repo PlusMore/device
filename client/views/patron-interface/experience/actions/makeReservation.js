@@ -26,46 +26,115 @@ Template.makeReservationForm.helpers({
       schema.partySize.max = this.maxPartySize;
     }
     return new SimpleSchema(schema); 
+  },
+  formId: function () {
+    return this._id;
+
   }
 });
 
 Template.makeReservationForm.rendered = function () {
-  $('.datepicker').pickadate({
-    today: false,
-    clear: false,
-    min: moment({hour: 12, minute: 0}).add('days', 1).toDate(),
-    onSet: function(date) {
-      if (date.select) {
-        var selectedDate = moment(date.select).hour(12).minute(0).second(0).toDate();
-        console.log(selectedDate);
-        Meteor.call('registerStay', selectedDate, function (error, result) {
-          if (error) throw new Meteor.Error(error);
-          Router.go('orders');
-        });
-      }
+  var _this = this;
+  
+  debugger;
+
+  $(this.$('#' + this.data._id)).find('[name=experienceId]').val(this.data._id);
+  
+  AutoForm.addHooks([this.data._id], {
+    // onSubmit: function (doc) {
+    //   console.log('submitting');debugger;
+    //   $(this.template.find('.buttons button[type=submit]')).prop('disabled', true).text('Submitting...');
+    //   doc.experienceId = Session.get('currentExperienceId');
+
+      
+    //   doc.dateDatetime = moment($(this.template.find('[name=dateDatetime]')).val()).minutes(doc.timeMinutes).toDate();
+
+    //   Meteor.call('makeReservation', doc, function (err, result) {
+        
+    //   });
+    //   this.resetForm();
+    //   return false;
+    // } 
+    formToDoc: function(doc) {
+      console.log('form to doc');
+      doc.dateDatetime = moment($("#"+doc.experienceId).find('[name=dateDatetime]').val()).minutes(doc.timeMinutes).toDate();
+      return doc;
+    },
+    onSuccess: function(operation, result, template) {
+      Session.set('experienceState', 'complete');
     }
   });
 
-  $('.timepicker').pickatime({
-    min: +1,
-    max: [4,0]
+  $('.datepicker').pickadate({
+    container: '.overlays',
+    min: true,
+    onSet: function(date) {
+      if (date.select) {
+        var selectedDate = moment(date.select).startOf('day').toDate();
+        console.log(selectedDate);
+
+        var $reservationOptionsEl = this.$node.closest('.make-reservation-form')
+
+        $reservationOptionsEl.find('[name=dateDatetime]').val(moment(date.select).startOf('day').format('YYYY-MM-DD'));
+      }
+    },
+    format: 'mmmm d, yyyy'
   });
+
+  var options = {
+    container: '.overlays',
+    onSet: function(select) {
+      var minutes = select.select;
+      var $reservationOptionsEl = this.$node.closest('.make-reservation-form')
+
+      $reservationOptionsEl.find('[name=timeMinutes]').val(minutes);
+
+      var dateDatetime = $reservationOptionsEl.find('[name=dateDatetime]').val();
+      // var md = moment(dateDatetime).startOf('day').minutes(minutes).toDate();
+      // $reservationOptionsEl.find('[name=dateDatetime]').val(md);
+    }
+  }
+
+  var startMinutes = this.data.reservationStartMinutes;
+  var endMinutes = this.data.reservationEndMinutes;
+  var startTime, endTime;
+
+  if (startMinutes) {
+    startTime = moment().startOf('day');
+    startTime = startTime.minutes(startMinutes);
+    options.min = startTime.toDate();
+  }
+  
+  if (endMinutes) {
+    endTime = moment().startOf('day').minutes(endMinutes).toDate();
+    options.max = endTime;
+  }
+
+  $('.timepicker').pickatime(options);
 
 };
 
-AutoForm.hooks({
-  makeReservation: {
-    onSubmit: function (doc) {
-      $(this.template.find('.buttons button[type=submit]')).prop('disabled', true).text('Submitting...');
-      doc.experienceId = Session.get('currentExperienceId');;
-      Meteor.call('makeReservation', doc, function (err, result) {
-        if (err) throw new Meteor.Error(500, 'Something went wrong', err);
-        Session.set('experienceState', 'complete');
-      });
-      return false;
-    } 
-  }
-});
+// AutoForm.hooks({
+//   makeReservation: {
+//     onSubmit: function (doc) {
+//       console.log('submitting');debugger;
+//       $(this.template.find('.buttons button[type=submit]')).prop('disabled', true).text('Submitting...');
+//       doc.experienceId = Session.get('currentExperienceId');
+
+      
+//       doc.dateDatetime = moment($(this.template.find('[name=dateDatetime]')).val()).minutes(doc.timeMinutes).toDate();
+
+//       Meteor.call('makeReservation', doc, function (err, result) {
+//         if (err) throw new Meteor.Error(500, 'Something went wrong', err);
+//         Session.set('experienceState', 'complete');
+//       });
+//       this.resetForm();
+//       return false;
+//     } 
+//   }
+// });
+
+
 
 Handlebars.registerHelper("hourOptions", function() {
   var hours = [1,2,3,4,5,6,7,8,9,10,11,12];

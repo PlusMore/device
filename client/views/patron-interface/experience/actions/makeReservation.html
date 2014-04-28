@@ -7,10 +7,15 @@
 <template name="makeReservationForm">
   <div class="row make-reservation-form">
     <div class="col-xs-12">
-      {{#autoForm schema=makeReservationSchema id="makeReservation" type="method" meteormethod="makeReservation"}}
+      {{#autoForm schema=makeReservationSchema id=formId type="method" meteormethod="makeReservation"}}
         <legend>Make a Reservation</legend>
-        {{> afQuickField name='date' class='datepicker' value="{{today}}" }}
+        {{> afQuickField name='date' class='datepicker'}}
         {{> afQuickField name='time' class='timepicker'}}
+        <div class="hidden">
+          {{> afQuickField name="dateDatetime"}}
+        </div>
+        {{> afFieldInput name="timeMinutes" type="hidden"}}
+        {{> afFieldInput name="experienceId"}}
         {{> afQuickField name='partyName'}}
         {{> afQuickField name='partySize'}}
         {{> afQuickField name='phoneNumber' type="tel" }}

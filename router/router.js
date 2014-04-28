@@ -182,7 +182,8 @@ Router.map(function() {
         var experience = Experiences.findOne(Router.current().params._id);
         console.log(experience);
 
-        App.track("View Experience", {
+        if (experience) {
+          App.track("View Experience", {
           "Experience Title": experience.title,
           "Experience Category": experience.category,
           "Experience Lead": experience.lead,
@@ -191,6 +192,8 @@ Router.map(function() {
           "Experience Description": experience.description,
           "City": experience.city
         });
+        }
+        
       });
     },
     data: function () {

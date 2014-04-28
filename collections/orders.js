@@ -63,12 +63,18 @@ Schema.makeReservation = new SimpleSchema({
     label: 'Your Party\'s name'
   },
   date: {
-    type: Date,
+    type: String,
     label: "Date"
+  },
+  dateDatetime: {
+    type: Date
   },
   time: {
     type: String,
     label: "Time"
+  },
+  timeMinutes: {
+    type: Number
   },
   phoneNumber: {
     type: String,
@@ -78,11 +84,15 @@ Schema.makeReservation = new SimpleSchema({
     type: String,
     regEx: SchemaRegEx.Email,
     label: "Email address"
+  },
+  experienceId: {
+    type: String
   }
 });
 
 Meteor.methods({
   makeReservation: function(reservation) {
+    debugger;
     var experienceId = reservation.experienceId;
     var experience = Experiences.findOne(experienceId);
     if (!experience) {
