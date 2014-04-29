@@ -11,6 +11,9 @@
     "font-awesome": {},
     "accounts-entry": {},
     "percolatestudio-mixpanel": {},
-    "user-status": {}
+    "user-status": {},
+    "pickadate": {
+        "git": "https://github.com/patrickleet/meteor-pickadate.git"
+    }
   }
 }

@@ -6,8 +6,18 @@ Template.welcome.helpers({
 });
 
 Template.welcome.events({
-	'click .welcome-container': function (e) {
+	'click .welcome': function (e) {
 		e.preventDefault();
-		Router.go('orders');
+
+    App.track('First Use');
+
+    var stay = Stays.findOne({userId: Meteor.userId(), active: true});
+
+    if (!stay) {
+      Router.go('enterCheckoutDate');
+    } else {
+      Router.go('experiences', {category: 'Dining'});
+    }
+		
 	}
 });

@@ -63,18 +63,18 @@ Schema.makeReservation = new SimpleSchema({
     label: 'Your Party\'s name'
   },
   date: {
-    type: Date,
+    type: String,
     label: "Date"
   },
-  timeHour: {
+  dateDatetime: {
+    type: Date
+  },
+  time: {
     type: String,
     label: "Time"
   },
-  timeMinute: {
-    type: String
-  },
-  timePeriod: {
-    type: String
+  timeMinutes: {
+    type: Number
   },
   phoneNumber: {
     type: String,
@@ -84,6 +84,9 @@ Schema.makeReservation = new SimpleSchema({
     type: String,
     regEx: SchemaRegEx.Email,
     label: "Email address"
+  },
+  experienceId: {
+    type: String
   }
 });
 
@@ -172,7 +175,7 @@ Meteor.methods({
       });
     }
 
-    return orderId;
+    return order;
   },
   cancelReservation: function(orderId) {
     var order = Orders.findOne(orderId);

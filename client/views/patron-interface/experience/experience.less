@@ -1,3 +1,5 @@
+@import '/client/style/imports.import.less';
+
 .experience {
   position: fixed;
   top: 0;
@@ -41,29 +43,60 @@
     height: 100%;
     overflow: auto;
     zoom: 1;
+    z-index: 100;
 
     &.action-form {
       border-left: 1px solid rgba(255,255,255,.3);
-      display: none;
+      visibility: hidden;
+      z-index: 50;
+      .translate(-200%, 0);
+      .transition(all 250ms ease-out);
+  
+      &.show {
+        visibility: visible;
+        .translate(0, 0);
+      }
 
-      form {
-        margin-top: 30px;
+      .confirmation {
+        display: none;
 
-        legend {
-          color: #fff;
-          text-transform: uppercase;
+        &.show {
+          display: block;
         }
 
-        .buttons {
-          .btn {
-            margin-top: 20px;
-            font-size: 2em;
-            font-weight: 200;
-            color: rgb(0, 0, 0);
-            border-radius: 0;
+        & > p {
+          margin-top: 15px;
+          font-weight: 100;
+          font-size: 16px;
+        }
+      }
+
+      .reservation-form {
+        display: none;
+
+        &.show {
+          display: block;
+        }
+
+        form {
+          margin-top: 30px;
+
+          legend {
+            color: #fff;
             text-transform: uppercase;
           }
-        }
+
+          .buttons {
+            .btn {
+              margin-top: 20px;
+              font-size: 2em;
+              font-weight: 200;
+              color: rgb(0, 0, 0);
+              border-radius: 0;
+              text-transform: uppercase;
+            }
+          }
+        }  
       }
     }
 
@@ -71,6 +104,11 @@
       color: #fff;
       opacity: 1;
       text-shadow: none;
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 20px 20px 20px 20px;
+      z-index: 1000;
     }
 
     .experience-header {
@@ -116,14 +154,6 @@
       }
     }
 
-    .confirmation {
-      & > p {
-        margin-top: 15px;
-        font-weight: 100;
-        font-size: 16px;
-      }
-    }
-
     .venue {
       margin-top: 30px;
       font-weight: 100;
@@ -147,41 +177,6 @@
       white-space: pre-wrap;
     }
   }
-
-  &.in-progress {
-    & > .content {
-      &.action-form {
-        display: block;
-
-        form {
-          display: block;
-        }
-
-        .confirmation {
-          display: none;
-        }
-      }
-    }
-  }
-  &.complete {
-    & > .content {
-      &.action-form {
-        display: block;
-
-        form {
-          display: none;
-        }
-
-        .confirmation {
-          display: block;
-        }
-      }
-    }
-  }
-
-
-
-
 }
 
 @media (max-width: 767px) {

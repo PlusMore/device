@@ -59,12 +59,34 @@ var filters = {
       }
     }
   },
+  ensureValidStay: function (pause) {
+    var stay = Stays.findOne({userId: Meteor.userId()});
+
+    if (stay && stay.checkoutDate < new Date()) {
+      console.log('expired stay')
+      Meteor.call('endStay', stay, function (err, deviceId) {
+        if (err) throw new Meteor.Error(err)
+        console.log('deviceId', deviceId);
+        Meteor.logout();
+
+        Meteor.loginDevice(deviceId, function(err) {
+          Router.go('welcome');
+        });
+      });
+    }
+  },
   resetActiveCategory: function() {
     Session.set('activeCategory', '');
   }
 };
 
 Router.onBeforeAction('loading');
+
+Router.onBeforeAction(filters.ensureValidStay, {only: [
+  'experience',
+  'experiences',
+  'orders'
+]});
 
 Router.onBeforeAction(filters.resetActiveCategory, {only: [
   'orders',
@@ -119,8 +141,23 @@ Router.map(function() {
   // Patron Interface
   this.route('welcome', {
     path: '/',
-    onStop: function() {
-      App.track('First Use');
+    onBeforeAction: function() {
+      Session.set('experienceState', '');
+    },
+    onRun: function () {
+      var section = Router.current().route.name;
+      Session.set('section', section.toLowerCase());
+    }
+  });
+
+  this.route('enterCheckoutDate', {
+    path: '/enter-checkout-date',
+    onBeforeAction: function() {
+      Session.set('experienceState', '');
+    },
+    onRun: function () {
+      var section = Router.current().route.name;
+      Session.set('section', section.toLowerCase());
     }
   });
 
@@ -167,7 +204,8 @@ Router.map(function() {
         var experience = Experiences.findOne(Router.current().params._id);
         console.log(experience);
 
-        App.track("View Experience", {
+        if (experience) {
+          App.track("View Experience", {
           "Experience Title": experience.title,
           "Experience Category": experience.category,
           "Experience Lead": experience.lead,
@@ -176,6 +214,8 @@ Router.map(function() {
           "Experience Description": experience.description,
           "City": experience.city
         });
+        }
+        
       });
     },
     data: function () {

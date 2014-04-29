@@ -12,7 +12,11 @@
       "font-awesome": {},
       "accounts-entry": {},
       "percolatestudio-mixpanel": {},
-      "user-status": {}
+      "user-status": {},
+      "pickadate": {
+        "git": "https://github.com/patrickleet/meteor-pickadate.git",
+        "branch": "master"
+      }
     },
     "packages": {
       "iron-router": {
@@ -70,6 +74,11 @@
         "tag": "v0.3.5",
         "commit": "d325a3ab62742659e195085ead76b1ed736aab35"
       },
+      "pickadate": {
+        "git": "https://github.com/patrickleet/meteor-pickadate.git",
+        "branch": "master",
+        "commit": "5158805cbe4fa2d116a851964d2cdf1459524156"
+      },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
         "tag": "v0.2.4",
@@ -82,8 +91,8 @@
       },
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",
-        "tag": "v2.5.1",
-        "commit": "8c9bc5d3fc96705057737cb9743d555417f6e551"
+        "tag": "v2.6.0",
+        "commit": "26156df681750fd6e6ed77043eef32b6653ebbdf"
       },
       "just-i18n": {
         "git": "https://github.com/subhog/meteor-just-i18n.git",
