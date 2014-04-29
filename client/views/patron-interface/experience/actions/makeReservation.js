@@ -76,6 +76,8 @@ Template.makeReservationForm.rendered = function () {
     startTime = moment().startOf('day');
     startTime = startTime.minutes(startMinutes);
     options.min = startTime.toDate();
+  } else {
+    options.min = moment().startOf('day').hours(16).toDate();
   }
   
   if (endMinutes) {
