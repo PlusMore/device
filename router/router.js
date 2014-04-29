@@ -59,12 +59,35 @@ var filters = {
       }
     }
   },
+  ensureValidStay: function (pause) {
+    var stay = Stays.findOne({userId: Meteor.userId()});
+
+    if (!stay) {
+      Router.go('welcome');
+    } else if (stay && stay.checkoutDate < new Date()) {
+      Meteor.call('endStay', stay, function (err, deviceId) {
+        if (err) throw new Meteor.Error(err)
+        console.log('deviceId', deviceId);
+        Meteor.logout();
+
+        Meteor.loginDevice(deviceId, function(err) {
+          Router.go('welcome');
+        });
+      });
+    }
+  },
   resetActiveCategory: function() {
     Session.set('activeCategory', '');
   }
 };
 
 Router.onBeforeAction('loading');
+
+Router.onBeforeAction(filters.ensureValidStay, {only: [
+  'experience',
+  'experiences',
+  'orders'
+]});
 
 Router.onBeforeAction(filters.resetActiveCategory, {only: [
   'orders',

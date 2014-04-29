@@ -32,7 +32,6 @@ Meteor.startup(function () {
         if (!stay) {
           Router.go('welcome');
         } else if (stay.checkoutDate < new Date()) {
-          console.log('expired.. reset device here');
           Meteor.call('endStay', stay, function (err, deviceId) {
             if (err) throw new Meteor.Error(err)
             console.log('deviceId', deviceId);
