@@ -150,7 +150,7 @@ Meteor.methods({
 
     if (Meteor.isServer) {
       var url = stripTrailingSlash(Meteor.settings.apps.admin.url) + "/patron-order/{0}".format(orderId);
-      var date = moment(reservation.date);
+      var date = moment(reservation.dateDatetime);
       var formattedDate = date.format("dddd, MMM Do YYYY");
 
       Email.send({
@@ -160,7 +160,7 @@ Meteor.methods({
         text: "Device in {0} at {1} has requested a reservation.\n\n".format(device.location, hotel.name) 
             + "Reservation Details:\n"
             + "\tFor: {0}\n".format(experience.title)
-            + "\tWhen: {0} at {1}:{2} {3}\n".format(formattedDate, reservation.timeHour, reservation.timeMinute, reservation.timePeriod)
+            + "\tWhen: {0}, ({1})\n".format(formattedDate, date.calendar())
             + "\tParty Name: {0}\n".format(reservation.partyName)
             + "\tParty Size: {0}\n".format(reservation.partySize)
             + "\tPhone #: {0}\n".format(reservation.phoneNumber)
