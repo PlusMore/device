@@ -38,7 +38,7 @@ Template.makeReservationForm.rendered = function () {
   
   $(this.$('#' + this.data._id)).find('[name=experienceId]').val(this.data._id);
 
-  $('.datepicker').pickadate({
+  this.datepicker = $('.datepicker').pickadate({
     container: '.overlays',
     min: true,
     onSet: function(date) {
@@ -83,10 +83,16 @@ Template.makeReservationForm.rendered = function () {
     options.max = endTime;
   }
 
-  $('.timepicker').pickatime(options);
+  this.timepicker = $('.timepicker').pickatime(options);
 
 };
 
+
+Template.makeReservationForm.destroyed = function () {
+  $('.picker', '.overlays').remove();
+  this.datepicker = null;
+  this.timepicker = null;
+};
 // AutoForm.hooks({
 //   makeReservation: {
 //     onSubmit: function (doc) {
