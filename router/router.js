@@ -62,9 +62,8 @@ var filters = {
   ensureValidStay: function (pause) {
     var stay = Stays.findOne({userId: Meteor.userId()});
 
-    if (!stay) {
-      Router.go('welcome');
-    } else if (stay && stay.checkoutDate < new Date()) {
+    if (stay && stay.checkoutDate < new Date()) {
+      console.log('expired stay')
       Meteor.call('endStay', stay, function (err, deviceId) {
         if (err) throw new Meteor.Error(err)
         console.log('deviceId', deviceId);
