@@ -175,7 +175,7 @@ Meteor.methods({
       });
     }
 
-    return orderId;
+    return order;
   },
   cancelReservation: function(orderId) {
     var order = Orders.findOne(orderId);

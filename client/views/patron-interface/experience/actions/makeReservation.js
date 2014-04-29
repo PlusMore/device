@@ -59,12 +59,7 @@ Template.makeReservationForm.rendered = function () {
     onSet: function(select) {
       var minutes = select.select;
       var $reservationOptionsEl = this.$node.closest('.make-reservation-form')
-
       $reservationOptionsEl.find('[name=timeMinutes]').val(minutes);
-
-      var dateDatetime = $reservationOptionsEl.find('[name=dateDatetime]').val();
-      // var md = moment(dateDatetime).startOf('day').minutes(minutes).toDate();
-      // $reservationOptionsEl.find('[name=dateDatetime]').val(md);
     }
   }
 
@@ -80,6 +75,7 @@ Template.makeReservationForm.rendered = function () {
     options.min = moment().startOf('day').hours(16).toDate();
   }
   
+
   if (endMinutes) {
     endTime = moment().startOf('day').minutes(endMinutes).toDate();
     options.max = endTime;
@@ -89,33 +85,15 @@ Template.makeReservationForm.rendered = function () {
 
 };
 
-
 Template.makeReservationForm.destroyed = function () {
   $('.picker', '.overlays').remove();
+  $(this.datepicker).stop();
   this.datepicker = null;
+  $(this.timepicker).stop();
   this.timepicker = null;
+  
+  AutoForm.resetForm(this.data._id);
 };
-// AutoForm.hooks({
-//   makeReservation: {
-//     onSubmit: function (doc) {
-//       console.log('submitting');debugger;
-//       $(this.template.find('.buttons button[type=submit]')).prop('disabled', true).text('Submitting...');
-//       doc.experienceId = Session.get('currentExperienceId');
-
-      
-//       doc.dateDatetime = moment($(this.template.find('[name=dateDatetime]')).val()).minutes(doc.timeMinutes).toDate();
-
-//       Meteor.call('makeReservation', doc, function (err, result) {
-//         if (err) throw new Meteor.Error(500, 'Something went wrong', err);
-//         Session.set('experienceState', 'complete');
-//       });
-//       this.resetForm();
-//       return false;
-//     } 
-//   }
-// });
-
-
 
 Handlebars.registerHelper("hourOptions", function() {
   var hours = [1,2,3,4,5,6,7,8,9,10,11,12];

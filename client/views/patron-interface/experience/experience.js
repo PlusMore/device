@@ -15,6 +15,7 @@ Template.experience.rendered = function () {
     },
     onSuccess: function(operation, result, template) {
       Session.set('experienceState', 'complete');
+      AutoForm.resetForm(result.reservation.experienceId);
     }
   });
 };
