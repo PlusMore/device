@@ -43,9 +43,11 @@ Template.makeReservationForm.rendered = function () {
   
   $(this.$('#' + this.data._id)).find('[name=experienceId]').val(this.data._id);
 
+  var checkoutDate = Stays.findOne().checkoutDate;
   this.datepicker = $('.datepicker').pickadate({
     container: '.overlays',
     min: true,
+    max: checkoutDate,
     onSet: function(date) {
       if (date.select) {
         var selectedDate = moment(date.select).startOf('day').toDate();
