@@ -5,10 +5,19 @@ Template.experience.rendered = function () {
 
       var dateval = $("#"+doc.experienceId).find('[name=dateDatetime]').val();
       if (dateval) {
-        var m = moment(dateval).minutes(doc.timeMinutes || 0);
-        if (m.isValid()) {
-          doc.dateDatetime = m.toDate();
+        timeMinutes = doc.timeMinutes;
+
+        if (timeMinutes) {
+          var m = moment(dateval).minutes(timeMinutes);
+          if (m.isValid()) {
+            // before 6am - add day
+            if (doc.timeMinutes < (60*6)) {
+              m.add('days', 1);
+            }
+            doc.dateDatetime = m.toDate();
+          }
         }
+        
       }
       
       return doc;
@@ -48,6 +57,13 @@ Template.experience.helpers(_.extend(callToActionHelpers, {
     }
 
     return false;
+  },
+  showActionForm: function() {
+    var experienceState = Session.get('experienceState');
+    var currentExperienceId = Session.get('currentExperienceId');
+    if (this._id === currentExperienceId && (experienceState === 'in-progress' || experienceState === 'complete')) {
+      return 'show';
+    }
   }
 }));
 

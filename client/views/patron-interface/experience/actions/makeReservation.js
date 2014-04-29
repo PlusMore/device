@@ -29,7 +29,12 @@ Template.makeReservationForm.helpers({
   },
   formId: function () {
     return this._id;
-
+  },
+  showInProgress: function () { 
+    return Session.get('experienceState') ==='in-progress' ? 'show' : '';
+  },
+  showComplete: function () {
+    return Session.get('experienceState') ==='complete' ? 'show' : '';
   }
 });
 
