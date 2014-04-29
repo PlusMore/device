@@ -6,7 +6,7 @@ Template.welcome.helpers({
 });
 
 Template.welcome.events({
-	'click .welcome-container': function (e) {
+	'click .welcome': function (e) {
 		e.preventDefault();
 
     App.track('First Use');
