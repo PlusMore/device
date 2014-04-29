@@ -36,34 +36,7 @@ Template.makeReservationForm.helpers({
 Template.makeReservationForm.rendered = function () {
   var _this = this;
   
-  debugger;
-
   $(this.$('#' + this.data._id)).find('[name=experienceId]').val(this.data._id);
-  
-  AutoForm.addHooks([this.data._id], {
-    // onSubmit: function (doc) {
-    //   console.log('submitting');debugger;
-    //   $(this.template.find('.buttons button[type=submit]')).prop('disabled', true).text('Submitting...');
-    //   doc.experienceId = Session.get('currentExperienceId');
-
-      
-    //   doc.dateDatetime = moment($(this.template.find('[name=dateDatetime]')).val()).minutes(doc.timeMinutes).toDate();
-
-    //   Meteor.call('makeReservation', doc, function (err, result) {
-        
-    //   });
-    //   this.resetForm();
-    //   return false;
-    // } 
-    formToDoc: function(doc) {
-      console.log('form to doc');
-      doc.dateDatetime = moment($("#"+doc.experienceId).find('[name=dateDatetime]').val()).minutes(doc.timeMinutes).toDate();
-      return doc;
-    },
-    onSuccess: function(operation, result, template) {
-      Session.set('experienceState', 'complete');
-    }
-  });
 
   $('.datepicker').pickadate({
     container: '.overlays',

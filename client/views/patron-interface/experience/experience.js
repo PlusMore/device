@@ -1,3 +1,24 @@
+Template.experience.rendered = function () {
+  AutoForm.addHooks([this.data._id], {
+    formToDoc: function(doc) {
+      console.log('form to doc');
+
+      var dateval = $("#"+doc.experienceId).find('[name=dateDatetime]').val();
+      if (dateval) {
+        var m = moment(dateval).minutes(doc.timeMinutes || 0);
+        if (m.isValid()) {
+          doc.dateDatetime = m.toDate();
+        }
+      }
+      
+      return doc;
+    },
+    onSuccess: function(operation, result, template) {
+      Session.set('experienceState', 'complete');
+    }
+  });
+};
+
 var callToActionHelpers = {
   callToActionIsReserve: function() {
     return this.callToAction === "reserve";
