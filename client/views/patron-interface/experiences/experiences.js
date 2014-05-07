@@ -9,7 +9,7 @@ Code related to the items template
 Template.experiences.helpers({
   experiences: function() {
     var activeCategory = Session.get('activeCategory');
-    return Experiences.find({category: activeCategory}); 
+    return Experiences.find({category: activeCategory}, {sort: {sortOrder: 1}}); 
   }
 });
 
