@@ -25,6 +25,10 @@ Template.experience.rendered = function () {
     onSuccess: function(operation, result, template) {
       Session.set('experienceState', 'complete');
       AutoForm.resetForm(result.reservation.experienceId);
+    },
+    onError: function(operation, error, template) {
+      Session.set('experienceState', 'error');
+      App.track('Experience Form Error', error);
     }
   });
 };
@@ -61,7 +65,7 @@ Template.experience.helpers(_.extend(callToActionHelpers, {
   showActionForm: function() {
     var experienceState = Session.get('experienceState');
     var currentExperienceId = Session.get('currentExperienceId');
-    if (this._id === currentExperienceId && (experienceState === 'in-progress' || experienceState === 'complete')) {
+    if (this._id === currentExperienceId && (experienceState === 'in-progress' || experienceState === 'complete' || experienceState === 'error')) {
       return 'show';
     }
   }

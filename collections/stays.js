@@ -1,5 +1,17 @@
 Stays = new Meteor.Collection('stays');
 
+Stays.allow({
+  insert: function (userId, doc) {
+    return false;
+  },
+  update: function (userId, doc, fields, modifier) {
+    return false;
+  },
+  remove: function (userId, doc) {
+    return false;
+  }
+});
+
 Meteor.methods({
   registerStay: function (checkoutDate) {
     check(checkoutDate, Date);

@@ -35,6 +35,22 @@ Template.makeReservationForm.helpers({
   },
   showComplete: function () {
     return Session.get('experienceState') ==='complete' ? 'show' : '';
+  },
+  showError: function () {
+    return Session.get('experienceState') === 'error' ? 'show': '';
+  },
+  inOperatingHours: function() {
+    var now = moment();
+    // 11am
+    var start = moment().startOf('day').hours(11);
+    // end 11:59pm
+    var end = moment().endOf('day');
+
+    if (now.isAfter(start) && now.isBefore(end)) {
+      return true;
+    }
+
+    return false;
   }
 });
 
@@ -101,57 +117,5 @@ Template.makeReservationForm.destroyed = function () {
   
   AutoForm.resetForm(this.data._id);
 };
-
-Handlebars.registerHelper("hourOptions", function() {
-  var hours = [1,2,3,4,5,6,7,8,9,10,11,12];
-  var hourOptions = [];
-
-  _.each(hours, function(hour) {
-    hourOptions.push({
-      label: hour,
-      value: hour
-    });
-  });
-
-  return hourOptions;
-});
-
-Handlebars.registerHelper("minuteOptions", function() {
-  var minutes = ['00', '30'];
-  var minuteOptions = [];
-
-  _.each(minutes, function(minute) {
-    minuteOptions.push({
-      label: minute,
-      value: minute
-    });
-  });
-
-  return minuteOptions;
-});
-
-Handlebars.registerHelper("timePeriodOptions", function() {
-  var timePeriods;
-  var now = new Date();
-  var mNow = moment(now);
-
-  var currentTimePeriod = mNow.format('A');
-  if (currentTimePeriod === "PM") {
-    timePeriods = ['PM', 'AM'];
-  } else {
-    timePeriods = ['AM', 'PM'];
-  }
-
-  var timePeriodOptions = [];
-
-  _.each(timePeriods, function(timePeriod) {
-    timePeriodOptions.push({
-      label: timePeriod,
-      value: timePeriod
-    });
-  });
-
-  return timePeriodOptions;
-});
 
 

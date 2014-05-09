@@ -4,6 +4,7 @@ body {
   padding-top: 60px;
   font-family: 'Helvetica Neue', Helvetica, sans;
   color: #fff;
+  background: #000;
 }
 
 a:hover {
@@ -137,16 +138,6 @@ span.gc-cs-link {
   padding: 0;
 }
 
-input.time-component, select.time-component {
-  width: 31%;
-  float: left;
-  margin-right: 5px;
-  &:last-child {
-    margin-right: 0;
-    float: right;
-  }
-}
-
 .picker__nav--prev, .picker__nav--next {
   height: 2em;
 }
@@ -154,6 +145,11 @@ input.time-component, select.time-component {
 .picker.picker--opened {
   position: fixed;
   visibility: visible;
+}
+
+.form-group label.control-label {
+  font-weight: 200;
+  font-size: 1.4em;
 }
 
 // small
