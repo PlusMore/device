@@ -5,7 +5,7 @@ Stays.allow({
     return false;
   },
   update: function (userId, doc, fields, modifier) {
-    return false;
+    return userId === doc.userId;
   },
   remove: function (userId, doc) {
     return false;
@@ -48,5 +48,10 @@ Meteor.methods({
     var currentDeviceId = Meteor.user().deviceId;
     Stays.update(stay._id, {$set: {active: false}});
     return currentDeviceId;
+  },
+  changeCheckoutDate: function(stayId, checkoutDate) {
+    check(stayId, String);
+    check(checkoutDate, Date);
+    Stays.update(stayId, {$set: {checkoutDate: checkoutDate}});
   }
 });
