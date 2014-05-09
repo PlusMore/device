@@ -64,16 +64,6 @@ Template.makeReservationForm.rendered = function () {
     container: '.overlays',
     min: true,
     max: checkoutDate,
-    onSet: function(date) {
-      if (date.select) {
-        var selectedDate = moment(date.select).startOf('day').toDate();
-        console.log(selectedDate);
-
-        var $reservationOptionsEl = this.$node.closest('.make-reservation-form')
-
-        $reservationOptionsEl.find('[name=dateDatetime]').val(moment(date.select).startOf('day').format('YYYY-MM-DD'));
-      }
-    },
     format: 'mmmm d, yyyy'
   });
 

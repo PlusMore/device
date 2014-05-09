@@ -36,8 +36,8 @@
       },
       "autoform": {
         "git": "https://github.com/aldeed/meteor-autoform.git",
-        "tag": "v0.7.2",
-        "commit": "5d3265ab2607949ca776a45411ce11072413546d"
+        "tag": "v0.8.1",
+        "commit": "385051a5e4bbea3b2a54965800f5f530987ef432"
       },
       "fastclick": {
         "git": "https://github.com/percolatestudio/meteor-fastclick",
@@ -61,8 +61,8 @@
       },
       "accounts-entry": {
         "git": "https://github.com/Differential/accounts-entry.git",
-        "tag": "v0.7.2",
-        "commit": "cda8617139b5edd79a52023986bfecb48e4b9dc4"
+        "tag": "v0.7.3",
+        "commit": "7facaa045d3720eeeba3420c28e48d5709188fe3"
       },
       "percolatestudio-mixpanel": {
         "git": "https://github.com/percolatestudio/meteor-mixpanel.git",
@@ -71,8 +71,8 @@
       },
       "user-status": {
         "git": "https://github.com/mizzao/meteor-user-status.git",
-        "tag": "v0.3.5",
-        "commit": "d325a3ab62742659e195085ead76b1ed736aab35"
+        "tag": "v0.4.0",
+        "commit": "e2a1c7a4075f28b87b361387688e083a4b047a08"
       },
       "pickadate": {
         "git": "https://github.com/patrickleet/meteor-pickadate.git",
@@ -94,20 +94,15 @@
         "tag": "v2.6.0",
         "commit": "26156df681750fd6e6ed77043eef32b6653ebbdf"
       },
-      "just-i18n": {
-        "git": "https://github.com/subhog/meteor-just-i18n.git",
-        "tag": "v0.2.4",
-        "commit": "91decfcf5b3b5e67f202a67658350b862330bf3d"
-      },
       "accounts-t9n": {
         "git": "https://github.com/softwarerero/meteor-accounts-t9n.git",
-        "tag": "v0.0.3",
-        "commit": "d1710f979d6955459d9ce0374df81d22c3c6a6ab"
+        "tag": "v0.0.5",
+        "commit": "ad9539a8818049d5d9fa050d8b2a1f62706483b1"
       },
       "timesync": {
         "git": "https://github.com/mizzao/meteor-timesync.git",
-        "tag": "v0.1.5",
-        "commit": "3ee7eb21f60650de2ca32661b7c964e464e578e3"
+        "tag": "v0.1.6",
+        "commit": "83067433f511bc13a11ae8c87e9a4d331256915e"
       }
     }
   }
