@@ -8,6 +8,10 @@
     "fastclick": {},
     "collection2": {},
     "inspector": {},
+    "plus-more-icons": {
+        "git": "https://github.com/PlusMore/plus-more-icons.git",
+        "tag": "v1.0"
+    },
     "font-awesome": {},
     "accounts-entry": {},
     "percolatestudio-mixpanel": {},
