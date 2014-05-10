@@ -7,6 +7,8 @@
   right: 0;
   left: 0;
   z-index: 3000;
+  font-size: 1em;
+  text-shadow: 0 0 1px #000;
 
   background-color: #fff;
   -webkit-background-size: cover !important;
@@ -17,17 +19,18 @@
   & > .back {
     & > a {
       color: rgb(255, 255, 255);
-      font-size: 17pt;
+      font-size: 1.8em;
       font-weight: 200;
       padding: 20px;
       text-shadow: #000 1px 0px 30px;
+      font-weight: 400;
 
       position: fixed;
       right: 39px;
       top: 22px;
 
       & > i.fa {
-        font-size: 15px;
+        font-size: .8em;
         position: relative;
         bottom: 3px;
       }
@@ -64,10 +67,37 @@
           display: block;
         }
 
+        & > h1 {
+          font-weight: 100;
+        }
+
         & > p {
           margin-top: 15px;
           font-weight: 100;
-          font-size: 16px;
+        }
+
+        .btn-orders {
+          font-size: 1.8em;
+          font-weight: 100;
+          padding: 4px 40px;
+          background-color: white;
+          color: #000000;
+          border-radius: 0;
+          text-transform: uppercase;
+          width: 100%;
+        }
+      }
+
+      .reservation-error {
+        display: none;
+
+        &.show {
+          display: block;
+        }
+
+        & > p {
+          margin-top: 15px;
+          font-weight: 100;
         }
       }
 
@@ -112,7 +142,7 @@
     }
 
     .experience-header {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
 
       h1 {
         font-weight: 100;
@@ -122,8 +152,9 @@
 
       p.lead {
         font-weight: 100;
-        font-size: 16pt;
+        font-size: 2.2em;
         margin-bottom: 0;
+        line-height: 1.1em;
       }
     }
 
@@ -144,7 +175,7 @@
       }
 
       button.btn {
-        font-size: 2em;
+        font-size: 1.8em;
         font-weight: 200;
         padding: 5px 40px;
         background-color: white;
@@ -157,7 +188,7 @@
     .venue {
       margin-top: 30px;
       font-weight: 100;
-      font-size: 13pt;
+      font-size: 1.8em;
       margin-bottom: 20px;
 
       a.get-directions {
@@ -173,7 +204,7 @@
 
     .description {
       font-weight: 100;
-      font-size: 13pt;
+      font-size: 1.6em;
       white-space: pre-wrap;
     }
   }

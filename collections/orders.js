@@ -40,7 +40,7 @@ Orders = new Meteor.Collection('orders', {
 
 Orders.allow({
   insert: function(userId, doc){
-    return false;
+    return userId;
   },
   update:  function(userId, doc, fieldNames, modifier){
     return userId === doc.userId;

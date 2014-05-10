@@ -3,12 +3,13 @@ Template.experience.rendered = function () {
     formToDoc: function(doc) {
       console.log('form to doc');
 
-      var dateval = $("#"+doc.experienceId).find('[name=dateDatetime]').val();
+      var dateval = $("#"+doc.experienceId).find('[name=date]').val();
+
       if (dateval) {
-        timeMinutes = doc.timeMinutes;
+        timeMinutes = parseInt(doc.timeMinutes, 10);
 
         if (timeMinutes) {
-          var m = moment(dateval).minutes(timeMinutes);
+          var m = moment(new Date(dateval)).startOf('day').minutes(timeMinutes);
           if (m.isValid()) {
             // before 6am - add day
             if (doc.timeMinutes < (60*6)) {
@@ -25,6 +26,12 @@ Template.experience.rendered = function () {
     onSuccess: function(operation, result, template) {
       Session.set('experienceState', 'complete');
       AutoForm.resetForm(result.reservation.experienceId);
+    },
+    onError: function(operation, error, template) {
+      if (error.error) {
+        Session.set('experienceState', 'error');
+        App.track('Submit Error', error);
+      }
     }
   });
 };
@@ -61,7 +68,7 @@ Template.experience.helpers(_.extend(callToActionHelpers, {
   showActionForm: function() {
     var experienceState = Session.get('experienceState');
     var currentExperienceId = Session.get('currentExperienceId');
-    if (this._id === currentExperienceId && (experienceState === 'in-progress' || experienceState === 'complete')) {
+    if (this._id === currentExperienceId && (experienceState === 'in-progress' || experienceState === 'complete' || experienceState === 'error')) {
       return 'show';
     }
   }

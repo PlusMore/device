@@ -1,5 +1,17 @@
 Stays = new Meteor.Collection('stays');
 
+Stays.allow({
+  insert: function (userId, doc) {
+    return false;
+  },
+  update: function (userId, doc, fields, modifier) {
+    return userId === doc.userId;
+  },
+  remove: function (userId, doc) {
+    return false;
+  }
+});
+
 Meteor.methods({
   registerStay: function (checkoutDate) {
     check(checkoutDate, Date);
@@ -36,5 +48,10 @@ Meteor.methods({
     var currentDeviceId = Meteor.user().deviceId;
     Stays.update(stay._id, {$set: {active: false}});
     return currentDeviceId;
+  },
+  changeCheckoutDate: function(stayId, checkoutDate) {
+    check(stayId, String);
+    check(checkoutDate, Date);
+    Stays.update(stayId, {$set: {checkoutDate: checkoutDate}});
   }
 });

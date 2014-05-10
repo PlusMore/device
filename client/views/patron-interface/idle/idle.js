@@ -3,3 +3,9 @@ Template.idleOverlay.helpers({
 		return UserStatus.isIdle();
 	}
 });
+
+Template.idleOverlay.events({
+  'click idle-overlay': function () {
+    return true;
+  }
+})

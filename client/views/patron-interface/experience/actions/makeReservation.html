@@ -1,6 +1,6 @@
 <template name="makeReservationCallToAction">
   <div class="reserve">
-    <button class="btn btn-default btn-lg">Make reservation</button>
+    <button class="btn btn-default btn-lg">Request reservation</button>
   </div>
 </template>
 
@@ -12,9 +12,6 @@
           <legend>Make a Reservation</legend>
           {{> afQuickField name='date' class='datepicker'}}
           {{> afQuickField name='time' class='timepicker'}}
-          <div class="hidden">
-            {{> afQuickField name="dateDatetime"}}
-          </div>
           {{> afFieldInput name="timeMinutes" type="hidden"}}
           {{> afFieldInput name="experienceId" type="hidden"}}
           {{> afQuickField name='partyName'}}
@@ -26,9 +23,47 @@
           </div>
         {{/autoForm}}
       </div>
+
       <div class="confirmation {{showComplete}}">
-        <h2>Submitted!</h2>
-        <p class="lead">Your request has been sent to our reservation specialists. Please allow up to 30 minutes for confirmation. You can check the status of your reservation in <a href="{{pathFor 'orders'}}">Orders</a></p>
+        <h1>Submitted!</h1>
+
+        {{#if inOperatingHours}}
+          <p class="lead">
+            Thank you! Your reservation request has been submitted to our reservation specialists. We will confirm your reservation with the venue and notify you by email when that is complete. 
+          </p>
+          <p class="lead">
+            Please allow us up to 15 minutes to confirm your restaurant reservation. You can also check the status of your reservation on the Orders page.
+          </p>
+          <div>
+            <a class ='btn btn-default btn-orders' href="{{pathFor 'orders'}}">Go to Orders</a>
+          </div>
+          <p class="lead">
+            If you have any questions, you can give us a call at 212.XXX.XXXX.
+          </p>
+        {{else}}
+          <p class="lead">
+            Thank you! Your reservation request has been submitted to our reservation specialists.
+          </p>
+          <p class="lead">
+            Our hours of operation are from 11am until midnight every day. We will confirm your reservation first thing tomorrow morning!
+          </p> 
+          <p class="lead">
+            We will notify you by email once your reservation has been confirmed. You can also check the status of your reservation on the Orders page.
+          </p>
+          <div>
+            <a class ='btn btn-default btn-orders' href="{{pathFor 'orders'}}">Go to Orders</a>  
+          </div>
+          <p class="lead">
+            If you have any questions, you can give us a call between 11am and midnight at 212.XXX.XXXX.
+          </p>
+        {{/if}}
+        
+      </div>
+
+      <div class="reservation-error {{showError}}" >
+        <h1>Oops!</h1>
+        <p class="lead">Something went wrong!</p>
+        <p class="lead">Please give us a call at 212-xxx-xxxx so we can help you out!</p>
       </div>
     </div>
   </div>
