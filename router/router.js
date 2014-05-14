@@ -95,7 +95,11 @@ var fullscreenPages = [
   'welcome',
   'experience',
   'setupDevice',
-  'enterCheckoutDate'
+  'enterCheckoutDate',
+  'entrySignIn',
+  'entrySignUp',
+  'entryResetPassword',
+  'entryForgotPassword'
 ];
 
 Router.onBeforeAction(filters.fullscreen, {only: fullscreenPages});
@@ -196,14 +200,14 @@ Router.map(function() {
 
         if (experience) {
           App.track("View Experience", {
-          "Experience Title": experience.title,
-          "Experience Category": experience.category,
-          "Experience Lead": experience.lead,
-          "Experience PhotoUrl": experience.photoUrl,
-          "Experience Id": experience._id,
-          "Experience Description": experience.description,
-          "City": experience.city
-        });
+                    "Experience Title": experience.title,
+                    "Experience Category": experience.category,
+                    "Experience Lead": experience.lead,
+                    "Experience PhotoUrl": experience.photoUrl,
+                    "Experience Id": experience._id,
+                    "Experience Description": experience.description,
+                    "City": experience.city
+          });
         }
         
       });

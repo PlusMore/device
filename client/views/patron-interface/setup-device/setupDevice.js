@@ -27,20 +27,3 @@ AutoForm.hooks({
     }
   }
 });
-
-Handlebars.registerHelper("deviceTypes", function() {
-  var deviceTypes = [
-      'Room',
-      'Lobby'
-    ],
-    deviceOptions = [];
-
-  _.each(deviceTypes, function(deviceType) {
-    deviceOptions.push({
-      label: deviceType,
-      value: deviceType.toLowerCase()
-    });
-  });
-
-  return deviceOptions;
-});

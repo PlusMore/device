@@ -17,6 +17,6 @@ Template.deviceHeader.helpers({
     return Categories.find();
   },
   isFullscreen: function() {
-    return Session.get('fullscreen') ? 'animate bounceOut' : 'animate bounceIn';
+    return Session.get('fullscreen') ? 'fullscreen' : '';
   }
 });
