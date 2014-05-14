@@ -1,0 +1,65 @@
+@import 'imports.import.less';
+
+.transition(@args) {
+  -webkit-transition: @args;
+  -moz-transition: @args;
+  -o-transition: @args;
+  transition: @args;
+}
+
+.transform(@args) {
+    -webkit-transform: @args; 
+    -moz-transform: @args; 
+    -ms-transform: @args; 
+    -o-transform: @args; 
+    transform: @args;
+}
+
+.animated {
+  .transition-duration(600ms);
+  .animation-duration(600ms);
+}
+
+.transitioner-panes.back {
+  @transition-time: 600ms;
+  
+  // XXX: this is very important. It's used to inform the IT that the
+  // the transition is over. You can put any transition you like on the 
+  // .transitioner-panes element, but the IT will assume it's done once that's
+  // finished.
+  opacity: 1;
+  .transition(opacity 0ms linear @transition-time);
+  &.transitioning {
+    opacity: 0.9999;
+  }
+  
+  &, > .current-page, > .next-page {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  
+  > .current-page {
+    .transform(translateX(0) translateZ(0));
+  }
+  
+  > .next-page {
+    .transform(translateX(-100%) translateZ(0));
+  }
+  
+  &.transitioning {
+    > .current-page, > .next-page {
+      .transition(all @transition-time ease-in-out);
+    }
+  
+    > .current-page {
+      .transform(translateX(100%) translateZ(0));
+    }
+  
+    > .next-page {
+      .transform(translateX(0) translateZ(0));
+    }
+  }
+}

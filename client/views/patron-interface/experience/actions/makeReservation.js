@@ -61,14 +61,14 @@ Template.makeReservationForm.rendered = function () {
 
   var checkoutDate = Stays.findOne().checkoutDate;
   this.datepicker = $('.datepicker').pickadate({
-    container: '.overlays',
+    container: '.device-layout',
     min: true,
     max: checkoutDate,
     format: 'mmmm d, yyyy'
   });
 
   var options = {
-    container: '.overlays',
+    container: '.device-layout',
     onSet: function(select) {
       var minutes = select.select;
       var $reservationOptionsEl = this.$node.closest('.make-reservation-form')
@@ -99,7 +99,7 @@ Template.makeReservationForm.rendered = function () {
 };
 
 Template.makeReservationForm.destroyed = function () {
-  $('.picker', '.overlays').remove();
+  $('.picker', '.device-layout').remove();
   $(this.datepicker).stop();
   this.datepicker = null;
   $(this.timepicker).stop();

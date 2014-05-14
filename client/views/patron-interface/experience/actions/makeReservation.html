@@ -9,11 +9,13 @@
     <div class="col-xs-12">
       <div class="reservation-form {{showInProgress}}">
         {{#autoForm schema=makeReservationSchema id=formId type="method" meteormethod="makeReservation"}}
-          <legend>Make a Reservation</legend>
+          <legend>Request Reservation</legend>
           {{> afQuickField name='date' class='datepicker'}}
           {{> afQuickField name='time' class='timepicker'}}
-          {{> afFieldInput name="timeMinutes" type="hidden"}}
-          {{> afFieldInput name="experienceId" type="hidden"}}
+          <!-- {{> afFieldInput name="timeMinutes" type="hidden"}}
+          {{> afFieldInput name="experienceId" type="hidden"}} -->
+          {{> afQuickField name='timeMinutes' }}   
+          {{> afQuickField name='experienceId' }}
           {{> afQuickField name='partyName'}}
           {{> afQuickField name='partySize'}}
           {{> afQuickField name='phoneNumber' type="tel" }}

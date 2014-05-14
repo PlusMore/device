@@ -50,14 +50,22 @@ Template.experience.helpers(_.extend(callToActionHelpers, {
     return Session.get('experienceState');
   },
   activeExperienceClass: function() {
-    if (Router.current().route.name) {
+    var currentRoute = Router.current().route.name;
+    
+
+    if (currentRoute === 'experience') {
       if (Router.current().params._id === this._id) {
         return 'show';
+      } else {
+        return '';
       }
+    } else {
+      return '';
     }
   },
   showContent: function() {
-    if (Router.current().route.name) {
+    var currentRoute = Router.current().route.name;
+    if (currentRoute === 'experience') {
       if (Router.current().params._id === this._id) {
         return true;
       }

@@ -1,0 +1,24 @@
+<template name="deviceLayout">
+
+  <div class="device-layout">
+    {{> deviceHeader}}
+    <div class="content {{additionalContentClasses}} {{isFullscreen}}">
+      {{> transitionedYield}}
+    </div>
+  </div>
+
+  {{> idleOverlay}}
+  <div data-status="{{connectionStatus}}"></div>
+</template>
+
+<template name="preload">
+  <div class="preloader hidden">
+  	{{#each experiences}}
+      <img src="{{photoUrl}}/convert?w=329&fit=scale&cache=true" alt="Thumbnail for {{title}}">
+  	{{/each}}	
+
+    {{#each experiences}}
+      <img src="{{photoUrl}}?cache=true" alt="Full-size for {{title}}">
+    {{/each}}
+  </div>
+</template>

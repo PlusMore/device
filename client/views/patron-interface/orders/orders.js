@@ -1,4 +1,4 @@
-Template.ordersSection.helpers({
+Template.orders.helpers({
   hasOrders: function() {
     return Orders.find().count() > 0;
   },

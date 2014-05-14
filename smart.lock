@@ -20,7 +20,12 @@
       "pickadate": {
         "git": "https://github.com/patrickleet/meteor-pickadate.git",
         "branch": "master"
-      }
+      },
+      "iron-transitioner": {
+        "git": "https://github.com/percolatestudio/iron-transitioner.git",
+        "branch": "blaze"
+      },
+      "animate-css": {}
     },
     "packages": {
       "iron-router": {
@@ -87,6 +92,16 @@
         "git": "https://github.com/patrickleet/meteor-pickadate.git",
         "branch": "master",
         "commit": "5158805cbe4fa2d116a851964d2cdf1459524156"
+      },
+      "iron-transitioner": {
+        "git": "https://github.com/percolatestudio/iron-transitioner.git",
+        "branch": "blaze",
+        "commit": "f2fb6b516ed609405c9ef80f55a5f7f7e645e9dc"
+      },
+      "animate-css": {
+        "git": "https://github.com/nate-strauser/meteor-animate-css.git",
+        "tag": "v3.1.1",
+        "commit": "59ce70b99dff5bc3d1227b789eefa43a761db158"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

@@ -57,6 +57,7 @@ Meteor.startup(function() {
 
         if (device) {
           Meteor.subscribe('deviceData');
+          Meteor.subscribe('orders');
         }
       }
     }

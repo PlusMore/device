@@ -1,5 +1,5 @@
 <template name="deviceHeader">
-  <div class="navbar navbar-default navbar-plusmore navbar-device navbar-fixed-top" role="navigation">
+  <div class="navbar navbar-default navbar-plusmore navbar-device navbar-fixed-top {{additionalHeaderClasses}} {{isFullscreen}}" role="navigation">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="sr-only">Toggle navigation</span>
@@ -26,6 +26,12 @@
         {{#each categories}}
           {{> categoryLink}}
         {{/each}}
+        <!-- <li class="{{activeRouteClass 'message'}}">
+          <a href="{{pathFor 'message'}}" class="menu-item message">
+            <i class="icon icon-message"></i>
+            <span class="text">Message</span>
+          </a>
+        </li> -->
         <li class="{{activeRouteClass 'orders'}}">
           <a href="{{pathFor 'orders'}}" class="menu-item orders">
             <i class="icon icon-orders"></i>
