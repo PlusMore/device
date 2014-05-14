@@ -94,7 +94,7 @@ Template.makeReservationForm.helpers({
 Template.makeReservationForm.rendered = function () {
   var _this = this;
   
-  $(this.$('#' + this.data._id)).find('[name=experienceId]').val(this.data._id);
+  $(this.$('#makeReservation')).find('[name=experienceId]').val(this.data._id);
 
   var checkoutDate = Stays.findOne().checkoutDate;
   this.datepicker = $('.datepicker').pickadate({

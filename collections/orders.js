@@ -92,7 +92,6 @@ Schema.makeReservation = new SimpleSchema({
 
 Meteor.methods({
   makeReservation: function(reservation) {
-    debugger;
     var experienceId = reservation.experienceId;
     var experience = Experiences.findOne(experienceId);
     if (!experience) {
