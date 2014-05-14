@@ -4,7 +4,7 @@
     <div class="back">
       <a href="{{pathFor 'experiences'}}" class="back animate bounce"><i class="fa fa-arrow-left"></i>&nbsp;Back</a>
     </div>
-    <div class="content col-xs-12 col-md-5 touch-scrollable">
+    <div class="content col-xs-12 col-md-5">
       {{> experienceDetails}}
     </div>
     <div class="content action-form col col-sx-12 col-md-5 touch-scrollable {{showActionForm}}">
@@ -46,5 +46,8 @@
       <div>{{city}}, {{state}} {{zip}}</div>
     {{/if}}
   </div>
-  <p class="description">{{description}}</p>
+  <div class="description scrollable">
+    <p class="description ">{{description}}</p>
+  </div>
+  
 </template>

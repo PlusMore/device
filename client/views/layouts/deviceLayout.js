@@ -23,6 +23,10 @@ Template.deviceLayout.helpers({
   // },
   isFullscreen: function() {
     return Session.get('fullscreen') ? 'fullscreen' : '';
+  },
+  isScrollable: function() {
+    // when not fullscreen - allow scrolling
+    return Session.get('fullscreen') ? '' : 'scrollable';
   }
 });
 
