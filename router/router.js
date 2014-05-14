@@ -210,7 +210,8 @@ Router.map(function() {
     },
     data: function () {
       return {
-        experience: Experiences.findOne(this.params._id)
+        experience: Experiences.findOne(this.params._id),
+        experienceId: this.params._id
       };
     }
     // ,
