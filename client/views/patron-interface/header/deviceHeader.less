@@ -4,11 +4,11 @@
   height: 106px;
   z-index: 10;
   .translate(0,0);
-  .transition(transform 300ms ease-out);
+  .transition(transform 300ms linear);
   
   &.fullscreen {
     .translate(0,-106px);
-    .transition(transform 300ms ease-in);
+    .transition(transform 300ms linear);
   }
 
   .nav {

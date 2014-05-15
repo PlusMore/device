@@ -18,6 +18,20 @@
 .animated {
   .transition-duration(600ms);
   .animation-duration(600ms);
+
+  &.delay {
+    .transition-delay(700ms);
+    .animation-delay(700ms);
+
+    &.long {
+      .transition-delay(15s);
+      .animation-delay(15s);
+    }
+  }
+
+  &.repeat {
+    .animation-iteration-count(infinite);
+  }
 }
 
 .transitioner-panes.back {
