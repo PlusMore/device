@@ -20,6 +20,9 @@ Meteor.startup(function() {
       Router.go('experience', {_id: ExperiencesForCategory[currentIndex - 1]});
     }
   });
+  hammer.on('swipedown', '.experience', function() {
+    Router.go('experiences', {category: Session.get('activeCategory')});
+  });
 });
 
 ExperiencesForCategory = []
