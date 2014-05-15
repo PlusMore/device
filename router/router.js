@@ -188,7 +188,6 @@ Router.map(function() {
       Deps.nonreactive(function() {
         Session.set('currentExperienceId', Router.current().params._id);
         var experience = Experiences.findOne(Router.current().params._id);
-        console.log(experience);
 
         if (experience) {
           App.track("View Experience", {
@@ -210,9 +209,6 @@ Router.map(function() {
         experienceId: this.params._id
       };
     }
-    // ,
-    // action: function () {
-    // }
   });
 
 });
