@@ -23,6 +23,7 @@
       "git": "https://github.com/percolatestudio/iron-transitioner.git",
       "branch": "blaze"
     },
-    "animate-css": {}
+    "animate-css": {},
+    "hammer": {}
   }
 }
