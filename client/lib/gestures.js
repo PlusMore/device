@@ -27,6 +27,38 @@ Meteor.startup(function() {
     nextAnimation = 'up';
     Router.go('experiences', {category: Session.get('activeCategory')});
   });
+
+  hammer.on('swipe', '.welcome', function(e) {
+    console.log(e);
+
+
+    switch (e.gesture.direction) {
+      case 'up':
+        nextAnimation = 'up';
+        break;
+      case 'down': 
+        nextAnimation = 'down';
+        break;
+      case 'right':
+        nextAnimation = 'back';
+        break;
+      case 'left':
+        nextAnimation = 'default'
+        break;
+    }
+    setupAnimation = nextAnimation;
+    App.track('First Use');
+
+    var stay = Stays.findOne({userId: Meteor.userId(), active: true});
+
+    if (!stay) {
+      Router.go('enterCheckoutDate');
+    } else {
+      Router.go('experiences', {category: 'Dining'});
+    }
+  });
+
+  
 });
 
 ExperiencesForCategory = []
