@@ -23,6 +23,10 @@ Meteor.startup(function() {
   hammer.on('swipedown', '.experience', function() {
     Router.go('experiences', {category: Session.get('activeCategory')});
   });
+  hammer.on('swipeup', '.experience', function() {
+    nextAnimation = 'up';
+    Router.go('experiences', {category: Session.get('activeCategory')});
+  });
 });
 
 ExperiencesForCategory = []
