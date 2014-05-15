@@ -63,24 +63,38 @@ var filters = {
     var stay = Stays.findOne({userId: Meteor.userId()});
 
     if (stay && stay.checkoutDate < new Date()) {
-      console.log('expired stay')
-      Meteor.call('endStay', stay, function (err, deviceId) {
-        if (err) throw new Meteor.Error(err)
-        console.log('deviceId', deviceId);
-        Meteor.logout();
-
-        Meteor.loginDevice(deviceId, function(err) {
-          Router.go('welcome');
-        });
-      });
+      Session.set('expired', true);
     }
   },
   resetActiveCategory: function() {
     Session.set('activeCategory', '');
+  },
+  resetExperienceState: function() {
+    Session.set('experienceState', '');
+  },
+  fullscreen: function() {
+    Session.set('fullscreen', true);
+  },
+  resetFullscreen: function() {
+    Session.set('fullscreen', false);
   }
 };
 
 Router.onBeforeAction('loading');
+
+var fullscreenPages = [
+  'welcome',
+  'experience',
+  'setupDevice',
+  'enterCheckoutDate',
+  'entrySignIn',
+  'entrySignUp',
+  'entryResetPassword',
+  'entryForgotPassword'
+];
+
+Router.onBeforeAction(filters.fullscreen, {only: fullscreenPages});
+Router.onBeforeAction(filters.resetFullscreen, {except: fullscreenPages});
 
 Router.onBeforeAction(filters.ensureValidStay, {only: [
   'experience',
@@ -88,10 +102,12 @@ Router.onBeforeAction(filters.ensureValidStay, {only: [
   'orders'
 ]});
 
-Router.onBeforeAction(filters.resetActiveCategory, {only: [
-  'orders',
-  'welcome'
-]})
+Router.onBeforeAction(filters.resetExperienceState);
+
+Router.onBeforeAction(filters.resetActiveCategory, {except: [
+  'experience',
+  'experiences'
+]});
 // Ensure user has a device account, otherwise,
 // redirect to device list?
 // TODO: Need to think about this.. Can we get patron's
@@ -101,7 +117,8 @@ Router.onBeforeAction(filters.ensureDeviceAccount, {only: [
   'welcome',
   'experiences',
   'experience',
-  'orders'
+  'orders',
+  'enterCheckoutDate'
 ]});
 
 // Routes
@@ -140,49 +157,21 @@ Router.map(function() {
 
   // Patron Interface
   this.route('welcome', {
-    path: '/',
-    onBeforeAction: function() {
-      Session.set('experienceState', '');
-    },
-    onRun: function () {
-      var section = Router.current().route.name;
-      Session.set('section', section.toLowerCase());
-    }
+    path: '/'
   });
 
   this.route('enterCheckoutDate', {
-    path: '/enter-checkout-date',
-    onBeforeAction: function() {
-      Session.set('experienceState', '');
-    },
-    onRun: function () {
-      var section = Router.current().route.name;
-      Session.set('section', section.toLowerCase());
-    }
+    path: '/enter-checkout-date'
   });
 
-  this.route('orders', {
-    waitOn: function() {
-      this.subscribe('orders')
-    },
-    controller: DeviceController
-  });
+  this.route('orders');
 
-  this.route('frontDesk', {
-    controller: DeviceController,
-  });
-
-  this.route('transportation', {
-    controller: DeviceController
-  });
+  this.route('message');
 
   this.route('experiences', {
     path: '/experiences/:category?',
     onBeforeAction: function() {
-      Session.set('experienceState', '');
       Session.set('activeCategory', this.params.category);
-      var section = this.route.name;
-      Session.set('section', section.toLowerCase());
     },
     onRun: function() {
       Deps.nonreactive(function() {
@@ -190,41 +179,37 @@ Router.map(function() {
           "Name": Router.current().params.category
         });
       });
-    },
-    action: function () {
     }
   });
 
   this.route('experience', {
     path: '/experience/:_id',
-    layoutTemplate: 'deviceLayout',
     onRun: function () {
       Deps.nonreactive(function() {
         Session.set('currentExperienceId', Router.current().params._id);
         var experience = Experiences.findOne(Router.current().params._id);
-        console.log(experience);
 
         if (experience) {
           App.track("View Experience", {
-          "Experience Title": experience.title,
-          "Experience Category": experience.category,
-          "Experience Lead": experience.lead,
-          "Experience PhotoUrl": experience.photoUrl,
-          "Experience Id": experience._id,
-          "Experience Description": experience.description,
-          "City": experience.city
-        });
+                    "Experience Title": experience.title,
+                    "Experience Category": experience.category,
+                    "Experience Lead": experience.lead,
+                    "Experience PhotoUrl": experience.photoUrl,
+                    "Experience Id": experience._id,
+                    "Experience Description": experience.description,
+                    "City": experience.city
+          });
         }
         
       });
     },
     data: function () {
       return {
-        experience: Experiences.findOne(this.params._id)
+        experience: Experiences.findOne(this.params._id),
+        experienceId: this.params._id
       };
-    },
-    action: function () {
     }
   });
 
 });
+

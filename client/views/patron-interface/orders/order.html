@@ -1,19 +1,11 @@
 <template name="order">
-  <div class="order section col-md-12 {{status}}">
+  <div class="order section col-md-12 {{status}} animated fadeIn">
     {{#if isReservation}}
       <header>
         <h3>
           Reservation for {{experience.title}}
           <small class="pull-right">
-            {{#if isPending}}
-              (In Progress)
-            {{/if}}
-            {{#if isConfirmed}}
-              Confirmed
-            {{/if}}
-            {{#if isCancelled}}
-              Cancelled
-            {{/if}}
+            {{orderStatus}}
           </small>
         </h3>
       </header>

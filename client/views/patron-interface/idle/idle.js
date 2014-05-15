@@ -1,11 +1,5 @@
 Template.idleOverlay.helpers({
-	show: function () {
-		return UserStatus.isIdle();
+  show: function () {
+		return UserStatus.isIdle() ? 'animated fadeIn show' : 'animated fadeOut';
 	}
 });
-
-Template.idleOverlay.events({
-  'click idle-overlay': function () {
-    return true;
-  }
-})

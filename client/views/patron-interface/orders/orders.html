@@ -1,12 +1,10 @@
-<template name="ordersSection">
+<template name="orders">
   <div class="orders-section">
     {{#if hasOrders}}
-      <div class="orders-list touch-scrollable">
-        <div class="orders">
-          {{#each upcomingOrders}}
-            {{> order}}
-          {{/each}}
-        </div>
+      <div class="orders container">
+        {{#each upcomingOrders}}
+          {{> order}}
+        {{/each}}
       </div>
     {{else}}
       <div class="no-orders big-text">

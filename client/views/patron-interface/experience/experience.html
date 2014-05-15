@@ -1,22 +1,22 @@
 <template name="experience">
-  <div class="experience  experience-overlay {{activeExperienceClass}}" style="background: url('{{photoUrl}}/convert?w=1024&h=768&fit=scale&cache=true') #000 no-repeat center center fixed">
-    {{#if showContent}}
-      <div class="back">
-        <a href="{{pathFor 'experiences'}}"><i class="fa fa-arrow-left"></i>&nbsp;Back</a>
+  {{#with experience}}
+  <div class="experience" style="background: url('{{photoUrl}}/convert?w=1024&h=768&fit=scale&cache=true') #000 no-repeat center center fixed">
+    <div class="back">
+      <a href="{{pathFor 'experiences'}}" class="back"><i class="fa fa-arrow-left"></i>&nbsp;Back</a>
+    </div>
+    <div class="content col-xs-12 col-md-5">
+      {{> experienceDetails}}
+    </div>
+    <div class="content action-form col col-sx-12 col-md-5 touch-scrollable {{showActionForm}}">
+      <div class="close">
+        <i class="fa fa-times"></i>
       </div>
-      <div class="content col-xs-12 col-md-5 touch-scrollable">
-        {{> experienceDetails}}
-      </div>
-      <div class="content action-form col col-sx-12 col-md-5 touch-scrollable {{showActionForm}}">
-        <div class="close">
-          <i class="fa fa-times"></i>
-        </div>
-        {{#if callToActionIsReserve}}
-          {{> makeReservationForm}}
-        {{/if}}
-      </div>
-    {{/if}}
+      {{#if callToActionIsReserve}}
+        {{> makeReservationForm}}
+      {{/if}}
+    </div>
   </div>
+  {{/with}}
 </template>
 
 <template name="experienceDetails">
@@ -41,11 +41,13 @@
 
   {{/if}}
   <div class="venue">
-    <div class="name">{{venueName}}</div>
     <div>{{street}}</div>
     {{#if city}}
       <div>{{city}}, {{state}} {{zip}}</div>
     {{/if}}
   </div>
-  <p class="description">{{description}}</p>
+  <div class="description scrollable">
+    <p class="description ">{{description}}</p>
+  </div>
+  
 </template>

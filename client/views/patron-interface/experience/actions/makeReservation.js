@@ -1,3 +1,43 @@
+Meteor.startup(function() {
+  AutoForm.hooks({
+    makeReservation: {
+      formToDoc: function(doc) {      
+        console.log('form to doc');
+        var dateval = $("#makeReservation").find('[name=date]').val();
+
+        if (dateval) {
+          timeMinutes = parseInt(doc.timeMinutes, 10);
+
+          if (timeMinutes) {
+            var m = moment(new Date(dateval)).startOf('day').minutes(timeMinutes);
+            if (m.isValid()) {
+              // before 6am - add day
+              if (doc.timeMinutes < (60*6)) {
+                m.add('days', 1);
+              }
+              doc.dateDatetime = m.toDate();
+            }
+          }
+        }
+        
+        return doc;
+      },
+      onSuccess: function(operation, result, template) {
+        console.log('onSuccess');
+        Session.set('experienceState', 'complete');
+        AutoForm.resetForm('makeReservation');
+      },
+      onError: function(operation, error, template) {
+        console.log('onError');
+        if (error.error) {
+          Session.set('experienceState', 'error');
+          App.track('Submit Error', error);
+        }
+      }
+    }
+  });
+});
+
 Template.makeReservationCallToAction.events({
   'click .btn': function(e, tmpl) {
     e.preventDefault();
@@ -27,9 +67,6 @@ Template.makeReservationForm.helpers({
     }
     return new SimpleSchema(schema); 
   },
-  formId: function () {
-    return this._id;
-  },
   showInProgress: function () { 
     return Session.get('experienceState') ==='in-progress' ? 'show' : '';
   },
@@ -57,18 +94,18 @@ Template.makeReservationForm.helpers({
 Template.makeReservationForm.rendered = function () {
   var _this = this;
   
-  $(this.$('#' + this.data._id)).find('[name=experienceId]').val(this.data._id);
+  $(this.$('#makeReservation')).find('[name=experienceId]').val(this.data._id);
 
   var checkoutDate = Stays.findOne().checkoutDate;
   this.datepicker = $('.datepicker').pickadate({
-    container: '.overlays',
+    container: '.device-layout',
     min: true,
     max: checkoutDate,
     format: 'mmmm d, yyyy'
   });
 
   var options = {
-    container: '.overlays',
+    container: '.device-layout',
     onSet: function(select) {
       var minutes = select.select;
       var $reservationOptionsEl = this.$node.closest('.make-reservation-form')
@@ -99,7 +136,7 @@ Template.makeReservationForm.rendered = function () {
 };
 
 Template.makeReservationForm.destroyed = function () {
-  $('.picker', '.overlays').remove();
+  $('.picker', '.device-layout').remove();
   $(this.datepicker).stop();
   this.datepicker = null;
   $(this.timepicker).stop();

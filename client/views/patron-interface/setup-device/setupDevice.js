@@ -19,6 +19,7 @@ AutoForm.hooks({
       Meteor.logout()
       // attempts to create and login as new device user
       Meteor.loginDevice(deviceId, function(err) {
+        console.log('go to welcome from setupDevice');
         Router.go('welcome');
       });
     },
@@ -26,21 +27,4 @@ AutoForm.hooks({
       console.log(error);
     }
   }
-});
-
-Handlebars.registerHelper("deviceTypes", function() {
-  var deviceTypes = [
-      'Room',
-      'Lobby'
-    ],
-    deviceOptions = [];
-
-  _.each(deviceTypes, function(deviceType) {
-    deviceOptions.push({
-      label: deviceType,
-      value: deviceType.toLowerCase()
-    });
-  });
-
-  return deviceOptions;
 });

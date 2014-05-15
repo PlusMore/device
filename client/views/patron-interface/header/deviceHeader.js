@@ -15,5 +15,8 @@ Template.deviceHeader.helpers({
   },
   categories: function() {
     return Categories.find();
+  },
+  isFullscreen: function() {
+    return Session.get('fullscreen') ? 'fullscreen' : '';
   }
 });

@@ -1,22 +1,18 @@
 <template name="setupDevice">
-  <div class="col-md-6 col-md-offset-3 touch-scrollable">
-    <div class="register-device section col-md-6">
-      <h3>Setup This Device</h3>
+  <div class="register-device section col-md-6 col-md-offset-3">
+    <h3>Setup This Device</h3>
 
-      {{#autoForm schema=setupDeviceSchema id="setupDeviceForm" type="method" meteormethod="setupDevice"}}
-        <fieldset>
-          {{> afFieldInput name='hotelId' type="hidden" value=hotelId }}
+    {{#autoForm schema=setupDeviceSchema id="setupDeviceForm" type="method" meteormethod="setupDevice"}}
+      <fieldset>
+        {{> afFieldInput name='hotelId' type="hidden" value=hotelId }}
 
-          {{> afQuickField name="type" firstOption="(Select Device Type)" options=deviceTypes}}
+        {{> afQuickField name='location'}}
 
-          {{> afQuickField name='location'}}
-
-          <div>
-            <button type="reset" class="btn btn-default">Reset</button>
-            <button type="submit" data-meteor-method="setupDevice" class="btn btn-primary">Next</button>
-          </div>
-        </fieldset>
-      {{/autoForm}}
-    </div>
+        <div>
+          <button type="reset" class="btn btn-default">Reset</button>
+          <button type="submit" data-meteor-method="setupDevice" class="btn btn-primary">Next</button>
+        </div>
+      </fieldset>
+    {{/autoForm}}
   </div>
 </template>

@@ -15,10 +15,6 @@ Devices.allow({
 });
 
 Schema.setupDevice = new SimpleSchema({
-  type: {
-    type: String,
-    label: 'Will this device be placed in a room or a lobby?'
-  },
   location: {
     type: String,
     label: "Where will this this be device located? (Ex. 'Room 131', 'Lobby Entrance')"

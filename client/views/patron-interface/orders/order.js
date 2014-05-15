@@ -26,6 +26,17 @@ Template.order.helpers({
   },
   when: function() {
     return moment(this.reservation.dateDatetime).calendar();
+  },
+  orderStatus: function() {
+    if (this.status === 'confirmed') {
+      return 'Confirmed';
+    } 
+
+    if (this.status === 'cancelled') {
+      return 'Cancelled';
+    }
+
+    return '(In Progress)';
   }
 });
 

@@ -8,8 +8,8 @@
   <div class="row make-reservation-form">
     <div class="col-xs-12">
       <div class="reservation-form {{showInProgress}}">
-        {{#autoForm schema=makeReservationSchema id=formId type="method" meteormethod="makeReservation"}}
-          <legend>Make a Reservation</legend>
+        {{#autoForm schema=makeReservationSchema id='makeReservation' type="method" meteormethod="makeReservation"}}
+          <legend>Request Reservation</legend>
           {{> afQuickField name='date' class='datepicker'}}
           {{> afQuickField name='time' class='timepicker'}}
           {{> afFieldInput name="timeMinutes" type="hidden"}}

@@ -1,0 +1,119 @@
+@import '/client/style/imports.import.less';
+
+.device-layout {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: url('/backgrounds/body-bg-blue.png');
+  background-size: 101% 101%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: white;
+
+  & > .content {
+    position: fixed;
+    top: 105px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: scroll;
+    .transition(top 300ms linear);
+
+
+    &.fullscreen {
+      top: 0;
+      background: url('/backgrounds/body-bg-blue.png');
+      background-size: 101% 101%;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+  }
+}
+
+div[class*="-overlay"] {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  
+  visibility: hidden;
+
+  &.show {
+    visibility: visible;
+  }
+}
+
+.device-container {
+  position: absolute;
+  bottom: 0;
+  top: 0px;
+  left: 0;
+  right: 0;
+  margin-top: 106px;
+  background: #A5DFF9;
+  background: #a5dff9;
+  filter: alpha(opacity=60) progid:DXImageTransform.Microsoft.Alpha(opacity=60);
+  
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 3000;
+
+  &.unregistered {
+    margin-top: 0;
+    z-index: 3000;
+    padding-top: 18%;
+  }
+
+  &.experiences-container {
+    background: white;
+  }
+
+  &.experience-container {
+    margin-top: 0;
+  }
+
+  &.orders-container {
+    padding: 0 15px;
+  }
+
+  & > .experiences-list-container {
+    margin-top: 6px;
+  }
+
+  & .side-menu {
+    background-color: #fff;
+    padding-right: 0;
+    padding-left: 0;
+    height: 90%;
+    margin-top: 2.5%;
+
+    & .nav {
+      padding-top: 15px;
+      text-transform: uppercase;
+      font-weight: 100;
+
+      & > li {
+        margin: 0 auto;
+
+        & > a {
+          border-radius: 0;
+          color: #000;
+          font-size: 1.3em;
+          font-weight: 100;
+          letter-spacing: .1em;
+          padding-left: 30px;
+        }
+
+        &.active > a {
+          color: #fff;
+          background-color: #000;
+        }
+
+
+      }
+    }
+  }
+}
