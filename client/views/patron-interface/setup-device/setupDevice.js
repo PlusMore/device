@@ -19,6 +19,7 @@ AutoForm.hooks({
       Meteor.logout()
       // attempts to create and login as new device user
       Meteor.loginDevice(deviceId, function(err) {
+        console.log('go to welcome from setupDevice');
         Router.go('welcome');
       });
     },

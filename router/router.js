@@ -63,16 +63,7 @@ var filters = {
     var stay = Stays.findOne({userId: Meteor.userId()});
 
     if (stay && stay.checkoutDate < new Date()) {
-      console.log('expired stay')
-      Meteor.call('endStay', stay, function (err, deviceId) {
-        if (err) throw new Meteor.Error(err)
-        console.log('deviceId', deviceId);
-        Meteor.logout();
-
-        Meteor.loginDevice(deviceId, function(err) {
-          Router.go('welcome');
-        });
-      });
+      Session.set('expired', true);
     }
   },
   resetActiveCategory: function() {
@@ -126,7 +117,8 @@ Router.onBeforeAction(filters.ensureDeviceAccount, {only: [
   'welcome',
   'experiences',
   'experience',
-  'orders'
+  'orders',
+  'enterCheckoutDate'
 ]});
 
 // Routes

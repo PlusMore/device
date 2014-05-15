@@ -46,7 +46,10 @@ Meteor.methods({
   },
   endStay: function (stay) {
     var currentDeviceId = Meteor.user().deviceId;
-    Stays.update(stay._id, {$set: {active: false}});
+    Stays.update(stay._id, {$set: {
+      active: false,
+      checkoutDate: new Date()
+    }});
     return currentDeviceId;
   },
   changeCheckoutDate: function(stayId, checkoutDate) {

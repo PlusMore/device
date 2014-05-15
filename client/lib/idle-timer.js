@@ -28,23 +28,14 @@ Meteor.startup(function () {
       } else if (status === "offline") {
         Meteor.reconnect();
         App.track("Tap To Resume");
-        var stay = Stays.findOne({userId: Meteor.userId(), active: true});
+        var stay = Deps.nonreactive(function() { return Stays.findOne({userId: Meteor.userId(), active: true}); });
         if (!stay) {
+          console.log('go to welcome from idle timer');
           Router.go('welcome');
         } else if (stay.checkoutDate < new Date()) {
-          Meteor.call('endStay', stay, function (err, deviceId) {
-            if (err) throw new Meteor.Error(err)
-            console.log('deviceId', deviceId);
-            Meteor.logout();
-
-            Meteor.loginDevice(deviceId, function(err) {
-              Router.go('welcome');
-            });
-          });
+          Session.set('expired', true);
         }
       }
-
     }
-
   });
 });
