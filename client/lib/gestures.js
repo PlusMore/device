@@ -1,35 +1,22 @@
 Meteor.startup(function() {
   var hammer = $(document.body).hammer();
   hammer.on('swipe', '.experience', function(e) {
-    debugger;
     var experienceState = Deps.nonreactive(function() {
       return Session.get('experienceState');
     });
 
     if (!experienceState) {
       switch (e.gesture.direction) {
-        case 'up':
-          nextAnimation = 'up';
-          Router.go('experiences', {category: Session.get('activeCategory')});
-          break;
-        case 'down': 
-          nextAnimation = 'down';
-          Router.go('experiences', {category: Session.get('activeCategory')});
-          break;
         case 'right':
-          nextAnimation = 'back';
           var currentExperienceId = Router.current().params._id;
           var currentIndex = ExperiencesForCategory.indexOf(currentExperienceId);
           if (currentIndex  === 0) {
-            nextAnimation = 'back';
             Router.go('experience', {_id: ExperiencesForCategory[ExperiencesForCategory.length - 1]});
           } else {
-            nextAnimation = 'back';
             Router.go('experience', {_id: ExperiencesForCategory[currentIndex - 1]});
           }
           break;
         case 'left':
-          nextAnimation = 'default'
           var currentExperienceId = Router.current().params._id;
           var currentIndex = ExperiencesForCategory.indexOf(currentExperienceId);
           if (currentIndex + 1 === ExperiencesForCategory.length) {
@@ -43,8 +30,6 @@ Meteor.startup(function() {
   });
 
   hammer.on('swipe', '.welcome', function(e) {
-    console.log(e);
-
 
     switch (e.gesture.direction) {
       case 'up':

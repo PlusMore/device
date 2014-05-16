@@ -2,7 +2,6 @@ Meteor.startup(function() {
   AutoForm.hooks({
     makeReservation: {
       formToDoc: function(doc) {      
-        console.log('form to doc');
         var dateval = $("#makeReservation").find('[name=date]').val();
 
         if (dateval) {
@@ -23,7 +22,6 @@ Meteor.startup(function() {
         return doc;
       },
       onSuccess: function(operation, result, template) {
-        console.log('onSuccess');
         Session.set('experienceState', 'complete');
         AutoForm.resetForm('makeReservation');
       },
@@ -98,14 +96,14 @@ Template.makeReservationForm.rendered = function () {
 
   var checkoutDate = Stays.findOne().checkoutDate;
   this.datepicker = $('.datepicker').pickadate({
-    container: '.device-layout',
+    container: 'body',
     min: true,
     max: checkoutDate,
     format: 'mmmm d, yyyy'
   });
 
   var options = {
-    container: '.device-layout',
+    container: 'body',
     onSet: function(select) {
       var minutes = select.select;
       var $reservationOptionsEl = this.$node.closest('.make-reservation-form')
@@ -136,7 +134,7 @@ Template.makeReservationForm.rendered = function () {
 };
 
 Template.makeReservationForm.destroyed = function () {
-  $('.picker', '.device-layout').remove();
+  $('.picker', 'body').remove();
   $(this.datepicker).stop();
   this.datepicker = null;
   $(this.timepicker).stop();
