@@ -3,9 +3,9 @@
 .experience {
   position: fixed;
   top: 0;
-  bottom: 0;
   right: 0;
   left: 0;
+  height: 100%;
   z-index: 3000;
   font-size: 1em;
   text-shadow: 0 0 1px #000;
@@ -45,18 +45,23 @@
     padding: 20px 30.5px;
     height: 100%;
     overflow: hidden;
-    zoom: 1;
-    z-index: 100;
+    z-index: 10;
+    font-weight: 200;    
+
+    
 
     &.action-form {
       border-left: 1px solid rgba(255,255,255,.3);
-      visibility: hidden;
-      z-index: 50;
+      z-index: 1;
       .translate(-200%, 0);
-      .transition(all 250ms ease-out);
+      -webkit-text-stroke: 0.5px;
+      .transition(transform 250ms ease-out);
+
+      input {
+        -webkit-text-stroke: .7px;
+      }
   
       &.show {
-        visibility: visible;
         .translate(0, 0);
       }
 
@@ -85,6 +90,7 @@
           border-radius: 0;
           text-transform: uppercase;
           width: 100%;
+          -webkit-text-stroke: initial;
         }
       }
 
@@ -124,6 +130,7 @@
               color: rgb(0, 0, 0);
               border-radius: 0;
               text-transform: uppercase;
+              -webkit-text-stroke: initial;
             }
           }
         }  
@@ -182,6 +189,7 @@
         color: rgb(0, 0, 0);
         border-radius: 0;
         text-transform: uppercase;
+        -webkit-text-stroke: initial;
       }
     }
 
