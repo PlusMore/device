@@ -18,20 +18,21 @@
 .animated {
   .transition-duration(600ms);
   .animation-duration(600ms);
-  .backface-visibility(hidden);
-  
-  -webkit-font-smoothing: subpixel-antialiased;
-  zoom: 1; 
   
   &.slow {
-    .transition-duration(1.5s);
-    .animation-duration(1.5s);
+    .transition-duration(1s);
+    .animation-duration(1s);
   }
 
   &.delay {
     .transition-delay(700ms);
     .animation-delay(700ms);
 
+    &.quick {
+      .transition-delay(100ms);
+      .animation-delay(100ms);
+    }
+    
     &.long {
       .transition-delay(5s);
       .animation-delay(5s);

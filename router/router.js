@@ -208,6 +208,9 @@ Router.map(function() {
         experience: Experiences.findOne(this.params._id),
         experienceId: this.params._id
       };
+    },
+    action: function() {
+      // Do nothing, A reactive overlay is shown based on currentExperienceId
     }
   });
 
