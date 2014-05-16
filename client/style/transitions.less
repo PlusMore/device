@@ -18,25 +18,53 @@
 .animated {
   .transition-duration(600ms);
   .animation-duration(600ms);
-  .backface-visibility(hidden);
   
-  -webkit-font-smoothing: subpixel-antialiased;
-  zoom: 1; 
-  
+  &.quick {
+    .transition-duration(350ms);
+    .animation-duration(350ms);
+  }
+
   &.slow {
-    .transition-duration(1.5s);
-    .animation-duration(1.5s);
+    .transition-duration(1s);
+    .animation-duration(1s);
   }
 
   &.delay {
     .transition-delay(700ms);
     .animation-delay(700ms);
-
+    
     &.long {
       .transition-delay(5s);
       .animation-delay(5s);
     }
   }
+}
+
+@-webkit-keyframes fadeInZoom {
+  0% {opacity: 0; .transform(scale(1.5,1.5)); }
+  100% {opacity: 1; .transform(scale(1,1));}
+}
+
+@-moz-keyframes fadeInZoom {
+  0% {opacity: 0; .transform(scale(1.5,1.5)); }
+  100% {opacity: 1; .transform(scale(1,1));}
+}
+
+@-o-keyframes fadeInZoom {
+  0% {opacity: 0; .transform(scale(1.5,1.5)); }
+  100% {opacity: 1; .transform(scale(1,1));}
+}
+
+@keyframes fadeInZoom {
+  0% {opacity: 0; .transform(scale(1.5,1.5)); }
+  100% {opacity: 1; .transform(scale(1,1));}
+}
+
+.animated.fadeInZoom {
+  -webkit-animation-name: fadeInZoom;
+  -moz-animation-name: fadeInZoom;
+  -o-animation-name: fadeInZoom;
+  animation-name: fadeInZoom;
 }
 
 .transitioner-panes.back {

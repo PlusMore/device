@@ -80,8 +80,16 @@ Meteor.startup(function() {
         mixpanel.track(key, properties);
         console.log('Tracked metric: ', key, properties);
       });
-          
+    },
+    begin: function() {
+      App.track('First Use');
+      var stay = Stays.findOne({userId: Meteor.userId(), active: true});
 
+      if (!stay) {
+        Router.go('enterCheckoutDate');
+      } else {
+        Router.go('experiences', {category: 'Dining'});
+      }
     }
   });
 

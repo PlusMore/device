@@ -1,5 +1,7 @@
 <template name="deviceLayout">
-
+  
+  <br /><br /><br /><br />
+  Updating... Please wait... This may take up to 60 seconds. 
   <div class="device-layout">
     {{> deviceHeader}}
     <div class="content {{additionalContentClasses}} {{isFullscreen}} {{isScrollable}}">
@@ -8,6 +10,8 @@
   </div>
 
   {{> idleOverlay}}
+
+  {{> experience}}
   <div data-status="{{connectionStatus}}"></div>
 </template>
 

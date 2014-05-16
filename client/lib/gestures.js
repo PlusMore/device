@@ -1,36 +1,35 @@
 Meteor.startup(function() {
   var hammer = $(document.body).hammer();
-  hammer.on('swipeleft', '.experience', function() {
-    var currentExperienceId = Router.current().params._id;
-    var currentIndex = ExperiencesForCategory.indexOf(currentExperienceId);
-    if (currentIndex + 1 === ExperiencesForCategory.length) {
-      Router.go('experience', {_id: ExperiencesForCategory[0]});
-    } else {
-      Router.go('experience', {_id: ExperiencesForCategory[currentIndex + 1]});
+  hammer.on('swipe', '.experience', function(e) {
+    var experienceState = Deps.nonreactive(function() {
+      return Session.get('experienceState');
+    });
+
+    if (!experienceState) {
+      switch (e.gesture.direction) {
+        case 'right':
+          var currentExperienceId = Router.current().params._id;
+          var currentIndex = ExperiencesForCategory.indexOf(currentExperienceId);
+          if (currentIndex  === 0) {
+            Router.go('experience', {_id: ExperiencesForCategory[ExperiencesForCategory.length - 1]});
+          } else {
+            Router.go('experience', {_id: ExperiencesForCategory[currentIndex - 1]});
+          }
+          break;
+        case 'left':
+          var currentExperienceId = Router.current().params._id;
+          var currentIndex = ExperiencesForCategory.indexOf(currentExperienceId);
+          if (currentIndex + 1 === ExperiencesForCategory.length) {
+            Router.go('experience', {_id: ExperiencesForCategory[0]});
+          } else {
+            Router.go('experience', {_id: ExperiencesForCategory[currentIndex + 1]});
+          }
+          break;
+      }
     }
-  });
-  hammer.on('swiperight', '.experience', function() {
-    var currentExperienceId = Router.current().params._id;
-    var currentIndex = ExperiencesForCategory.indexOf(currentExperienceId);
-    if (currentIndex  === 0) {
-      nextAnimation = 'back';
-      Router.go('experience', {_id: ExperiencesForCategory[ExperiencesForCategory.length - 1]});
-    } else {
-      nextAnimation = 'back';
-      Router.go('experience', {_id: ExperiencesForCategory[currentIndex - 1]});
-    }
-  });
-  hammer.on('swipedown', '.experience', function() {
-    Router.go('experiences', {category: Session.get('activeCategory')});
-  });
-  hammer.on('swipeup', '.experience', function() {
-    nextAnimation = 'up';
-    Router.go('experiences', {category: Session.get('activeCategory')});
   });
 
   hammer.on('swipe', '.welcome', function(e) {
-    console.log(e);
-
 
     switch (e.gesture.direction) {
       case 'up':
@@ -47,15 +46,7 @@ Meteor.startup(function() {
         break;
     }
     setupAnimation = nextAnimation;
-    App.track('First Use');
-
-    var stay = Stays.findOne({userId: Meteor.userId(), active: true});
-
-    if (!stay) {
-      Router.go('enterCheckoutDate');
-    } else {
-      Router.go('experiences', {category: 'Dining'});
-    }
+    App.begin();
   });
 
   

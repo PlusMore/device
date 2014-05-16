@@ -4,3 +4,12 @@ Template.welcome.helpers({
     return Devices.findOne(deviceId);
   }
 });
+
+Template.welcome.events({
+  'click .welcome': function (e) {
+    e.preventDefault();
+    nextAnimation = 'fade';
+    setupAnimation = nextAnimation;
+    App.begin();
+  }
+});

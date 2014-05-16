@@ -14,11 +14,8 @@ Router.setTransitionType(function(from, to, type) {
     return animation;
   }
 
-  if (from.template === 'experiences' && to.template === 'experience') {
-    return 'up';
-  }
-  if (from.template === 'experience' && to.template === 'experiences') {
-    return 'down';
+  if (from.template === 'experience') {
+    return 'fade';
   }
   return type;
 });
