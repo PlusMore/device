@@ -1,7 +1,4 @@
 Template.deviceLayout.helpers({
-  needsRegistration: function() {
-    return !Meteor.user().deviceId;
-  },
   idleStatus: function() {
     return UserStatus.isIdle() ? 'idle' : ''
   },
@@ -10,12 +7,6 @@ Template.deviceLayout.helpers({
   },
   connectionStatus: function () {
     return Meteor.status().status;
-  },
-  experiencesOverlays: function() {
-    return Experiences.find();
-  },
-  categories: function() {
-    return Categories.find();
   },
   // additionalContentClasses: function() {
   //   var currentRoute = Router.current(); 

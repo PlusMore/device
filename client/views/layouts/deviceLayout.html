@@ -1,22 +1,35 @@
 <template name="deviceLayout">
+  <div class="big-text">
+    <p class="lead ">Updating software</p>
+    <div class="lead">
+      The device will resume automatically when the update is complete
+      <br>
+      This may take up to 60 seconds
+    </div>
+  </div>
+
+  <div class="device-layout">
   {{#if currentUser}}
-
-      <div class="device-layout">
-        {{> deviceHeader}}
-        <div class="content {{additionalContentClasses}} {{isFullscreen}} {{isScrollable}}">
-          {{> meteorErrors}}
-          {{> transitionedYield}}
-        </div>
-      </div>
-
-      {{> idleOverlay}}
-
-      {{> experience}}
-
-  {{else}}
-    {{> login}}
+    {{> deviceHeader}}
+    <div class="content {{additionalContentClasses}} {{isFullscreen}} {{isScrollable}}">
+      {{> meteorErrors}}
+      {{> transitionedYield}}
+    </div>
     {{> idleOverlay}}
+    {{> experience}}
+  {{else}}
+    {{#if loggingIn}}
+      <div class="content fullscreen scrollable">
+        {{> loggingInOverlay}}
+      </div>   
+    {{else}}
+      <div class="content fullscreen scrollable">
+        {{> login}}
+      </div>
+      {{> idleOverlay}}
+    {{/if}}
   {{/if}}
+  </div>
   <div data-status="{{connectionStatus}}"></div>
 </template>
 
