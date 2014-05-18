@@ -1,0 +1,36 @@
+@import '/client/style/imports.import.less';
+
+.login {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  background: url('/backgrounds/body-bg-blue.png');
+  background-size: 101% 101%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  
+
+
+
+  #login-dropdown-list {
+    list-style: none;
+
+    & > a.dropdown-toggle {
+      display: none;
+    }
+
+    & > .dropdown-menu {
+      display: block;
+      position: relative;
+      float: none;
+      width: 50%;
+      margin: 0 auto;
+
+      .clearfix();
+
+    }
+  }
+}

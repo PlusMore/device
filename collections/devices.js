@@ -32,17 +32,17 @@ Meteor.methods({
       throw new Meteor.Error(401, "Unauthorized");
     }
 
-    var deviceWithSameLocation = Devices.findOne({location: device.location});
+    var hotel = Hotels.findOne(device.hotelId);
+    if (!hotel) {
+      throw new Meteor.Error(302, "This isn't a valid hotel");
+    }
+
+    var deviceWithSameLocation = Devices.findOne({hotelId: hotel._id, location: device.location});
 
     if (device.location && deviceWithSameLocation) {
       throw new Meteor.Error(302,
         'A device with this location has already been setup',
         deviceWithSameLocation._id);
-    }
-
-    var hotel = Hotels.findOne(device.hotelId);
-    if (!hotel) {
-      throw new Meteor.Error(302, "This isn't a valid hotel");
     }
 
     return Devices.insert(device);

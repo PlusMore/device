@@ -13,7 +13,6 @@
       "tag": "v1.0"
     },
     "font-awesome": {},
-    "accounts-entry": {},
     "percolatestudio-mixpanel": {},
     "user-status": {},
     "pickadate": {
@@ -24,6 +23,8 @@
       "branch": "blaze"
     },
     "animate-css": {},
-    "hammer": {}
+    "hammer": {},
+    "bootstrap-errors": {},
+    "accounts-ui-bootstrap-3": {}
   }
 }

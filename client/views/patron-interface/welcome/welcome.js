@@ -1,14 +1,21 @@
 Template.welcome.helpers({
   device: function() {
-    var deviceId = Meteor.user().deviceId;
-    return Devices.findOne(deviceId);
+    if (Meteor.user()) {
+      var deviceId = Meteor.user().deviceId;
+      return Devices.findOne(deviceId);
+    }
+  },
+  needsRegistration: function() {
+    if (Meteor.user()) {
+      return !Meteor.user().deviceId;
+    }
   }
 });
 
 Template.welcome.events({
   'click .welcome': function (e) {
     e.preventDefault();
-    nextAnimation = 'fade';
+    nextAnimation = 'up';
     setupAnimation = nextAnimation;
     App.begin();
   }
