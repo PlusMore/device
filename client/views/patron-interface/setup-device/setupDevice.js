@@ -16,15 +16,41 @@ AutoForm.hooks({
   setupDeviceForm: {
     onSuccess: function(operation, deviceId, template) {
       // log out the current hotel staff
-      Meteor.logout()
-      // attempts to create and login as new device user
-      Meteor.loginDevice(deviceId, function(err) {
-        console.log('go to welcome from setupDevice');
-        Router.go('welcome');
-      });
+
+      // Session.keys = {};
+      Router.go('settingUp');
+
+      Meteor.setTimeout(function() {
+        Meteor.logout(function() {
+          // attempts to create and login as new device user
+          console.log('loggedOut')
+          Meteor.loginDevice(deviceId, function(err) {
+            if (err) Errors.throw('Device login failed: ' + err);
+            console.log('go to welcome from setupDevice');
+            
+            Router.go('welcome');
+          });
+        });
+      }, 1000);
+      
     },
     onError: function(operation, error, template) {
-      console.log(error);
+      if (error.reason) Errors.throw(error.reason);
     }
   }
+});
+
+
+Handlebars.registerHelper("hotelOptions", function() {
+  var hotels = Hotels.find().fetch();
+  var hotelOptions = [];
+
+  _.each(hotels, function(hotel) {
+    hotelOptions.push({
+      label: hotel.name,
+      value: hotel._id
+    });
+  });
+
+  return hotelOptions;
 });

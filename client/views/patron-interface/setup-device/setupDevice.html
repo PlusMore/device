@@ -4,13 +4,12 @@
 
     {{#autoForm schema=setupDeviceSchema id="setupDeviceForm" type="method" meteormethod="setupDevice"}}
       <fieldset>
-        {{> afFieldInput name='hotelId' type="hidden" value=hotelId }}
+        {{> afQuickField name="hotelId" firstOption="--Select Hotel--" options=hotelOptions}}
 
         {{> afQuickField name='location'}}
 
         <div>
-          <button type="reset" class="btn btn-default">Reset</button>
-          <button type="submit" data-meteor-method="setupDevice" class="btn btn-primary">Next</button>
+          <button type="submit" data-meteor-method="setupDevice" class="btn btn-primary">Setup Device</button>
         </div>
       </fieldset>
     {{/autoForm}}

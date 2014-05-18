@@ -5,6 +5,7 @@
   <div class="device-layout">
     {{> deviceHeader}}
     <div class="content {{additionalContentClasses}} {{isFullscreen}} {{isScrollable}}">
+      {{> meteorErrors}}
       {{> transitionedYield}}
     </div>
   </div>

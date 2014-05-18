@@ -18,17 +18,21 @@ Router.configure({
 
 var filters = {
   isLoggedIn: function(pause, router, extraCondition) {
+    
     if (! Meteor.user()) {
       if (Meteor.loggingIn()) {
+        
+        console.log('logging in... ');
         router.render(this.loadingTemplate);
+        
       }
       else {
-        Session.set('fromWhere', router.path)
+        Session.set('fromWhere', router.path);
         // this.render('entrySignIn');
-        var path = Router.routes['entrySignIn'].path();
-        Router.go(path);
+        console.log('not user, not logging in');
+        router.render('entrySignIn')
       }
-      pause()
+      pause();
     }
   },
   isAdmin: function() {
@@ -42,21 +46,22 @@ var filters = {
   },
   ensureDeviceAccount: function(pause) {
     if (! Meteor.user()) {  
+
       if (Meteor.loggingIn()) {    
         this.render(this.loadingTemplate);
+        
       } else {    
-        Session.set('deviceIsRegistered', false);
         this.render('registerDevice');
       }
+
       pause();
+
     } else {
+      
       if (!Roles.userIsInRole(Meteor.userId(), ['device'])) {    
-        Session.set('deviceIsRegistered', false);
         this.render('registerDevice');
-        pause();
-      } else {    
-        Session.set('deviceIsRegistered', true);
-      }
+      } 
+
     }
   },
   ensureValidStay: function (pause) {
@@ -82,10 +87,17 @@ var filters = {
 
 Router.onBeforeAction('loading');
 
+if (Meteor.isClient) {
+  Router.onBeforeAction(Errors.clearSeen);
+}
+
+
 var fullscreenPages = [
   'welcome',
   'experience',
+  'registerDevice',
   'setupDevice',
+  'settingUp',
   'enterCheckoutDate',
   'entrySignIn',
   'entrySignUp',
@@ -96,18 +108,6 @@ var fullscreenPages = [
 Router.onBeforeAction(filters.fullscreen, {only: fullscreenPages});
 Router.onBeforeAction(filters.resetFullscreen, {except: fullscreenPages});
 
-Router.onBeforeAction(filters.ensureValidStay, {only: [
-  'experience',
-  'experiences',
-  'orders'
-]});
-
-Router.onBeforeAction(filters.resetExperienceState);
-
-Router.onBeforeAction(filters.resetActiveCategory, {except: [
-  'experience',
-  'experiences'
-]});
 // Ensure user has a device account, otherwise,
 // redirect to device list?
 // TODO: Need to think about this.. Can we get patron's
@@ -121,39 +121,41 @@ Router.onBeforeAction(filters.ensureDeviceAccount, {only: [
   'enterCheckoutDate'
 ]});
 
+Router.onBeforeAction(filters.ensureValidStay, {only: [
+  'experience',
+  'experiences',
+  'orders'
+]});
+
+Router.onBeforeAction(filters.resetExperienceState);
+
+Router.onBeforeAction(filters.resetActiveCategory, {except: [
+  'experience',
+  'experiences'
+]});
+
+
 // Routes
 
 Router.map(function() {
 
+  this.route('registerDevice');
+
   // Hotel Staff
   this.route('setupDevice', {
     path: '/setup-device',
-    layoutTemplate: 'deviceLayout',
     waitOn: function() {
       return [
         this.subscribe('userHotelData')
       ]
     },
     onBeforeAction: function(pause) {
-      filters.isLoggedIn(pause, this, filters.isHotelStaff());
-    },
-    onData: function() {
-      if (Meteor.user()) {  
-        var hotel = Hotels.findOne(Meteor.user().hotelId);
-        if (hotel) {
-          Session.set('hotelName', hotel.name);
-          Session.set('hotelId', hotel.id);
-        }
-      }
-    },
-    data: function () {
-      if (Meteor.user()) {
-        return {
-          hotel: Hotels.findOne(Meteor.user().hotelId)
-        }
-      }
+      var isAdminOrHotelStaff = (filters.isHotelStaff() || filters.isAdmin());
+      filters.isLoggedIn(pause, this, isAdminOrHotelStaff);
     }
   });
+
+  this.route('settingUp');
 
   // Patron Interface
   this.route('welcome', {

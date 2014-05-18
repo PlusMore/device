@@ -24,6 +24,7 @@
       "branch": "blaze"
     },
     "animate-css": {},
-    "hammer": {}
+    "hammer": {},
+    "bootstrap-errors": {}
   }
 }
