@@ -17,22 +17,17 @@ Router.configure({
 // Filters
 
 var filters = {
-  isLoggedIn: function(pause, router, extraCondition) {
-    
-    if (! Meteor.user()) {
-      if (Meteor.loggingIn()) {
-        
-        console.log('logging in... ');
-        router.render(this.loadingTemplate);
-        
-      }
-      else {
+  isLoggedIn: function(router, pause, extraCondition) {
+    if (extraCondition == null) {
+      extraCondition = true;
+    }
+    if (!Meteor.loggingIn()) {
+      if (!(Meteor.user() && extraCondition)) {
         Session.set('fromWhere', router.path);
-        // this.render('entrySignIn');
-        console.log('not user, not logging in');
-        router.render('entrySignIn')
+        router.redirect('/sign-in');
+        Session.set('entryError', t9n('error.signInRequired'));
+        pause.call();
       }
-      pause();
     }
   },
   isAdmin: function() {
@@ -114,7 +109,6 @@ Router.onBeforeAction(filters.resetFullscreen, {except: fullscreenPages});
 // information somehow? Maybe can change from auto login
 // to a form.
 Router.onBeforeAction(filters.ensureDeviceAccount, {only: [
-  'welcome',
   'experiences',
   'experience',
   'orders',
@@ -151,7 +145,7 @@ Router.map(function() {
     },
     onBeforeAction: function(pause) {
       var isAdminOrHotelStaff = (filters.isHotelStaff() || filters.isAdmin());
-      filters.isLoggedIn(pause, this, isAdminOrHotelStaff);
+      filters.isLoggedIn(this, pause, isAdminOrHotelStaff);
     }
   });
 

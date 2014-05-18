@@ -17,8 +17,6 @@ fastclick
 underscore
 jquery
 inspector
-accounts-ui
-accounts-entry
 font-awesome
 accounts-plusmore-device
 percolatestudio-mixpanel
@@ -30,3 +28,4 @@ iron-transitioner
 animate-css
 hammer
 bootstrap-errors
+accounts-ui-bootstrap-3

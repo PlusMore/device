@@ -1,3 +1,12 @@
+Deps.autorun(function() {
+  var user = Meteor.user();
+  if (user) {
+    if (Roles.userIsInRole(user._id, ['admin', 'hotel-staff'])) {
+      Meteor.subscribe('hotelData');
+    }
+  }  
+})
+
 Template.setupDevice.helpers({
   setupDeviceSchema: function() {
     return Schema.setupDevice;
@@ -26,8 +35,6 @@ AutoForm.hooks({
           console.log('loggedOut')
           Meteor.loginDevice(deviceId, function(err) {
             if (err) Errors.throw('Device login failed: ' + err);
-            console.log('go to welcome from setupDevice');
-            
             Router.go('welcome');
           });
         });

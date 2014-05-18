@@ -1,4 +1,7 @@
 Template.deviceLayout.helpers({
+  needsRegistration: function() {
+    return !Meteor.user().deviceId;
+  },
   idleStatus: function() {
     return UserStatus.isIdle() ? 'idle' : ''
   },

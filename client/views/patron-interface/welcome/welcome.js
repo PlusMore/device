@@ -1,7 +1,14 @@
 Template.welcome.helpers({
   device: function() {
-    var deviceId = Meteor.user().deviceId;
-    return Devices.findOne(deviceId);
+    if (Meteor.user()) {
+      var deviceId = Meteor.user().deviceId;
+      return Devices.findOne(deviceId);
+    }
+  },
+  needsRegistration: function() {
+    if (Meteor.user()) {
+      return !Meteor.user().deviceId;
+    }
   }
 });
 
