@@ -1,14 +1,28 @@
 @import '/client/style/imports.import.less';
 
 .navbar-plusmore {
-  background : #A5DFF9;
-  background : rgba(165, 223, 249, 1);
-  filter: alpha(opacity=60) progid:DXImageTransform.Microsoft.Alpha(opacity=60) ;
-  background:url('/backgrounds/header-bg-blue.png');
-  background-size: 101% 101%;
-  background-repeat: no-repeat;
-  background-position-x: -2px;
   width: 100%;
+  background: transparent;
+
+  &::before {
+    background : #A5DFF9;
+    background : rgba(165, 223, 249, 1);
+    filter: alpha(opacity=60) progid:DXImageTransform.Microsoft.Alpha(opacity=60) ;
+    background:url('/backgrounds/header-bg-blue.png');
+    background-size: 101% 101%;
+    background-repeat: no-repeat;
+    background-position-x: -2px;
+    opacity: 0.9;
+    bottom: 0;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+  }
 
 
   a.navbar-brand {
@@ -35,7 +49,7 @@
       }
 
       &.active {
-        background: #fff;
+        background: rgba(255,255,255,1);
         border-bottom: 1px solid #fff;
 
         &:hover, &:active {

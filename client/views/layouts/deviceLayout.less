@@ -14,11 +14,37 @@
 
   & > .content {
     position: fixed;
-    top: 139px;
+    top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     overflow-y: scroll;
+
+    .main-container {
+      padding: 15px;
+      padding-top: 152px;
+      margin-right: auto;
+      margin-left: auto;
+      position: absolute;
+      // bottom: 0;
+      // left: 0;
+      // right: 0;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .main-container:before,
+    .main-container:after {
+      content:"";
+      display:table;
+    }
+    .main-container:after {
+      clear:both;
+    }
+    .main-container {
+      zoom:1; /* For IE 6/7 (trigger hasLayout) */
+    }
+    
 
     &.fullscreen {
       top: 0;

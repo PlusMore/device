@@ -1,15 +1,15 @@
 <template name="orders">
-  <div class="orders-section">
-    {{#if hasOrders}}
+  {{#if hasOrders}}
+    <div class="main-container">
       <div class="orders container">
         {{#each upcomingOrders}}
           {{> order}}
         {{/each}}
       </div>
-    {{else}}
-      <div class="no-orders big-text">
-        <p class="lead">You have no open orders.</p>
-      </div>
-    {{/if}}  
-  </div>
+    </div>
+  {{else}}
+    <div class="no-orders big-text">
+      <p class="lead">You have no open orders.</p>
+    </div>
+  {{/if}}
 </template>

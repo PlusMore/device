@@ -1,15 +1,4 @@
-@-webkit-keyframes zoom-in {
-  100% {
-    position: absolute;
-    top: 0;
-    bottom:0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-}
+@import '/client/style/imports.import.less';
 
 .experiences-list-container {
   background-color: #fff;
@@ -19,6 +8,35 @@
   }
 
   .row.experiences {
-    margin: 6px -5px;
+    margin: -4px -6px;
+  }
+
+  & > footer {
+    padding-top: 44px;
+    padding-bottom: 29px;
+    .text {
+      .center();
+      color: #aaa;
+      font-weight: 100;
+      font-size: 2.5em;
+      letter-spacing: 1em;
+      text-transform: uppercase;
+
+      & > .last-letter {
+        letter-spacing: 0em;
+      }
+    }
+    .small-text {
+      .center();
+      letter-spacing: .9em;
+      color: #ccc;
+      font-weight: 200;
+      font-size: 1em;
+      text-transform: uppercase;
+      & > .last-letter {
+        letter-spacing: 0em;
+      }
+    }
   }
 }
+

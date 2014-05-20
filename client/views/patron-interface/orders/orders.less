@@ -1,42 +1,46 @@
 @import '/client/style/imports.import.less';
 
 .orders.container {
-    padding: 10px 100px;
+  padding: 10px 100px;
 
-    .order {
-      .transition(all 400ms ease-out);
-      h3 {
-        text-transform: uppercase;
+  .order {
+    .transition(all 400ms ease-out);
+    h3 {
+      text-transform: uppercase;
 
-        small {
-          color: #fff;
-          text-transform: none;
-        }
-      }
-
-      &.cancelled {
-        opacity: .5;
-      }
-
-      &.confirmed {
-        box-shadow: 0px 0px 25px #fff;
-      }
-
-      .reservation-details {
-        margin-bottom: 10px;
-        & > p {
-          font-size: 1.5em;
-          padding-bottom: 0;
-          margin-bottom: 0;
-        }
-      }
-
-      .venue {
-        margin-bottom: 10px;
-        font-size: 1.2em;
-        & > span {
-          display: block;
-        }
+      small {
+        color: #fff;
+        text-transform: none;
       }
     }
+
+    &.cancelled {
+      opacity: .5;
+    }
+
+    &.confirmed {
+      box-shadow: 0px 0px 25px #fff;
+    }
+
+    .reservation-details {
+      margin-bottom: 10px;
+      & > p {
+        font-size: 1.5em;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+    }
+
+    .venue {
+      margin-bottom: 10px;
+      font-size: 1.2em;
+      & > span {
+        display: block;
+      }
+    }
+  }
+}
+
+.no-orders.big-text {
+  padding-top: 140px;
 }
