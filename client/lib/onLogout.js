@@ -8,10 +8,14 @@ Meteor.startup(function() {
     var currentRoute = Router.current();
 
     if (! user && currentRoute) {
-      console.log(Router.current())
-      if (Router.current().route.name !== 'welcome') {
-        Router.go('welcome');
+
+      if (! Meteor.loggingIn()) {
+        console.log(Router.current())
+        if (Router.current().route.name !== 'welcome') {
+          Router.go('welcome');
+        }
       }
+      
     }
     
   });
