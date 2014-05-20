@@ -1,34 +1,34 @@
 @import '/client/style/imports.import.less';
 
 .navbar-device {
-  height: 106px;
+  height: 140px;
   z-index: 10;
   .translate(0,0);
   .transition(transform 300ms linear);
   
   &.fullscreen {
-    .translate(0,-106px);
+    .translate(0,-140px);
     .transition(transform 300ms linear);
   }
 
   .nav {
     line-height: 15px;
     li {
-      
+      height: 140px;
       a {
         &.menu-item {
           text-align: center;
-          font-weight: 200;
+          font-weight: 400;
           text-transform: uppercase;
           letter-spacing: .1em;
           cursor: pointer;
-          padding: 18px 0px 8px !important;
+          padding: 31px 0px 10px !important;
 
           & > .icon {
 
             display: block;
             margin: 0 auto;
-            font-size: 60px;
+            font-size: 67px;
 
             &:before {
               display: block;
@@ -40,9 +40,9 @@
           }
 
           & > .text {
-            font-size: 16px;
+            font-size: 20px;
             display: block;
-            margin-top: 4px;
+            margin-top: 10px;
           }
         }
       }
