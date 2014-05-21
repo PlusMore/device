@@ -1,11 +1,94 @@
 @import '/client/style/imports.import.less';
 
 .make-reservation-form {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  height: 100%;
+  overflow: scroll;
+
   input[type=date] {
     height: 32px;
   }
 
   .has-error .help-block, .has-error .control-label, .has-error .radio, .has-error .checkbox, .has-error .radio-inline, .has-error .checkbox-inline {
     color: #ff0000;
+  }
+
+  .confirmation {
+    display: none;
+
+    &.show {
+      display: block;
+    }
+
+    & > h1 {
+      font-weight: 400;
+      font-size: 3em;
+    }
+
+    & > p {
+      margin-top: 15px;
+    }
+
+    .btn-orders {
+      font-size: 1.8em;
+      font-weight: 200;
+      padding: 4px 40px;
+      background-color: white;
+      color: #000000;
+      border-radius: 0;
+      text-transform: uppercase;
+      width: 100%;
+      -webkit-text-stroke: initial;
+    }
+  }
+
+  .reservation-error {
+    display: none;
+  
+    & > h1 {
+      font-weight: 400;
+      font-size: 3em;
+    }
+
+    &.show {
+      display: block;
+    }
+
+    & > p {
+      margin-top: 15px;
+    }
+  }
+
+  .reservation-form {
+    display: none;
+
+    &.show {
+      display: block;
+    }
+
+    form {
+      margin-top: 30px;
+
+      legend {
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .buttons {
+        .btn {
+          margin-top: 20px;
+          font-size: 2em;
+          font-weight: 200;
+          color: rgb(0, 0, 0);
+          border-radius: 0;
+          text-transform: uppercase;
+          -webkit-text-stroke: initial;
+        }
+      }
+    }  
   }
 }

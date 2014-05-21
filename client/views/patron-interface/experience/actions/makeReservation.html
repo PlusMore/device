@@ -5,7 +5,7 @@
 </template>
 
 <template name="makeReservationForm">
-  <div class="row make-reservation-form">
+  <div class="row make-reservation-form scrollable">
     <div class="col-xs-12">
       <div class="reservation-form {{showInProgress}}">
         {{#autoForm schema=makeReservationSchema id='makeReservation' type="method" meteormethod="makeReservation"}}

@@ -97,7 +97,8 @@ var fullscreenPages = [
   'entrySignIn',
   'entrySignUp',
   'entryResetPassword',
-  'entryForgotPassword'
+  'entryForgotPassword',
+  'experience'
 ];
 
 Router.onBeforeAction(filters.fullscreen, {only: fullscreenPages});
@@ -121,7 +122,7 @@ Router.onBeforeAction(filters.ensureValidStay, {only: [
   'orders'
 ]});
 
-Router.onBeforeAction(filters.resetExperienceState);
+Router.onRun(filters.resetExperienceState);
 
 Router.onBeforeAction(filters.resetActiveCategory, {except: [
   'experience',

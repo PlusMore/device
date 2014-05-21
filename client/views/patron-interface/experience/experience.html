@@ -7,13 +7,13 @@
     <div class="content col-xs-12 col-md-5">
       {{> experienceDetails}}
     </div>
-    <div class="content action-form col col-sx-12 col-md-5 scrollable {{showActionForm}}">
+    <div class="content action-form col col-xs-12 col-md-5 {{showActionForm}}">
       <div class="close">
         <i class="fa fa-times"></i>
       </div>
-      {{#if callToActionIsReserve}}
-        {{> makeReservationForm}}
-      {{/if}}
+        {{#if callToActionIsReserve}}
+          {{> makeReservationForm}}
+        {{/if}}
     </div>
   </div>
   {{/with}}
