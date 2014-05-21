@@ -60,7 +60,7 @@ Schema.makeReservation = new SimpleSchema({
   },
   partyName: {
     type: String,
-    label: 'Your Full Name'
+    label: 'Full Name'
   },
   date: {
     type: String,
@@ -78,7 +78,7 @@ Schema.makeReservation = new SimpleSchema({
   },
   phoneNumber: {
     type: String,
-    label: 'Phone number (for confirmation)'
+    label: 'Phone Number (for confirmation)'
   },
   emailAddress: {
     type: String,

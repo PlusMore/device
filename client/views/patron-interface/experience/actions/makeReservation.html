@@ -11,10 +11,10 @@
         {{#autoForm schema=makeReservationSchema id='makeReservation' type="method" meteormethod="makeReservation"}}
           <legend>Request Reservation</legend>
           {{> afQuickField name='date' class='datepicker' placeholder='Select a date'}}
-          {{> afQuickField name='time' class='timepicker' placeholder='Select a date'}}
+          {{> afQuickField name='time' class='timepicker' placeholder='Select a time'}}
           {{> afFieldInput name="timeMinutes" type="hidden"}}
           {{> afFieldInput name="experienceId" type="hidden"}}
-          {{> afQuickField name='partyName' placeholder='Your full name'}}
+          {{> afQuickField name='partyName' placeholder='Ex. John Smith'}}
           {{> afQuickField name='partySize' placeholder='How many people?'}}
           {{> afQuickField name='phoneNumber' type="tel" placeholder='Enter your phone #'}}
           {{> afQuickField name='emailAddress' placeholder='Ex. john@email.com'}}
