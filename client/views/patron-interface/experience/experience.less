@@ -10,11 +10,8 @@
   font-size: 1em;
   text-shadow: 0 0 1px #000;
 
-  background-color: #fff;
-  -webkit-background-size: cover !important;
-  -moz-background-size: cover !important;
-  -o-background-size: cover !important;
-  background-size: cover !important;
+  background-color: #000;
+  background-size: cover;
 
   & > .back {
     & > a {
@@ -39,8 +36,8 @@
 
 
   & > .content {
-    transition: 500ms all linear;
-    background-color: rgba(0,0,0,.91);
+    transition: 400ms all ease-out;
+    background-color: rgba(0,0,0,.5);
     color: #fff;
     padding: 20px 30.5px;
     height: 100%;
@@ -48,92 +45,30 @@
     z-index: 10;
     font-weight: 200;    
 
-    
-
     &.action-form {
       border-left: 1px solid rgba(255,255,255,.3);
       z-index: 1;
       .translate(-200%, 0);
-      -webkit-text-stroke: 0.5px;
       .transition(transform 250ms ease-out);
+      -webkit-font-smoothing: antialiased;
+      font-weight: 400;
+
+      .lead {
+        font-weight: 400;
+        font-size: 1.6em;
+      }
+
+      .form-group label.control-label {
+        font-weight: 400;
+        font-size: 1.6em;
+      }
 
       input {
-        -webkit-text-stroke: .7px;
+        font-weight: 400;
       }
   
       &.show {
         .translate(0, 0);
-      }
-
-      .confirmation {
-        display: none;
-
-        &.show {
-          display: block;
-        }
-
-        & > h1 {
-          font-weight: 100;
-        }
-
-        & > p {
-          margin-top: 15px;
-          font-weight: 100;
-        }
-
-        .btn-orders {
-          font-size: 1.8em;
-          font-weight: 100;
-          padding: 4px 40px;
-          background-color: white;
-          color: #000000;
-          border-radius: 0;
-          text-transform: uppercase;
-          width: 100%;
-          -webkit-text-stroke: initial;
-        }
-      }
-
-      .reservation-error {
-        display: none;
-
-        &.show {
-          display: block;
-        }
-
-        & > p {
-          margin-top: 15px;
-          font-weight: 100;
-        }
-      }
-
-      .reservation-form {
-        display: none;
-
-        &.show {
-          display: block;
-        }
-
-        form {
-          margin-top: 30px;
-
-          legend {
-            color: #fff;
-            text-transform: uppercase;
-          }
-
-          .buttons {
-            .btn {
-              margin-top: 20px;
-              font-size: 2em;
-              font-weight: 200;
-              color: rgb(0, 0, 0);
-              border-radius: 0;
-              text-transform: uppercase;
-              -webkit-text-stroke: initial;
-            }
-          }
-        }  
       }
     }
 
@@ -167,27 +102,13 @@
 
 
     .buy, .reserve {
-      .price-container {
-        font-weight: 100;
-        font-size: 65pt;
-
-        small.currency {
-          vertical-align: super;
-          font-size: 25pt;
-        }
-
-        small.per-ticket {
-          font-size: 20pt;
-        }
-      }
-
       button.btn {
         font-size: 1.8em;
         font-weight: 200;
         padding: 5px 40px;
         background-color: white;
         color: rgb(0, 0, 0);
-        border-radius: 0;
+        border-radius: 4px;
         text-transform: uppercase;
         -webkit-text-stroke: initial;
       }
@@ -211,7 +132,7 @@
     }
 
     .description {
-      max-height: 400px;
+      max-height: 370px;
 
       p.description {
         font-weight: 100;
