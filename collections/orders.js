@@ -55,12 +55,12 @@ Orders.allow({
 Schema.makeReservation = new SimpleSchema({
   partySize: {
     type: Number,
-    label: 'How many people in your party?',
+    label: 'Number of Guests',
     min: 1
   },
   partyName: {
     type: String,
-    label: 'Your Party\'s name'
+    label: 'Your Full Name'
   },
   date: {
     type: String,
@@ -83,7 +83,7 @@ Schema.makeReservation = new SimpleSchema({
   emailAddress: {
     type: String,
     regEx: SchemaRegEx.Email,
-    label: "Email address"
+    label: "Email Address"
   },
   experienceId: {
     type: String
