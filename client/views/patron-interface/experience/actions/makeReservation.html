@@ -10,14 +10,14 @@
       <div class="reservation-form {{showInProgress}}">
         {{#autoForm schema=makeReservationSchema id='makeReservation' type="method" meteormethod="makeReservation"}}
           <legend>Request Reservation</legend>
-          {{> afQuickField name='date' class='datepicker'}}
-          {{> afQuickField name='time' class='timepicker'}}
+          {{> afQuickField name='date' class='datepicker' placeholder='Select a date'}}
+          {{> afQuickField name='time' class='timepicker' placeholder='Select a date'}}
           {{> afFieldInput name="timeMinutes" type="hidden"}}
           {{> afFieldInput name="experienceId" type="hidden"}}
-          {{> afQuickField name='partyName'}}
-          {{> afQuickField name='partySize'}}
-          {{> afQuickField name='phoneNumber' type="tel" }}
-          {{> afQuickField name='emailAddress'}}
+          {{> afQuickField name='partyName' placeholder='Your full name'}}
+          {{> afQuickField name='partySize' placeholder='How many people?'}}
+          {{> afQuickField name='phoneNumber' type="tel" placeholder='Enter your phone #'}}
+          {{> afQuickField name='emailAddress' placeholder='Ex. john@email.com'}}
           <div class="buttons">
             <button type="submit" data-meteor-method="makeReservation" class="btn btn-default btn-lg col-xs-12">Submit</button>
           </div>
