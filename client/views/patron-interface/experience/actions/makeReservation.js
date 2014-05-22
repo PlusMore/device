@@ -123,9 +123,13 @@ Template.makeReservationForm.rendered = function () {
     options.min = moment().startOf('day').hours(16).toDate();
   }
   
-
-  if (endMinutes) {
-    endTime = moment().startOf('day').minutes(endMinutes).toDate();
+  if (typeof endMinutes !== 'undefined') {
+    // If end is less than start, it's AM next day
+    if (endMinutes <= startMinutes) {
+      endTime = moment().startOf('day').add('days', 1).minutes(endMinutes).toDate();
+    } else {
+      endTime = moment().startOf('day').minutes(endMinutes).toDate();
+    }
     options.max = endTime;
   }
 
