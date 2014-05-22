@@ -86,7 +86,7 @@ Template.makeReservationForm.helpers({
     }
 
     return false;
-  }
+  },
 });
 
 Template.makeReservationForm.rendered = function () {
@@ -94,6 +94,13 @@ Template.makeReservationForm.rendered = function () {
   
   // Set experience Id on hidden reservation input
   $(this.$('#makeReservation')).find('[name=experienceId]').val(this.data._id);
+
+  var experience = Experiences.findOne(this.data._id);
+  var delay = 1;
+
+  if (experience.category === 'Nightlife') {
+    delay = 2;
+  }
 
   var startMinutes = this.data.reservationStartMinutes;
   var endMinutes = this.data.reservationEndMinutes;
@@ -149,9 +156,9 @@ Template.makeReservationForm.rendered = function () {
       var isToday = moment(select.select).startOf('day').toDate().getTime() === moment().startOf('day').toDate().getTime();
       if (isToday) {
         // if two hours from now are in between start and end
-        // set first available time to be 2 hours from now
-        if ((moment().add('hours', 2) > startTime) && (moment().add('hours', 2) < endTime)) {
-          timepicker.set('min', 2);
+        // set first available time to be {{delay}} hours from now
+        if ((moment().add('hours', delay) > startTime) && (moment().add('hours', delay) < endTime)) {
+          timepicker.set('min', delay);
         } else {
           timepicker.set('min', startTime.toDate());
         }
@@ -170,9 +177,9 @@ Template.makeReservationForm.rendered = function () {
     // if we are inside of reservation hours
     // then start datepicker at today
     datepickerOptions.min = true;
-    // unless 2 hours from now is past endTime, don't allow 
+    // unless {{delay}} hours from now is past endTime, don't allow 
     // any more reservations
-    if (moment().add('hours', 2) > endTime) {
+    if (moment().add('hours', delay) > endTime) {
       datepickerOptions.min = 1;
     }
   } else {
