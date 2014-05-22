@@ -129,6 +129,10 @@ Template.makeReservationForm.rendered = function () {
     options.max = endTime;
   }
 
+  options.onRender = function() {
+    return this.$root.find('.picker__holder:first').addClass('scrollable');
+  }
+
   this.timepicker = $('.timepicker').pickatime(options);
 
 };
