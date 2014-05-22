@@ -195,18 +195,18 @@ Meteor.methods({
         from: 'noreply@plusmoretablets.com',
         subject: 'Cancelled - Reservation for {0}'.format(experience.title),
         text: "Reservation for {0} has been cancelled.\n\n".format(experience.title)
-            + "Reservation Details:\n"
-            + "\tFor: {0}\n".format(experience.title)
-            + "\tWhen: {0} - {1}\n".format(reservation.date, reservation.time)
-            + "\tParty Name: {0}\n".format(reservation.partyName)
-            + "\tParty Size: {0}\n".format(reservation.partySize)
-            + "\tPhone #: {0}\n".format(reservation.phoneNumber)
-            + "\tEmail: {0}\n".format(reservation.emailAddress)
-            + "\nVenue Info"
-            + "\n\t{0}".format(experience.venueName)
-            + "\n\t{0}".format(experience.street)
-            + "\n\t{0}, {1} {2}".format(experience.city, experience.state, experience.zip)
-            + "\n\t{0}".format(experience.phone)
+            + "Reservation Details:\n\n"
+            + "For: {0}\n".format(experience.title)
+            + "When: {0} - {1}\n".format(reservation.date, reservation.time)
+            + "Name: {0}\n".format(reservation.partyName)
+            + "Party Size: {0}\n".format(reservation.partySize)
+            + "Phone #: {0}\n".format(reservation.phoneNumber)
+            + "Email: {0}\n".format(reservation.emailAddress)
+            + "\nVenue Info\n"
+            + "\n{0}".format(experience.venueName)
+            + "\n{0}".format(experience.street)
+            + "\n{0}, {1} {2}".format(experience.city, experience.state, experience.zip)
+            + "\n{0}".format(experience.phone)
       });
     }
   }
