@@ -92,17 +92,17 @@ Template.makeReservationForm.helpers({
 Template.makeReservationForm.rendered = function () {
   var _this = this;
   
+  // Set experience Id on hidden reservation input
   $(this.$('#makeReservation')).find('[name=experienceId]').val(this.data._id);
 
-  var checkoutDate = Stays.findOne().checkoutDate;
-  this.datepicker = $('.datepicker').pickadate({
-    container: 'body',
-    min: true,
-    max: checkoutDate,
-    format: 'mmmm d, yyyy'
-  });
+  var startMinutes = this.data.reservationStartMinutes;
+  var endMinutes = this.data.reservationEndMinutes;
+  var startTime, endTime;
 
-  var options = {
+  var checkoutDate = Stays.findOne().checkoutDate;
+
+  // timepicker options
+  var timepickerOptions = {
     container: 'body',
     onSet: function(select) {
       var minutes = select.select;
@@ -111,33 +111,72 @@ Template.makeReservationForm.rendered = function () {
     }
   }
 
-  var startMinutes = this.data.reservationStartMinutes;
-  var endMinutes = this.data.reservationEndMinutes;
-  var startTime, endTime;
-
-  if (startMinutes) {
+  if (typeof startMinutes !== 'undefined') {
     startTime = moment().startOf('day');
     startTime = startTime.minutes(startMinutes);
-    options.min = startTime.toDate();
+    timepickerOptions.min = startTime.toDate();
   } else {
-    options.min = moment().startOf('day').hours(16).toDate();
+    timepickerOptions.min = moment().startOf('day').hours(16).toDate();
   }
   
   if (typeof endMinutes !== 'undefined') {
     // If end is less than start, it's AM next day
     if (endMinutes <= startMinutes) {
-      endTime = moment().startOf('day').add('days', 1).minutes(endMinutes).toDate();
+      endTime = moment().startOf('day').add('days', 1).minutes(endMinutes);
     } else {
-      endTime = moment().startOf('day').minutes(endMinutes).toDate();
+      endTime = moment().startOf('day').minutes(endMinutes);
     }
-    options.max = endTime;
+    timepickerOptions.max = endTime.toDate();
   }
 
-  options.onRender = function() {
+  timepickerOptions.onRender = function() {
     return this.$root.find('.picker__holder:first').addClass('scrollable');
   }
 
-  this.timepicker = $('.timepicker').pickatime(options);
+  var datepickerOptions = {
+    container: 'body',
+    max: checkoutDate,
+    format: 'mmmm d, yyyy',
+    onSet: function(select) {
+      var timepicker = _this.timepicker.pickatime('picker');
+      timepicker.clear();
+
+      var isToday = moment(select.select).startOf('day').toDate().getTime() === moment().startOf('day').toDate().getTime();
+      if (isToday) {
+        // if two hours from now are in between start and end
+        // set first available time to be 2 hours from now
+        if ((moment().add('hours', 2) > startTime) && (moment().add('hours', 2) < endTime)) {
+          timepicker.set('min', 2);
+        } else {
+          timepicker.set('min', startTime.toDate());
+        }
+      } else {
+        timepicker.set('min', startTime.toDate());
+      }
+      return true;
+    }
+  }
+
+  if (moment() < startTime) {
+    // if it is today at 3pm, and reservations start 
+    // at from 5pm, start at today in datepicker
+    datepickerOptions.min = true;
+  } else if ((moment() > startTime) && (moment() < endTime)) {
+    // if we are inside of reservation hours
+    // then start datepicker at today
+    datepickerOptions.min = true;
+    // unless 2 hours from now is past endTime, don't allow 
+    // any more reservations
+    if (moment().add('hours', 2) > endTime) {
+      datepickerOptions.min = 1;
+    }
+  } else {
+    // after hours, make datepicker start tomorrow
+    datepickerOptions.min = 1;
+  }
+
+  this.datepicker = $('.datepicker').pickadate(datepickerOptions);
+  this.timepicker = $('.timepicker').pickatime(timepickerOptions);
 
 };
 
