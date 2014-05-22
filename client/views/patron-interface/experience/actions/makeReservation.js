@@ -141,6 +141,11 @@ Template.makeReservationForm.rendered = function () {
       var timepicker = _this.timepicker.pickatime('picker');
       timepicker.clear();
 
+      if (!select.select) {
+        timepicker.set('min', startTime.toDate());
+        return true; 
+      }
+
       var isToday = moment(select.select).startOf('day').toDate().getTime() === moment().startOf('day').toDate().getTime();
       if (isToday) {
         // if two hours from now are in between start and end
