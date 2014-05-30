@@ -2,14 +2,14 @@
   {{#with experience}}
   <div class="experience quick animated fadeIn" style="background-image: url('{{photoUrl}}/convert?w=1024&h=768&fit=scale&cache=true')">
     <div class="back">
-      <a href="{{pathFor 'experiences'}}" class="back"><i class="fa fa-arrow-left"></i>&nbsp;Back</a>
+      <a href="{{pathFor 'experiences'}}" class="back"><i class="icon icon-back"></i>&nbsp;Back</a>
     </div>
     <div class="content col-xs-12 col-md-5">
       {{> experienceDetails}}
     </div>
     <div class="content action-form col col-xs-12 col-md-5 {{showActionForm}}">
       <div class="close">
-        <i class="fa fa-times"></i>
+        <i class="icon icon-x"></i>
       </div>
         {{#if callToActionIsReserve}}
           {{> makeReservationForm}}
