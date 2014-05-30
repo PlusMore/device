@@ -154,14 +154,31 @@ Router.map(function() {
 
   // Patron Interface
   this.route('welcome', {
-    path: '/'
+    path: '/',
+    onRun: function() {
+      Deps.nonreactive(function() {
+        App.track("View Welcome");
+      });
+    }
   });
 
   this.route('enterCheckoutDate', {
-    path: '/enter-checkout-date'
+    path: '/enter-checkout-date',
+    onRun: function() {
+      Deps.nonreactive(function() {
+        App.track("View Enter Checkout Date");
+      });
+    }
   });
 
-  this.route('orders');
+  this.route('orders', { 
+    onRun: function() {
+      Deps.nonreactive(function() {
+        App.track("View Orders");
+      });
+    }
+  });
+
 
   this.route('message');
 

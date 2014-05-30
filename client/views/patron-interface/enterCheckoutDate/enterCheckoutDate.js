@@ -7,8 +7,14 @@ Template.enterCheckoutDate.rendered = function () {
       if (date.select) {
         var selectedDate = moment(date.select).hour(12).minute(0).second(0).toDate();
         console.log(selectedDate);
-        Meteor.call('registerStay', selectedDate, function (error, result) {
+        Meteor.call('registerStay', selectedDate, function (error, stayId) {
           if (error) throw new Meteor.Error(error);
+          
+          var stay = Stays.findOne(stayId);
+          App.track('Enter Checkout Date', {
+            "checkInDate": stay.checkInDate,
+            "checkoutDate": stay.checkoutDate
+          });
           Router.go('experiences', {category: 'Dining'});
         });
       }

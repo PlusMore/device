@@ -84,7 +84,6 @@ Meteor.startup(function() {
       });
     },
     begin: function() {
-      App.track('First Use');
       var stay = Stays.findOne({userId: Meteor.userId(), active: true});
 
       if (!stay) {
@@ -111,13 +110,13 @@ Meteor.startup(function() {
     }, 0);
   }); 
 
-  Deps.autorun(function() {
-    var currentRoute = Router.current();
-    if (currentRoute) {
-      App.track("Page View", {
-        "Path": currentRoute.path,
-        "Name": currentRoute.route.name
-      });
-    }
-  })
+  // Deps.autorun(function() {
+  //   var currentRoute = Router.current();
+  //   if (currentRoute) {
+  //     App.track("Page View", {
+  //       "Path": currentRoute.path,
+  //       "Name": currentRoute.route.name
+  //     });
+  //   }
+  // })
 });

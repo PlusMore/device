@@ -42,7 +42,7 @@ Template.makeReservationCallToAction.events({
     Session.set('experienceState', 'in-progress');
 
     var experience = tmpl.data;
-    App.track("Click Make Reservation", {
+    App.track("Click Book Now", {
       "Experience Title": experience.title,
       "Experience Id": experience._id,
       "Experience Lead": experience.lead,
