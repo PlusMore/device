@@ -29,5 +29,3 @@ Meteor.startup(function() {
     
   });
 });
-
-// Meteor.call('changeCheckoutDate', Stays.findOne()._id, moment().toDate())
