@@ -11,9 +11,8 @@
       "inspector": {},
       "plus-more-icons": {
         "git": "https://github.com/PlusMore/plus-more-icons.git",
-        "tag": "v1.0"
+        "branch": "fontastic"
       },
-      "font-awesome": {},
       "percolatestudio-mixpanel": {},
       "user-status": {},
       "pickadate": {
@@ -47,8 +46,8 @@
       },
       "autoform": {
         "git": "https://github.com/aldeed/meteor-autoform.git",
-        "tag": "v0.8.1",
-        "commit": "385051a5e4bbea3b2a54965800f5f530987ef432"
+        "tag": "v0.10.0",
+        "commit": "4b298a025679a7e51892a884c11301c1d6bf19b3"
       },
       "fastclick": {
         "git": "https://github.com/percolatestudio/meteor-fastclick",
@@ -67,13 +66,8 @@
       },
       "plus-more-icons": {
         "git": "https://github.com/PlusMore/plus-more-icons.git",
-        "tag": "v1.0",
-        "commit": "4a6f0f6840a57fe981d2adc2124fd6dff8e16cb1"
-      },
-      "font-awesome": {
-        "git": "https://github.com/nate-strauser/meteor-font-awesome.git",
-        "tag": "v4.1.0",
-        "commit": "ce6b1e92715d1938babc5d69c655c17e387f5926"
+        "branch": "fontastic",
+        "commit": "e73ef87ac27243e4b7769c23cdaac8388f2e1e5e"
       },
       "percolatestudio-mixpanel": {
         "git": "https://github.com/percolatestudio/meteor-mixpanel.git",
