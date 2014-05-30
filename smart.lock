@@ -11,7 +11,7 @@
       "inspector": {},
       "plus-more-icons": {
         "git": "https://github.com/PlusMore/plus-more-icons.git",
-        "branch": "fontastic"
+        "tag": "v1.1"
       },
       "percolatestudio-mixpanel": {},
       "user-status": {},
@@ -66,8 +66,8 @@
       },
       "plus-more-icons": {
         "git": "https://github.com/PlusMore/plus-more-icons.git",
-        "branch": "fontastic",
-        "commit": "e73ef87ac27243e4b7769c23cdaac8388f2e1e5e"
+        "tag": "v1.1",
+        "commit": "7731481318f52ecbecedbee106eaf9162762c527"
       },
       "percolatestudio-mixpanel": {
         "git": "https://github.com/percolatestudio/meteor-mixpanel.git",
