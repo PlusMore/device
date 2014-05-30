@@ -77,8 +77,10 @@ Meteor.startup(function() {
           "Path": IronLocation.path()
         });
 
-        mixpanel.track(key, properties);
-        console.log('Tracked metric: ', key, properties);
+        if (hotel.trackAnalytics) {
+          mixpanel.track(key, properties);
+          console.log('Tracked metric: ', key, properties);
+        }
       });
     },
     begin: function() {
