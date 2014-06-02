@@ -1,21 +1,15 @@
 nextAnimation = '';
-setupAnimation = '';
+previousAnimation = '';
 
-Router.setTransitionType(function(from, to, type) {
-  if (from.template === 'enterCheckoutDate') {
-    if (setupAnimation) {
-      return setupAnimation;
-    }
-  }
-
+Router.setTransitionType(function(from, to, animationType) {
   if (nextAnimation) {
-    var animation = nextAnimation;
+    animationType = nextAnimation;
     nextAnimation = '';
-    return animation;
   }
 
   if (from.template === 'experience') {
-    return 'fade';
+    animationType = 'fade';
   }
-  return type;
+  previousAnimation = animationType;
+  return animationType;
 });

@@ -72,16 +72,11 @@ Meteor.publish(null, function () {
   }
 });
 
-Meteor.publish(null, function() {
-  var userId = this.userId;
-
-  if (userId) {
-    return Stays.find({userId: userId, active: true});
-  } else {
-    this.ready();
-    return null;
-  }
-})
+Meteor.publish('stayInfo', function() {
+  return [
+    Stays.find({userId: this.userId})
+  ]
+});
 
 Meteor.publish('deviceData', function(deviceId) {
   var userId = this.userId,

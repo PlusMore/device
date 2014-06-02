@@ -28,7 +28,9 @@ Meteor.startup(function () {
       } else if (status === "offline") {
         Meteor.reconnect();
         App.track("Tap To Resume");
-        var stay = Deps.nonreactive(function() { return Stays.findOne({userId: Meteor.userId(), active: true}); });
+        var stay = Deps.nonreactive(function() { 
+          return Stays.findOne({userId: Meteor.userId()});
+        });
         if (!stay) {
           console.log('go to welcome from idle timer');
           Router.go('welcome');
