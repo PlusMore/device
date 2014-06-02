@@ -89,6 +89,8 @@ if (Meteor.isClient) {
 
 var fullscreenPages = [
   'welcome',
+  'about',
+  'howToBook',
   'experience',
   'registerDevice',
   'setupDevice',
@@ -161,6 +163,10 @@ Router.map(function() {
       });
     }
   });
+
+  this.route('about');
+
+  this.route('howToBook');
 
   this.route('enterCheckoutDate', {
     path: '/enter-checkout-date',
