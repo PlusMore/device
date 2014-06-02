@@ -89,6 +89,8 @@ if (Meteor.isClient) {
 
 var fullscreenPages = [
   'welcome',
+  'about',
+  'howToBook',
   'experience',
   'registerDevice',
   'setupDevice',
@@ -158,6 +160,23 @@ Router.map(function() {
     onRun: function() {
       Deps.nonreactive(function() {
         App.track("View Welcome");
+      });
+    }
+  });
+
+  this.route('about', {
+    onRun: function() {
+      Deps.nonreactive(function() {
+        App.track("View What is PlusMore?");
+      });
+    }
+  });
+    
+
+  this.route('howToBook', {
+    onRun: function() {
+      Deps.nonreactive(function() {
+        App.track("View How to Book");
       });
     }
   });

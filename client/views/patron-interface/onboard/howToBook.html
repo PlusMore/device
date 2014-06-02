@@ -1,0 +1,42 @@
+<template name="howToBook">
+  <div class="container fill-height how-to-book">
+    
+    <header class="row">
+      <div class="col-md-12">
+        <h1>How it works</h1>
+      </div>
+    </header>
+    
+    <div class="row">
+
+      <div class="col-md-4 step">
+        <h3>1. Tap 'Book Now' and let us know when you'd like to go</h3>
+        <div class="experienceExample">
+          {{#with diningExperience}}
+            <div class="experienceThumbnail">
+              {{> experienceThumbnail}}
+            </div>
+          {{/with}}
+        </div>
+        <a href="#" class="btn btn-lg btn-default">BOOK NOW</a>
+      </div>
+
+      <div class="col-md-4 step">
+        <h3>2. Receive Email Confirmation</h3>
+        <img src="/images/onboard-confirmation.png" class='img-responsive img-confirmation' />
+      </div>
+
+      <div class="col-md-4 step">
+        <h3>3. Go to the venue at the time you requested and skip the line!</h3>
+        <img src="/images/onboard-line.png" class='img-responsive' /> 
+      </div>
+    </div> 
+
+    <footer class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <a href="{{pathFor 'howToBook'}}" class="btn btn-default btn-lg btn-ready">I'm Ready</a>
+      </div>
+    </footer>
+
+  </div>
+</template>
