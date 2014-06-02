@@ -7,6 +7,7 @@ Global client-side code. Loads last.
 /+ ---------------------------------------------------- */
 
 //
+subscriptions = {};
 
 Meteor.startup(function() {
   // Subscribe to device data when a device ID is available
@@ -21,9 +22,28 @@ Meteor.startup(function() {
         device = Devices.findOne(deviceId);
 
         if (device) {
-          Meteor.subscribe('deviceData');
-          Meteor.subscribe('orders');
+          console.log('subscribing for userId', user._id);
+          subscriptions.deviceData = Meteor.subscribe('deviceData');
+          subscriptions.orders = Meteor.subscribe('orders');
+          subscriptions.stayInfo = Meteor.subscribe('stayInfo');
         }
+      }
+    }
+    else {
+      console.log('unsubscribing user data');
+      if (subscriptions.deviceData) {
+        subscriptions.deviceData.stop();
+        subscriptions.deviceData = null;
+      }
+
+      if (subscriptions.orders) {
+        subscriptions.orders.stop();
+        subscriptions.orders = null;
+      }
+
+      if (subscriptions.stayInfo) {
+        subscriptions.stayInfo.stop();
+        subscriptions.stayInfo = null;
       }
     }
     

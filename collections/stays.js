@@ -17,7 +17,7 @@ Meteor.methods({
     check(checkoutDate, Date);
     var user = Meteor.user();
 
-    var stay = Stays.findOne({userId: user._id, active: true, checkoutDate: {$gt: new Date()}});
+    var stay = Stays.findOne({userId: user._id, checkoutDate: {$gt: new Date()}});
 
     if (stay) {
       throw new Meteor.Error(500, 'Stay already registered for this user');
@@ -38,8 +38,7 @@ Meteor.methods({
       checkInDate: new Date(),
       checkoutDate: checkoutDate,
       hotelId: hotel._id,
-      deviceId: device._id,
-      active: true
+      deviceId: device._id
     });
 
     return Stays.findOne(stayId);
@@ -47,7 +46,6 @@ Meteor.methods({
   endStay: function (stay) {
     var currentDeviceId = Meteor.user().deviceId;
     Stays.update(stay._id, {$set: {
-      active: false,
       checkoutDate: new Date()
     }});
     return currentDeviceId;

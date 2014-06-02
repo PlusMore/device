@@ -84,7 +84,7 @@ Meteor.startup(function() {
       });
     },
     begin: function() {
-      var stay = Stays.findOne({userId: Meteor.userId(), active: true});
+      var stay = Stays.findOne({userId: Meteor.userId()});
 
       if (!stay) {
         Router.go('enterCheckoutDate');
