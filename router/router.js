@@ -164,9 +164,22 @@ Router.map(function() {
     }
   });
 
-  this.route('about');
+  this.route('about', {
+    onRun: function() {
+      Deps.nonreactive(function() {
+        App.track("View What is PlusMore?");
+      });
+    }
+  });
+    
 
-  this.route('howToBook');
+  this.route('howToBook', {
+    onRun: function() {
+      Deps.nonreactive(function() {
+        App.track("View How to Book");
+      });
+    }
+  });
 
   this.route('enterCheckoutDate', {
     path: '/enter-checkout-date',
