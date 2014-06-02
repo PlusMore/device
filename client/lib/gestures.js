@@ -27,29 +27,7 @@ Meteor.startup(function() {
           break;
       }
     }
-  });
-
-  hammer.on('swipe', '.welcome', function(e) {
-
-    switch (e.gesture.direction) {
-      case 'up':
-        nextAnimation = 'up';
-        break;
-      case 'down': 
-        nextAnimation = 'down';
-        break;
-      case 'right':
-        nextAnimation = 'back';
-        break;
-      case 'left':
-        nextAnimation = 'default'
-        break;
-    }
-    setupAnimation = nextAnimation;
-    App.begin();
-  });
-
-  
+  });  
 });
 
 ExperiencesForCategory = []

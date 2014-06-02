@@ -15,8 +15,7 @@ Template.welcome.helpers({
 Template.welcome.events({
   'click .welcome': function (e) {
     e.preventDefault();
-    nextAnimation = 'up';
-    setupAnimation = nextAnimation;
+
     App.begin();
   }
 });

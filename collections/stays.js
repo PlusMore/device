@@ -42,7 +42,7 @@ Meteor.methods({
       active: true
     });
 
-    return stayId;
+    return Stays.findOne(stayId);
   },
   endStay: function (stay) {
     var currentDeviceId = Meteor.user().deviceId;
