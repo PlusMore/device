@@ -1,6 +1,7 @@
 {
   "public": {
-    "mixpanel": "xxx"
+    "mixpanel": "xxx",
+    "gmaps": "AIzaSyAqKHGXAUZYcxTHspvdWlxQ16xokLPEO-A"
   },
   "apps": {
     "admin": {

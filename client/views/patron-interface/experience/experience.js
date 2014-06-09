@@ -27,4 +27,6 @@ Template.experience.events({
   }
 });
 
+Template.callToActionButton.helpers(_.extend(callToActionHelpers, {}));
+Template.experienceActionForm.helpers(_.extend(callToActionHelpers, {}));
 Template.experienceDetails.helpers(_.extend(callToActionHelpers, {}));
