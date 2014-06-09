@@ -1,0 +1,24 @@
+<template name="experienceDetails">
+
+    <div class="col-xs-12 col-md-7">
+      <h1>
+        {{title}}
+      </h1>
+      <p class="lead">{{lead}}</p>
+
+      <div class="description scrollable">
+        <p class="description ">{{description}}</p>
+      </div>
+    </div>
+
+    <div class="venue col-xs-12 col-md-5">
+      
+      {{> experienceMap}}
+
+      <div>{{street}}</div>
+      {{#if city}}
+        <div>{{city}}, {{state}} {{zip}}</div>
+      {{/if}}
+    </div>
+  
+</template>
