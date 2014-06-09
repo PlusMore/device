@@ -15,10 +15,21 @@
       
       {{> experienceMap}}
 
-      <div>{{street}}</div>
-      {{#if city}}
-        <div>{{city}}, {{state}} {{zip}}</div>
-      {{/if}}
+      {{#with geo}}
+
+        {{#if streetName}}
+        <div>{{streetNumber}} {{streetName}}</div>
+        {{/if}}
+
+        {{#if city}}
+          <div>
+            {{city}}, 
+            {{stateCode}} 
+            {{zipcode}}
+          </div>
+        {{/if}}
+
+      {{/with}}
     </div>
   
 </template>
