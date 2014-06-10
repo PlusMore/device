@@ -7,7 +7,14 @@ var intializeMapWhenReady = function() {
     var geo = Session.get('currentExperienceGeo');
 
     var map = new google.maps.Map(document.getElementById("experience-map"), mapOptions); 
-    map.setCenter(new google.maps.LatLng( geo.latitude, geo.longitude ));
+
+    var experienceLatLng = new google.maps.LatLng( geo.latitude, geo.longitude )
+    map.setCenter(experienceLatLng);
+
+    var marker = new google.maps.Marker({
+      position: experienceLatLng,
+      map: map
+    });
   } else {
     console.log('not loaded');
     Meteor.setTimeout(arguments.callee, 100);
