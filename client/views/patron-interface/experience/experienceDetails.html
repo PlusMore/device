@@ -1,16 +1,15 @@
 <template name="experienceDetails">
 
-    <div class="col-xs-12 col-md-7">
+    <div class="details col-xs-12 col-md-7">
       <h1>
         {{title}}
       </h1>
       <!-- <p class="lead">{{lead}}</p> -->
-      <p class="lead">
-        <span class="label label-default">Classy</span>
-        <span class="label label-default">Luxury</span>
-        <span class="label label-default">American</span>
-        <span class="label label-default">Japanese</span>
-      </p>
+      <div class='tags'>
+        {{#each tags}}
+          <span class="label label-tag">{{this}}</span>
+        {{/each}}
+      </div>
       <div class="description scrollable">
         <p class="description ">{{description}}</p>
       </div>
