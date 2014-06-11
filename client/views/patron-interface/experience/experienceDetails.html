@@ -5,12 +5,11 @@
         {{title}}
       </h1>
       <!-- <p class="lead">{{lead}}</p> -->
-      <p class="lead">
-        <span class="label label-tag">Classy</span>
-        <span class="label label-tag">Luxury</span>
-        <span class="label label-tag">American</span>
-        <span class="label label-tag">$31 to $50</span>
-      </p>
+      <div class='tags'>
+        {{#each tags}}
+          <span class="label label-tag">{{this}}</span>
+        {{/each}}
+      </div>
       <div class="description scrollable">
         <p class="description ">{{description}}</p>
       </div>
