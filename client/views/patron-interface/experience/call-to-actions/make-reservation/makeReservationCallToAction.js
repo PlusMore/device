@@ -9,10 +9,14 @@ Template.makeReservationCallToAction.destroyed = function () {
 Template.makeReservationCallToAction.events({
   'click .btn': function(e, tmpl) {
     e.preventDefault();
-    Session.set('experienceState', 'in-progress');
 
     var experience = tmpl.data;
-    App.track("Click Book Now", {
+
+    debugger;
+    var selectedDate = tmpl.datepicker.get('select');
+    var selectedTime = tmple.timepicker.get('select');
+
+    App.track("Book Experience", {
       "Experience Title": experience.title,
       "Experience Id": experience._id,
       "Experience Lead": experience.lead,
@@ -65,9 +69,9 @@ var initializePickers = function(template) {
   var timepickerOptions = {
     container: 'body',
     onSet: function(select) {
-      var minutes = select.select;
+      template.selectedMinutes = select.select;
 
-      console.log('minutes', minutes);  
+      console.log('minutes', template.selectedMinutes);  
       // var $reservationOptionsEl = template.$node.closest('.make-reservation-form')
       // $reservationOptionsEl.find('[name=timeMinutes]').val(minutes);
     }
@@ -96,6 +100,9 @@ var initializePickers = function(template) {
     max: checkoutDate,
     format: 'dddd, mmmm d',
     onSet: function(select) {
+      // set selectedDate on template
+      template.selectedDate = select.select;
+
       var timepicker = template.timepicker.pickatime('picker');
       timepicker.clear();
 
@@ -116,6 +123,7 @@ var initializePickers = function(template) {
       } else {
         timepicker.set('min', startTime.toDate());
       }
+
       return true;
     }
   }
@@ -156,7 +164,7 @@ var initializePickers = function(template) {
   timepickerOptions.onStart = function() {
     var _this = this;
     Meteor.setTimeout(function(){
-      _this.set('select', 1);
+      _this.set('select', _this.get('min').pick);
     });    
   }
 
