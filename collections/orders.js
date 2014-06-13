@@ -62,19 +62,12 @@ Schema.makeReservation = new SimpleSchema({
     type: String,
     label: 'Full Name'
   },
-  date: {
+  when: {
     type: String,
     label: "Date"
   },
-  dateDatetime: {
+  date: {
     type: Date
-  },
-  time: {
-    type: String,
-    label: "Time"
-  },
-  timeMinutes: {
-    type: Number
   },
   phoneNumber: {
     type: String,
@@ -82,7 +75,6 @@ Schema.makeReservation = new SimpleSchema({
   },
   emailAddress: {
     type: String,
-    regEx: SchemaRegEx.Email,
     label: "Email Address"
   },
   experienceId: {

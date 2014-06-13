@@ -1,0 +1,71 @@
+<template name="confirmReservation">
+  <div id='confirm-reservation' class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        {{#if needsRegistration}}
+          {{> needsRegistrationContent}}
+        {{else}}
+          {{> registeredContent}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="needsRegistrationContent">
+  {{#autoForm schema=accountInfo id='accountInfo' type="method" meteormethod="addInfoToDeviceAccountAndSubmitReservation"}}
+    <div class="modal-header">
+      <h4 class="modal-title">Confirm Reservation</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-xs-12">
+          <p class='lead'>We're having a table held for you {{reservation.when}}!</p>
+        </div>
+      </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+
+              <legend>Name for the reservation</legend>
+              <div class="col-xs-6 col-md-6">
+                {{> afQuickField name='firstName' placeholder='First'}}
+              </div>
+              <div class="col-xs-6 col-md-6">
+                {{> afQuickField name='lastName' placeholder='Last'}}
+              </div>
+              
+            <legend>Email address to receive confirmation</legend>
+            <div class="col-xs-12">
+              {{> afQuickField name='emailAddress' placeholder='Ex. johnsmith@email.com'}}
+            </div>
+            
+          </div>
+        </div> 
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel Reservation</button>
+      <button type="submit" data-meteor-method="makeReservation" class="btn btn-primary">Confirm Reservation for {{reservation.when}}</button>
+    </div>
+  {{/autoForm}}
+
+</template>
+
+<template name="registeredContent">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Confirm Reservation</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <p class='lead'>We're having a table held for you {{reservation.when}}!</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel Reservation</button>
+          <button type="button" class="btn btn-primary">Confirm Reservation for {{reservation.when}}</button>
+        </div>
+
+</template>
