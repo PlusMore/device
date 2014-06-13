@@ -33,8 +33,8 @@ Template.experienceMap.rendered = function () {
     // intializeMapWhenReady();
 
     GoogleMaps.init({
-      'sensor': true, //optional
-      'key': '', //optional
+      'sensor': false, //optional
+      'key': Meteor.settings.public.googlemaps, //optional
       'language': 'en' //optional
     }, initializeMap);  
   }
