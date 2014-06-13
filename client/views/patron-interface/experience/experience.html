@@ -1,44 +1,21 @@
 <template name="experience">
-  {{#with experience}}
-    <div class="experience quick animated fadeIn" style="background-image: url('{{photoUrl}}/convert?w=1024&h=768&fit=scale&cache=true')">
+  {{#if subscriptionsReady}}
+    {{#with experience}}
+      <div class="experience quick animated fadeIn" style="background-image: url('{{photoUrl}}/convert?w=1024&h=768&fit=scale&cache=true')">
 
-      <div class="back">
-        <a href="{{pathFor 'experiences'}}" class="back"><i class="icon icon-back"></i>&nbsp;Back</a>
+        <div class="back">
+          <a href="{{pathFor 'experiences'}}" class="back"><i class="icon icon-back"></i>&nbsp;Back</a>
+        </div>
+
+        <div class="content row">
+          {{> experienceDetails}}
+        </div>
+
+        {{#if callToAction}}
+          {{> callToAction}}
+        {{/if}}
+
       </div>
-
-      <div class="content row">
-        {{> experienceDetails}}
-      </div>
-
-      {{> experienceActionForm}}
-
-      {{#if callToAction}}
-        {{> callToActionButton}}
-      {{/if}}
-
-    </div>
-  {{/with}}
+    {{/with}}
+  {{/if}}
 </template>
-
-<template name="callToActionButton">
-  <div class="call-to-action">
-    <div class="col-xs-12">
-      {{#if callToActionIsReserve}}
-        {{> makeReservationCallToAction}}
-      {{/if}}
-    </div>
-  </div>
-</template>
-
-<template name="experienceActionForm">
-  <div class="content action-form col col-xs-12 col-md-5 {{showActionForm}}">
-    <div class="close">
-      <i class="icon icon-x"></i>
-    </div>
-      {{#if callToActionIsReserve}}
-        {{> makeReservationForm}}
-      {{/if}}
-  </div>
-</template>
-
-

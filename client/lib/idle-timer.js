@@ -20,6 +20,8 @@ Meteor.startup(function () {
       if (status === "connecting" || status === "waiting") {
       } else if (status === "connected") {
         App.track("User Idle");
+        $('#confirm-reservation').modal('hide');
+        Session.set('reservation', null);
         Meteor.disconnect();
       }
 
