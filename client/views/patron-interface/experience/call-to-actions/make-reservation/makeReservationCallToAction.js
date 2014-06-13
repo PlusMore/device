@@ -72,10 +72,6 @@ var initializePickers = function(template) {
     clear: null,
     onSet: function(select) {
       template.selectedMinutes = select.select;
-
-      console.log('minutes', template.selectedMinutes);  
-      // var $reservationOptionsEl = template.$node.closest('.make-reservation-form')
-      // $reservationOptionsEl.find('[name=timeMinutes]').val(minutes);
     }
   }
 
@@ -113,7 +109,6 @@ var initializePickers = function(template) {
       var currentSelect = timepicker.get('select').pick;
 
       if (!select.select) {
-        console.log('!select.select')
         timepicker.set('min', startTime.toDate());
 
         // if selectedtim is before min, select min
@@ -171,10 +166,8 @@ var initializePickers = function(template) {
     var _this = this;
     Meteor.setTimeout(function(){
       if (startTomorrow) {
-        console.log('select tomorrow');
         _this.set('select', moment().add('days', 1).toDate())
       } else {
-        console.log('select today');
         _this.set('select', new Date())
       }
     }); 
@@ -188,7 +181,6 @@ var initializePickers = function(template) {
   }
 
   timepickerOptions.onRender = function() {
-    console.log('time rendered')
     return this.$root.find('.picker__holder:first').addClass('scrollable');
   }
 
