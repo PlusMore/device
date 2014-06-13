@@ -52,13 +52,28 @@ Meteor.startup(function() {
 
       Deps.nonreactive(function() {
         var user = Meteor.user();
-        var email;
+        var emailProperties = {};
 
         if (user && user.emails && user.emails.length > 0) {
-          email = user.emails[0].address;
+          emailProperties['$email'] = user.emails[0].address;
         } else {
-          email = 'anonymous';            
+          emailProperties['$email']  = 'anonymous';            
         }
+        _.extend(properties, emailProperties);
+
+        var profileInfo = {};
+        if (user && user.profile) {
+          
+          if (user.profile.name) {
+            profileInfo['$name'] = user.profile.name;
+          }
+          if (user.profile.firstName) {
+            profileInfo['$first_name'] = user.profile.firstName;
+          }
+          if (user.profile.lastName) {
+            profileInfo['$last_name'] = user.profile.lastName;
+          }
+        } 
 
         if (user && user.deviceId) {
           var deviceId = user.deviceId,
@@ -70,16 +85,22 @@ Meteor.startup(function() {
             "Device Location": device.location,
             "Hotel Name": hotel.name
           });
+
+          if (typeof profileInfo['$name'] === 'undefined') {
+            profileInfo['$name'] = device.location
+          }
         }
+        _.extend(properties, profileInfo);
 
         _.extend(properties, {
-          "Email": email,
           "Path": IronLocation.path()
         });
 
         if (hotel && hotel.trackAnalytics) {
           mixpanel.track(key, properties);
           console.log('Tracked metric: ', key, properties);
+        } else {
+          console.log('Not Tracked for this hotel', key, properties);
         }
       });
     },
