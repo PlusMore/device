@@ -175,8 +175,8 @@ var initializePickers = function(template) {
   }
 
 
-  template.datepicker = $('.datepicker').pickadate(datepickerOptions);
-  template.timepicker = $('.timepicker').pickatime(timepickerOptions);
+  template.datepicker = this.$('.datepicker').pickadate(datepickerOptions);
+  template.timepicker = this.$('.timepicker').pickatime(timepickerOptions);
 }
 
 var destroyPickers = function(template) {
