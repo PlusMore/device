@@ -104,11 +104,21 @@ var initializePickers = function(template) {
       // set selectedDate on template
       template.selectedDate = select.select;
 
+
+
       var timepicker = template.timepicker.pickatime('picker');
-      timepicker.clear();
+
+      var currentSelect = timepicker.get('select').pick;
 
       if (!select.select) {
+        console.log('!select.select')
         timepicker.set('min', startTime.toDate());
+
+        // if selectedtim is before min, select min
+        if (timepicker.get('min').pick > currentSelect) {
+          timepicker.set('select', timepicker.get('min').pick);
+        } 
+        
         return true; 
       }
 
@@ -121,6 +131,12 @@ var initializePickers = function(template) {
         } else {
           timepicker.set('min', startTime.toDate());
         }
+
+        // if selectedtime is before min, select min
+        if (timepicker.get('min').pick > currentSelect) {
+          timepicker.set('select', timepicker.get('min').pick);
+        } 
+
       } else {
         timepicker.set('min', startTime.toDate());
       }
