@@ -69,6 +69,7 @@ var initializePickers = function(template) {
   // timepicker options
   var timepickerOptions = {
     container: 'body',
+    clear: null,
     onSet: function(select) {
       template.selectedMinutes = select.select;
 
@@ -100,6 +101,7 @@ var initializePickers = function(template) {
     container: 'body',
     max: checkoutDate,
     format: 'dddd, mmmm d',
+    clear: null,
     onSet: function(select) {
       // set selectedDate on template
       template.selectedDate = select.select;
