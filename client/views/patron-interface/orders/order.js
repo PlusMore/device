@@ -25,7 +25,7 @@ Template.order.helpers({
     return moment(this.requestedAt).fromNow();
   },
   when: function() {
-    return moment(this.reservation.dateDatetime).calendar();
+    return moment(this.reservation.date).calendar();
   },
   orderStatus: function() {
     if (this.status === 'confirmed') {

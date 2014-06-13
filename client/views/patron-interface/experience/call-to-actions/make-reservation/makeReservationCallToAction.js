@@ -7,17 +7,17 @@ Template.makeReservationCallToAction.destroyed = function () {
 };
 
 Template.makeReservationCallToAction.events({
-  'click .btn': function(e, tmpl) {
+  'click .btn-call-to-action': function(e, tmpl) {
     e.preventDefault();
+
     var user = Meteor.user();
     var experience = tmpl.data;
     var reservationMoment = moment(tmpl.selectedDate).startOf('day').minutes(tmpl.selectedMinutes);
 
     var reservation = {
-      partySize: tmpl.$('[name=partySize]').val(),
+      partySize: parseInt(tmpl.$('[name=partySize]').val(), 10),
       when: reservationMoment.calendar(),
-      date: reservationMoment.toDate(),
-      userId: Meteor.userId()
+      date: reservationMoment.toDate()
     }
 
     if (typeof user.profile !== 'undefined' && typeof user.profile.name !== 'undefined') {
@@ -30,22 +30,10 @@ Template.makeReservationCallToAction.events({
 
 
     Session.set('reservation', reservation);
-    $('#confirm-reservation').appendTo('body');
+
     $('#confirm-reservation').modal({
       backdrop: 'static'
     });
-    // Meteor.call('makeReservation', experience._id, reservationMoment.toDate(), function(err, result) {
-    //   if (err) Errors.throwError(err.toString());
-    //   App.track("Book Experience", {
-    //     "Experience Title": experience.title,
-    //     "Experience Id": experience._id,
-    //     "Experience Category": experience.category,
-    //     "City": experience.city,
-    //     'Reservation': reservationMoment.calendar()
-    //   });
-    // });
-
-    
   }
 });
 

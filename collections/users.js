@@ -14,9 +14,26 @@ Schema.accountInfo = new SimpleSchema({
 });
 
 Meteor.methods({
-  addInfoToDeviceAccountAndSubmitReservation: function(info) {
-    check(info, Schema.accountInfo);
+  addInfoToDeviceAccount: function(requestData) {
+    check(requestData, Schema.accountInfo);
 
-    console.log('oh shit', info);
+    var fullName = "{0} {1}".format(requestData.firstName, requestData.lastName);
+    
+    Meteor.users.update(this.userId, {
+      $addToSet: {
+        emails: {
+          address: requestData.emailAddress,
+          verified: false
+        }
+      },
+      $set: {
+        'profile.name': fullName,
+        'profile.firstName': requestData.firstName,
+        'profile.lastName': requestData.lastName
+      }
+    });
+
+    return true;
+    
   }
 });

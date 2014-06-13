@@ -13,14 +13,14 @@
 </template>
 
 <template name="needsRegistrationContent">
-  {{#autoForm schema=accountInfo id='accountInfo' type="method" meteormethod="addInfoToDeviceAccountAndSubmitReservation"}}
+  {{#autoForm schema=accountInfo id='accountInfoForReservation' type="method" meteormethod="addInfoToDeviceAccount"}}
     <div class="modal-header">
       <h4 class="modal-title">Confirm Reservation</h4>
     </div>
     <div class="modal-body">
       <div class="row">
         <div class="col-xs-12">
-          <p class='lead'>We're having a table held for you {{reservation.when}}!</p>
+          <p class='lead'>We have a table for you {{reservation.when}}!</p>
         </div>
       </div>
 
@@ -45,7 +45,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal">Cancel Reservation</button>
-      <button type="submit" data-meteor-method="makeReservation" class="btn btn-primary">Confirm Reservation for {{reservation.when}}</button>
+      <button type="submit" data-meteor-method="addInfoToDeviceAccount" class="btn btn-primary">Confirm Reservation for {{reservation.when}}</button>
     </div>
   {{/autoForm}}
 
@@ -53,19 +53,19 @@
 
 <template name="registeredContent">
 
-        <div class="modal-header">
-          <h4 class="modal-title">Confirm Reservation</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-xs-12">
-              <p class='lead'>We're having a table held for you {{reservation.when}}!</p>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel Reservation</button>
-          <button type="button" class="btn btn-primary">Confirm Reservation for {{reservation.when}}</button>
-        </div>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm Reservation</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-xs-12">
+        <p class='lead'>We have a table for you {{reservation.when}}!</p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel Reservation</button>
+    <button type="button" class="btn btn-primary">Confirm Reservation for {{reservation.when}}</button>
+  </div>
 
 </template>
