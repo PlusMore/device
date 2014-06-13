@@ -20,6 +20,12 @@ Template.makeReservationCallToAction.events({
       date: reservationMoment.toDate()
     }
 
+    App.track('Click Book Now', {
+      "Reservation Date": reservation.when,
+      "Party Size": reservation.partySize,
+      "Experience Title": experience.title
+    });
+
     Session.set('reservation', reservation);
 
     $('#confirm-reservation').modal({
