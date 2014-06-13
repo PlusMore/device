@@ -20,15 +20,6 @@ Template.makeReservationCallToAction.events({
       date: reservationMoment.toDate()
     }
 
-    if (typeof user.profile !== 'undefined' && typeof user.profile.name !== 'undefined') {
-      reservation.partyName = user.profile.name;
-    }
-
-    if (typeof user.emails !== 'undefined') {
-      reservation.emailAddress = user.emails[0].address;
-    } 
-
-
     Session.set('reservation', reservation);
 
     $('#confirm-reservation').modal({

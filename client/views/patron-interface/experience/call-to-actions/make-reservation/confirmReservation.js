@@ -20,6 +20,26 @@ Template.registeredContent.helpers({
     return Session.get('reservation');
   }
 });
+
+Template.registeredContent.events({
+  'click .btn-primary': function(e) {
+    e.preventDefault();
+    
+    var reservation = Session.get('reservation');
+    reservation.experienceId = Session.get('currentExperienceId');
+        
+    Meteor.call('makeReservation', reservation, function(err, result) {
+      if (err) {
+        Errors.throw(err.toString());
+        return;
+      }
+      $('#confirm-reservation').modal('hide');
+      AutoForm.resetForm('accountInfoForReservation');
+      Session.set('reservation', null);
+      Router.go('orders');
+    });
+  }
+});
   
 Meteor.startup(function() {
   AutoForm.hooks({
