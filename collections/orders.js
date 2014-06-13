@@ -119,8 +119,6 @@ Meteor.methods({
       userId: user._id
     }
 
-    console.log('order', order);
-
     var orderId = Orders.insert(order, {validate: false});
 
     this.unblock();
