@@ -1,5 +1,28 @@
 @import '/client/style/imports.import.less';
 
+.btn-call-to-action {
+  font-size: 1.8em;
+  font-weight: 200;
+  padding: 5px 40px;
+  background-color: white;
+  color: rgb(0, 0, 0);
+  border-radius: 4px;
+  text-transform: uppercase;
+  -webkit-text-stroke: initial;
+  width: 100%;
+}
+
+.label-tag {
+  border: 1px solid #fff;
+  font-size: 16px;
+  font-weight: 200;
+  line-height: 2.1em;
+}
+.tags {
+  margin-bottom: 20px;
+  margin-top: 17px;
+}
+
 .experience {
   position: fixed;
   top: 0;
@@ -8,10 +31,18 @@
   height: 100%;
   z-index: 3000;
   font-size: 1em;
-  text-shadow: 0 0 1px #000;
 
   background-color: #000;
   background-size: cover;
+
+  & > .call-to-action {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 0;
+    background: rgba(255,255,255, .3);
+  }
 
   & > .back {
     & > a {
@@ -23,8 +54,8 @@
       font-weight: 400;
 
       position: fixed;
-      right: 39px;
-      top: 22px;
+      right: 7px;
+      top: 0;
 
       & > i {
         font-size: .75em;
@@ -33,15 +64,20 @@
   }
 
 
+
   & > .content {
     transition: 400ms all ease-out;
     background-color: rgba(0,0,0,.5);
     color: #fff;
-    padding: 20px 30.5px;
+    padding: 40px 50px;
     height: 100%;
     overflow: hidden;
     z-index: 10;
     font-weight: 200;    
+
+    & > .details {
+      padding-right: 40px;
+    }
 
     &.action-form {
       border-left: 1px solid rgba(255,255,255,.3);
@@ -98,25 +134,16 @@
       }
     }
 
-
-    .buy, .reserve {
-      button.btn {
-        font-size: 1.8em;
-        font-weight: 200;
-        padding: 5px 40px;
-        background-color: white;
-        color: rgb(0, 0, 0);
-        border-radius: 4px;
-        text-transform: uppercase;
-        -webkit-text-stroke: initial;
-      }
-    }
-
     .venue {
-      margin-top: 30px;
-      font-weight: 100;
-      font-size: 1.8em;
+      margin-top: 65px;
+      font-size: 1.4em;
       margin-bottom: 20px;
+
+      & > #experience-map {
+        margin-bottom: 18px;
+        border-radius: 5px;
+        border: 1px solid #fff;
+      }
 
       a.get-directions {
         text-transform: uppercase;
@@ -130,11 +157,10 @@
     }
 
     .description {
-      max-height: 370px;
 
       p.description {
-        font-weight: 100;
-        font-size: 1.6em;
+        font-weight: 200;
+        font-size: 1.4em;
         white-space: pre-wrap;
       }
     }

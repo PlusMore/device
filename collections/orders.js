@@ -55,35 +55,13 @@ Orders.allow({
 Schema.makeReservation = new SimpleSchema({
   partySize: {
     type: Number,
-    label: 'Number of Guests',
     min: 1
   },
-  partyName: {
-    type: String,
-    label: 'Full Name'
+  when: {
+    type: String
   },
   date: {
-    type: String,
-    label: "Date"
-  },
-  dateDatetime: {
     type: Date
-  },
-  time: {
-    type: String,
-    label: "Time"
-  },
-  timeMinutes: {
-    type: Number
-  },
-  phoneNumber: {
-    type: String,
-    label: 'Phone Number (for confirmation)'
-  },
-  emailAddress: {
-    type: String,
-    regEx: SchemaRegEx.Email,
-    label: "Email Address"
   },
   experienceId: {
     type: String
@@ -92,39 +70,47 @@ Schema.makeReservation = new SimpleSchema({
 
 Meteor.methods({
   makeReservation: function(reservation) {
+    check(reservation, Schema.makeReservation);
+
     var experienceId = reservation.experienceId;
     var experience = Experiences.findOne(experienceId);
     if (!experience) {
-      throw new Meteor.Error(403, 'Invalid Experience');
+      throw new Meteor.Error(500, 'Invalid Experience');
     }
-
-    // get some validation rules from experience
-    var schema = Schema.makeReservation._schema;
-    if (experience.maxPartySize) {
-      schema.partySize.max = experience.maxPartySize;
-    }
-    schema.experienceId = {
-      type: String
-    }
-    var extendedReservationSchema = new SimpleSchema(schema);
-    check(reservation, extendedReservationSchema);
 
     var user = Meteor.user();
     var deviceId = user.deviceId;
     var device = Devices.findOne(deviceId);
     if (!device) {
-      throw new Meteor.Error(403, 'Not a proper device');
+      throw new Meteor.Error(500, 'Not a proper device');
     }
 
     var hotel = Hotels.findOne(device.hotelId);
     if (!hotel) {
-      throw new Meteor.Error(403, 'Not a valid hotel');
+      throw new Meteor.Error(500, 'Not a valid hotel');
+    }
+
+    var stay = Stays.findOne({userId: user._id});
+
+    if (typeof user.emails !== 'undefined' 
+        && typeof user.emails[0] !== 'undefined' 
+        && typeof user.emails[0].address !== 'undefined') {
+      reservation.emailAddress = user.emails[0].address;
+    } else {
+      throw new Meteor.Error(500, 'No email address');
+    }
+    
+    if (typeof user.profile !== 'undefined' && typeof user.profile.name !== 'undefined') {
+      reservation.partyName = user.profile.name;
+    } else {
+      throw new Meteor.Error(500, 'No party name');
     }
 
     var order = {
       type: 'reservation',
       deviceId: device._id,
       hotelId: hotel._id,
+      stayId: stay._id,
       reservation: reservation,
       requestedAt: new Date(),
       read: false,
@@ -141,10 +127,8 @@ Meteor.methods({
       App.track("Submit Reservation Request", {
         "Experience Title": experience.title,
         "Experience Id": experience._id,
-        "Experience Lead": experience.lead,
-        "Experience PhotoUrl": experience.photoUrl,
         "Experience Category": experience.category,
-        "City": experience.city
+        "Experience City": experience.city
       });
     }
 
@@ -158,10 +142,9 @@ Meteor.methods({
         text: "Device in {0} at {1} has requested a reservation.\n\n".format(device.location, hotel.name) 
             + "Reservation Details:\n\n"
             + "For: {0}\n".format(experience.title)
-            + "When: {0} - {1}\n".format(reservation.date, reservation.time)
+            + "When: {0}\n".format(reservation.when)
             + "Name: {0}\n".format(reservation.partyName)
             + "Party Size: {0}\n".format(reservation.partySize)
-            + "Phone #: {0}\n".format(reservation.phoneNumber)
             + "Email: {0}\n".format(reservation.emailAddress)
             + "\n"
             + "Venue Info\n\n"
@@ -174,7 +157,7 @@ Meteor.methods({
       });
     }
 
-    return order;
+    return orderId;
   },
   cancelReservation: function(orderId) {
     var order = Orders.findOne(orderId);
@@ -197,10 +180,9 @@ Meteor.methods({
         text: "Reservation for {0} has been cancelled.\n\n".format(experience.title)
             + "Reservation Details:\n\n"
             + "For: {0}\n".format(experience.title)
-            + "When: {0} - {1}\n".format(reservation.date, reservation.time)
+            + "When: {0}\n".format(moment(reservation.date).calendar())
             + "Name: {0}\n".format(reservation.partyName)
             + "Party Size: {0}\n".format(reservation.partySize)
-            + "Phone #: {0}\n".format(reservation.phoneNumber)
             + "Email: {0}\n".format(reservation.emailAddress)
             + "\nVenue Info\n"
             + "\n{0}".format(experience.venueName)

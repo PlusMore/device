@@ -1,53 +1,21 @@
 <template name="experience">
-  {{#with experience}}
-  <div class="experience quick animated fadeIn" style="background-image: url('{{photoUrl}}/convert?w=1024&h=768&fit=scale&cache=true')">
-    <div class="back">
-      <a href="{{pathFor 'experiences'}}" class="back"><i class="icon icon-back"></i>&nbsp;Back</a>
-    </div>
-    <div class="content col-xs-12 col-md-5">
-      {{> experienceDetails}}
-    </div>
-    <div class="content action-form col col-xs-12 col-md-5 {{showActionForm}}">
-      <div class="close">
-        <i class="icon icon-x"></i>
-      </div>
-        {{#if callToActionIsReserve}}
-          {{> makeReservationForm}}
+  {{#if subscriptionsReady}}
+    {{#with experience}}
+      <div class="experience quick animated fadeIn" style="background-image: url('{{photoUrl}}/convert?w=1024&h=768&fit=scale&cache=true')">
+
+        <div class="back">
+          <a href="{{pathFor 'experiences'}}" class="back"><i class="icon icon-back"></i>&nbsp;Back</a>
+        </div>
+
+        <div class="content row">
+          {{> experienceDetails}}
+        </div>
+
+        {{#if callToAction}}
+          {{> callToAction}}
         {{/if}}
-    </div>
-  </div>
-  {{/with}}
-</template>
 
-<template name="experienceDetails">
-  <div class="row experience-header">
-    <div class="col-xs-12">
-      <h1>
-        {{title}}
-      </h1>
-      <p class="lead">{{lead}}</p>
-    </div>
-  </div>
-
-
-  {{#if callToAction}}
-    <div class="row call-to-action">
-      <div class="col-xs-12">
-        {{#if callToActionIsReserve}}
-          {{> makeReservationCallToAction}}
-        {{/if}}
       </div>
-    </div>
-
+    {{/with}}
   {{/if}}
-  <div class="venue">
-    <div>{{street}}</div>
-    {{#if city}}
-      <div>{{city}}, {{state}} {{zip}}</div>
-    {{/if}}
-  </div>
-  <div class="description scrollable">
-    <p class="description ">{{description}}</p>
-  </div>
-  
 </template>

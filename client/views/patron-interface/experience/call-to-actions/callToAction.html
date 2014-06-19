@@ -1,0 +1,9 @@
+<template name="callToAction">
+  <div class="call-to-action">
+    <div class="col-xs-12">
+      {{#if callToActionIsReserve}}
+        {{> makeReservationCallToAction}}
+      {{/if}}
+    </div>
+  </div>
+</template>

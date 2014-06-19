@@ -4,7 +4,10 @@
     "iron-router": {},
     "bootstrap-3": {},
     "roles": {},
-    "autoform": {},
+    "autoform": {
+      "git": "git@github.com:PlusMore/meteor-autoform.git",
+      "branch": "template-not-in-DOM-bug"  
+    },
     "fastclick": {},
     "collection2": {},
     "inspector": {},
@@ -24,6 +27,7 @@
     "animate-css": {},
     "hammer": {},
     "bootstrap-errors": {},
-    "accounts-ui-bootstrap-3": {}
+    "accounts-ui-bootstrap-3": {},
+    "googlemaps": {}
   }
 }

@@ -5,7 +5,10 @@
       "iron-router": {},
       "bootstrap-3": {},
       "roles": {},
-      "autoform": {},
+      "autoform": {
+        "git": "git@github.com:PlusMore/meteor-autoform.git",
+        "branch": "template-not-in-DOM-bug"
+      },
       "fastclick": {},
       "collection2": {},
       "inspector": {},
@@ -26,7 +29,8 @@
       "animate-css": {},
       "hammer": {},
       "bootstrap-errors": {},
-      "accounts-ui-bootstrap-3": {}
+      "accounts-ui-bootstrap-3": {},
+      "googlemaps": {}
     },
     "packages": {
       "iron-router": {
@@ -45,9 +49,9 @@
         "commit": "969b17fac5dfec66b6b12bfce4e37471d1a241d4"
       },
       "autoform": {
-        "git": "https://github.com/aldeed/meteor-autoform.git",
-        "tag": "v0.10.0",
-        "commit": "4b298a025679a7e51892a884c11301c1d6bf19b3"
+        "git": "git@github.com:PlusMore/meteor-autoform.git",
+        "branch": "template-not-in-DOM-bug",
+        "commit": "4ae1aa41fc86cc59e038a0bad505417cd8c4616b"
       },
       "fastclick": {
         "git": "https://github.com/percolatestudio/meteor-fastclick",
@@ -56,8 +60,8 @@
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
-        "tag": "v0.3.11",
-        "commit": "7e970671305657678e8508d8107d5e6c5e158559"
+        "tag": "v0.4.1",
+        "commit": "a9ffc9b285c3af8ad631f9cda4851b0ffc30c5ce"
       },
       "inspector": {
         "git": "https://github.com/broth-eu/meteor-inspector.git",
@@ -76,8 +80,8 @@
       },
       "user-status": {
         "git": "https://github.com/mizzao/meteor-user-status.git",
-        "tag": "v0.4.0",
-        "commit": "e2a1c7a4075f28b87b361387688e083a4b047a08"
+        "tag": "v0.4.1",
+        "commit": "ccca026086e3aa6e44df066c9d5fe4bd412219fc"
       },
       "pickadate": {
         "git": "https://github.com/patrickleet/meteor-pickadate.git",
@@ -108,6 +112,11 @@
         "git": "https://github.com/mangasocial/meteor-accounts-ui-bootstrap-3.git",
         "tag": "v0.3.0-1",
         "commit": "93ffa5d0e325dc7026de89f6d90c178fa04bdd3a"
+      },
+      "googlemaps": {
+        "git": "https://github.com/drewjw81/meteor-googlemaps.git",
+        "tag": "v0.0.2",
+        "commit": "da8785c82cfd7de0111f898ef10728e7ed24e361"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
