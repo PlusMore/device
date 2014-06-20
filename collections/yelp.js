@@ -20,6 +20,7 @@ YelpAPI = {
 };
 
 if (Meteor.isServer) {
+  
   var getYelpOauthBinding = function(url) {
     var config = Accounts.loginServiceConfiguration.findOne({service: 'yelp'});
     if (config) {
@@ -37,22 +38,27 @@ if (Meteor.isServer) {
   Meteor.methods({
     searchYelp: function(search, isCategory, latitude, longitude) {
       this.unblock();
+      
       console.log('Yelp search for userId: ' + this.userId + '(search, isCategory, lat, lon) with vals (', search, isCategory, latitude, longitude, ')');
+      
+      // Add REST resource to base URL
       var url = yelp_base_url + 'search';
+
       var oauthBinding = getYelpOauthBinding(url);
       
-      // oauthBinding.accessToken = user.services.twitter.accessToken
-      //   oauthBinding.accessTokenSecret = user.services.twitter.accessTokenSecret
+      var parameters = {
+        oauth_token: oauthBinding._config.accessToken
+      };
 
-      var parameters = {};
-
+      
+      // Build up query
       // Search term or categories query
       if(isCategory)
         parameters.category_filter = search;
       else
         parameters.term = search;
 
-      // Set lat, lon location, if available (SF is default location)
+      // Set lat, lon location, if available or default location
       if(longitude && latitude)
         parameters.ll = latitude + ',' + longitude;
       else
@@ -61,29 +67,27 @@ if (Meteor.isServer) {
       // Results limited to 5
       parameters.limit = 5;
 
-      parameters.oauth_token = oauthBinding._config.accessToken;
-
+      // Once all the parameters are set, build the request headers.
       var headers = oauthBinding._buildHeader(parameters);
 
-      return oauthBinding._call('GET', url, headers, parameters);
+      // And send away, I'm just returning .data as that is the only
+      // information relevant to the application.
+      return oauthBinding._call('GET', url, headers, parameters).data;
     },
-    yelpBusiness: function(id, latitude, longitude) {
+    yelpBusiness: function(id) {
       this.unblock();
-      console.log('Yelp business for userId: ' + this.userId + '(id, lat, lon) with vals (', id, latitude, longitude, ')');
+      console.log('Yelp business for userId: ' + this.userId + '(id, lat, lon) with vals (', id, ')');
       var url = yelp_base_url + 'business/' + id;
       // Query OAUTH credentials (these are set manually)
       var oauthBinding = getYelpOauthBinding(url);
 
-      var parameters = {};
+      var parameters = {
+        oauth_token: oauthBinding._config.accessToken
+      };
 
-      if(latitude && longitude)
-        parameters.ll = latitude + ',' + longitude;
-
-      parameters.oauth_token = oauthBinding._config.accessToken;
-      
       var headers = oauthBinding._buildHeader(parameters);
 
-      return oauthBinding._call('GET', url, headers, parameters);
+      return oauthBinding._call('GET', url, headers, parameters).data;
     }
   });
 }
