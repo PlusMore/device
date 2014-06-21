@@ -11,8 +11,16 @@ Template.experienceYelpRating.rendered = function () {
       return Session.set('hasYelp', false);
 
     }
-    Session.set('yelpStarsSrc', result.rating_img_url_large);
-    Session.set('yelpReviewCount', result.review_count);
+
+    if (result) {
+      if (result.rating < 3) {
+        Session.set('hasYelp', false);
+      }
+      Session.set('yelpStarsSrc', result.rating_img_url_large);
+      Session.set('yelpReviewCount', result.review_count);
+    }
+
+    
   });
 };
 
