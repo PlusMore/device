@@ -4,18 +4,11 @@
 var yelp_base_url = "http://api.yelp.com/v2/";
 
 YelpAPI = {
-  search: function(search, isCategory, latitude, longitude) {
-    Meteor.call('searchYelp', search, isCategory, latitude, longitude, function(error, result) {
-      if (error) Errors.throw(error);
-      console.log(result);
-    });
+  search: function(search, isCategory, latitude, longitude, callback) {
+    Meteor.call('searchYelp', search, isCategory, latitude, longitude, callback);
   },
-  business: function(id, longitude, latitude) {
-    Meteor.call('yelpBusiness', id, latitude, longitude, function(error, result) {
-      if (error) Errors.throw(error);
-
-      console.log(result);
-    });
+  business: function(id, callback) {
+    Meteor.call('yelpBusiness', id, callback);
   }
 };
 
@@ -46,12 +39,8 @@ if (Meteor.isServer) {
 
       var oauthBinding = getYelpOauthBinding(url);
       
-      var parameters = {
-        oauth_token: oauthBinding._config.accessToken
-      };
-
-      
       // Build up query
+      var parameters = {};
       // Search term or categories query
       if(isCategory)
         parameters.category_filter = search;
@@ -67,12 +56,8 @@ if (Meteor.isServer) {
       // Results limited to 5
       parameters.limit = 5;
 
-      // Once all the parameters are set, build the request headers.
-      var headers = oauthBinding._buildHeader(parameters);
-
-      // And send away, I'm just returning .data as that is the only
-      // information relevant to the application.
-      return oauthBinding._call('GET', url, headers, parameters).data;
+      // Only return .data because that is how yelp formats its responses
+      return oauthBinding.get(url, parameters).data;
     },
     yelpBusiness: function(id) {
       this.unblock();
@@ -81,13 +66,8 @@ if (Meteor.isServer) {
       // Query OAUTH credentials (these are set manually)
       var oauthBinding = getYelpOauthBinding(url);
 
-      var parameters = {
-        oauth_token: oauthBinding._config.accessToken
-      };
-
-      var headers = oauthBinding._buildHeader(parameters);
-
-      return oauthBinding._call('GET', url, headers, parameters).data;
+      // Only return .data because that is how yelp formats its responses
+      return oauthBinding.get(url).data;
     }
   });
 }
