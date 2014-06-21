@@ -3,13 +3,9 @@ Template.experienceYelpRating.rendered = function () {
   var that = this;
   YelpAPI.business(this.data.yelpId, function(err, result) {
     if (err) { 
-
-      App.track('Missing YelpId', {
-        "Experience Id": that.data._id,
-        "Experience Title": that.data.title
-      });
+      Errors.throw(err);
+      
       return Session.set('hasYelp', false);
-
     }
 
     if (result) {
