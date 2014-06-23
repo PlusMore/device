@@ -4,6 +4,9 @@
       <h1>
         {{title}}
       </h1>
+      {{#if yelpId}}
+        {{> experienceYelpRating}}
+      {{/if}}
       <!-- <p class="lead">{{lead}}</p> -->
       <div class='tags'>
         {{#each tags}}

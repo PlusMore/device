@@ -77,6 +77,31 @@ var filters = {
   },
   resetFullscreen: function() {
     Session.set('fullscreen', false);
+  },
+  scroll: function() {
+    var scroll = Session.get('overrideNextScrollPosition');
+    var scrollPosition = Session.get('lastScrollPosition');
+    if (typeof scrollPosition !== 'undefined') {
+      if (scroll) {
+        console.log('override scroll');
+        Meteor.setTimeout(function(){
+          $('.content').scrollTop(scrollPosition);
+          Session.set('lastScrollPosition', undefined);
+          Session.set('overrideNextScrollPosition', false);
+        });  
+      } else {
+        console.log('scrollTop');
+        Meteor.setTimeout(function(){
+          $('.content').animate({scrollTop: 0}, 600);
+          Session.set('lastScrollPosition', undefined);
+          Session.set('overrideNextScrollPosition', false);
+        });   
+      }
+    }
+  },
+  setLastScrollPosition: function() {
+    Session.set('lastScrollPosition', $('.content').scrollTop());
+    console.log(Session.get('lastScrollPosition'))
   }
 };
 
@@ -129,6 +154,13 @@ Router.onRun(filters.resetExperienceState);
 Router.onBeforeAction(filters.resetActiveCategory, {except: [
   'experience',
   'experiences'
+]});
+
+Router.onAfterAction(filters.scroll, {except: [
+  'experience'
+]});
+Router.onStop(filters.setLastScrollPosition, {except: [
+  'experience'
 ]});
 
 
@@ -212,6 +244,7 @@ Router.map(function() {
           "Name": Router.current().params.category
         });
       });
+
     }
   });
 
@@ -244,6 +277,7 @@ Router.map(function() {
     },
     action: function() {
       // Do nothing, A reactive overlay is shown based on currentExperienceId
+      Session.set('overrideNextScrollPosition', true);
     }
   });
 

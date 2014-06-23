@@ -5,8 +5,8 @@
   <div class="device-layout">
   {{#if currentUser}}
     {{> deviceHeader}}
+    {{> meteorErrors}}
     <div class="content {{additionalContentClasses}} {{isFullscreen}} {{isScrollable}}">
-      {{> meteorErrors}}
       {{> transitionedYield}}
     </div>
     {{> idleOverlay}}
