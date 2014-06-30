@@ -45,8 +45,8 @@
       },
       "roles": {
         "git": "https://github.com/alanning/meteor-roles.git",
-        "tag": "v1.2.9",
-        "commit": "969b17fac5dfec66b6b12bfce4e37471d1a241d4"
+        "tag": "v1.2.10",
+        "commit": "7ccb35de0a6cb0c9a0c3666badd04757e39c09a6"
       },
       "autoform": {
         "git": "git@github.com:PlusMore/meteor-autoform.git",
@@ -60,8 +60,8 @@
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
-        "tag": "v0.4.1",
-        "commit": "a9ffc9b285c3af8ad631f9cda4851b0ffc30c5ce"
+        "tag": "v0.4.2",
+        "commit": "4ff4b707bec8be434919730bf101325adb215444"
       },
       "inspector": {
         "git": "https://github.com/broth-eu/meteor-inspector.git",
@@ -80,8 +80,8 @@
       },
       "user-status": {
         "git": "https://github.com/mizzao/meteor-user-status.git",
-        "tag": "v0.4.1",
-        "commit": "ccca026086e3aa6e44df066c9d5fe4bd412219fc"
+        "tag": "v0.5.0",
+        "commit": "6a096fd9f3a916887c92cb778040ce2f8a9cc554"
       },
       "pickadate": {
         "git": "https://github.com/patrickleet/meteor-pickadate.git",
