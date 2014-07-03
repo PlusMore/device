@@ -117,7 +117,6 @@ var initializePickers = function(template) {
       var currentSelect = timepicker.get('select').pick;
 
       if (!select.select) {
-        debugger;
         timepicker.set('min', startTime.toDate());
 
         // if selectedtim is before min, select min
