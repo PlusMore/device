@@ -77,7 +77,11 @@ var initializePickers = function(template) {
     container: 'body',
     clear: null,
     onSet: function(select) {
-      template.selectedMinutes = select.select;
+      
+      if (select.select) {
+        console.log(select.select)
+        template.selectedMinutes = select.select;
+      }
     }
   }
 
@@ -108,13 +112,12 @@ var initializePickers = function(template) {
       // set selectedDate on template
       template.selectedDate = select.select;
 
-
-
       var timepicker = template.timepicker.pickatime('picker');
 
       var currentSelect = timepicker.get('select').pick;
 
       if (!select.select) {
+        debugger;
         timepicker.set('min', startTime.toDate());
 
         // if selectedtim is before min, select min
