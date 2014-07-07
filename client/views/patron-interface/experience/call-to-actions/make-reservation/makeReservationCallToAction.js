@@ -77,7 +77,10 @@ var initializePickers = function(template) {
     container: 'body',
     clear: null,
     onSet: function(select) {
-      template.selectedMinutes = select.select;
+      
+      if (select.select) {
+        template.selectedMinutes = select.select;
+      }
     }
   }
 
@@ -107,8 +110,6 @@ var initializePickers = function(template) {
     onSet: function(select) {
       // set selectedDate on template
       template.selectedDate = select.select;
-
-
 
       var timepicker = template.timepicker.pickatime('picker');
 

@@ -1,18 +1,18 @@
 {
   "public": {
-    "mixpanel": "xxx",
+    "mixpanel": "942e9a0093502d53a5cd700191aeebe7",
     "googlemaps": "AIzaSyAqKHGXAUZYcxTHspvdWlxQ16xokLPEO-A",
     "bgPhotoUrl": "https://www.filepicker.io/api/file/zUcd74YlSQCLj8PKmgO1"
   },
   "apps": {
     "admin": {
-      "url": "http://localhost:3000"
+      "url": "http://admin.plusmoretablets.com"
     },
     "device": {
-      "url": "http://localhost:4000"
+      "url": "http://device.plusmoretablets.com"
     },
     "hotel": {
-      "url": "http://localhost:5000"
+      "url": "http://hotel.plusmoretablets.com"
     }
   }
 }

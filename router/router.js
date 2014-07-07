@@ -251,23 +251,7 @@ Router.map(function() {
   this.route('experience', {
     path: '/experience/:_id',
     onRun: function () {
-      Deps.nonreactive(function() {
-        Session.set('currentExperienceId', Router.current().params._id);
-        var experience = Experiences.findOne(Router.current().params._id);
-
-        if (experience) {
-          App.track("View Experience", {
-                    "Experience Title": experience.title,
-                    "Experience Category": experience.category,
-                    "Experience Lead": experience.lead,
-                    "Experience PhotoUrl": experience.photoUrl,
-                    "Experience Id": experience._id,
-                    "Experience Description": experience.description,
-                    "City": experience.city
-          });
-        }
-        
-      });
+      Session.set('currentExperienceId', Router.current().params._id);
     },
     data: function () {
       return {
