@@ -33,8 +33,8 @@ Template.deviceLayout.helpers({
         }
       }
     } 
-      
-    return '/backgrounds/body-bg-blue.png';
+    
+    return Meteor.settings.public.bgPhotoUrl + '/convert?w=1024&h=768&fit=scale&cache=true';
   }
 });
 

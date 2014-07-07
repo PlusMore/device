@@ -1,7 +1,8 @@
 {
   "public": {
     "mixpanel": "xxx",
-    "googlemaps": "AIzaSyAqKHGXAUZYcxTHspvdWlxQ16xokLPEO-A"
+    "googlemaps": "AIzaSyAqKHGXAUZYcxTHspvdWlxQ16xokLPEO-A",
+    "bgPhotoUrl": "https://www.filepicker.io/api/file/zUcd74YlSQCLj8PKmgO1"
   },
   "apps": {
     "admin": {
