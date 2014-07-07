@@ -79,7 +79,6 @@ var initializePickers = function(template) {
     onSet: function(select) {
       
       if (select.select) {
-        console.log(select.select)
         template.selectedMinutes = select.select;
       }
     }
