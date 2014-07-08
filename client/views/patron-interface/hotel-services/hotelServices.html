@@ -1,0 +1,23 @@
+<template name="hotelServices">
+  <div class="main-container fill-parent">
+    <div class="row" id="hotel-services-container">
+      <div class="col-md-3" id='hotel-services-menu'>
+        <ul class="nav nav-pills nav-stacked">
+          <li class="{{activeHotelServiceClass 'transportation'}}">
+            <a class='menu-item' href="#" data-template='transportation'>Transportation</a>
+          </li>
+          <li class="{{activeHotelServiceClass 'bellService'}}">
+            <a class='menu-item' href="#" data-template='bellService'>Bell Service</a>
+          </li>
+          <li class="{{activeHotelServiceClass 'wakeUpCall'}}">
+            <a class='menu-item' href="#" data-template='wakeUpCall'>Wake Up Call</a>
+          </li>
+          <li class="{{activeHotelServiceClass 'checkout'}}">
+            <a class='menu-item' href="#" data-template='checkout'>Express Checkout</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-9" id='hotel-services-content'>{{> UI.dynamic template=subNavContentTemplate}}</div>
+    </div>
+  </div>
+</template>

@@ -230,6 +230,12 @@ Router.map(function() {
     }
   });
 
+  this.route('hotelServices', {
+    path: '/hotel-services',
+    onRun: function () {
+      Session.set('subNavContentTemplate', 'hotelServicesDescription');
+    }
+  });
 
   this.route('message');
 
