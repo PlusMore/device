@@ -1,3 +1,48 @@
 <template name="transportation">
-  <h1>Transportation</h1>
+  <form class="form-horizontal">
+    <fieldset>
+
+    <!-- Form Name -->
+    <legend>Transportation</legend>
+
+    <!-- Select Car -->
+    <div class="form-group">
+      <label class="col-md-2 control-label" for="car">Car</label>
+      <div class="col-md-6">
+        <select id="car" name="car" class="form-control">
+          <option value="taxi">Taxi</option>
+          <option value="limo">Limo</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-2 control-label" for="date">Date</label>  
+      <div class="col-md-6">
+      <input id="date" name="date" type="text" placeholder="-- Select Date --" class="form-control input-md" required="">
+      <span class="help-block">Select a Date for this service.</span>  
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-2 control-label" for="time">Time</label>  
+      <div class="col-md-6">
+      <input id="time" name="time" type="text" placeholder="-- Select a Time --" class="form-control input-md" required="">
+      <span class="help-block">Select a time for this service.</span>  
+      </div>
+    </div>
+
+    <!-- Button -->
+    <div class="form-group">
+      <label class="col-md-2 control-label" for="btn-request"></label>
+      <div class="col-md-4">
+        <button id="btn-request" name="btn-request" class="btn btn-primary btn-block">Request Service</button>
+      </div>
+    </div>
+
+    </fieldset>
+  </form>
+
 </template>
