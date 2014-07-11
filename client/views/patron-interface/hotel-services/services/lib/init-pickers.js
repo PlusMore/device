@@ -1,0 +1,158 @@
+var getHotelSettings = function () {
+  var user = Meteor.user();
+  var hotelsCursor = Hotels.find();
+
+  if (hotelsCursor.count() > 0) {
+    var hotel = Hotels.findOne();
+    if (hotel) {
+      return {
+        serviceStartMinutes: hotel.serviceStartMinutes || 0,
+        serviceEndMinutes: hotel.serviceEndMinutes || 24*60
+      }
+    }
+  } 
+  
+  return Meteor.settings.public.bgPhotoUrl + '/convert?w=1024&h=768&fit=scale&cache=true';
+}
+
+initializeServicePickers = function(template) {
+  var delay = 0;
+
+  var hotelSettings = getHotelSettings();
+
+  var startMinutes = hotelSettings.serviceStartMinutes;
+  var endMinutes = hotelSettings.serviceEndMinutes;
+  var startTime, endTime;
+  var startTomorrow = false;
+
+  var checkoutDate = Stays.findOne().checkoutDate;
+
+  // timepicker options
+  var timepickerOptions = {
+    container: 'body',
+    clear: null,
+    onSet: function(select) {
+      if (select.select) {
+        template.selectedMinutes = select.select;
+      }
+    }
+  }
+
+  if (typeof startMinutes !== 'undefined') {
+    startTime = moment().startOf('day');
+    startTime = startTime.minutes(startMinutes);
+    timepickerOptions.min = startTime.toDate();
+  } 
+  
+  if (typeof endMinutes !== 'undefined') {
+    // If end is less than start, it's AM next day
+    if (endMinutes <= startMinutes) {
+      endTime = moment().startOf('day').add('days', 1).minutes(endMinutes);
+    } else {
+      endTime = moment().startOf('day').minutes(endMinutes);
+    }
+    timepickerOptions.max = endTime.toDate();
+  }
+
+  var datepickerOptions = {
+    container: 'body',
+    max: checkoutDate,
+    format: 'dddd, mmmm d',
+    clear: null,
+    onSet: function(select) {
+      // set selectedDate on template
+      template.selectedDate = select.select;
+
+      var timepicker = template.timepicker.pickatime('picker');
+
+      var currentSelect = timepicker.get('select').pick;
+
+      if (!select.select) {
+        timepicker.set('min', startTime.toDate());
+
+        // if selectedtime is before min, select min
+        if (timepicker.get('min').pick > currentSelect) {
+          timepicker.set('select', timepicker.get('min').pick);
+        } 
+        
+        return true; 
+      }
+
+      var isToday = moment(select.select).startOf('day').toDate().getTime() === moment().startOf('day').toDate().getTime();
+      if (isToday) {
+        // if two hours from now are in between start and end
+        // set first available time to be {{delay}} hours from now
+        if ((moment().add('hours', delay) > startTime) && (moment().add('hours', delay) < endTime)) {
+          timepicker.set('min', delay);
+        } else {
+          timepicker.set('min', startTime.toDate());
+        }
+
+        // if selectedtime is before min, select min
+        if (timepicker.get('min').pick > currentSelect) {
+          timepicker.set('select', timepicker.get('min').pick);
+        } 
+
+      } else {
+        timepicker.set('min', startTime.toDate());
+      }
+
+      return true;
+    }
+  }
+
+  // if now is less than startTime
+  if (moment() < startTime) {
+    // if it is today at 3pm, and start time is 
+    // at 5pm, start at today in datepicker
+    datepickerOptions.min = true;
+  } else if ((moment() > startTime) && (moment() < endTime)) {
+    // if we are inside of hours
+    // then start datepicker at today
+    datepickerOptions.min = true;
+    // unless {{delay}} hours from now is past endTime, don't allow 
+    // any more reservations
+    if (moment().add('hours', delay) > endTime) {
+      startTomorrow = true;
+      datepickerOptions.min = 1;
+    }
+  } else {
+    // after hours, make datepicker start tomorrow
+    startTomorrow = true;
+    datepickerOptions.min = 1;
+  }
+
+  datepickerOptions.onStart = function() {
+    var _this = this;
+    Meteor.setTimeout(function(){
+      if (startTomorrow) {
+        _this.set('select', moment().add('days', 1).toDate())
+      } else {
+        _this.set('select', new Date())
+      }
+    }); 
+  }
+
+  timepickerOptions.onStart = function() {
+    var _this = this;
+    Meteor.setTimeout(function(){
+      _this.set('select', _this.get('min').pick);
+    });    
+  }
+
+  timepickerOptions.onRender = function() {
+    return this.$root.find('.picker__holder:first').addClass('scrollable');
+  }
+
+
+  template.datepicker = this.$('.datepicker').pickadate(datepickerOptions);
+  template.timepicker = this.$('.timepicker').pickatime(timepickerOptions);
+}
+
+destroyServicePickers = function(template) {
+  $('.picker', 'body').remove();
+  $(template.datepicker).stop();
+  template.datepicker = null;
+  $(template.timepicker).stop();
+  template.timepicker = null;
+}
