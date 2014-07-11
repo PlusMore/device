@@ -12,7 +12,7 @@ Template.makeReservationCallToAction.events({
 
     var user = Meteor.user();
     var experience = tmpl.data;
-    var reservationMoment = moment(tmpl.selectedDate).startOf('day').minutes(tmpl.selectedMinutes);
+    var reservationMoment = moment(tmpl.selectedDate).startOf('day').add('minutes', tmpl.selectedMinutes);
 
     var reservation = {
       partySize: parseInt(tmpl.$('[name=partySize]').val(), 10),
