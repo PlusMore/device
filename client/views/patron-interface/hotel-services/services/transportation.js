@@ -20,7 +20,7 @@ Template.transportation.events({
 });
 
 Template.transportation.rendered = function () {
-  initializeServicePickers(this);
+  initializeServicePickers(this, 7*60, 22*60);
 };
 
 Template.transportation.destroyed = function () {

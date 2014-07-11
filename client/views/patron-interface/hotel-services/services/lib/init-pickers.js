@@ -1,27 +1,6 @@
-var getHotelSettings = function () {
-  var user = Meteor.user();
-  var hotelsCursor = Hotels.find();
-
-  if (hotelsCursor.count() > 0) {
-    var hotel = Hotels.findOne();
-    if (hotel) {
-      return {
-        serviceStartMinutes: hotel.serviceStartMinutes || 0,
-        serviceEndMinutes: hotel.serviceEndMinutes || 24*60
-      }
-    }
-  } 
-  
-  return Meteor.settings.public.bgPhotoUrl + '/convert?w=1024&h=768&fit=scale&cache=true';
-}
-
-initializeServicePickers = function(template) {
+initializeServicePickers = function(template, startMinutes, endMinutes) {
   var delay = 0;
 
-  var hotelSettings = getHotelSettings();
-
-  var startMinutes = hotelSettings.serviceStartMinutes;
-  var endMinutes = hotelSettings.serviceEndMinutes;
   var startTime, endTime;
   var startTomorrow = false;
 
