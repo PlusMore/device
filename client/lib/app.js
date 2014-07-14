@@ -18,28 +18,36 @@ Meteor.startup(function() {
 
   _.extend(App, {
   	identify: function() {
-      Deps.nonreactive(function() { 
+      Deps.autorun(function() { 
         var user = Meteor.user(),
             peopleProperties = {};
 
         if (user) {
-          console.log('User Identified', user._id);
           mixpanel.identify(user._id);
+          console.log('User Identified', user._id);
 
           if (user && user.deviceId) {
             var deviceId = user.deviceId,
-                device = Devices.findOne(deviceId),
-                hotel = Hotels.findOne(device.hotelId);
+                device = Devices.findOne(deviceId);
 
-            peopleProperties = _.extend(peopleProperties, {
-              "Device": "{0} at {1}".format(device.location, hotel.name),
-              "Device Id": user.deviceId,
-              "Device Location": device.location,
-              "Hotel Name": hotel.name
-            });
+            if (device) {
+              var hotel = Hotels.findOne(device.hotelId);
+
+              if (hotel) {
+                peopleProperties = _.extend(peopleProperties, {
+                  "Device": "{0} at {1}".format(device.location, hotel.name),
+                  "Device Id": user.deviceId,
+                  "Device Location": device.location,
+                  "Hotel Name": hotel.name
+                });  
+
+                mixpanel.people.set(peopleProperties);  
+                console.log('People properties set.');
+              }
+            }  
           }
 
-          mixpanel.people.set(peopleProperties);  
+          
         }   
       });   
     },

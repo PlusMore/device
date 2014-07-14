@@ -1,10 +1,4 @@
-Template.order.helpers({
-  isReservation: function() {
-    return this.type === 'reservation';
-  },
-  experience: function() {
-    return Experiences.findOne(this.reservation.experienceId);
-  },
+Template.request.helpers({
   needsAction: function() {
     return this.open;
   },
@@ -25,7 +19,7 @@ Template.order.helpers({
     return moment(this.requestedAt).fromNow();
   },
   when: function() {
-    return moment(this.reservation.date).calendar();
+    return moment(this.request.options.date).calendar();
   },
   orderStatus: function() {
     if (this.status === 'confirmed') {
@@ -40,11 +34,11 @@ Template.order.helpers({
   }
 });
 
-Template.order.events({
-  'click .btn.btn-cancel-reservation': function(event) {
+Template.request.events({
+  'click .btn.btn-cancel-request': function(event) {
     event.preventDefault(); 
-    if (confirm("Are you sure you want to cancel this reservation?")) {
-      Meteor.call('cancelReservation', this._id);
+    if (confirm("Are you sure you want to cancel this request?")) {
+      Meteor.call('cancelRequest', this._id);
     } 
   }
 });

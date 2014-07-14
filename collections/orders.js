@@ -68,6 +68,15 @@ Schema.makeReservation = new SimpleSchema({
   }
 });
 
+Schema.request = new SimpleSchema({
+  type: {
+    type: String
+  },
+  for: {
+    type: String
+  }
+});
+
 Meteor.methods({
   makeReservation: function(reservation) {
     check(reservation, Schema.makeReservation);
@@ -90,8 +99,6 @@ Meteor.methods({
       throw new Meteor.Error(500, 'Not a valid hotel');
     }
 
-    var stay = Stays.findOne({userId: user._id});
-
     if (typeof user.emails !== 'undefined' 
         && typeof user.emails[0] !== 'undefined' 
         && typeof user.emails[0].address !== 'undefined') {
@@ -106,6 +113,8 @@ Meteor.methods({
       throw new Meteor.Error(500, 'No party name');
     }
 
+    //valid request
+    var stay = Stays.findOne({userId: user._id});
     var order = {
       type: 'reservation',
       deviceId: device._id,
@@ -191,5 +200,85 @@ Meteor.methods({
             + "\n{0}".format(experience.phone)
       });
     }
+  },
+  requestService: function(request) {
+    // Check that type is provided
+    check(request.type, String);
+
+    var requestSchema = _.clone(Schema.request._schema);
+    switch (request.type) {
+      case 'transportation':
+        console.log('type is transportation')
+        var transportationSchema = new SimpleSchema({
+          date: {
+            type: Date
+          },
+          transportationType: {
+            type: String
+          }
+        });
+        requestSchema = _.extend(requestSchema, {
+          options: {
+            type: transportationSchema
+          }
+        });
+        break;
+      default: 
+        throw new Meteor.Error(500, 'Invalid Request', request);
+        break;
+    }
+
+    check(request, new SimpleSchema(requestSchema));
+
+    var user = Meteor.user();
+    var deviceId = user.deviceId;
+    var device = Devices.findOne(deviceId);
+    if (!device) {
+      throw new Meteor.Error(500, 'Not a proper device');
+    }
+
+    var hotel = Hotels.findOne(device.hotelId);
+    if (!hotel) {
+      throw new Meteor.Error(500, 'Not a valid hotel');
+    }
+
+    // valid request
+    var stay = Stays.findOne({userId: user._id});
+    var order = {
+      type: 'request',
+      for: request.for,
+      deviceId: device._id,
+      hotelId: hotel._id,
+      stayId: stay._id,
+      request: request,
+      requestedAt: new Date(),
+      open: true,
+      status: 'pending',
+      userId: user._id
+    }
+
+    var orderId = Orders.insert(order, {validate: false});
+
+    this.unblock();
+
+    if (Meteor.isServer) {
+      var url = stripTrailingSlash(Meteor.settings.apps.admin.url) + "/patron-order/{0}".format(orderId);
+
+      // for our information
+      Email.send({
+        to: 'order-service@plusmoretablets.com',
+        from: "noreply@plusmoretablets.com",
+        subject: "Info: Device in {0} at {1} has requested hotel service.\n\n".format(device.location, hotel.name), 
+        text: "This is an informational email and does not require your service\n\n"
+            + "Device in {0} at {1} has requested hotel service.\n\n".format(device.location, hotel.name) 
+            + "Request Details:\n\n"
+            + "For: {0}\n".format(order.request.type)
+            + "When: {0}\n".format(moment(order.request.options.date).calendar())
+            + "\nTo view the status of this request, click the link below\n\n"
+            + url
+      });
+    }
+
+    return orderId;
   }
 });

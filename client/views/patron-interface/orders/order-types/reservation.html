@@ -1,0 +1,29 @@
+<template name="reservation">
+  <header>
+    <h3>
+      Reservation for {{experience.title}}
+      <small class="pull-right">
+        {{orderStatus}}
+      </small>
+    </h3>
+  </header>
+  
+  {{#if isCancelled}}
+    <p>Cancelled {{cancelledDateMomentAgo}}</p>
+  {{else}}
+    <div class="reservation-details">
+      <p>{{when}}</p>
+      <p>{{reservation.partyName}} - Party of {{reservation.partySize}}</p>
+    </div>
+    <div class="venue">
+      {{#with experience}}
+        <strong>{{venueName}}</strong>
+        <span>{{street}}</span>
+        <span>{{city}}, {{state}}</span>
+      {{/with}}
+    </div>
+   
+    <a class="btn btn-default btn-cancel-reservation pull-right">Cancel Reservation</a>
+    <p>Requested {{requestedDateTimeAgo}}</p>
+  {{/if}}
+</template>
