@@ -2,7 +2,7 @@ initializeServicePickers = function(template, startMinutes, endMinutes) {
   startMinutes = startMinutes || 0;
   endMinutes = endMinutes || 23*60+45;
 
-  var delay = .5;
+  var delay = 1;
 
 
   var startTime, endTime;

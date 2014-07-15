@@ -235,8 +235,20 @@ Meteor.methods({
           }
         });
         break;
+      case 'houseKeeping': 
+        var houseKeepingSchema = new SimpleSchema({
+          date: {
+            type: Date
+          }
+        });
+        requestSchema = _.extend(requestSchema, {
+          options: {
+            type: houseKeepingSchema
+          }
+        });
+        break;
       default: 
-        throw new Meteor.Error(500, 'Invalid Request', request);
+        throw new Meteor.Error(500, 'Request type is not configured', request);
         break;
     }
 
