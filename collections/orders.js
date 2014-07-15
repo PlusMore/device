@@ -247,6 +247,30 @@ Meteor.methods({
           }
         });
         break;
+      case 'wakeUpCall': 
+        var wakeUpCallSchema = new SimpleSchema({
+          date: {
+            type: Date
+          }
+        });
+        requestSchema = _.extend(requestSchema, {
+          options: {
+            type: wakeUpCallSchema
+          }
+        });
+        break;
+      case 'valetServices': 
+        var valetServicesSchema = new SimpleSchema({
+          date: {
+            type: Date
+          }
+        });
+        requestSchema = _.extend(requestSchema, {
+          options: {
+            type: valetServicesSchema
+          }
+        });
+        break;
       default: 
         throw new Meteor.Error(500, 'Request type is not configured', request);
         break;
