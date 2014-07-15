@@ -223,6 +223,18 @@ Meteor.methods({
           }
         });
         break;
+      case 'bellService': 
+        var bellServiceSchema = new SimpleSchema({
+          date: {
+            type: Date
+          }
+        });
+        requestSchema = _.extend(requestSchema, {
+          options: {
+            type: bellServiceSchema
+          }
+        });
+        break;
       default: 
         throw new Meteor.Error(500, 'Invalid Request', request);
         break;
