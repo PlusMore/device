@@ -1,5 +1,5 @@
 Template.transportation.rendered = function () {
-  initializeServicePickers(this, 7*60, 22*60);
+  initializeServicePickers(this);
 };
 
 Template.transportation.destroyed = function () {

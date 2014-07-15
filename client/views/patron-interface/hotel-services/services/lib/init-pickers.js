@@ -1,5 +1,9 @@
 initializeServicePickers = function(template, startMinutes, endMinutes) {
-  var delay = 0;
+  startMinutes = startMinutes || 0;
+  endMinutes = endMinutes || 23*60+45;
+
+  var delay = .5;
+
 
   var startTime, endTime;
   var startTomorrow = false;
@@ -10,6 +14,7 @@ initializeServicePickers = function(template, startMinutes, endMinutes) {
   var timepickerOptions = {
     container: 'body',
     clear: null,
+    interval: 15,
     onSet: function(select) {
       if (select.select) {
         template.selectedMinutes = select.select;
