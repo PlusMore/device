@@ -21,6 +21,10 @@ Schema.setupDevice = new SimpleSchema({
   },
   hotelId: {
     type: String
+  },
+  replacement: {
+    type: Boolean,
+    label: 'Is this a replacement device?'
   }
 });
 
@@ -40,11 +44,16 @@ Meteor.methods({
     var deviceWithSameLocation = Devices.findOne({hotelId: hotel._id, location: device.location});
 
     if (device.location && deviceWithSameLocation) {
-      throw new Meteor.Error(302,
-        'A device with this location has already been setup',
-        deviceWithSameLocation._id);
+      if (device.replacement) {
+        console.log('replacing device in ' + device.location + ' ('+ deviceWithSameLocation._id + ') in ' + hotel.name);
+        var locationReplaced = deviceWithSameLocation.location + ' Replaced ' + moment().format('MMMM Do YYYY');
+        Devices.update(deviceWithSameLocation._id, {$set: {location: locationReplaced, replacementDate: new Date()}});
+      } else {
+        throw new Meteor.Error(302, 'A device with this location has already been setup', deviceWithSameLocation._id);
+      }
     }
 
+    device.registrationDate = new Date();
     return Devices.insert(device);
   }
 });

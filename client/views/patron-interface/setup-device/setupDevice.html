@@ -3,12 +3,14 @@
   <div class="register-device big-text ">
     <p class="lead">Setup Device</p>
     
-    <div class="section col-md-6 col-md-offset-3">
-      {{#autoForm schema=setupDeviceSchema id="setupDeviceForm" type="method" meteormethod="setupDevice" class="pull-left"}}
+    <div class="section">
+      {{#autoForm schema=setupDeviceSchema id="setupDeviceForm" type="method" meteormethod="setupDevice"}}
         <fieldset>
           {{> afQuickField name="hotelId" firstOption="--Select Hotel--" options=hotelOptions}}
 
           {{> afQuickField name='location'}}
+
+          {{> afQuickField name='replacement'}}
 
           <div>
             <button type="submit" data-meteor-method="setupDevice" class="btn btn-primary">Setup Device</button>
