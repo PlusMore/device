@@ -8,13 +8,6 @@ Template.deviceLayout.helpers({
   connectionStatus: function () {
     return Meteor.status().status;
   },
-  // additionalContentClasses: function() {
-  //   var currentRoute = Router.current(); 
-
-  //   if (currentRoute) { 
-  //     return currentRoute.route.name === 'experience' ? 'hinge animated' : 'fadeIn animated';
-  //   }
-  // },
   isFullscreen: function() {
     return Session.get('fullscreen') ? 'fullscreen' : '';
   },
