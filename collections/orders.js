@@ -189,7 +189,7 @@ Meteor.methods({
         text: "Reservation for {0} has been cancelled.\n\n".format(experience.title)
             + "Reservation Details:\n\n"
             + "For: {0}\n".format(experience.title)
-            + "When: {0}\n".format(moment(reservation.date).calendar())
+            + "When: {0}\n".format(reservation.when)
             + "Name: {0}\n".format(reservation.partyName)
             + "Party Size: {0}\n".format(reservation.partySize)
             + "Email: {0}\n".format(reservation.emailAddress)
