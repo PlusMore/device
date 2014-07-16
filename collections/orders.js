@@ -296,6 +296,7 @@ Meteor.methods({
       type: 'request',
       for: request.for,
       deviceId: device._id,
+      deviceLocation: device.location,
       hotelId: hotel._id,
       stayId: stay._id,
       request: request,
