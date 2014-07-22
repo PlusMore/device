@@ -177,10 +177,6 @@ Router.map(function() {
       return [
         this.subscribe('userHotelData')
       ]
-    },
-    onBeforeAction: function(pause) {
-      var isAdminOrHotelStaff = (filters.isHotelStaff() || filters.isAdmin());
-      filters.isLoggedIn(this, pause, isAdminOrHotelStaff);
     }
   });
 
