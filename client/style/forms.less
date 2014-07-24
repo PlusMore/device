@@ -1,3 +1,5 @@
+@import '/client/style/imports.import.less';
+
 .form-group {
   label.control-label {
     font-weight: 200;
@@ -12,9 +14,26 @@
     font-size: 26px;
   }
 
+  .checkbox {
+    min-height: 44px;
+
+    label {
+      font-weight: 200;
+      font-size: 16px;
+      padding-left: 50px;
+      line-height: 50px;
+
+      input[type=checkbox] {
+        width: 44px;
+        height: 44px;
+        margin-left: -50px;
+      }
+    }
+  }
+
   .help-block {
     color: #fff;
-    }
+  }
 }
 
 .has-error .radio, .has-error .checkbox, .has-error .radio-inline, .has-error .checkbox-inline {

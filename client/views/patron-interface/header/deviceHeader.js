@@ -18,5 +18,13 @@ Template.deviceHeader.helpers({
   },
   isFullscreen: function() {
     return Session.get('fullscreen') ? 'fullscreen' : '';
+  },
+  hotelServicesEnabled: function () {
+    var hotelCursor = Hotels.find();
+
+    if (hotelCursor.count() > 0) {
+      var hotel = Hotels.findOne();
+      return hotel.hotelServicesEnabled || false;
+    }
   }
 });
