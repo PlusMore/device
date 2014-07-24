@@ -1,6 +1,7 @@
 <template name="hotelServices">
   <div class="main-container fill-parent">
     <div class="row" id="hotel-services-container">
+
       <div class="col-md-3" id='hotel-services-menu'>
         <ul class="nav nav-pills nav-stacked">
           <li class="{{activeHotelServiceClass 'transportation'}}">
@@ -20,6 +21,7 @@
           </li>
         </ul>
       </div>
+      
       {{#if subscriptionsReady}}
         <div class="col-md-9" id='hotel-services-content'>{{> UI.dynamic template=subNavContentTemplate}}</div>
       {{/if}}
