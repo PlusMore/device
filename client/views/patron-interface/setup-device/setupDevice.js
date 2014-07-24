@@ -1,23 +1,15 @@
 Deps.autorun(function() {
   var user = Meteor.user();
   if (user) {
-    if (Roles.userIsInRole(user._id, ['admin', 'hotel-staff'])) {
+    if (Roles.userIsInRole(user._id, ['admin', 'hotel-staff', 'hotel-manager'])) {
       Meteor.subscribe('hotelData');
     }
   }  
 })
 
-Template.setupDevice.helpers({
+Template.setupDeviceForm.helpers({
   setupDeviceSchema: function() {
     return Schema.setupDevice;
-  },
-  hotelName: function() {
-    return Session.get('hotelName');
-  },
-  hotelId: function() {
-    if (this.hotel) {
-      return this.hotel._id;
-    }
   }
 });
 

@@ -12,6 +12,15 @@
     }
   }
 
+  .navbar-collapse {
+    background-color: rgba(0, 0, 0, 0.8);
+    border: none;
+    &.in {
+      height: 518px;
+      max-height: 518px;
+    }
+  }
+
   .nav {
     li {
       background: none;
@@ -56,3 +65,19 @@
     }
   }
 }
+
+// small
+@media (min-width: 768px) {
+  .navbar-plusmore {
+    .navbar-collapse {
+      background-color: transparent;
+      border: none;
+    }
+  }
+}
+
+// medium
+@media (min-width: 992px) {}
+
+// large
+@media (min-width: 1200px) {}
