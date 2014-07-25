@@ -31,6 +31,13 @@ Template.request.helpers({
     }
 
     return '(In Progress)';
+  },
+  friendlyRequestType: function() {
+    if (typeof HotelServices.friendlyRequestType === 'function') {
+      return HotelServices.friendlyRequestType(this.request.type);
+    } else {
+      return this.request.type;
+    }
   }
 });
 
