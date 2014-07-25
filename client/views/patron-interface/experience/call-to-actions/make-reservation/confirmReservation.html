@@ -15,12 +15,14 @@
 <template name="needsRegistrationContent">
   {{#autoForm schema=accountInfo id='accountInfoForReservation' type="method" meteormethod="addInfoToDeviceAccount"}}
     <div class="modal-header">
-      <h4 class="modal-title">Confirm Reservation</h4>
+      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h3 class="modal-title">Confirm Reservation</h3>
     </div>
     <div class="modal-body">
       <div class="row">
         <div class="col-xs-12">
-          <p class='lead'>We have a table for you {{reservation.when}}!</p>
+          <p class='found-table-text'>We have a table for you {{reservation.when}}!</p>
+          <p>If this is not the time you wanted, you may choose a different time by closing this dialog and using the time input at the bottom of the screen.</p>
         </div>
       </div>
 
@@ -44,8 +46,7 @@
         </div> 
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel Reservation</button>
-      <button type="submit" data-meteor-method="addInfoToDeviceAccount" class="btn btn-primary">Confirm Reservation for {{reservation.when}}</button>
+      <button type="submit" data-meteor-method="addInfoToDeviceAccount" class="btn btn-lg btn-primary">Confirm Reservation for {{reservation.when}}</button>
     </div>
   {{/autoForm}}
 
