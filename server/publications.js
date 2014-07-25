@@ -41,7 +41,7 @@ Meteor.publish('userHotelData', function () {
 });
 
 /**
- * Always publish logged-in user's deviceId
+ * Always publish logged-in devices deviceId, device data, hotel data, and hotel-service data
  *
  */
 Meteor.publish(null, function () {
@@ -58,7 +58,8 @@ Meteor.publish(null, function () {
         return [
           Meteor.users.find(userId, {fields: fields}),
           Devices.find(deviceId),
-          Hotels.find(device.hotelId)
+          Hotels.find(device.hotelId),
+          HotelServices.find({hotelId: device.hotelId})
         ]
       }
 

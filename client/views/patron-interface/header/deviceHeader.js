@@ -21,10 +21,18 @@ Template.deviceHeader.helpers({
   },
   hotelServicesEnabled: function () {
     var hotelCursor = Hotels.find();
-
+    
     if (hotelCursor.count() > 0) {
       var hotel = Hotels.findOne();
-      return hotel.hotelServicesEnabled || false;
+      if (!hotel.hotelServicesEnabled) {
+        return false;
+      } else {
+        var activeHotelServices = HotelServices.find({hotelId: hotel._id, active: true});
+
+        if (activeHotelServices.count() > 0) {
+          return true;
+        }
+      }
     }
   }
 });

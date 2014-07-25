@@ -1,30 +1,30 @@
 <template name="hotelServices">
-  <div class="main-container fill-parent">
-    <div class="row" id="hotel-services-container">
+  {{#if subscriptionsReady}}
+    {{#if hotelServicesEnabled}}
+      <div class="main-container fill-parent">
+        <div class="row" id="hotel-services-container">
+          
 
-      <div class="col-md-3" id='hotel-services-menu'>
-        <ul class="nav nav-pills nav-stacked">
-          <li class="{{activeHotelServiceClass 'transportation'}}">
-            <a class='menu-item' href="#" data-template='transportation'>Transportation</a>
-          </li>
-          <li class="{{activeHotelServiceClass 'bellService'}}">
-            <a class='menu-item' href="#" data-template='bellService'>Bell Service</a>
-          </li>
-          <li class="{{activeHotelServiceClass 'houseKeeping'}}">
-            <a class='menu-item' href="#" data-template='houseKeeping'>House Keeping</a>
-          </li>
-          <li class="{{activeHotelServiceClass 'wakeUpCall'}}">
-            <a class='menu-item' href="#" data-template='wakeUpCall'>Wake Up Call</a>
-          </li>
-          <li class="{{activeHotelServiceClass 'valetServices'}}">
-            <a class='menu-item' href="#" data-template='valetServices'>Valet Services</a>
-          </li>
-        </ul>
+          <div class="col-md-3" id='hotel-services-menu'>
+            {{> hotelServicesNav}}
+          </div>
+        
+          <div class="col-md-9" id='hotel-services-content'>
+            {{> UI.dynamic template=subNavContentTemplate}}
+          </div>
+          
+        </div>
       </div>
-      
-      {{#if subscriptionsReady}}
-        <div class="col-md-9" id='hotel-services-content'>{{> UI.dynamic template=subNavContentTemplate}}</div>
-      {{/if}}
-    </div>
+    {{else}}
+      {{> hotelServicesNotConfigured}}
+    {{/if}}
+  {{else}}
+    {{> loading}}
+  {{/if}}
+</template>
+
+<template name="hotelServicesNotConfigured">
+  <div class="big-text">
+    <p class="lead">Hotel Services is not configured.</p>
   </div>
 </template>

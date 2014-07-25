@@ -1,0 +1,9 @@
+<template name="hotelServicesNav">
+  <ul class="nav nav-pills nav-stacked">
+    {{#each activeHotelServices}}
+      <li class="{{activeHotelServiceClass type}}">
+        <a class='menu-item' href="#" data-template='{{type}}'>{{friendlyRequestType}}</a>
+      </li>
+    {{/each}}
+  </ul>
+</template>
