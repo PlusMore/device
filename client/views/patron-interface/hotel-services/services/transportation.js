@@ -1,5 +1,6 @@
 Template.transportation.rendered = function () {
-  initializeServicePickers(this);
+  var hotelService = HotelServices.findOne({type: 'transportation'});
+  initializeServicePickers(this, hotelService.startMinutes, hotelService.endMinutes);
 };
 
 Template.transportation.destroyed = function () {

@@ -1,5 +1,6 @@
 Template.valetServices.rendered = function () {
-  initializeServicePickers(this);
+  var hotelService = HotelServices.findOne({type: 'valetServices'});
+  initializeServicePickers(this, hotelService.startMinutes, hotelService.endMinutes);
 };
 
 Template.valetServices.destroyed = function () {

@@ -1,5 +1,6 @@
 Template.houseKeeping.rendered = function () {
-  initializeServicePickers(this);
+  var hotelService = HotelServices.findOne({type: 'houseKeeping'});
+  initializeServicePickers(this, hotelService.startMinutes, hotelService.endMinutes);
 };
 
 Template.houseKeeping.destroyed = function () {

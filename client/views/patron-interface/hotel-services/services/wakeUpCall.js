@@ -1,5 +1,6 @@
 Template.wakeUpCall.rendered = function () {
-  initializeServicePickers(this);
+  var hotelService = HotelServices.findOne({type: 'wakeUpCall'});
+  initializeServicePickers(this, hotelService.startMinutes, hotelService.endMinutes);
 };
 
 Template.wakeUpCall.destroyed = function () {

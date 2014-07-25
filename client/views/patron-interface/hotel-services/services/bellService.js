@@ -1,5 +1,6 @@
 Template.bellService.rendered = function () {
-  initializeServicePickers(this);
+  var hotelService = HotelServices.findOne({type: 'bellService'});
+  initializeServicePickers(this, hotelService.startMinutes, hotelService.endMinutes);
 };
 
 Template.bellService.destroyed = function () {
