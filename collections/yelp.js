@@ -57,7 +57,11 @@ if (Meteor.isServer) {
       parameters.limit = 5;
 
       // Only return .data because that is how yelp formats its responses
-      return oauthBinding.get(url, parameters).data;
+      try {
+        return oauthBinding.get(url, parameters).data;
+      } catch (error) {
+        throw new Meteor.Error(500, 'Error contacting Yelp');
+      }
     },
     yelpBusiness: function(id) {
       this.unblock();
@@ -67,7 +71,11 @@ if (Meteor.isServer) {
       var oauthBinding = getYelpOauthBinding(url);
 
       // Only return .data because that is how yelp formats its responses
-      return oauthBinding.get(url).data;
+      try {
+        return oauthBinding.get(url).data;
+      } catch (error) {
+        throw new Meteor.Error(404, 'Error contacting Yelp');
+      }
     }
   });
 }
