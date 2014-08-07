@@ -22,5 +22,8 @@ Template.hotelServices.helpers({
         }
       }
     }
+  },
+  hey: function() {
+    debugger;
   }
 });

@@ -14,6 +14,9 @@ Template.hotelServicesNav.helpers({
       }
     }
   },
+  isValidService: function() {
+    return !!HotelServices.friendlyRequestType(this.type);
+  },
   friendlyRequestType: function() {
     if (typeof HotelServices.friendlyRequestType === 'function') {
       return HotelServices.friendlyRequestType(this.type);

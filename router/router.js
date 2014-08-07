@@ -229,7 +229,13 @@ Router.map(function() {
   this.route('hotelServices', {
     path: '/hotel-services',
     onRun: function () {
-      Session.set('subNavContentTemplate', 'hotelServicesDescription');
+      Session.set('selectedService', 'hotelServicesDescription');
+    },
+    data: function () {
+      var selectedService = Session.get('selectedService');
+      return {
+        configuration: HotelServices.findOne({type: selectedService})
+      };
     }
   });
 
@@ -246,7 +252,6 @@ Router.map(function() {
           "Name": Router.current().params.category
         });
       });
-
     }
   });
 

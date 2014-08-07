@@ -16,21 +16,17 @@ HotelServices.friendlyRequestType = function(requestType) {
   switch (requestType) {
     case 'transportation':
       return 'Transportation';
-      break;
     case 'bellService': 
       return 'Bell Service';
-      break;
     case 'houseKeeping': 
       return 'House Keeping';
-      break;
     case 'wakeUpCall': 
       return 'Wake Up Call';
-      break;
     case 'valetServices': 
-      return 'Valet Services'
-      break;
+      return 'Valet Services';
+    case 'roomService':
+      return 'Room Service';
     default: 
-      return 'Invalid Type';
-      break;
+      return undefined;
   }
-}
+};
