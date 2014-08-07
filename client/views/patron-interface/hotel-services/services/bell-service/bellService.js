@@ -1,12 +1,3 @@
-Template.bellService.rendered = function () {
-  var hotelService = HotelServices.findOne({type: 'bellService'});
-  initializeServicePickers(this, hotelService.startMinutes, hotelService.endMinutes);
-};
-
-Template.bellService.destroyed = function () {
-  destroyServicePickers(this);
-};
-
 Template.bellService.events({
   'click #btn-request': function(e, tmpl) {
     e.preventDefault();
@@ -21,7 +12,7 @@ Template.bellService.events({
         date: reservationMoment.toDate()
       }
       
-    }
+    };
 
     App.track('Hotel Service Request', {
       "Requested At": new Date(),

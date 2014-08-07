@@ -1,12 +1,3 @@
-Template.transportation.rendered = function () {
-  var hotelService = HotelServices.findOne({type: 'transportation'});
-  initializeServicePickers(this, hotelService.startMinutes, hotelService.endMinutes);
-};
-
-Template.transportation.destroyed = function () {
-  destroyServicePickers(this);
-};
-
 Template.transportation.events({
   'click #btn-request': function(e, tmpl) {
     e.preventDefault();
@@ -22,7 +13,7 @@ Template.transportation.events({
         date: reservationMoment.toDate()
       }
       
-    }
+    };
 
     App.track('Hotel Service Request', {
       "Requested At": new Date(),

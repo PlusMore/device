@@ -1,12 +1,3 @@
-Template.houseKeeping.rendered = function () {
-  var hotelService = HotelServices.findOne({type: 'houseKeeping'});
-  initializeServicePickers(this, hotelService.startMinutes, hotelService.endMinutes);
-};
-
-Template.houseKeeping.destroyed = function () {
-  destroyServicePickers(this);
-};
-
 Template.houseKeeping.events({
   'click #btn-request': function(e, tmpl) {
     e.preventDefault();
@@ -21,7 +12,7 @@ Template.houseKeeping.events({
         date: reservationMoment.toDate()
       }
       
-    }
+    };
 
     App.track('Hotel Service Request', {
       "Requested At": new Date(),

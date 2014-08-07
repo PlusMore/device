@@ -1,12 +1,3 @@
-Template.wakeUpCall.rendered = function () {
-  var hotelService = HotelServices.findOne({type: 'wakeUpCall'});
-  initializeServicePickers(this, hotelService.startMinutes, hotelService.endMinutes);
-};
-
-Template.wakeUpCall.destroyed = function () {
-  destroyServicePickers(this);
-};
-
 Template.wakeUpCall.events({
   'click #btn-request': function(e, tmpl) {
     e.preventDefault();

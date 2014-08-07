@@ -5,7 +5,7 @@ Template.hotelServices.helpers({
     }
   },
   subNavContentTemplate: function () {
-    return Session.get('subNavContentTemplate');
+    return Session.get('selectedService');
   },
   hotelServicesEnabled: function () {
     var hotelCursor = Hotels.find();

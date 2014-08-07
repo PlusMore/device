@@ -1,35 +1,29 @@
 <template name="bellService">
-  <h1>Bell Service</h1>
-  <p class="lead">Request a bell hop to carry your bags.</p>
-  <form class="form-horizontal">
-    <fieldset>
-
-      <!-- Text input-->
-      <div class="form-group">
-        <label class="col-md-2 control-label" for="date">Date</label>  
-        <div class="col-md-6 picker-container">
-          <input id="date" name="date" type="text" placeholder="-- Select Date --" class="form-control input-md datepicker" required="">
-          <span class="help-block">Select a Date for this service.</span>  
+  <div class="row">
+    <div class="col-md-12">
+      <div class="modal-content inline">
+        <div class="modal-header">
+          <h3 class="modal-title">Bell Service</h3>
         </div>
-      </div>
-
-      <!-- Text input-->
-      <div class="form-group">
-        <label class="col-md-2 control-label" for="time">Time</label>  
-        <div class="col-md-6 picker-container">
-          <input id="time" name="time" type="text" placeholder="-- Select a Time --" class="form-control input-md timepicker" required="">
-          <span class="help-block">Select a time for this service.</span>  
+       
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <p class='lead'>Request a bell hop to carry your bags.</p>
+          <form class="form-horizontal">
+            <fieldset>
+              {{> selectDateAndTime}}
+            </fieldset>
+          </form>
+            </div>
+          </div>
+          
         </div>
-      </div>
-
-      <!-- Button -->
-      <div class="form-group">
-        <label class="col-md-2 control-label" for="btn-request"></label>
-        <div class="col-md-4">
-          <button id="btn-request" name="btn-request" class="btn btn-primary btn-lg btn-block">Request Service</button>
+        <div class="modal-footer">
+          <button id="btn-request" name="btn-request" class="btn btn-default">Request Service</button>
         </div>
-      </div>
 
-    </fieldset>
-  </form>
+      </div><!-- /.modal-content -->        
+    </div>    
+  </div>
 </template>

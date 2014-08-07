@@ -1,6 +1,6 @@
 Template.hotelServicesNav.helpers({
   activeHotelServiceClass: function(serviceName) { 
-    return Session.get('subNavContentTemplate') === serviceName ? 'active' : '';
+    return Session.get('selectedService') === serviceName ? 'active' : '';
   },
   activeHotelServices: function() {
     var hotelCursor = Hotels.find();
@@ -28,6 +28,6 @@ Template.hotelServicesNav.events({
     e.preventDefault();
     var templateName = $(e.currentTarget).data('template') || 'hotelServicesDescription';
 
-    Session.set('subNavContentTemplate', templateName);
+    Session.set('selectedService', templateName);
   }
 });

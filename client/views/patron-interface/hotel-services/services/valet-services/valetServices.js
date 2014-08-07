@@ -1,12 +1,3 @@
-Template.valetServices.rendered = function () {
-  var hotelService = HotelServices.findOne({type: 'valetServices'});
-  initializeServicePickers(this, hotelService.startMinutes, hotelService.endMinutes);
-};
-
-Template.valetServices.destroyed = function () {
-  destroyServicePickers(this);
-};
-
 Template.valetServices.events({
   'click #btn-request': function(e, tmpl) {
     e.preventDefault();
@@ -21,7 +12,7 @@ Template.valetServices.events({
         date: reservationMoment.toDate()
       }
       
-    }
+    };
 
     App.track('Hotel Service Request', {
       "Requested At": new Date(),
