@@ -1,11 +1,54 @@
+.modal-backdrop.in {
+  opacity: .9;
+}
+
 .modal {
-  color: #000;
+  color: #fff;
+  text-align: left;
 
-  .modal-content {
-    background: rgba(255,255,255,.92);
+  &.in {
+    display: block;
+  }
 
-    a, span, legend {
-      color: #000;
+  .modal-dialog {
+    margin-top: 100px;
+
+    .modal-content {
+      background: transparent;
+      box-shadow: none;
+      border: none;
+
+      a, span, legend {
+        color: #fff;
+      }
+
+      .modal-header {
+        button.close {
+          color: #fff;
+          opacity: 1;
+          text-shadow: none;
+        }
+      }
+
+      .modal-footer {
+        .btn {
+          font-size: 16px;
+          padding: 6px 20px;
+          font-weight: 200;
+          letter-spacing: 1px;
+          &.btn-cancel, &.btn-reset {
+            background: transparent;
+            color: #fff;
+
+            &:hover, &:focus, &:visited {
+              color: #fff;
+            }
+          }
+        }
+      }
+
+      
+
     }
   }
 
@@ -14,7 +57,7 @@
   }
 
   .has-error .control-label {
-    color: #000;
+    color: #fff;
   }
 }
 

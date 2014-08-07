@@ -28,25 +28,26 @@
 
         <div class="row">
           <div class="col-xs-12">
-
-              <legend>Name for the reservation</legend>
+            <div class="row">
               <div class="col-xs-6 col-md-6">
                 {{> afQuickField name='firstName' placeholder='First'}}
               </div>
+
               <div class="col-xs-6 col-md-6">
                 {{> afQuickField name='lastName' placeholder='Last'}}
-              </div>
-              
-            <legend>Email address to receive confirmation</legend>
-            <div class="col-xs-12">
-              {{> afQuickField name='emailAddress' placeholder='Ex. johnsmith@email.com'}}
+              </div>  
             </div>
-            
+            <div class="row">
+              <div class="col-xs-12">
+                {{> afQuickField name='emailAddress' placeholder='Ex. johnsmith@email.com'}}
+              </div>  
+            </div>
           </div>
         </div> 
     </div>
     <div class="modal-footer">
-      <button type="submit" data-meteor-method="addInfoToDeviceAccount" class="btn btn-lg btn-primary">Confirm Reservation for {{reservation.when}}</button>
+      <a href="#" class="btn btn-cancel" data-dismiss="modal">Cancel</a>
+      <button type="submit" data-meteor-method="addInfoToDeviceAccount" class="btn btn-default">Confirm Reservation for {{reservation.when}}</button>
     </div>
   {{/autoForm}}
 
