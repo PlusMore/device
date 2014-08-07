@@ -1,0 +1,30 @@
+<template name="menuCategory">
+  <div id='menu-categories' class="modal-content inline">
+    <div class="modal-header">
+      <h4 class="modal-title">
+        {{name}}
+        <small>
+          Available
+          {{#if startTime}}
+            {{startTime}} - {{endTime}}
+          {{else}}
+            Anytime
+          {{/if}}
+        </small>
+      </h4>
+    </div>
+
+    <div class="modal-body">
+      {{#if description}}
+      <div class="row">
+        <div class="col-md-12">
+          <p>{{description}}</p>
+        </div>
+      </div>
+      {{/if}}
+      <div class="row">
+        {{> menuItems}}
+      </div>
+    </div>
+  </div><!-- /.modal-content -->  
+</template>

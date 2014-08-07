@@ -7,8 +7,6 @@ Global client-side code. Loads last.
 /+ ---------------------------------------------------- */
 
 //
-subscriptions = {};
-
 Meteor.startup(function() {
   // Subscribe to device data when a device ID is available
   Deps.autorun(function () {

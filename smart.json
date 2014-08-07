@@ -7,10 +7,7 @@
     },
     "bootstrap-3": {},
     "roles": {},
-    "autoform": {
-      "git": "git@github.com:PlusMore/meteor-autoform.git",
-      "branch": "template-not-in-DOM-bug"  
-    },
+    "autoform": {},
     "fastclick": {},
     "collection2": {},
     "inspector": {},
@@ -25,12 +22,14 @@
     },
     "iron-transitioner": {
       "git": "https://github.com/percolatestudio/iron-transitioner.git",
-      "branch": "blaze"
+      "branch": "blaze",
+      "commit": "5ec6137bef1ed42606465c939aed937669c984e7"
     },
     "animate-css": {},
     "hammer": {},
     "bootstrap-errors": {},
     "accounts-ui-bootstrap-3": {},
-    "googlemaps": {}
+    "googlemaps": {},
+    "simple-publish": {}
   }
 }
