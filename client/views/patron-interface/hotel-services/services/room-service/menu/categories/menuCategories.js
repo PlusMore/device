@@ -1,5 +1,8 @@
 Template.menuCategories.helpers({
-  menuCategories: function () {
-    return MenuCategories.find();
+  timedMenuCategories: function () {
+    return MenuCategories.find({startTime: {$exists:true}}, {sort: {startMinutes: 1}});
+  },
+  anytimeMenuCategories: function () {
+    return MenuCategories.find({startTime: {$exists:false}});
   }
 });
