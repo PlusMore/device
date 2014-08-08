@@ -1,0 +1,30 @@
+<template name="addItemToCartModal">
+  {{#with item}}
+    <div class="modal-backdrop fade {{isVisibleClass}}"></div>
+    <div class="modal fade {{isVisibleClass}}">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="pull-right">
+              <a href="#" class="icon icon-x" data-dismiss="modal"></a>
+            </div>
+            <h2 class="modal-title">{{name}}</h2>
+          </div>
+            <div class="modal-body">
+              {{#if description}}
+                <p>{{description}}</p>
+              {{/if}} 
+              <div class="form-group">
+                <label class="control-label" for="description">Special Instructions (Optional)</label>
+                <textarea name="description" rows="3" class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <a class="btn btn-cancel" data-dismiss="modal">Cancel</a>
+              <button id='add-item-to-cart' class="btn btn-default">Add Item To Cart</button>
+            </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  {{/with}}
+</template>

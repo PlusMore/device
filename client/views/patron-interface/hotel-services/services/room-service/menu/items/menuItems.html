@@ -2,14 +2,7 @@
   {{#if hasMenuItems}}
     {{#each menuItemsForCategory}}
       <div class="col-sm-12">
-        <div class="list-item {{enabledClass}}">
-          {{name}} {{isActive}}
-          <small class='pull-right'>${{price}}</small>
-          {{#if description}}
-            <p>{{description}}</p>
-          {{/if}}
-        </div>
-        
+        {{> menuItem}}
       </div>
     {{/each}}
   {{else}}
