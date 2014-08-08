@@ -4,7 +4,7 @@ Template.addItemToCartModal.helpers({
   }, 
   isVisibleClass: function() {
     if (!!Session.get('addItem')) {
-      return 'show in';
+      return 'show in animated fadeInDown';
     } else {
       return 'hidden';
     }
