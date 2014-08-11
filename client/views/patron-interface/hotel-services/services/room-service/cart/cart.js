@@ -32,7 +32,7 @@ Template.cart.helpers({
 }); 
 
 Template.cart.events({
-  'click .removeci':function(evt,tmpl){
+  'click .remove-item':function(evt,tmpl){
     Meteor.call('removeCartItem',this._id);
   }
 });
