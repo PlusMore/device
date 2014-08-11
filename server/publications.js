@@ -138,6 +138,9 @@ Meteor.publish('hotelMenu', function(hotelId) {
   
 });
 
+Meteor.publish('cart', function(cartId) {
+  return CartItems.find({cartId: cartId});
+});
 // Meteor.publish('experience', function(id) {
 //   return [
 //     Experiences.find(id)

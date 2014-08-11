@@ -46,4 +46,11 @@ Meteor.startup(function() {
     }
     
   });
+
+  Deps.autorun(function() {
+    var stays = Stays.find();
+    if (stays.count() > 0) {
+      Session.set('stayId', Stays.findOne()._id);
+    }
+  });
 });
