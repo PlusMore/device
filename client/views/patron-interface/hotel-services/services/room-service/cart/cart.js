@@ -32,7 +32,43 @@ Template.cart.helpers({
 }); 
 
 Template.cart.events({
-  'click .remove-item':function(evt,tmpl){
-    Meteor.call('removeCartItem',this._id);
+  'click .remove-item':function(e, tmpl) {
+    var that = this;
+    bootbox.dialog({
+      title: 'Remove ' + that.name,
+      message: "Are you sure you would like to remove " + that.name + ' from your cart?', 
+      buttons: {
+        cancel: {
+          label: 'Cancel',
+          className: 'btn-cancel'
+        },
+        main: {
+          label: 'Remove ' + that.name,
+          className: 'btn-default',
+          callback:function(result) {
+            Meteor.call('removeCartItem',that._id);
+          }
+        }
+      }
+    });
+  }, 
+  'click .btn-reset': function(e, tmpl) {
+    bootbox.dialog({
+      title: 'Empty Cart',
+      message: "Are you sure you'd like to empty your cart?", 
+      buttons: {
+        cancel: {
+          label: 'Cancel',
+          className: 'btn-cancel'
+        },
+        main: {
+          label: 'Empty Cart',
+          className: 'btn-default',
+          callback:function(result) {
+            Meteor.call('emptyCart', Session.get('stayId'));
+          }
+        }
+      }
+    });
   }
 });

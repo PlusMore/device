@@ -30,6 +30,7 @@
     "bootstrap-errors": {},
     "accounts-ui-bootstrap-3": {},
     "googlemaps": {},
-    "simple-publish": {}
+    "simple-publish": {},
+    "bootboxjs": {}
   }
 }

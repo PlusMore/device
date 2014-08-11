@@ -34,8 +34,11 @@ Meteor.methods({
       throw Meteor.Error(500, 'Quantity is 0');
     }
   },
-  removeCartItem:function(id){
+  removeCartItem: function(id) {
     check(id, String);
     CartItems.remove({_id:id});
+  },
+  emptyCart: function(cartId) {
+    CartItems.remove({cartId: cartId});
   }
 });
