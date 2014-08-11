@@ -7,11 +7,12 @@
     </div>
     <div class="modal-body">
 
-      <table class="span4 table table-striped table-bordered table-hover">
+      <table class="span4 table">
         <thead>
           <th>Qty</th>
           <th>Product</th>
-          <th colspan="2">Price</th>
+          <th colspan="1" class='text-align-right'>Price</th>
+          <th></th>
         </thead>
         <tbody>
           {{#each cartItems}}
@@ -25,27 +26,32 @@
                   </p>
                 {{/if}}
               </td>
-              <td>{{currency price}}</td>
+              <td class='text-align-right'>{{currency price}}</td>
               <td>
                 <i class="icon icon-x remove-item"></i>
               </td>
             </tr>
           {{else}}
             <tr>
-              <td colspan="4">No Items in Cart</td>
+              <td colspan="4">
+                <em>No Items in Cart</em>
+              </td>
             </tr>
           {{/each}}
           <tr>
               <td class="totalcol" colspan="2">SubTotal:</td>
-              <td colspan="2">{{currency cartItems.subtotal}}</td>
+              <td colspan="1" class='text-align-right'>{{currency cartItems.subtotal}}</td>
+              <td></td>
           </tr>
           <tr>
               <td class="totalcol" colspan="2">Tax 6%:</td>
-              <td colspan="2">{{currency cartItems.tax}}</td>
+              <td colspan="1" class='text-align-right'>{{currency cartItems.tax}}</td>
+              <td></td>
           </tr>
           <tr>
               <td class="totalcol" colspan="2">Total:</td>
-              <td colspan="2">{{currency cartItems.total}}</td>
+              <td colspan="1" class='text-align-right'>{{currency cartItems.total}}</td>
+              <td></td>
           </tr>
         </tbody>
       </table>
