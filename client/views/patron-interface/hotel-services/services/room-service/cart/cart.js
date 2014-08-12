@@ -24,10 +24,6 @@ Template.cart.helpers({
     shopCart.tax = shopCart.subtotal * 0.06; // lookup tax for state? Based on hotelId? 
     shopCart.total = shopCart.subtotal + shopCart.tax;
     return shopCart;
-  },
-  currency: function(num){
-    num = num || 0;
-    return '$' + Number(num).toFixed(2);
   }
 }); 
 
@@ -69,6 +65,12 @@ Template.cart.events({
           }
         }
       }
+    });
+  }, 
+  'click #place-order': function(e, tmpl) {
+    Meteor.call('orderRoomServiceCartItems', Session.get('stayId'), function(err, result) {
+      if (err) Errors.throw(err.message);
+      Router.go('orders');
     });
   }
 });

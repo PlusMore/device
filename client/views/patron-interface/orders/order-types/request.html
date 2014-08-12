@@ -9,13 +9,21 @@
   </header>
   
   {{#if isCancelled}}
-    <p>Cancelled {{cancelledDateMomentAgo}}</p>
+    <div class="time-ago">
+      <span>Cancelled {{cancelledDateMomentAgo}}</span>  
+    </div>
+    
   {{else}}
-    <div class="reservation-details">
-      <p>{{when}}</p>
+    <div class="request-details">
+      {{> requestDetails}}
+    </div>
+    <div class='time-ago'>
+      <span>Requested {{requestedDateTimeAgo}}</span>
     </div>
    
-    <a class="btn btn-default btn-cancel-request pull-right">Cancel Request</a>
-    <p>Requested {{requestedDateTimeAgo}}</p>
+    <div class="buttons pull-right">
+      <a class="btn btn-default btn-cancel-request">Cancel Request</a>
+    </div>
+     
   {{/if}}
 </template>
