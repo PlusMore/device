@@ -3,8 +3,10 @@ Template.valetServices.events({
     e.preventDefault();
 
     var user = Meteor.user();
-    var reservationMoment = moment(tmpl.selectedDate).startOf('day').add('minutes', tmpl.selectedMinutes);
-
+    var selectedDate = Session.get('selectedDate');
+    var selectedMinutes = Session.get('selectedMinutes');
+    var reservationMoment = moment(selectedDate).startOf('day').add('minutes', selectedMinutes);
+    
     var request = {
       type: 'valetServices',
       for: 'hotel',

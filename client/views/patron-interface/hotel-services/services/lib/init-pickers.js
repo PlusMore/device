@@ -17,7 +17,8 @@ initializeServicePickers = function(template, startMinutes, endMinutes) {
     interval: 15,
     onSet: function(select) {
       if (select.select) {
-        template.selectedMinutes = select.select;
+        Session.set('selectedMinutes', select.select);
+        // template.selectedMinutes = select.select;
       }
     }
   }
@@ -45,7 +46,8 @@ initializeServicePickers = function(template, startMinutes, endMinutes) {
     clear: null,
     onSet: function(select) {
       // set selectedDate on template
-      template.selectedDate = select.select;
+      // template.selectedDate = select.select;
+      Session.set('selectedDate', select.select);
 
       var timepicker = template.timepicker.pickatime('picker');
 
