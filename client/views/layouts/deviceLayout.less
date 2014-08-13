@@ -130,7 +130,7 @@ div[class^="overlay-"] {
   background: #000;
 }
 
-.transitioner-panes { //picker
+.transitioner-panes, .outer { //picker
   position: fixed;
   z-index: 5;
   -webkit-user-select: none;
@@ -139,7 +139,7 @@ div[class^="overlay-"] {
   user-select: none;
   
 
-  [class*="-pane"] {
+  [class*="-pane"], .holder {
     section {
       width: 100%;
       overflow-y: auto;
