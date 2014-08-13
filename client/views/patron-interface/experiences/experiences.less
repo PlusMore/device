@@ -1,52 +1,39 @@
 @import '/client/style/imports.import.less';
 
-.experiences-list-container {
-  
-  width: 100%;
-  a {
-    color: rgb(0, 174, 239);
-  }
+.experiences-footer {
+  padding-top: 44px;
+  padding-bottom: 29px;
+  .text {
+    .center();
+    color: #fff;
+    font-weight: 100;
+    font-size: 1.5em; //2.5
+    letter-spacing: 1em;
+    text-transform: uppercase;
 
-  .row.experiences {
-    margin: -4px -6px;
-  }
-
-  & > footer {
-    padding-top: 44px;
-    padding-bottom: 29px;
-    .text {
-      .center();
-      color: #fff;
-      font-weight: 100;
-      font-size: 1.5em; //2.5
-      letter-spacing: 1em;
-      text-transform: uppercase;
-
-      & > .last-letter {
-        letter-spacing: 0em;
-      }
+    & > .last-letter {
+      letter-spacing: 0em;
     }
-    .small-text {
-      .center();
-      letter-spacing: .9em;
-      color: #ccc;
-      font-weight: 200;
-      font-size: 1em;
-      text-transform: uppercase;
-      & > .last-letter {
-        letter-spacing: 0em;
-      }
+  }
+  .small-text {
+    .center();
+    letter-spacing: .9em;
+    color: #ccc;
+    font-weight: 200;
+    font-size: 1em;
+    text-transform: uppercase;
+    & > .last-letter {
+      letter-spacing: 0em;
     }
   }
 }
 
+
 // small
 @media (min-width: 768px) {
-  .experiences-list-container {
-    & > footer {
-      .text {
-        font-size: 2.5em;
-      }
+  .experiences-footer {
+    .text {
+      font-size: 2.5em;
     }
   }
 }

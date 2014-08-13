@@ -1,20 +1,19 @@
 <template name="welcome">
-
   {{#if needsRegistration}}
     {{> registerDevice}}
   {{else}}
-    <div class="fill-parent welcome">
-    	<div class="welcome-text">
-        
-    	    {{#with device}}
-    	      <h1>Welcome to PlusMore</h1>
-    	      <p class="tag">YOUR PRIVATE CONCIERGE</p>
-    	      <p class="instructions lead">Tap to begin</p>
-            <p class='location'>{{location}}</p>
-    	    {{/with}}
-        
-  	  </div>
-    </div>
+    <section class='welcome'>
+      <div class="main container scrollable">
+        {{#with device}}
+          <div class="welcome-text">
+            <h1>Welcome to PlusMore</h1>
+          <p class="tag">YOUR PRIVATE CONCIERGE</p>
+          <p class="instructions lead">Tap to begin</p>
+          <p class='location'>{{location}}</p>
+          </div>
+          
+        {{/with}}
+      </div>
+    </section>
   {{/if}}
-
 </template>
