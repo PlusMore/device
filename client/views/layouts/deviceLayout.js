@@ -1,4 +1,7 @@
 Template.deviceLayout.helpers({
+  routeReady: function() {
+    return Router.current().ready();
+  },
   idleStatus: function() {
     return UserStatus.isIdle() ? 'idle' : ''
   },
@@ -30,10 +33,3 @@ Template.deviceLayout.helpers({
     return Meteor.settings.public.bgPhotoUrl + '/convert?w=1024&h=768&fit=scale&cache=true';
   }
 });
-
-Template.preload.helpers({
-  experiences: function () {
-    return Experiences.find();
-  }
-});
-
