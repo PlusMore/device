@@ -1,7 +1,4 @@
 Template.request.helpers({
-  needsAction: function() {
-    return this.open;
-  },
   isPending: function() {
     var status = this.status || 'pending'
     return (status === 'pending');
@@ -13,13 +10,12 @@ Template.request.helpers({
     return (this.status === 'cancelled');
   },
   cancelledDateMomentAgo: function() {
+    var now = Session.get('currentTime');
     return moment(this.cancelledDate).fromNow();
   },
   requestedDateTimeAgo: function() {
+    var now = Session.get('currentTime');
     return moment(this.requestedAt).fromNow();
-  },
-  when: function() {
-    return moment(this.request.options.date).calendar();
   },
   orderStatus: function() {
     if (this.status === 'confirmed') {

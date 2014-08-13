@@ -8,10 +8,7 @@
       },
       "bootstrap-3": {},
       "roles": {},
-      "autoform": {
-        "git": "git@github.com:PlusMore/meteor-autoform.git",
-        "branch": "template-not-in-DOM-bug"
-      },
+      "autoform": {},
       "fastclick": {},
       "collection2": {},
       "inspector": {},
@@ -33,7 +30,9 @@
       "hammer": {},
       "bootstrap-errors": {},
       "accounts-ui-bootstrap-3": {},
-      "googlemaps": {}
+      "googlemaps": {},
+      "simple-publish": {},
+      "bootboxjs": {}
     },
     "packages": {
       "iron-router": {
@@ -48,13 +47,13 @@
       },
       "roles": {
         "git": "https://github.com/alanning/meteor-roles.git",
-        "tag": "v1.2.10",
-        "commit": "7ccb35de0a6cb0c9a0c3666badd04757e39c09a6"
+        "tag": "v1.2.11",
+        "commit": "2d7dc91848ec874d3a0852c77f462d0fae749de5"
       },
       "autoform": {
-        "git": "git@github.com:PlusMore/meteor-autoform.git",
-        "branch": "template-not-in-DOM-bug",
-        "commit": "4ae1aa41fc86cc59e038a0bad505417cd8c4616b"
+        "git": "https://github.com/aldeed/meteor-autoform.git",
+        "tag": "v0.16.1",
+        "commit": "34a447fd3a1b3164c78f865aabbac3ddc2d033fb"
       },
       "fastclick": {
         "git": "https://github.com/percolatestudio/meteor-fastclick",
@@ -63,8 +62,8 @@
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
-        "tag": "v0.4.3",
-        "commit": "cb470de2cfeebeccbf76d4cc0a39ad4afc76d553"
+        "tag": "v0.4.6",
+        "commit": "80554182486be0d8e74f7ed02194a5649d712e27"
       },
       "inspector": {
         "git": "https://github.com/broth-eu/meteor-inspector.git",
@@ -113,13 +112,23 @@
       },
       "accounts-ui-bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-accounts-ui-bootstrap-3.git",
-        "tag": "v0.3.3",
-        "commit": "2e50b605d8d5ed68e48c4529a65f13552d8af3f9"
+        "tag": "v0.3.4",
+        "commit": "9f006ee48d869877d90d54ac75b54550a587df8f"
       },
       "googlemaps": {
         "git": "https://github.com/drewjw81/meteor-googlemaps.git",
         "tag": "v0.0.2",
         "commit": "da8785c82cfd7de0111f898ef10728e7ed24e361"
+      },
+      "simple-publish": {
+        "git": "https://github.com/copleykj/meteor-simple-publish",
+        "tag": "v1.0.0",
+        "commit": "b58e6a4558a198d33be5b7132f47afd729288861"
+      },
+      "bootboxjs": {
+        "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
+        "tag": "v4.2.1-master.1",
+        "commit": "c125969c1f3aef30e2a2ff20252bd3b2e4014b2f"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
@@ -128,8 +137,8 @@
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
-        "tag": "v0.6.0",
-        "commit": "418ec496612fb2afc853e342f0d2269b6674a2fe"
+        "tag": "v0.7.0",
+        "commit": "77d267aec4ba8a70f677e5d9ef9fb91fb0e3f0f6"
       },
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",

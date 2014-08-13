@@ -1,0 +1,13 @@
+<template name="menuItems">
+  {{#if hasMenuItems}}
+    {{#each menuItemsForCategory}}
+      <div class="col-sm-12">
+        {{> menuItem}}
+      </div>
+    {{/each}}
+  {{else}}
+    <div class="col-xs-12">
+      <p class='no-margin-bottom'>No {{name}} menu items.</p>
+    </div>
+  {{/if}}
+</template>

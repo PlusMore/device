@@ -1,6 +1,13 @@
 @import '/client/style/imports.import.less';
 
-.idle-overlay {  
+.overlay-idle {  
   background: #000;
-  z-index: 5000;
+  z-index: 5000 !important;
+  .transition(600ms visibility linear);
+  &.fadeOut {
+    visibility: hidden;
+  }
+  &.fadeIn {
+    visibility: visible;
+  }
 }

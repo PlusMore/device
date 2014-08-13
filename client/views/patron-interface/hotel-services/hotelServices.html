@@ -1,20 +1,21 @@
 <template name="hotelServices">
   {{#if subscriptionsReady}}
     {{#if hotelServicesEnabled}}
-      <div class="main-container fill-parent">
-        <div class="row" id="hotel-services-container">
-          
-
-          <div class="col-sm-3" id='hotel-services-menu'>
-            {{> hotelServicesNav}}
-          </div>
-        
-          <div class="col-sm-9 col-sm-offset-3" id='hotel-services-content'>
-            {{> UI.dynamic template=subNavContentTemplate data=configuration}}
-          </div>
-          
+      <section>
+        <div class="col-sm-3" id='hotel-services-menu'>
+          {{> hotelServicesNav}}
         </div>
-      </div>
+        <div class="main container-fluid scrollable">
+          <div class="row" id="hotel-services-container">
+            
+            <div class="col-sm-9 col-sm-offset-3" id='hotel-services-content'>
+              {{> UI.dynamic template=subNavContentTemplate data=configuration}}
+            </div>
+            
+          </div>
+        </div>  
+      </section>
+      
     {{else}}
       {{> hotelServicesNotConfigured}}
     {{/if}}
@@ -24,7 +25,11 @@
 </template>
 
 <template name="hotelServicesNotConfigured">
-  <div class="big-text">
-    <p class="lead">Hotel Services is not configured.</p>
-  </div>
+  <section>
+    <div class="main container-fluid">
+      <div class="big-text">
+        <p class="lead">Hotel Services is not configured.</p>
+      </div>
+    </div>
+  </section>
 </template>
