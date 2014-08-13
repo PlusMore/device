@@ -252,6 +252,12 @@ Router.map(function() {
           "Name": Router.current().params.category
         });
       });
+    },
+    data: function() {
+      var activeCategory = Session.get('activeCategory');
+      return {
+        experiences: Experiences.find({category: activeCategory}, {sort: {sortOrder: 1}})
+      };
     }
   });
 
