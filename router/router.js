@@ -229,7 +229,15 @@ Router.map(function() {
   this.route('hotelServices', {
     path: '/hotel-services',
     onRun: function () {
-      Session.set('selectedService', 'hotelServicesDescription');
+      var roomService = HotelServices.findOne({type: 'roomService'});
+
+      if (roomService) {
+        Session.set('selectedService', 'roomService'); 
+      } else {
+        var first = HotelServices.findOne();
+        Session.set('selectedService', first.type);
+      }
+
     },
     data: function () {
       var selectedService = Session.get('selectedService');
