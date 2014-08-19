@@ -59,7 +59,7 @@ Meteor.publish(null, function () {
           Meteor.users.find(userId, {fields: fields}),
           Devices.find(deviceId),
           Hotels.find(device.hotelId),
-          HotelServices.find({hotelId: device.hotelId})
+          HotelServices.find({hotelId: device.hotelId, active: true})
         ];
       }
 
