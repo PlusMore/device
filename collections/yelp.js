@@ -18,7 +18,7 @@ if (Meteor.isServer) {
     var config = Accounts.loginServiceConfiguration.findOne({service: 'yelp'});
     if (config) {
       config.secret = config.consumerSecret;
-      var oauthBinding = new OAuth1Binding(config, url)
+      var oauthBinding = new OAuth1Binding(config, url);
       oauthBinding.accessToken = config.accessToken;
       oauthBinding.accessTokenSecret = config.accessTokenSecret;
 
@@ -26,7 +26,7 @@ if (Meteor.isServer) {
     } else {
       throw new Meteor.Error(500, 'Yelp Not Configured');
     }  
-  }
+  };
 
   Meteor.methods({
     searchYelp: function(search, isCategory, latitude, longitude) {

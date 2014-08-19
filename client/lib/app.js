@@ -14,7 +14,7 @@ Meteor.startup(function() {
     }
 
     return false;
-  }
+  };
 
   _.extend(App, {
   	identify: function() {
@@ -61,6 +61,7 @@ Meteor.startup(function() {
       Deps.nonreactive(function() {
         var user = Meteor.user();
         var emailProperties = {};
+        var hotel;
 
         if (user && user.emails && user.emails.length > 0) {
           emailProperties['$email'] = user.emails[0].address;
@@ -85,8 +86,9 @@ Meteor.startup(function() {
 
         if (user && user.deviceId) {
           var deviceId = user.deviceId,
-              device = Devices.findOne(deviceId),
-              hotel = Hotels.findOne(device.hotelId);
+              device = Devices.findOne(deviceId);
+
+          hotel = Hotels.findOne(device.hotelId);
 
           _.extend(properties, {
             "Device Id": user.deviceId,
@@ -95,7 +97,7 @@ Meteor.startup(function() {
           });
 
           if (typeof profileInfo['$name'] === 'undefined') {
-            profileInfo['$name'] = device.location
+            profileInfo['$name'] = device.location;
           }
         }
         _.extend(properties, profileInfo);

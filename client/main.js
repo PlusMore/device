@@ -17,8 +17,7 @@ Meteor.startup(function() {
       var deviceId = user.deviceId || null;
 
       if (deviceId) {
-        var deviceId = Meteor.user().deviceId,
-        device = Devices.findOne(deviceId);
+        var device = Devices.findOne(deviceId);
 
         if (device) {
           console.log('subscribing for userId', user._id);

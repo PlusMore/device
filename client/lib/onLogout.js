@@ -10,7 +10,6 @@ Meteor.startup(function() {
     if (! user && currentRoute) {
 
       if (! Meteor.loggingIn()) {
-        console.log(Router.current())
         if (Router.current().route.name !== 'welcome') {
           Router.go('welcome');
         }

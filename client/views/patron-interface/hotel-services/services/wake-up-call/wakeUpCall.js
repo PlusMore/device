@@ -14,7 +14,7 @@ Template.wakeUpCall.events({
         date: reservationMoment.toDate()
       }
       
-    }
+    };
 
     App.track('Hotel Service Request', {
       "Requested At": new Date(),

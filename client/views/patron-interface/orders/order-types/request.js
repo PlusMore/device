@@ -1,6 +1,6 @@
 Template.request.helpers({
   isPending: function() {
-    var status = this.status || 'pending'
+    var status = this.status || 'pending';
     return (status === 'pending');
   },
   isConfirmed: function() {

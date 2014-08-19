@@ -18,7 +18,7 @@ Router.configure({
 
 var filters = {
   isLoggedIn: function(router, pause, extraCondition) {
-    if (extraCondition == null) {
+    if (extraCondition === null) {
       extraCondition = true;
     }
     if (!Meteor.loggingIn()) {
@@ -101,7 +101,7 @@ var filters = {
   },
   setLastScrollPosition: function() {
     Session.set('lastScrollPosition', $('.content').scrollTop());
-    console.log(Session.get('lastScrollPosition'))
+    console.log(Session.get('lastScrollPosition'));
   }
 };
 
@@ -176,7 +176,7 @@ Router.map(function() {
     waitOn: function() {
       return [
         this.subscribe('userHotelData')
-      ]
+      ];
     }
   });
 

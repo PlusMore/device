@@ -30,7 +30,7 @@ Meteor.startup(function() {
   // });  
 });
 
-ExperiencesForCategory = []
+ExperiencesForCategory = [];
 
 Meteor.startup(function() {
   Deps.autorun(function() {

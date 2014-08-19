@@ -5,7 +5,7 @@ Deps.autorun(function() {
       Meteor.subscribe('hotelData');
     }
   }  
-})
+});
 
 Template.setupDeviceForm.helpers({
   setupDeviceSchema: function() {
@@ -24,7 +24,6 @@ AutoForm.hooks({
       Meteor.setTimeout(function() {
         Meteor.logout(function() {
           // attempts to create and login as new device user
-          console.log('loggedOut')
           Meteor.loginDevice(deviceId, function(err) {
             if (err) Errors.throw('Device login failed: ' + err);
             Router.go('welcome');

@@ -9,7 +9,7 @@ Template.reservation.helpers({
     return this.open;
   },
   isPending: function() {
-    var status = this.status || 'pending'
+    var status = this.status || 'pending';
     return (status === 'pending');
   },
   isConfirmed: function() {

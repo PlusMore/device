@@ -3,7 +3,7 @@ Template.deviceLayout.helpers({
     return Router.current().ready();
   },
   idleStatus: function() {
-    return UserStatus.isIdle() ? 'idle' : ''
+    return UserStatus.isIdle() ? 'idle' : '';
   },
   isIdle: function() {
     return UserStatus.isIdle();

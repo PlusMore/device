@@ -21,7 +21,7 @@ initializeServicePickers = function(template, startMinutes, endMinutes) {
         // template.selectedMinutes = select.select;
       }
     }
-  }
+  };
 
   if (typeof startMinutes !== 'undefined') {
     startTime = moment().startOf('day');
@@ -85,7 +85,7 @@ initializeServicePickers = function(template, startMinutes, endMinutes) {
 
       return true;
     }
-  }
+  };
 
   // if now is less than startTime
   if (moment() < startTime) {
@@ -112,28 +112,28 @@ initializeServicePickers = function(template, startMinutes, endMinutes) {
     var _this = this;
     Meteor.setTimeout(function(){
       if (startTomorrow) {
-        _this.set('select', moment().add('days', 1).toDate())
+        _this.set('select', moment().add('days', 1).toDate());
       } else {
-        _this.set('select', new Date())
+        _this.set('select', new Date());
       }
     }); 
-  }
+  };
 
   timepickerOptions.onStart = function() {
     var _this = this;
     Meteor.setTimeout(function(){
       _this.set('select', _this.get('min').pick);
     });    
-  }
+  };
 
   timepickerOptions.onRender = function() {
     return this.$root.find('.picker__holder:first').addClass('scrollable');
-  }
+  };
 
 
   template.datepicker = this.$('.datepicker').pickadate(datepickerOptions);
   template.timepicker = this.$('.timepicker').pickatime(timepickerOptions);
-}
+};
 
 destroyServicePickers = function(template) {
   $('.picker', 'body').remove();
@@ -141,4 +141,4 @@ destroyServicePickers = function(template) {
   template.datepicker = null;
   $(template.timepicker).stop();
   template.timepicker = null;
-}
+};

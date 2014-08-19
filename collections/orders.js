@@ -99,9 +99,9 @@ Meteor.methods({
       throw new Meteor.Error(500, 'Not a valid hotel');
     }
 
-    if (typeof user.emails !== 'undefined' 
-        && typeof user.emails[0] !== 'undefined' 
-        && typeof user.emails[0].address !== 'undefined') {
+    if (typeof user.emails !== 'undefined' && 
+        typeof user.emails[0] !== 'undefined' && 
+        typeof user.emails[0].address !== 'undefined') {
       reservation.emailAddress = user.emails[0].address;
     } else {
       throw new Meteor.Error(500, 'No email address');
@@ -126,7 +126,7 @@ Meteor.methods({
       open: true,
       status: 'pending',
       userId: user._id
-    }
+    };
 
     var orderId = Orders.insert(order, {validate: false});
 
@@ -148,21 +148,21 @@ Meteor.methods({
         to: 'order-service@plusmoretablets.com',
         from: "noreply@plusmoretablets.com",
         subject: "Device in {0} at {1} has requested a reservation.\n\n".format(device.location, hotel.name), 
-        text: "Device in {0} at {1} has requested a reservation.\n\n".format(device.location, hotel.name) 
-            + "Reservation Details:\n\n"
-            + "For: {0}\n".format(experience.title)
-            + "When: {0}\n".format(reservation.when)
-            + "Name: {0}\n".format(reservation.partyName)
-            + "Party Size: {0}\n".format(reservation.partySize)
-            + "Email: {0}\n".format(reservation.emailAddress)
-            + "\n"
-            + "Venue Info\n\n"
-            + "{0}\n".format(experience.venueName)
-            + "{0}\n".format(experience.street)
-            + "{0}, {1} {2}\n".format(experience.city, experience.state, experience.zip)
-            + "{0}\n".format(experience.phone)
-            + "\nTo respond to this request, click the link below\n\n"
-            + url
+        text: "Device in {0} at {1} has requested a reservation.\n\n".format(device.location, hotel.name) + 
+              "Reservation Details:\n\n"+ 
+              "For: {0}\n".format(experience.title)+ 
+              "When: {0}\n".format(reservation.when)+ 
+              "Name: {0}\n".format(reservation.partyName)+ 
+              "Party Size: {0}\n".format(reservation.partySize)+ 
+              "Email: {0}\n".format(reservation.emailAddress)+ 
+              "\n"+ 
+              "Venue Info\n\n"+ 
+              "{0}\n".format(experience.venueName)+ 
+              "{0}\n".format(experience.street)+ 
+              "{0}, {1} {2}\n".format(experience.city, experience.state, experience.zip)+ 
+              "{0}\n".format(experience.phone)+ 
+              "\nTo respond to this request, click the link below\n\n"+ 
+              url
       });
     }
 
@@ -186,18 +186,18 @@ Meteor.methods({
         to: 'order-service@plusmoretablets.com',
         from: 'noreply@plusmoretablets.com',
         subject: 'Cancelled - Reservation for {0}'.format(experience.title),
-        text: "Reservation for {0} has been cancelled.\n\n".format(experience.title)
-            + "Reservation Details:\n\n"
-            + "For: {0}\n".format(experience.title)
-            + "When: {0}\n".format(reservation.when)
-            + "Name: {0}\n".format(reservation.partyName)
-            + "Party Size: {0}\n".format(reservation.partySize)
-            + "Email: {0}\n".format(reservation.emailAddress)
-            + "\nVenue Info\n"
-            + "\n{0}".format(experience.venueName)
-            + "\n{0}".format(experience.street)
-            + "\n{0}, {1} {2}".format(experience.city, experience.state, experience.zip)
-            + "\n{0}".format(experience.phone)
+        text: "Reservation for {0} has been cancelled.\n\n".format(experience.title) + 
+              "Reservation Details:\n\n" + 
+              "For: {0}\n".format(experience.title) + 
+              "When: {0}\n".format(reservation.when) + 
+              "Name: {0}\n".format(reservation.partyName) + 
+              "Party Size: {0}\n".format(reservation.partySize) + 
+              "Email: {0}\n".format(reservation.emailAddress) + 
+              "\nVenue Info\n" + 
+              "\n{0}".format(experience.venueName) + 
+              "\n{0}".format(experience.street) + 
+              "\n{0}, {1} {2}".format(experience.city, experience.state, experience.zip) + 
+              "\n{0}".format(experience.phone)
       });
     }
   },
@@ -208,7 +208,6 @@ Meteor.methods({
     var requestSchema = _.clone(Schema.request._schema);
     switch (request.type) {
       case 'transportation':
-        console.log('type is transportation')
         var transportationSchema = new SimpleSchema({
           date: {
             type: Date
@@ -273,7 +272,6 @@ Meteor.methods({
         break;
       default: 
         throw new Meteor.Error(500, 'Request type is not configured', request);
-        break;
     }
 
     check(request, new SimpleSchema(requestSchema));
@@ -304,7 +302,7 @@ Meteor.methods({
       open: true,
       status: 'pending',
       userId: user._id
-    }
+    };
 
     var orderId = Orders.insert(order, {validate: false});
 
@@ -318,13 +316,13 @@ Meteor.methods({
         to: 'order-service@plusmoretablets.com',
         from: "noreply@plusmoretablets.com",
         subject: "Info: Device in {0} at {1} has requested hotel service.\n\n".format(device.location, hotel.name), 
-        text: "This is an informational email and does not require your service\n\n"
-            + "Device in {0} at {1} has requested hotel service.\n\n".format(device.location, hotel.name) 
-            + "Request Details:\n\n"
-            + "For: {0}\n".format(order.request.type)
-            + "When: {0}\n".format(moment(order.request.options.date).calendar())
-            + "\nTo view the status of this request, click the link below\n\n"
-            + url
+        text: "This is an informational email and does not require your service\n\n" + 
+              "Device in {0} at {1} has requested hotel service.\n\n".format(device.location, hotel.name)  + 
+              "Request Details:\n\n" + 
+              "For: {0}\n".format(order.request.type) + 
+              "When: {0}\n".format(moment(order.request.options.date).calendar()) + 
+              "\nTo view the status of this request, click the link below\n\n" + 
+              url
       });
     }
 
