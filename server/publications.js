@@ -27,7 +27,7 @@ Meteor.publish('userHotelData', function () {
         return [
           Meteor.users.find({_id: userId}, {fields: fields}),
           Hotels.find({_id: hotelId})
-        ]
+        ];
       } else {
         this.ready();
         return null;
@@ -41,7 +41,7 @@ Meteor.publish('userHotelData', function () {
 });
 
 /**
- * Always publish logged-in user's deviceId
+ * Always publish logged-in devices deviceId, device data, hotel data, and hotel-service data
  *
  */
 Meteor.publish(null, function () {
@@ -58,8 +58,9 @@ Meteor.publish(null, function () {
         return [
           Meteor.users.find(userId, {fields: fields}),
           Devices.find(deviceId),
-          Hotels.find(device.hotelId)
-        ]
+          Hotels.find(device.hotelId),
+          HotelServices.find({hotelId: device.hotelId, active: true})
+        ];
       }
 
     } else {
@@ -75,7 +76,7 @@ Meteor.publish(null, function () {
 Meteor.publish('stayInfo', function() {
   return [
     Stays.find({userId: this.userId})
-  ]
+  ];
 });
 
 Meteor.publish('deviceData', function(deviceId) {
@@ -83,7 +84,7 @@ Meteor.publish('deviceData', function(deviceId) {
       user = Meteor.users.findOne(userId);
 
   if (user) {
-    var deviceId = user.deviceId;
+    deviceId = deviceId || user.deviceId;
     var device = Devices.findOne(deviceId);
 
     if (device) {
@@ -93,11 +94,11 @@ Meteor.publish('deviceData', function(deviceId) {
         lead: 1,
         photoUrl: 1,
         title: 1
-      }
+      };
       return [
         Categories.find({active: true}),
         Experiences.find({active: true}, {sort: {sortOrder: 1}})
-      ]
+      ];
     }
   } else {
     return null;
@@ -107,9 +108,39 @@ Meteor.publish('deviceData', function(deviceId) {
 Meteor.publish('orders', function() {
   return [
     Orders.find({userId: this.userId})
-  ]
+  ];
 });
 
+Meteor.publish('hotelMenu', function(hotelId) {
+  var userId = this.userId,
+      user = Meteor.users.findOne(userId);
+
+  var hotel = Hotels.find(hotelId);
+  if (hotel) {
+
+    var publication = new SimplePublication({
+      subHandle: this,
+      collection: MenuCategories,
+      selector: {
+        hotelId: hotelId,
+        active: true
+      },
+      dependant: new SimplePublication({
+        subHandle: this,
+        collection: MenuItems,
+        selector: {
+          active: true
+        },
+        foreignKey: 'menuCategoryId'
+      })
+    }).start();
+  }
+  
+});
+
+Meteor.publish('cart', function(cartId) {
+  return CartItems.find({cartId: cartId});
+});
 // Meteor.publish('experience', function(id) {
 //   return [
 //     Experiences.find(id)

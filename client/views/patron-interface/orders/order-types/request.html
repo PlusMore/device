@@ -1,0 +1,29 @@
+<template name="request">
+  <header>
+    <h3>
+      Request for {{friendlyRequestType}}
+      <small class="pull-right">
+        {{orderStatus}}
+      </small>
+    </h3>
+  </header>
+  
+  {{#if isCancelled}}
+    <div class="time-ago">
+      <span>Cancelled {{cancelledDateMomentAgo}}</span>  
+    </div>
+    
+  {{else}}
+    <div class="request-details">
+      {{> requestDetails}}
+    </div>
+    <div class='time-ago'>
+      <span>Requested {{requestedDateTimeAgo}}</span>
+    </div>
+   
+    <div class="buttons pull-right">
+      <a class="btn btn-default btn-cancel-request">Cancel Request</a>
+    </div>
+     
+  {{/if}}
+</template>

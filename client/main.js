@@ -6,9 +6,8 @@ Global client-side code. Loads last.
 
 /+ ---------------------------------------------------- */
 
-//
-subscriptions = {};
 
+//
 Meteor.startup(function() {
   // Subscribe to device data when a device ID is available
   Deps.autorun(function () {
@@ -18,8 +17,7 @@ Meteor.startup(function() {
       var deviceId = user.deviceId || null;
 
       if (deviceId) {
-        var deviceId = Meteor.user().deviceId,
-        device = Devices.findOne(deviceId);
+        var device = Devices.findOne(deviceId);
 
         if (device) {
           console.log('subscribing for userId', user._id);
@@ -48,4 +46,16 @@ Meteor.startup(function() {
     }
     
   });
+
+  Deps.autorun(function() {
+    var stays = Stays.find();
+    if (stays.count() > 0) {
+      Session.set('stayId', Stays.findOne()._id);
+    }
+  });
+});
+
+
+$(window).load(function(){
+  $('.preloader').fadeOut(1000); // set duration in brackets
 });

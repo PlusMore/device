@@ -1,0 +1,43 @@
+<template name="roomServiceRequestDetails">
+  <table class="span4 table">
+    <thead>
+      <th>Qty</th>
+      <th>Product</th>
+      <th class='text-align-right'>Price</th>
+    </thead>
+    <tbody>
+      {{#each request.orderedItems}}
+        <tr>
+          <td>{{qty}}</td>
+          <td>
+            {{name}}
+            {{#if comments}}
+              <p class="comments">
+                <em>{{comments}}</em>
+              </p>
+            {{/if}}
+          </td>
+          <td class='text-align-right'>{{currency price}}</td>
+        </tr>
+      {{else}}
+        <tr>
+          <td colspan="3">
+            <em>No Items in Cart</em>
+          </td>
+        </tr>
+      {{/each}}
+      <tr>
+        <td class="totalcol text-align-right" colspan="2">SubTotal:</td>
+        <td class='text-align-right'>{{currency request.orderSubtotal}}</td>
+      </tr>
+      <tr>
+        <td class="totalcol text-align-right" colspan="2">Tax 6%:</td>
+        <td class='text-align-right'>{{currency request.orderTax}}</td>
+      </tr>
+      <tr>
+        <td class="totalcol text-align-right" colspan="2">Total:</td>
+        <td class='text-align-right'>{{currency request.orderTotal}}</td>
+      </tr>
+    </tbody>
+  </table>
+</template>

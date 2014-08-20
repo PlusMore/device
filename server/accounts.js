@@ -4,6 +4,6 @@ Accounts.emailTemplates.enrollAccount.subject = function (user) {
     return "Welcome to Plus More";
 };
 Accounts.emailTemplates.enrollAccount.text = function (user, url) {
-   return "To activate your account, simply click the link below:\n\n"
-     + url;
+   return "To activate your account, simply click the link below:\n\n" + 
+          url;
 };

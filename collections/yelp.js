@@ -18,7 +18,7 @@ if (Meteor.isServer) {
     var config = Accounts.loginServiceConfiguration.findOne({service: 'yelp'});
     if (config) {
       config.secret = config.consumerSecret;
-      var oauthBinding = new OAuth1Binding(config, url)
+      var oauthBinding = new OAuth1Binding(config, url);
       oauthBinding.accessToken = config.accessToken;
       oauthBinding.accessTokenSecret = config.accessTokenSecret;
 
@@ -26,7 +26,7 @@ if (Meteor.isServer) {
     } else {
       throw new Meteor.Error(500, 'Yelp Not Configured');
     }  
-  }
+  };
 
   Meteor.methods({
     searchYelp: function(search, isCategory, latitude, longitude) {
@@ -57,7 +57,11 @@ if (Meteor.isServer) {
       parameters.limit = 5;
 
       // Only return .data because that is how yelp formats its responses
-      return oauthBinding.get(url, parameters).data;
+      try {
+        return oauthBinding.get(url, parameters).data;
+      } catch (error) {
+        throw new Meteor.Error(500, 'Error contacting Yelp');
+      }
     },
     yelpBusiness: function(id) {
       this.unblock();
@@ -67,7 +71,11 @@ if (Meteor.isServer) {
       var oauthBinding = getYelpOauthBinding(url);
 
       // Only return .data because that is how yelp formats its responses
-      return oauthBinding.get(url).data;
+      try {
+        return oauthBinding.get(url).data;
+      } catch (error) {
+        throw new Meteor.Error(404, 'Error contacting Yelp');
+      }
     }
   });
 }

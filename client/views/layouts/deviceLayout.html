@@ -1,41 +1,54 @@
 <template name="deviceLayout">
   
-  {{> updating}}
-
-  <div class="device-layout" style="background-image: url('{{hotelPhotoUrl}}')">
-  {{#if currentUser}}
-    {{> deviceHeader}}
-    {{> meteorErrors}}
-    <div class="content {{additionalContentClasses}} {{isFullscreen}} {{isScrollable}}">
-      {{> transitionedYield}}
+  <div class="preloader">
+    <div class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
     </div>
-    {{> idleOverlay}}
+  </div>
+
+  <img class="bg" alt='bg' src="{{hotelPhotoUrl}}" />
+  <div class="overlay-bg black"></div>
+  {{> idleOverlay}}
+
+  {{> deviceHeader}}
+  {{> meteorErrors}}
+  
+  {{#if currentUser}}
+    
+    <!-- <div id="main"> --> 
+      <!-- transitioner-panes picker_holder-->
+        <!-- pane picker_frame-->
+          {{> transitionedYield}}
+        <!-- /pane -->
+      <!-- /transitioner -->
+    <!-- </div> -->
+    
+    
     {{> experience}}
+    {{> addItemToCartModal}}
+    {{> confirmReservation}}
   {{else}}
+
     {{#if loggingIn}}
-      <div class="content fullscreen scrollable">
-        {{> loggingInOverlay}}
-      </div>   
+      {{> loggingInOverlay}}
     {{else}}
-      <div class="content fullscreen scrollable">
-        {{> login}}
-      </div>
-      {{> idleOverlay}}
+      {{> login}}
     {{/if}}
   {{/if}}
-  </div>
-  {{> confirmReservation}}
+  
   <div data-status="{{connectionStatus}}"></div>
 </template>
 
-<template name="preload">
-  <div class="preloader hidden">
-  	{{#each experiences}}
-      <img src="{{photoUrl}}/convert?w=329&fit=scale&cache=true" alt="Thumbnail for {{title}}">
-  	{{/each}}	
 
-    {{#each experiences}}
-      <img src="{{photoUrl}}?cache=true" alt="Full-size for {{title}}">
-    {{/each}}
-  </div>
-</template>
+<!-- <div class="picker picker--time picker--focused picker--opened">
+<div class="picker__holder">
+<div class="picker__frame">
+<div class="picker__wrap">
+<div class="picker__box">  
+</div>
+</div>
+</div>
+</div>
+</div> -->

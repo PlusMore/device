@@ -1,23 +1,15 @@
 Deps.autorun(function() {
   var user = Meteor.user();
   if (user) {
-    if (Roles.userIsInRole(user._id, ['admin', 'hotel-staff'])) {
+    if (Roles.userIsInRole(user._id, ['admin', 'hotel-staff', 'hotel-manager'])) {
       Meteor.subscribe('hotelData');
     }
   }  
-})
+});
 
-Template.setupDevice.helpers({
+Template.setupDeviceForm.helpers({
   setupDeviceSchema: function() {
     return Schema.setupDevice;
-  },
-  hotelName: function() {
-    return Session.get('hotelName');
-  },
-  hotelId: function() {
-    if (this.hotel) {
-      return this.hotel._id;
-    }
   }
 });
 
@@ -32,7 +24,6 @@ AutoForm.hooks({
       Meteor.setTimeout(function() {
         Meteor.logout(function() {
           // attempts to create and login as new device user
-          console.log('loggedOut')
           Meteor.loginDevice(deviceId, function(err) {
             if (err) Errors.throw('Device login failed: ' + err);
             Router.go('welcome');

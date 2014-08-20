@@ -1,6 +1,9 @@
 Template.deviceLayout.helpers({
+  routeReady: function() {
+    return Router.current().ready();
+  },
   idleStatus: function() {
-    return UserStatus.isIdle() ? 'idle' : ''
+    return UserStatus.isIdle() ? 'idle' : '';
   },
   isIdle: function() {
     return UserStatus.isIdle();
@@ -8,13 +11,6 @@ Template.deviceLayout.helpers({
   connectionStatus: function () {
     return Meteor.status().status;
   },
-  // additionalContentClasses: function() {
-  //   var currentRoute = Router.current(); 
-
-  //   if (currentRoute) { 
-  //     return currentRoute.route.name === 'experience' ? 'hinge animated' : 'fadeIn animated';
-  //   }
-  // },
   isFullscreen: function() {
     return Session.get('fullscreen') ? 'fullscreen' : '';
   },
@@ -37,10 +33,3 @@ Template.deviceLayout.helpers({
     return Meteor.settings.public.bgPhotoUrl + '/convert?w=1024&h=768&fit=scale&cache=true';
   }
 });
-
-Template.preload.helpers({
-  experiences: function () {
-    return Experiences.find();
-  }
-});
-

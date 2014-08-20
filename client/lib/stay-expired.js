@@ -12,7 +12,7 @@ Meteor.startup(function() {
         "checkoutDate": stay.checkoutDate
       });
       Meteor.call('endStay', stay, function (err, deviceId) {
-        if (err) throw new Meteor.Error(err)
+        if (err) throw new Meteor.Error(err);
 
         Meteor.logout();
 

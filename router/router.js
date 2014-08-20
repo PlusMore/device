@@ -18,7 +18,7 @@ Router.configure({
 
 var filters = {
   isLoggedIn: function(router, pause, extraCondition) {
-    if (extraCondition == null) {
+    if (extraCondition === null) {
       extraCondition = true;
     }
     if (!Meteor.loggingIn()) {
@@ -101,7 +101,7 @@ var filters = {
   },
   setLastScrollPosition: function() {
     Session.set('lastScrollPosition', $('.content').scrollTop());
-    console.log(Session.get('lastScrollPosition'))
+    console.log(Session.get('lastScrollPosition'));
   }
 };
 
@@ -176,11 +176,7 @@ Router.map(function() {
     waitOn: function() {
       return [
         this.subscribe('userHotelData')
-      ]
-    },
-    onBeforeAction: function(pause) {
-      var isAdminOrHotelStaff = (filters.isHotelStaff() || filters.isAdmin());
-      filters.isLoggedIn(this, pause, isAdminOrHotelStaff);
+      ];
     }
   });
 
@@ -230,6 +226,26 @@ Router.map(function() {
     }
   });
 
+  this.route('hotelServices', {
+    path: '/hotel-services',
+    onRun: function () {
+      var roomService = HotelServices.findOne({type: 'roomService'});
+
+      if (roomService) {
+        Session.set('selectedService', 'roomService'); 
+      } else {
+        var first = HotelServices.findOne();
+        Session.set('selectedService', first.type);
+      }
+
+    },
+    data: function () {
+      var selectedService = Session.get('selectedService');
+      return {
+        configuration: HotelServices.findOne({type: selectedService})
+      };
+    }
+  });
 
   this.route('message');
 
@@ -244,7 +260,12 @@ Router.map(function() {
           "Name": Router.current().params.category
         });
       });
-
+    },
+    data: function() {
+      var activeCategory = Session.get('activeCategory');
+      return {
+        experiences: Experiences.find({category: activeCategory}, {sort: {sortOrder: 1}})
+      };
     }
   });
 

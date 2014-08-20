@@ -1,3 +1,5 @@
+@import '/client/style/imports.import.less';
+
 .form-group {
   label.control-label {
     font-weight: 200;
@@ -5,13 +7,33 @@
 
   .form-control {
     width: 100%;
-    height: 43px;
-    background: transparent;
-    padding: 10px;
+    min-height: 54px;
+    background: #fff;
     border-radius: 4px;
+    color: #000;
+    font-size: 26px;
+  }
+
+  .checkbox {
+    min-height: 44px;
+    text-align: left;
+
+    label {
+      font-weight: 200;
+      font-size: 16px;
+      padding-left: 50px;
+      line-height: 50px;
+
+      input[type=checkbox] {
+        width: 44px;
+        height: 44px;
+        margin-left: -50px;
+      }
+    }
+  }
+
+  .help-block {
     color: #fff;
-    font-size: 1.5em;
-    line-height: 1em;
   }
 }
 

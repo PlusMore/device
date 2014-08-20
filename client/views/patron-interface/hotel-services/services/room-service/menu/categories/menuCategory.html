@@ -1,0 +1,33 @@
+<template name="menuCategory">
+  {{#if hasMenuItems}}
+    <div id='menu-categories' class="modal-content inline animated fadeInRight">
+      <div class="modal-header">
+        <h4 class="modal-title">
+          {{name}}
+          <small>
+            Available
+            {{#if startTime}}
+              {{startTime}} - {{endTime}}
+            {{else}}
+              Anytime
+            {{/if}}
+          </small>
+        </h4>
+      </div>
+      {{#if isAvailableNow}}
+        <div class="modal-body">
+          {{#if description}}
+          <div class="row">
+            <div class="col-md-12">
+              <p>{{description}}</p>
+            </div>
+          </div>
+          {{/if}}
+          <div class="row">
+            {{> menuItems}}
+          </div>
+        </div>
+      {{/if}}
+    </div><!-- /.modal-content -->  
+  {{/if}}
+</template>

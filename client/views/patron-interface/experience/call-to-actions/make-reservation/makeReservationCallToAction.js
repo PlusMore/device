@@ -12,13 +12,13 @@ Template.makeReservationCallToAction.events({
 
     var user = Meteor.user();
     var experience = tmpl.data;
-    var reservationMoment = moment(tmpl.selectedDate).startOf('day').minutes(tmpl.selectedMinutes);
+    var reservationMoment = moment(tmpl.selectedDate).startOf('day').add('minutes', tmpl.selectedMinutes);
 
     var reservation = {
       partySize: parseInt(tmpl.$('[name=partySize]').val(), 10),
       when: reservationMoment.calendar(),
       date: reservationMoment.toDate()
-    }
+    };
 
     App.track('Click Book Now', {
       "Reservation Date": reservation.when,
@@ -58,7 +58,7 @@ var getCategoryDelay = function(category) {
   }
 
   return delay;
-}
+};
 
 var initializePickers = function(template) {
   var experience = Experiences.findOne(template.data._id);
@@ -82,7 +82,7 @@ var initializePickers = function(template) {
         template.selectedMinutes = select.select;
       }
     }
-  }
+  };
 
   if (typeof startMinutes !== 'undefined') {
     startTime = moment().startOf('day');
@@ -147,7 +147,7 @@ var initializePickers = function(template) {
 
       return true;
     }
-  }
+  };
 
   if (moment() < startTime) {
     // if it is today at 3pm, and reservations start 
@@ -173,28 +173,28 @@ var initializePickers = function(template) {
     var _this = this;
     Meteor.setTimeout(function(){
       if (startTomorrow) {
-        _this.set('select', moment().add('days', 1).toDate())
+        _this.set('select', moment().add('days', 1).toDate());
       } else {
-        _this.set('select', new Date())
+        _this.set('select', new Date());
       }
     }); 
-  }
+  };
 
   timepickerOptions.onStart = function() {
     var _this = this;
     Meteor.setTimeout(function(){
       _this.set('select', _this.get('min').pick);
     });    
-  }
+  };
 
   timepickerOptions.onRender = function() {
     return this.$root.find('.picker__holder:first').addClass('scrollable');
-  }
+  };
 
 
   template.datepicker = this.$('.datepicker').pickadate(datepickerOptions);
   template.timepicker = this.$('.timepicker').pickatime(timepickerOptions);
-}
+};
 
 var destroyPickers = function(template) {
   $('.picker', 'body').remove();
@@ -202,4 +202,4 @@ var destroyPickers = function(template) {
   template.datepicker = null;
   $(template.timepicker).stop();
   template.timepicker = null;
-}
+};

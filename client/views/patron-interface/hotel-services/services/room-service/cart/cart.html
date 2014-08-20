@@ -1,0 +1,65 @@
+<template name='cart'>
+  <div id='room-service-cart' class="modal-content inline" data-spy="affix" >
+    <div class="modal-header">
+      <h4 class="modal-title">
+        Your Order
+      </h4>
+    </div>
+    <div class="modal-body">
+
+      <table class="span4 table">
+        <thead>
+          <th>Qty</th>
+          <th>Product</th>
+          <th colspan="1" class='text-align-right'>Price</th>
+          <th></th>
+        </thead>
+        <tbody>
+          {{#each cartItems}}
+            <tr>
+              <td>{{qty}}</td>
+              <td>
+                {{name}}
+                {{#if comments}}
+                  <p class="comments">
+                    <em>{{comments}}</em>
+                  </p>
+                {{/if}}
+              </td>
+              <td class='text-align-right'>{{currency price}}</td>
+              <td>
+                <i class="icon icon-x remove-item"></i>
+              </td>
+            </tr>
+          {{else}}
+            <tr>
+              <td colspan="4">
+                <em>No Items in Cart</em>
+              </td>
+            </tr>
+          {{/each}}
+          <tr>
+              <td class="totalcol" colspan="2">SubTotal:</td>
+              <td colspan="1" class='text-align-right'>{{currency cartItems.subtotal}}</td>
+              <td></td>
+          </tr>
+          <tr>
+              <td class="totalcol" colspan="2">Tax 6%:</td>
+              <td colspan="1" class='text-align-right'>{{currency cartItems.tax}}</td>
+              <td></td>
+          </tr>
+          <tr>
+              <td class="totalcol" colspan="2">Total:</td>
+              <td colspan="1" class='text-align-right'>{{currency cartItems.total}}</td>
+              <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn btn-reset">Empty</a>
+      <a id='place-order' href="#" class="btn btn-default">Place Order</a>
+    </div>
+  </div><!-- /.modal-content -->  
+</template>

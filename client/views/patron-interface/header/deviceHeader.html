@@ -11,27 +11,19 @@
     <div class="collapse navbar-collapse">
       <ul class="nav nav-justified">
 
-       <!--  <li class="{{activeRouteClass 'frontDesk'}}">
-          <a href="{{pathFor 'frontDesk'}}" class="menu-item front-desk">
-            <i class="fa fa-shopping-cart icon"></i>
-            <span class="text">Front Desk</span>
+        {{#if hotelServicesEnabled}}
+        <li class="{{activeRouteClass 'hotelServices'}}">
+          <a href="{{pathFor 'hotelServices'}}" class="menu-item hotel-services">
+            <i class="icon icon-front-desk"></i>
+            <span class="text">Hotel Services</span>
           </a>
         </li>
-        <li class="{{activeRouteClass 'transportation'}}">
-          <a href="{{pathFor 'transportation'}}" class="menu-item transportation">
-            <i class="fa fa-shopping-cart icon"></i>
-            <span class="text">Car Service</span>
-          </a>
-        </li> -->
+        {{/if}}
+        
         {{#each categories}}
           {{> categoryLink}}
         {{/each}}
-        <!-- <li class="{{activeRouteClass 'message'}}">
-          <a href="{{pathFor 'message'}}" class="menu-item message">
-            <i class="icon icon-message"></i>
-            <span class="text">Message</span>
-          </a>
-        </li> -->
+
         <li class="{{activeRouteClass 'orders'}}">
           <a href="{{pathFor 'orders'}}" class="menu-item orders">
             <i class="icon icon-orders"></i>

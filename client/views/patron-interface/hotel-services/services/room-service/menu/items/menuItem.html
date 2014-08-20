@@ -1,0 +1,9 @@
+<template name="menuItem">
+  <a href="#" class="menu-item list-item {{enabledClass}} animated fadeInRight">
+    <span class='title'>{{name}}</span>
+    <small class='pull-right price'>${{price}}</small>
+    {{#if description}}
+      <p>{{description}}</p>
+    {{/if}}
+  </a>
+</template>

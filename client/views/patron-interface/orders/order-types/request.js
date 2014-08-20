@@ -1,15 +1,6 @@
-Template.order.helpers({
-  isReservation: function() {
-    return this.type === 'reservation';
-  },
-  experience: function() {
-    return Experiences.findOne(this.reservation.experienceId);
-  },
-  needsAction: function() {
-    return this.open;
-  },
+Template.request.helpers({
   isPending: function() {
-    var status = this.status || 'pending'
+    var status = this.status || 'pending';
     return (status === 'pending');
   },
   isConfirmed: function() {
@@ -19,13 +10,12 @@ Template.order.helpers({
     return (this.status === 'cancelled');
   },
   cancelledDateMomentAgo: function() {
+    var now = Session.get('currentTime');
     return moment(this.cancelledDate).fromNow();
   },
   requestedDateTimeAgo: function() {
+    var now = Session.get('currentTime');
     return moment(this.requestedAt).fromNow();
-  },
-  when: function() {
-    return moment(this.reservation.date).calendar();
   },
   orderStatus: function() {
     if (this.status === 'confirmed') {
@@ -37,14 +27,21 @@ Template.order.helpers({
     }
 
     return '(In Progress)';
+  },
+  friendlyRequestType: function() {
+    if (typeof HotelServices.friendlyRequestType === 'function') {
+      return HotelServices.friendlyRequestType(this.request.type);
+    } else {
+      return this.request.type;
+    }
   }
 });
 
-Template.order.events({
-  'click .btn.btn-cancel-reservation': function(event) {
+Template.request.events({
+  'click .btn.btn-cancel-request': function(event) {
     event.preventDefault(); 
-    if (confirm("Are you sure you want to cancel this reservation?")) {
-      Meteor.call('cancelReservation', this._id);
+    if (confirm("Are you sure you want to cancel this request?")) {
+      Meteor.call('cancelRequest', this._id);
     } 
   }
 });

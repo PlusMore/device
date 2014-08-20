@@ -24,7 +24,7 @@ var initializeMap = function() {
     Meteor.setTimeout(arguments.callee, 100);
     retry++;
   }
-}
+};
 
 Template.experienceMap.rendered = function () {
   if (this.data.geo) {

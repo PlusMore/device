@@ -1,7 +1,8 @@
 @import '/client/style/imports.import.less';
 
 .navbar-device {
-  height: 140px;
+  // Smallest size (iPhone) - bigger devices have height changes in media queries at bottom of page
+  height: 50px;
   z-index: 10;
   .translate(0,0);
   .transition(transform 300ms linear);
@@ -40,7 +41,7 @@
           }
 
           & > .text {
-            font-size: 20px;
+            font-size: 1.2em;
             display: block;
             margin-top: 10px;
           }
@@ -53,3 +54,20 @@
     }
   }
 }
+
+ // small
+@media (min-width: 768px) {
+  .navbar-device {
+    height: 140px;
+
+    .navbar-collapse.in {
+
+    }
+  }
+}
+
+// medium
+@media (min-width: 992px) {}
+
+// large
+@media (min-width: 1200px) {}
