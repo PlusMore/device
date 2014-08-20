@@ -68,11 +68,27 @@ Template.cart.events({
     });
   }, 
   'click #place-order': function(e, tmpl) {
-    Meteor.call('orderRoomServiceCartItems', Session.get('stayId'), function(err, result) {
-      if (err) { 
-        return Errors.throw(err.reason);
+    bootbox.dialog({
+      title: 'Place Order',
+      message: "Are you sure you would like to place your order now?", 
+      buttons: {
+        cancel: {
+          label: 'Cancel',
+          className: 'btn-cancel'
+        },
+        main: {
+          label: 'Place Order',
+          className: 'btn-default',
+          callback:function(result) {
+            Meteor.call('orderRoomServiceCartItems', Session.get('stayId'), function(err, result) {
+              if (err) { 
+                return Errors.throw(err.reason);
+              }
+              Router.go('orders');
+            });
+          }
+        }
       }
-      Router.go('orders');
     });
   }
 });
