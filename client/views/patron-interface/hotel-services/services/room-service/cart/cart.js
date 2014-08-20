@@ -69,7 +69,9 @@ Template.cart.events({
   }, 
   'click #place-order': function(e, tmpl) {
     Meteor.call('orderRoomServiceCartItems', Session.get('stayId'), function(err, result) {
-      if (err) Errors.throw(err.message);
+      if (err) { 
+        return Errors.throw(err.reason);
+      }
       Router.go('orders');
     });
   }

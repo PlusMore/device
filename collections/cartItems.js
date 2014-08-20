@@ -12,6 +12,27 @@ CartItems.allow({
   }
 });
 
+var checkCartItem = function(cartItem) {
+  if (cartItem.itemType === 'menuItem') {
+    var menuItem = MenuItems.findOne(cartItem.itemId);
+    if (!menuItem) {
+      throw new Meteor.Error(420, 'Menu Item Not Found', {_id: cartItem.itemId});
+    }
+
+    var menuCategory = MenuCategories.findOne(menuItem.menuCategoryId);
+
+    if (!menuCategory) {
+      throw new Meteor.Error(420, 'Menu Category Not Found', {_id: menuItem.menuCategoryId});
+    }
+
+    if (!isNowBetweenTimes(menuCategory.startMinutes, menuCategory.endMinutes)) {
+      throw new Meteor.Error(420, '{0} is only available between {1} and {2}'.format(menuItem.name, menuCategory.startTime, menuCategory.endTime));
+    }
+  } else {
+    throw new Meteor.Error(420, 'Only Menu Items can be ordered at this time.');
+  }
+};
+
 Meteor.methods({
   addToCart: function(cartId, itemType, itemId, qty, comments) {
     check(cartId, String);
@@ -21,17 +42,21 @@ Meteor.methods({
     if (comments) {
       check(comments, String);
     }
+
+    var cartItem  = {
+      cartId: cartId,
+      itemType: itemType,
+      itemId: itemId,
+      qty:qty,
+      comments: comments || ''
+    };
+
+    checkCartItem(cartItem);
     
-    if(qty > 0){
-      CartItems.insert({
-        cartId: cartId,
-        itemType: itemType,
-        itemId: itemId,
-        qty:qty,
-        comments: comments || ''
-      });
+    if(cartItem.qty > 0){
+      CartItems.insert(cartItem);
     } else{
-      throw Meteor.Error(500, 'Quantity is 0');
+      throw new Meteor.Error(420, 'Quantity is 0');
     }
   },
   removeCartItem: function(id) {
@@ -49,41 +74,24 @@ Meteor.methods({
     var deviceId = user.deviceId;
     var device = Devices.findOne(deviceId);
     if (!device) {
-      throw new Meteor.Error(500, 'Not a proper device');
+      throw new Meteor.Error(420, 'Not a proper device');
     }
 
     var hotel = Hotels.findOne(device.hotelId);
     if (!hotel) {
-      throw new Meteor.Error(500, 'Not a valid hotel');
+      throw new Meteor.Error(420, 'Not a valid hotel');
     }
 
     var stay = Stays.findOne({userId: user._id});
     if (!stay) {
-      throw new Meteor.Error(500, 'Not a valid stay');
+      throw new Meteor.Error(420, 'Not a valid stay');
     }
 
     var cartItems = CartItems.find({cartId: cartId});
 
-    var checkCartItem = function(cartItem) {
-      if (cartItem.itemType === 'menuItem') {
-        var menuItem = MenuItems.findOne(cartItem.itemId);
-        if (!menuItem) {
-          throw Meteor.Error(500, 'Menu Item Not Found', {_id: cartItem.itemId});
-        }
-
-        var menuCategory = MenuCategories.find(menuItem.menuCategoryId);
-
-        if (!menuCategory) {
-          throw Meteor.Error(500, 'Menu Category Not Found', {_id: menuItem.menuCategoryId});
-        }
-
-        if (!isNowBetweenTimes(menuCategory.startMinutes, menuCategory.endMinutes)) {
-          throw Meteor.Error(500, '{0} is only available between {} and {}'.format(menuItem.name, menuCategory.startTime, menuCategory.endTime));
-        }
-      } else {
-        throw Meteor.Error(500, 'Only Menu Items can be ordered at this time.');
-      }
-    };
+    if (cartItems.count() < 1) {
+      throw new Meteor.Error(420, 'Cart is Empty');
+    }
 
     cartItems.forEach(checkCartItem);
     // Validated
@@ -129,7 +137,7 @@ Meteor.methods({
       status: 'pending',
       userId: user._id
     }, {validate: false}, function(err) {
-      if (err) throw Meteor.Error(err);
+      if (err) throw new Meteor.Error(err);
     });
   }
 });
