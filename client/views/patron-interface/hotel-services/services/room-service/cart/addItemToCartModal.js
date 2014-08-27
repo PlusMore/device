@@ -24,7 +24,8 @@ Template.addItemToCartModal.events({
     var itemId = this._id;
     var cartId = Session.get('stayId'); 
     var comments = tmpl.find('[name=comments]').value;
-    Meteor.call('addToCart', cartId, itemType, itemId, qty, comments, function(err, result) {
+    var now = moment().toDate();
+    Meteor.call('addToCart', now, cartId, itemType, itemId, qty, comments, function(err, result) {
       if (err) {
         return Errors.throw(err.reason);
       }

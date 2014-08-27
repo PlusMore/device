@@ -80,7 +80,8 @@ Template.cart.events({
           label: 'Place Order',
           className: 'btn-default',
           callback:function(result) {
-            Meteor.call('orderRoomServiceCartItems', Session.get('stayId'), function(err, result) {
+            var now = moment().toDate();
+            Meteor.call('orderRoomServiceCartItems', now, Session.get('stayId'), function(err, result) {
               if (err) { 
                 return Errors.throw(err.reason);
               }
