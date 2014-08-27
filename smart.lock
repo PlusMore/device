@@ -2,10 +2,7 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "iron-router": {
-        "git": "https://github.com/EventedMind/iron-router.git",
-        "tag": "v0.7.1"
-      },
+      "iron-router": {},
       "bootstrap-3": {},
       "roles": {},
       "autoform": {},
@@ -24,7 +21,7 @@
       },
       "iron-transitioner": {
         "git": "https://github.com/percolatestudio/iron-transitioner.git",
-        "branch": "blaze"
+        "branch": "0.8.0"
       },
       "animate-css": {},
       "hammer": {},
@@ -32,13 +29,14 @@
       "accounts-ui-bootstrap-3": {},
       "googlemaps": {},
       "simple-publish": {},
-      "bootboxjs": {}
+      "bootboxjs": {},
+      "kadira": {}
     },
     "packages": {
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
-        "tag": "v0.7.1",
-        "commit": "d1ffb3f06ea4c112132b030f2eb1a70b81675ecb"
+        "tag": "v0.8.2",
+        "commit": "05415a8891ea87a00fb1e2388585f2ca5a38e0da"
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
@@ -52,8 +50,8 @@
       },
       "autoform": {
         "git": "https://github.com/aldeed/meteor-autoform.git",
-        "tag": "v0.16.1",
-        "commit": "34a447fd3a1b3164c78f865aabbac3ddc2d033fb"
+        "tag": "v0.17.1",
+        "commit": "a4688e7d77019a68ef43c2a303e905748beeb860"
       },
       "fastclick": {
         "git": "https://github.com/percolatestudio/meteor-fastclick",
@@ -92,8 +90,8 @@
       },
       "iron-transitioner": {
         "git": "https://github.com/percolatestudio/iron-transitioner.git",
-        "branch": "blaze",
-        "commit": "5ec6137bef1ed42606465c939aed937669c984e7"
+        "branch": "0.8.0",
+        "commit": "4609b8b92d760dd692c069f8d2cf068194a6b576"
       },
       "animate-css": {
         "git": "https://github.com/nate-strauser/meteor-animate-css.git",
@@ -112,8 +110,8 @@
       },
       "accounts-ui-bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-accounts-ui-bootstrap-3.git",
-        "tag": "v0.3.4",
-        "commit": "9f006ee48d869877d90d54ac75b54550a587df8f"
+        "tag": "v0.3.5",
+        "commit": "bbd0a8a46ae02526c2ebfee05fa8075d8d04a9ba"
       },
       "googlemaps": {
         "git": "https://github.com/drewjw81/meteor-googlemaps.git",
@@ -130,10 +128,15 @@
         "tag": "v4.2.1-master.1",
         "commit": "c125969c1f3aef30e2a2ff20252bd3b2e4014b2f"
       },
-      "blaze-layout": {
-        "git": "https://github.com/EventedMind/blaze-layout.git",
-        "tag": "v0.2.4",
-        "commit": "b40e9b0612329288d75cf52ad14a7da64bb8618f"
+      "kadira": {
+        "git": "https://github.com/meteorhacks/kadira.git",
+        "tag": "v2.4.13",
+        "commit": "1f3c1a427084af5a2eca2e299eb65bc01387df8a"
+      },
+      "iron-layout": {
+        "git": "https://github.com/EventedMind/iron-layout.git",
+        "tag": "v0.2.0",
+        "commit": "4a2d53e35ba036b0c189c7ceca34be494d4c6c97"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
@@ -142,13 +145,28 @@
       },
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",
-        "tag": "v2.6.0",
-        "commit": "26156df681750fd6e6ed77043eef32b6653ebbdf"
+        "tag": "v2.8.1",
+        "commit": "722ea63783d594341023836b7d418ab2567dab8c"
       },
       "timesync": {
         "git": "https://github.com/mizzao/meteor-timesync.git",
         "tag": "v0.2.1",
         "commit": "fa4abd511f4e32a3c5d22795ce2c1e8369428fac"
+      },
+      "blaze-layout": {
+        "git": "https://github.com/EventedMind/blaze-layout.git",
+        "tag": "v0.2.5",
+        "commit": "273e3ab7d005d91a1a59c71bd224533b4dae2fbd"
+      },
+      "iron-core": {
+        "git": "https://github.com/EventedMind/iron-core.git",
+        "tag": "v0.2.0",
+        "commit": "0e48b5dc50d03f01025b7b900fb5ce2f13d52cad"
+      },
+      "iron-dynamic-template": {
+        "git": "https://github.com/EventedMind/iron-dynamic-template.git",
+        "tag": "v0.2.1",
+        "commit": "4dd1185c4d9d616c9abdb3f33e4a7d5a88db7e18"
       }
     }
   }
