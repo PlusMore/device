@@ -1,33 +1,12 @@
 {
   "meteor": {},
   "packages": {
-    "iron-router": {},
-    "bootstrap-3": {},
-    "roles": {},
-    "autoform": {},
-    "fastclick": {},
-    "collection2": {},
-    "inspector": {},
     "plus-more-icons": {
       "git": "https://github.com/PlusMore/plus-more-icons.git",
       "tag": "v1.1"
     },
-    "percolatestudio-mixpanel": {},
-    "user-status": {},
     "pickadate": {
       "git": "https://github.com/patrickleet/meteor-pickadate.git"
-    },
-    "iron-transitioner": {
-      "git": "https://github.com/percolatestudio/iron-transitioner.git",
-      "branch": "0.8.0"
-    },
-    "animate-css": {},
-    "hammer": {},
-    "bootstrap-errors": {},
-    "accounts-ui-bootstrap-3": {},
-    "googlemaps": {},
-    "simple-publish": {},
-    "bootboxjs": {},
-    "kadira": {}
+    }
   }
 }
