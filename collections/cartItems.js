@@ -12,7 +12,7 @@ CartItems.allow({
   }
 });
 
-var checkCartItem = function(cartItem) {
+var checkCartItem = function(zone, now, cartItem) {
   if (cartItem.itemType === 'menuItem') {
     var menuItem = MenuItems.findOne(cartItem.itemId);
     if (!menuItem) {
@@ -25,7 +25,7 @@ var checkCartItem = function(cartItem) {
       throw new Meteor.Error(420, 'Menu Category Not Found', {_id: menuItem.menuCategoryId});
     }
 
-    if (!isNowBetweenTimes(menuCategory.startMinutes, menuCategory.endMinutes)) {
+    if (!isBetweenTimes(zone, now, menuCategory.startMinutes, menuCategory.endMinutes)) {
       throw new Meteor.Error(420, '{0} is only available between {1} and {2}'.format(menuItem.name, menuCategory.startTime, menuCategory.endTime));
     }
   } else {
@@ -34,7 +34,12 @@ var checkCartItem = function(cartItem) {
 };
 
 Meteor.methods({
-  addToCart: function(cartId, itemType, itemId, qty, comments) {
+  addToCart: function(now, zone, cartId, itemType, itemId, qty, comments) {
+    console.log('var now = ', now);
+    console.log('var zone = ', zone);
+
+    check(now, Date);
+    check(zone, Number);
     check(cartId, String);
     check(itemType, String);
     check(itemId, String);
@@ -51,7 +56,7 @@ Meteor.methods({
       comments: comments || ''
     };
 
-    checkCartItem(cartItem);
+    checkCartItem(zone, now, cartItem);
     
     if(cartItem.qty > 0){
       CartItems.insert(cartItem);
@@ -66,8 +71,10 @@ Meteor.methods({
   emptyCart: function(cartId) {
     CartItems.remove({cartId: cartId});
   },
-  orderRoomServiceCartItems: function(cartId) {
+  orderRoomServiceCartItems: function(now, zone, cartId) {
+    check(now, Date);
     check(cartId, String);
+    check(zone, Number);
     
     // check user, device, and hotel
     var user = Meteor.user();
@@ -93,7 +100,9 @@ Meteor.methods({
       throw new Meteor.Error(420, 'Cart is Empty');
     }
 
-    cartItems.forEach(checkCartItem);
+    cartItems.forEach(function(cartItem) {
+      checkCartItem(zone, now, cartItem);
+    });
     // Validated
 
     // Calculate Totals
