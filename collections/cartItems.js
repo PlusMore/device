@@ -39,6 +39,7 @@ Meteor.methods({
     console.log('var zone = ', zone);
 
     check(now, Date);
+    check(zone, Number);
     check(cartId, String);
     check(itemType, String);
     check(itemId, String);
@@ -70,9 +71,10 @@ Meteor.methods({
   emptyCart: function(cartId) {
     CartItems.remove({cartId: cartId});
   },
-  orderRoomServiceCartItems: function(now, cartId) {
+  orderRoomServiceCartItems: function(now, zone, cartId) {
     check(now, Date);
     check(cartId, String);
+    check(zone, Number);
     
     // check user, device, and hotel
     var user = Meteor.user();
@@ -99,7 +101,7 @@ Meteor.methods({
     }
 
     cartItems.forEach(function(cartItem) {
-      checkCartItem(now, cartItem);
+      checkCartItem(zone, now, cartItem);
     });
     // Validated
 
