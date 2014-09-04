@@ -12,7 +12,7 @@ CartItems.allow({
   }
 });
 
-var checkCartItem = function(now, cartItem) {
+var checkCartItem = function(zone, now, cartItem) {
   if (cartItem.itemType === 'menuItem') {
     var menuItem = MenuItems.findOne(cartItem.itemId);
     if (!menuItem) {
@@ -25,7 +25,7 @@ var checkCartItem = function(now, cartItem) {
       throw new Meteor.Error(420, 'Menu Category Not Found', {_id: menuItem.menuCategoryId});
     }
 
-    if (!isBetweenTimes(now, menuCategory.startMinutes, menuCategory.endMinutes)) {
+    if (!isBetweenTimes(zone, now, menuCategory.startMinutes, menuCategory.endMinutes)) {
       throw new Meteor.Error(420, '{0} is only available between {1} and {2}'.format(menuItem.name, menuCategory.startTime, menuCategory.endTime));
     }
   } else {
@@ -34,7 +34,10 @@ var checkCartItem = function(now, cartItem) {
 };
 
 Meteor.methods({
-  addToCart: function(now, cartId, itemType, itemId, qty, comments) {
+  addToCart: function(now, zone, cartId, itemType, itemId, qty, comments) {
+    console.log('var now = ', now);
+    console.log('var zone = ', zone);
+
     check(now, Date);
     check(cartId, String);
     check(itemType, String);
@@ -52,7 +55,7 @@ Meteor.methods({
       comments: comments || ''
     };
 
-    checkCartItem(now, cartItem);
+    checkCartItem(zone, now, cartItem);
     
     if(cartItem.qty > 0){
       CartItems.insert(cartItem);
