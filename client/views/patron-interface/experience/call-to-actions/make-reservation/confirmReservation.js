@@ -22,7 +22,7 @@ Template.registeredContent.helpers({
 });
 
 Template.registeredContent.events({
-  'click .btn-primary': function(e) {
+  'click .btn-default': function(e) {
     e.preventDefault();
     
     var reservation = Session.get('reservation');
