@@ -1,6 +1,17 @@
+Template.wakeUpCall.rendered = function () {
+  // Convert all the links with the progress-button class to
+  // actual buttons with progress meters.
+  // You need to call this function once the page is loaded.
+  // If you add buttons later, you will need to call the function only for them.
+  $('.progress-button').progressInitialize();
+};
+
 Template.wakeUpCall.events({
   'click #btn-request': function(e, tmpl) {
     e.preventDefault();
+    
+    var requestButton = tmpl.$(e.currentTarget);
+    requestButton.progressStart();
 
     var user = Meteor.user();
     var selectedDate = Session.get('selectedDate');
@@ -27,7 +38,10 @@ Template.wakeUpCall.events({
         return Errors.throw(error);
       }
 
-      Router.go('orders');
+      requestButton.progressFinish();
+      Meteor.setTimeout(function() {
+        Router.go('orders');
+      }, 500);
     });
   }
 });
