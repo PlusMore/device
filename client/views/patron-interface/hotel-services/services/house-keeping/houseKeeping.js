@@ -7,7 +7,7 @@ Template.houseKeeping.rendered = function () {
 };
 
 Template.houseKeeping.events({
-  'click #btn-request': function(e, tmpl) {
+  'click #btn-request:not(.in-progress):not(.finished)': function(e, tmpl) {
     e.preventDefault();
     
     var requestButton = tmpl.$(e.currentTarget);

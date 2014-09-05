@@ -9,6 +9,7 @@ Template.bellService.rendered = function () {
 Template.bellService.events({
   'click #btn-request:not(.in-progress):not(.finished)': function(e, tmpl) {
     e.preventDefault();
+    
     var requestButton = tmpl.$(e.currentTarget);
     requestButton.progressStart();
 
