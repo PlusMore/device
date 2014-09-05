@@ -1,36 +1,42 @@
 @import '/client/style/imports.import.less';
 
-.orders.container {
-  padding: 10px 100px;
+.order {
+  h3 {
+    text-transform: uppercase;
 
-  .order {
-    h3 {
-      text-transform: uppercase;
-
-      small {
-        color: #fff;
-        text-transform: none;
-      }
+    small {
+      color: #fff;
+      text-transform: none;
     }
+  }
 
-    .reservation-details {
-      margin-bottom: 10px;
-      & > p {
-        font-size: 1.5em;
-        padding-bottom: 0;
-        margin-bottom: 0;
-      }
+  .time-ago {
+    margin-top: 40px;
+    span {
+      padding: 10px;
+      font-size: 16px;
+      background-color: rgba(255,255,255,.1);
     }
+  }
 
-    .venue {
-      margin-bottom: 10px;
-      font-size: 1.2em;
-      & > span {
-        display: block;
-      }
+  .reservation-details {
+    margin-bottom: 10px;
+    & > p {
+      font-size: 1.5em;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  .venue {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    & > span {
+      display: block;
     }
   }
 }
+
 
 .no-orders.big-text {
   padding-top: 140px;

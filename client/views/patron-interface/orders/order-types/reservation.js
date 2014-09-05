@@ -19,9 +19,11 @@ Template.reservation.helpers({
     return (this.status === 'cancelled');
   },
   cancelledDateMomentAgo: function() {
+    var now = Session.get('currentTime');
     return moment(this.cancelledDate).fromNow();
   },
   requestedDateTimeAgo: function() {
+    var now = Session.get('currentTime');
     return moment(this.requestedAt).fromNow();
   },
   when: function() {
