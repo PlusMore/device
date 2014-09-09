@@ -17,13 +17,18 @@
     </div>
     <div class="venue">
       {{#with experience}}
-        <strong>{{venueName}}</strong>
-        <span>{{street}}</span>
-        <span>{{city}}, {{state}}</span>
+        <div><strong>{{venueName}}</strong></div>
+        <div>{{street}}</div>
+        <div>{{city}}, {{state}}</div>
       {{/with}}
     </div>
-   
-    <a class="btn btn-default btn-cancel-reservation pull-right">Cancel Reservation</a>
-    <p>Requested {{requestedDateTimeAgo}}</p>
+
+    <div class='time-ago'>
+      <span>Requested {{requestedDateTimeAgo}}</span>
+    </div>
+
+    <div class="buttons pull-right">
+      <a class="btn btn-default btn-cancel-reservation">Cancel Reservation</a>
+    </div>
   {{/if}}
 </template>

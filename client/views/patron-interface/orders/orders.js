@@ -3,6 +3,6 @@ Template.orders.helpers({
     return Orders.find().count() > 0;
   },
   orders: function() {
-    return Orders.find();
+    return Orders.find({}, {sort: {requestedAt: -1}});
   }
 });
