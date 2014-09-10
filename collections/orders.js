@@ -128,7 +128,7 @@ Meteor.methods({
       userId: user._id
     };
 
-    var orderId = Orders.insert(order, {validate: false});
+    var orderId = Orders.insert(order);
 
     this.unblock();
 
@@ -202,6 +202,7 @@ Meteor.methods({
     }
   },
   requestService: function(request) {
+    debugger;
     // Check that type is provided
     check(request.type, String);
 
@@ -304,7 +305,7 @@ Meteor.methods({
       userId: user._id
     };
 
-    var orderId = Orders.insert(order, {validate: false});
+    var orderId = Orders.insert(order);
 
     this.unblock();
 

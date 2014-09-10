@@ -145,7 +145,7 @@ Meteor.methods({
       read: false,
       status: 'pending',
       userId: user._id
-    }, {validate: false}, function(err) {
+    }, function(err) {
       if (err) throw new Meteor.Error(err);
     });
   }
