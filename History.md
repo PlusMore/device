@@ -1,3 +1,6 @@
+## v0.11.1
+- remove {validate: false} on inserts as it caused bugs
+
 ## v0.11
 - Kadira implemented
 - Room Service
