@@ -202,7 +202,6 @@ Meteor.methods({
     }
   },
   requestService: function(request) {
-    debugger;
     // Check that type is provided
     check(request.type, String);
 
