@@ -1,8 +1,14 @@
-## 1.1
+## v0.11
+- Kadira implemented
+- Room Service
 
-* Added log in & sign up templates.
-* Added simple flash message system.
+## v0.10
+- Hotel Services
 
-## 1.0
+## v0.9
+- New layout with smooth scrolling
+- Customizable background
+- Ability to replace devices
 
-* Created project.
+## Earlier
+Experiences
