@@ -128,7 +128,7 @@ Meteor.methods({
       userId: user._id
     };
 
-    var orderId = Orders.insert(order, {validate: false});
+    var orderId = Orders.insert(order);
 
     this.unblock();
 
@@ -304,7 +304,7 @@ Meteor.methods({
       userId: user._id
     };
 
-    var orderId = Orders.insert(order, {validate: false});
+    var orderId = Orders.insert(order);
 
     this.unblock();
 
