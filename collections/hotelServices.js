@@ -17,7 +17,7 @@ HotelServices.friendlyRequestType = function(requestType) {
     case 'transportation':
       return 'Transportation';
     case 'bellService': 
-      return 'Bell Service';
+      return 'Luggage Pickup';
     case 'houseKeeping': 
       return 'House Keeping';
     case 'wakeUpCall': 
