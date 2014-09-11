@@ -1,7 +1,7 @@
 Template.about.helpers({
   hotelCity: function () {
     var hotel = Hotels.findOne();
-    return hotel.geo.city;
+    return hotel.geo.city || 'this city';
   }
 });
 
