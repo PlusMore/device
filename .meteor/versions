@@ -50,7 +50,7 @@ logging@1.0.3
 meteor-platform@1.1.0
 meteor@1.1.0
 meteorhacks:kadira-binary-deps@1.0.1
-meteorhacks:kadira@2.8.0
+meteorhacks:kadira@2.8.1
 minifiers@1.1.0
 minimongo@1.0.3
 mizzao:bootboxjs@4.2.1-master.1
