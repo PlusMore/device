@@ -9,6 +9,10 @@ Template.welcome.helpers({
     if (Meteor.user()) {
       return !Meteor.user().deviceId;
     }
+  },
+  hotelName: function() {
+    var hotel = Hotels.findOne();
+    return hotel.name;
   }
 });
 
