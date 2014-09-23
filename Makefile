@@ -11,6 +11,18 @@ start:
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
 	meteor -p $(PORT) --settings ./config/$(APP_ENV)/settings.json
 
+ios:
+	NODE_OPTIONS=$(NODE_OPTIONS) \
+	MONGO_URL=$(MONGO_URL) \
+	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
+	meteor run --settings ./config/$(APP_ENV)/settings.json ios -p $(PORT) 
+
+android:
+	NODE_OPTIONS=$(NODE_OPTIONS) \
+	MONGO_URL=$(MONGO_URL) \
+	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
+	meteor run --settings ./config/$(APP_ENV)/settings.json android -p $(PORT) 
+
 start-debug:
 	NODE_OPTIONS='--debug' \
 	MONGO_URL=$(MONGO_URL) \
