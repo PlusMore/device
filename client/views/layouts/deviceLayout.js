@@ -31,5 +31,8 @@ Template.deviceLayout.helpers({
     } 
     
     return Meteor.settings.public.bgPhotoUrl + '/convert?w=1024&h=768&fit=scale&cache=true';
+  },
+  showMenu: function() {
+    return Session.get('showMenu') ? 'animate' : '';
   }
 });
