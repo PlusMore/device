@@ -1,22 +1,6 @@
 Template.deviceLayout.helpers({
-  routeReady: function() {
-    return Router.current().ready();
-  },
-  idleStatus: function() {
-    return UserStatus.isIdle() ? 'idle' : '';
-  },
-  isIdle: function() {
-    return UserStatus.isIdle();
-  },
   connectionStatus: function () {
     return Meteor.status().status;
-  },
-  isFullscreen: function() {
-    return Session.get('fullscreen') ? 'fullscreen' : '';
-  },
-  isScrollable: function() {
-    // when not fullscreen - allow scrolling
-    return Session.get('fullscreen') ? '' : 'scrollable';
   },
   hotelPhotoUrl: function() {
     var hotelsCursor = Hotels.find();
@@ -34,5 +18,12 @@ Template.deviceLayout.helpers({
   },
   showMenu: function() {
     return Session.get('showMenu') ? 'animate' : '';
+  }
+});
+
+Template.deviceLayout.events({
+  'click .perspective.animate > .container': function (e) {
+    e.preventDefault();
+    Session.set('showMenu', false);
   }
 });
