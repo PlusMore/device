@@ -6,30 +6,57 @@ html, body, .perspective {
 .perspective {
     background: #aaa;
     position: relative;
-}
 
-.container {
-    background: #fff;
-    min-height: 100%;
-    position: relative;
-    outline: 1px solid rgba(0,0,0,0);
-    z-index: 10;
-    -webkit-transform: translateZ(0) translateX(0) rotateY(0deg); /* reset transforms (Chrome bug) */
-    transform: translateZ(0) translateX(0) rotateY(0deg);
-}
+    & > .container {
+        background: #fff;
+        min-height: 100%;
+        position: relative;
+        outline: 1px solid rgba(0,0,0,0);
+        z-index: 10;
+        -webkit-transform: translateZ(0) translateX(0) rotateY(0deg); /* reset transforms (Chrome bug) */
+        transform: translateZ(0) translateX(0) rotateY(0deg);
 
-.container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 0px;
-    opacity: 0;
-    background: rgba(0,0,0,0.2);
-    /* the transition delay of the height needs to be synced with the container transition time */
-    -webkit-transition: opacity 0.4s, height 0s 0.4s;
-    transition: opacity 0.4s, height 0s 0.4s;
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0px;
+            opacity: 0;
+            background: rgba(0,0,0,0.2);
+            /* the transition delay of the height needs to be synced with the container transition time */
+            -webkit-transition: opacity 0.4s, height 0s 0.4s;
+            transition: opacity 0.4s, height 0s 0.4s;
+        }
+    }
+
+    &.modalview {
+        position: fixed;
+        -webkit-perspective: 1500px;
+        perspective: 1500px;
+
+        & > .container {
+            position: absolute;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        & .wrapper {
+            -webkit-transform: translateZ(-1px); /* solves a rendering bug in Chrome on Windows */
+        }
+    }
+
+    &.animate > .container::after {
+        opacity: 1;
+        height: 101%;
+        -webkit-transition: opacity 0.3s;
+        transition: opacity 0.3s;
+    }
 }
 
 .wrapper {
@@ -43,122 +70,90 @@ html, body, .perspective {
     font-size: 1.5em;
 }
 
-/* Modal view */
-.perspective.modalview {
-    position: fixed;
-    -webkit-perspective: 1500px;
-    perspective: 1500px;
-}
-
-.modalview .container {
-    position: absolute;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}
-
-.modalview .wrapper {
-    -webkit-transform: translateZ(-1px); /* solves a rendering bug in Chrome on Windows */
-}
-
-.animate .container::after {
-    opacity: 1;
-    height: 101%;
-    -webkit-transition: opacity 0.3s;
-    transition: opacity 0.3s;
-}
-
 /* Outer Nav */
 .outer-nav {
     position: absolute;
     height: auto;
-    font-size: 2em;
-}
+    font-size: 2.2em;
 
-.outer-nav.vertical {
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-}
+    &.vertical {
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
 
-.outer-nav.horizontal {
-    left: 50%;
-    width: 75%;
-    max-width: 1000px;
-    text-align: center;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
-}
+    &.horizontal {
+        left: 50%;
+        width: 75%;
+        max-width: 1000px;
+        text-align: center;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+    }
 
-.outer-nav.left {
-    left: 25%;
-}
+    &.left {
+        left: 25%;
+    }
 
-.outer-nav.right {
-    right: 25%;
-}
+    &.right {
+        right: 25%;
+    }
 
-.outer-nav.top {
-    top: 25%;
-}
+    &.top {
+        top: 25%;
+    }
 
-.outer-nav.bottom {
-    bottom: 25%;
-}
+    &.bottom {
+        bottom: 25%;
+    }
 
-.outer-nav a {
-    display: inline-block;
-    white-space: nowrap;
-    font-weight: 300;
-    margin: 0 0 30px 0;
-    color: #fff;
-    -webkit-transition: color 0.3s;
-    transition: color 0.3s;
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-}
+    & a {
+        display: inline-block;
+        white-space: nowrap;
+        font-weight: 300;
+        margin: 0 0 30px 0;
+        color: #fff;
+        -webkit-transition: color 0.3s;
+        transition: color 0.3s;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        font-family: "Open Sans";
+        text-transform: uppercase;
+    }
 
-.outer-nav a:hover {
-    color: #ffdccd;
-}
+    & a:hover {
+        color: #ffdccd;
+    }
 
-.outer-nav.vertical a {
-    display: block;
-}
+    &.vertical a {
+        display: block;
+    }
 
-.outer-nav.horizontal a {
-    margin: 15px 20px;
-}
+    &.horizontal a {
+        margin: 15px 20px;
+    }
 
-.outer-nav a::before {
-    display: inline-block;
-    font-family: 'typicons';
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    margin-right: 10px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+    & a::before {
+        display: inline-block;
+        speak: none;
+        font-family: "plusmore";
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        margin-right: 30px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        vertical-align: middle;
+        font-size: 1.6em;
+        margin-bottom: 10px;
+    }
 }
-
-.icon-news::before { content: "\e600" }
-.icon-home::before { content: "\e601" }
-.icon-image::before { content: "\e602" }
-.icon-upload::before { content: "\e603" }
-.icon-star::before { content: "\e604" }
-.icon-mail::before { content: "\e605" }
-.icon-lock::before { content: "\e606" }
-.icon-chart-pie::before { content: "\e607" }
 
 /* Individual Effects */
 
