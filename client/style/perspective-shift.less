@@ -7,7 +7,7 @@ html, body, .perspective {
     background: #aaa;
     position: relative;
 
-    & > .container {
+    & > .perspective-container {
         background: #fff;
         min-height: 100%;
         position: relative;
@@ -25,7 +25,7 @@ html, body, .perspective {
             height: 0px;
             opacity: 0;
             background: rgba(0,0,0,0.2);
-            /* the transition delay of the height needs to be synced with the container transition time */
+            /* the transition delay of the height needs to be synced with the perspective-container transition time */
             -webkit-transition: opacity 0.4s, height 0s 0.4s;
             transition: opacity 0.4s, height 0s 0.4s;
         }
@@ -36,7 +36,7 @@ html, body, .perspective {
         -webkit-perspective: 1500px;
         perspective: 1500px;
 
-        & > .container {
+        & > .perspective-container {
             position: absolute;
             overflow: hidden;
             width: 100%;
@@ -45,13 +45,9 @@ html, body, .perspective {
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
         }
-
-        & .wrapper {
-            -webkit-transform: translateZ(-1px); /* solves a rendering bug in Chrome on Windows */
-        }
     }
 
-    &.animate > .container::after {
+    &.animate > .perspective-container::after {
         opacity: 1;
         height: 101%;
         -webkit-transition: opacity 0.3s;
@@ -59,22 +55,11 @@ html, body, .perspective {
     }
 }
 
-.wrapper {
-    position: relative;
-}
-
-.component {
-    margin: 0 auto;
-    width: 60%;
-    text-align: justify;
-    font-size: 1.5em;
-}
-
 /* Outer Nav */
 .outer-nav {
     position: absolute;
     height: auto;
-    font-size: 2.2em;
+    font-size: 1.4em;
 
     &.vertical {
         top: 50%;
@@ -94,19 +79,11 @@ html, body, .perspective {
     }
 
     &.left {
-        left: 25%;
+        left: 10%;
     }
 
     &.right {
-        right: 25%;
-    }
-
-    &.top {
-        top: 25%;
-    }
-
-    &.bottom {
-        bottom: 25%;
+        right: 10%;
     }
 
     & a {
@@ -161,14 +138,14 @@ html, body, .perspective {
 .effect-persepctive-shift {
     background: #000;
 
-    & > .container {
+    & > .perspective-container {
         -webkit-transition: -webkit-transform 0.4s;
         transition: transform 0.4s;
         -webkit-transform-origin: 50% 50%;
         transform-origin: 50% 50%;
     }
 
-    &.animate > .container {
+    &.animate > .perspective-container {
         -webkit-transform: translateZ(-1500px) translateX(100%) rotateY(-45deg);
         transform: translateZ(-1500px) translateX(100%) rotateY(-45deg);
     }
@@ -218,70 +195,26 @@ html, body, .perspective {
     }
 }
 
-.no-csstransforms3d &.animate .container {
+.no-csstransforms3d &.animate .perspective-container {
     left: 75%;
 }
 
-/* Media Queries */
-@media screen and (max-width: 77em) {
-    
+// small
+@media (min-width: 768px) {
     .outer-nav {
-        &.top {
-            top: 15%;
-        }
-
-        &.bottom {
-            bottom: 15%;
-        }
-    }
-
-}
-
-@media screen and (max-width: 36.625em), screen and (max-height: 41.75em) {
-
-    .outer-nav {
-        &.top {
-            top: 5%;
-        }
-
-        &.bottom {
-            bottom: 5%;
-        }
-        
-        &.horizontal {
-            font-size: 1.7em;
-            width: 6.2em;
-        }
-
-        &.horizontal a {
-            display: block;
-            text-align: left;
-        }  
-    }
-
-}
-
-@media screen and (max-width: 31em), screen and (max-height: 36.2em) {
-    
-    .outer-nav {
-        &.horizontal,
-        &.vertical {
-            font-size: 1.2em;
-            width: 6.8em;
+        font-size: 2.2em;
+        &.left {
+            left: 25%;
         }
 
         &.right {
-            right: auto;
-            left: 50%;
-        }    
-    }
-    
-}
-
-@media screen and (max-height: 31.6em) {
-    .outer-nav {
-        & a {
-            margin-bottom: 20px;
+            right: 25%;
         }
     }
 }
+
+// medium
+@media (min-width: 992px) {}
+
+// large
+@media (min-width: 1200px) {}
