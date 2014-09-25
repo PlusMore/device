@@ -72,12 +72,6 @@ var filters = {
   resetExperienceState: function() {
     Session.set('experienceState', '');
   },
-  fullscreen: function() {
-    Session.set('fullscreen', true);
-  },
-  resetFullscreen: function() {
-    Session.set('fullscreen', false);
-  },
   scroll: function() {
     var scroll = Session.get('overrideNextScrollPosition');
     var scrollPosition = Session.get('lastScrollPosition');
@@ -102,6 +96,9 @@ var filters = {
   setLastScrollPosition: function() {
     Session.set('lastScrollPosition', $('.content').scrollTop());
     console.log(Session.get('lastScrollPosition'));
+  },
+  closeMenu: function() {
+    Session.set('showMenu', false);
   }
 };
 
@@ -111,25 +108,7 @@ if (Meteor.isClient) {
   Router.onBeforeAction(Errors.clearSeen);
 }
 
-
-var fullscreenPages = [
-  'welcome',
-  'about',
-  'howToBook',
-  'experience',
-  'registerDevice',
-  'setupDevice',
-  'settingUp',
-  'enterCheckoutDate',
-  'entrySignIn',
-  'entrySignUp',
-  'entryResetPassword',
-  'entryForgotPassword',
-  'experience'
-];
-
-Router.onBeforeAction(filters.fullscreen, {only: fullscreenPages});
-Router.onBeforeAction(filters.resetFullscreen, {except: fullscreenPages});
+Router.onRun(filters.closeMenu);
 
 // Ensure user has a device account, otherwise,
 // redirect to device list?
