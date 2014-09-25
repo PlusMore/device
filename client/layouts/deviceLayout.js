@@ -22,7 +22,7 @@ Template.deviceLayout.helpers({
 });
 
 Template.deviceLayout.events({
-  'click .perspective.animate > .container': function (e) {
+  'click .perspective.animate > .perspective-container': function (e) {
     e.preventDefault();
     Session.set('showMenu', false);
   }
