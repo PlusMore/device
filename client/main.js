@@ -53,6 +53,10 @@ Meteor.startup(function() {
       Session.set('stayId', Stays.findOne()._id);
     }
   });
+
+  $(document).on('click', '.icon-menu', function() {
+    Session.set('showMenu', true);
+  });
 });
 
 
