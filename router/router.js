@@ -243,7 +243,8 @@ Router.map(function() {
     data: function() {
       var activeCategory = Session.get('activeCategory');
       return {
-        experiences: Experiences.find({category: activeCategory}, {sort: {sortOrder: 1}})
+        experiences: Experiences.find({category: activeCategory}, {sort: {sortOrder: 1}}),
+        category: Categories.findOne({name: activeCategory})
       };
     }
   });
