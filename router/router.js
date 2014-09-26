@@ -226,8 +226,6 @@ Router.map(function() {
     }
   });
 
-  this.route('message');
-
   this.route('experiences', {
     path: '/experiences/:category?',
     onBeforeAction: function() {
@@ -248,23 +246,6 @@ Router.map(function() {
       };
     }
   });
-
-  // this.route('experience', {
-  //   path: '/experience/:_id',
-  //   onRun: function () {
-  //     Session.set('currentExperienceId', Router.current().params._id);
-  //   },
-  //   data: function () {
-  //     return {
-  //       experience: Experiences.findOne(this.params._id),
-  //       experienceId: this.params._id
-  //     };
-  //   },
-  //   action: function() {
-  //     // Do nothing, A reactive overlay is shown based on currentExperienceId
-  //     Session.set('overrideNextScrollPosition', true);
-  //   }
-  // });
 
 });
 
