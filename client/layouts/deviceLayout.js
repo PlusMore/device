@@ -24,6 +24,7 @@ Template.deviceLayout.helpers({
 var handlePerspectiveContainerClick = function(e, tmpl) {
   e.preventDefault();
   Session.set('showMenu', false);
+  console.log('perspective container clicked');
 }
 
 Template.deviceLayout.events({

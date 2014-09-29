@@ -35,7 +35,10 @@ Template.mainNav.helpers({
 });
 
 var handleNav = function(e, tmpl) {
-  Session.set('showMenu', false);
+  if (Router.current().path === $(e.currentTarget).attr('href')) {
+    e.preventDefault();
+    Session.set('showMenu', false);
+  }
 }
 
 Template.mainNav.events({
