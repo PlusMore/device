@@ -21,9 +21,12 @@ Template.deviceLayout.helpers({
   }
 });
 
+var handlePerspectiveContainerClick = function(e, tmpl) {
+  e.preventDefault();
+  Session.set('showMenu', false);
+}
+
 Template.deviceLayout.events({
-  'click .perspective.animate > .perspective-container': function (e) {
-    e.preventDefault();
-    Session.set('showMenu', false);
-  }
+  'click .perspective.animate > .perspective-container': handlePerspectiveContainerClick,
+  'touchstart .perspective.animate > .perspective-container': handlePerspectiveContainerClick
 });

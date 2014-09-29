@@ -33,3 +33,12 @@ Template.mainNav.helpers({
     }
   }
 });
+
+var handleNav = function(e, tmpl) {
+  Session.set('showMenu', false);
+}
+
+Template.mainNav.events({
+  'click .outer-nav > a': handleNav,
+  'touchstart .outer-nav > a': handleNav
+});
