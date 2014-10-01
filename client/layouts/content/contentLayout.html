@@ -1,4 +1,4 @@
-<template name="hotelServicesNavbar">
+<template name="contentLayout">
   <nav class="navbar navbar-fixed-top navbar-plusmore" role="navigation">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -7,9 +7,14 @@
       </i>
 
       <h3 class="navbar-title">
-        Hotel Services
+        {{> yield "title"}}
       </h3>
 
     </div><!-- /.container-fluid -->
   </nav>
+  <section>
+    <div class="main container-fluid scrollable">
+      {{> yield}}
+    </div>
+  </section>
 </template>

@@ -1,19 +1,45 @@
 <template name="hotelServices">
+  {{#if subscriptionsReady}}
+    {{#Layout template="contentLayout"}}
+      {{#contentFor "title"}}
+        Hotel Services
+      {{/contentFor}}
+
+    
+      {{#if hotelServicesEnabled}}
+
+        <div class="row" id="hotel-services-container">
+          
+          <div class="col-sm-2 affix" id='hotel-services-menu'>
+            {{> hotelServicesNav}}
+          </div> 
+
+          <div class="col-sm-10 col-sm-offset-2" id='hotel-services-content'>
+            {{> UI.dynamic template=subNavContentTemplate data=configuration}}
+          </div>
+          
+        </div>
+
+      {{else}}
+        {{> hotelServicesNotConfigured}}
+      {{/if}}
+
+    {{/Layout}}
+  {{else}}
+    {{> loading}}
+  {{/if}}
+</template>
+
+
+
+<template name="hotelServices_old">
   {{> hotelServicesNavbar}}
   {{#if subscriptionsReady}}
     {{#if hotelServicesEnabled}}
       <section>
-        <div class="col-sm-2" id='hotel-services-menu'>
-          {{> hotelServicesNav}}
-        </div>
+        
         <div class="main container-fluid scrollable">
-          <div class="row" id="hotel-services-container">
-            
-            <div class="col-sm-10 col-sm-offset-2" id='hotel-services-content'>
-              {{> UI.dynamic template=subNavContentTemplate data=configuration}}
-            </div>
-            
-          </div>
+          
         </div>  
       </section>
       

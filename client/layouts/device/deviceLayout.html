@@ -24,12 +24,16 @@
 
       {{else}}
 
-        {{#if loggingIn}}
-          {{> loggingInOverlay}}
-        {{else}}
-          {{> login}}
-        {{/if}}
-
+        <div class="outer">
+          <div class="holder">
+            {{#if loggingIn}}
+              {{> loggingInOverlay}}
+            {{else}}
+              {{> login}}
+            {{/if}}    
+          </div>
+        </div>
+        
       {{/if}}
 
     </div>
