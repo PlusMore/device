@@ -37,7 +37,7 @@ Template.mainNav.helpers({
 var handleNav = function(e, tmpl) {
   if (Router.current().path === $(e.currentTarget).attr('href')) {
     e.preventDefault();
-    Session.set('showMenu', false);
+    App.hideMenu();
   }
 }
 

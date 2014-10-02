@@ -98,7 +98,7 @@ var filters = {
     console.log(Session.get('lastScrollPosition'));
   },
   closeMenu: function() {
-    Session.set('showMenu', false);
+    App.hideMenu();
   }
 };
 
@@ -106,9 +106,8 @@ Router.onBeforeAction('loading');
 
 if (Meteor.isClient) {
   Router.onBeforeAction(Errors.clearSeen);
+  Router.onRun(filters.closeMenu);
 }
-
-Router.onRun(filters.closeMenu);
 
 // Ensure user has a device account, otherwise,
 // redirect to device list?
