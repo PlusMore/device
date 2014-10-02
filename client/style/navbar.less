@@ -128,37 +128,51 @@
 
   .nav {
 
-    li {
+    & > li {
       background: none;
 
-      &:hover, &:active, &:focus, &:visited {
-        background: none;
+      // &:hover, &:active, &:focus, &:visited {
+      //   background: none;
+      // }
+
+      // &.inactive {
+      //   background: none;
+      //   &:hover, &:active, &:focus, &:visited {
+      //     background: none;
+      //   }
+      // }
+
+      // &.active {
+      //   background: rgba(0,0,0,1);
+      //   border-bottom: 1px solid #000;
+
+      //   &:hover, &:active {
+      //     background: #000;
+      //   }
+      //   a {
+      //     color: #fff;
+      //     &:hover, &:active, &:focus , &:visited {
+      //       color: #fff;
+      //     }
+
+      //     span.text {
+      //       color: #fff;
+      //     }
+      //   }
+      // }
+
+      & > a, &.dropdown > .dropdown-toggle {
+        line-height: 26px;
+        vertical-align: middle;
+        border: 1px solid;
+        margin: 12px 5px;
+        padding: 0 8px;
+        text-transform: uppercase;
       }
 
-      &.inactive {
-        background: none;
-        &:hover, &:active, &:focus, &:visited {
-          background: none;
-        }
-      }
-
-      &.active {
-        background: rgba(0,0,0,1);
-        border-bottom: 1px solid #000;
-
-        &:hover, &:active {
-          background: #000;
-        }
-        a {
-          color: #fff;
-          &:hover, &:active, &:focus , &:visited {
-            color: #fff;
-          }
-
-          span.text {
-            color: #fff;
-          }
-        }
+      &.dropdown.open .dropdown-toggle, &.active a {
+        color: #fff;
+        background-color: #000;
       }
 
       a {
