@@ -121,7 +121,7 @@
   }
 
   .navbar-collapse {
-    &.in {
+    &.in, &.collapsing {
       background: rgba(255, 255, 255, 0.9); 
     }
   }
@@ -130,36 +130,6 @@
 
     & > li {
       background: none;
-
-      // &:hover, &:active, &:focus, &:visited {
-      //   background: none;
-      // }
-
-      // &.inactive {
-      //   background: none;
-      //   &:hover, &:active, &:focus, &:visited {
-      //     background: none;
-      //   }
-      // }
-
-      // &.active {
-      //   background: rgba(0,0,0,1);
-      //   border-bottom: 1px solid #000;
-
-      //   &:hover, &:active {
-      //     background: #000;
-      //   }
-      //   a {
-      //     color: #fff;
-      //     &:hover, &:active, &:focus , &:visited {
-      //       color: #fff;
-      //     }
-
-      //     span.text {
-      //       color: #fff;
-      //     }
-      //   }
-      // }
 
       & > a, &.dropdown > .dropdown-toggle {
         line-height: 26px;

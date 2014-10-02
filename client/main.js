@@ -54,7 +54,12 @@ Meteor.startup(function() {
     }
   });
 
-  $(document).on('click, touchstart', '.icon-menu', function(e) {
+  $(document).on('touchstart', '.icon-menu', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    App.showMenu();
+  });
+  $(document).on('click', '.icon-menu', function(e) {
     e.preventDefault();
     e.stopPropagation();
     App.showMenu();
