@@ -16,9 +16,9 @@ Template.deviceLayout.helpers({
     
     return Meteor.settings.public.bgPhotoUrl + '/convert?w=1024&h=768&fit=scale&cache=true';
   },
-  modalview: function() {
-    return Session.get('modalview') ? 'modalview' : '';
-  },
+  // modalview: function() {
+  //   return Session.get('modalview') ? 'modalview' : '';
+  // },
   showMenu: function() {
     return Session.get('showMenu') ? 'animate' : '';
   }
