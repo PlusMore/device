@@ -4,9 +4,11 @@
       {{category.name}}
     {{/contentFor}}
 
-    {{#contentFor "subnav"}}
-      {{> experiencesSubnav}}
-    {{/contentFor}}
+    {{#if hasSubnav}}
+      {{#contentFor "subnav"}}
+        {{> experiencesSubnav}}
+      {{/contentFor}}
+    {{/if}}
 
     <div class="row animated fadeInRight">
       {{#each experiences}}

@@ -9,14 +9,12 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="experiences-subnav">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Link</a></li>
-      <li><a href="#">Link</a></li>
-      {{#each category.filterGroupTags}}
+      {{#each categoryFilterGroupTags}}
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{this}} <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{group}} <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            {{#each tagsForFilterGroup}}
-              <li><a href="#">{{this}}</a></li>
+            {{#each options}}
+              <li><a href="#">{{name}} - {{count}}</a></li>
             {{/each}}
           </ul>
         </li>
