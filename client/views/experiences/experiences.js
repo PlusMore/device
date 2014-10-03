@@ -1,7 +1,7 @@
 Template.experiences.helpers({
   experiencesLayout: function () {
     if (this.category) {
-      if (this.category.filterGroupTags.length > 0) {
+      if (this.category.filterGroupTags && this.category.filterGroupTags.length > 0) {
         return "subnavContentLayout";
       }
     }
@@ -9,7 +9,7 @@ Template.experiences.helpers({
   },
   hasSubnav: function () {
     if (this.category) {
-      if (this.category.filterGroupTags.length > 0) {
+      if (this.category.filterGroupTags && this.category.filterGroupTags.length > 0) {
         return true;
       }
     }
