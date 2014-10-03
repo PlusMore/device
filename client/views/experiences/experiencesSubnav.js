@@ -1,4 +1,12 @@
 Template.experiencesSubnav.helpers({
+  groupOrSelectedOption: function() {
+    var filters = Session.get('experienceFilters');
+    var selectedFromGroup = _.where(filters, {group: this.group});
+    if (selectedFromGroup && selectedFromGroup.length > 0) {
+      return selectedFromGroup.length > 1 ? this.group + ' (' + selectedFromGroup.length + ' Selected)' : selectedFromGroup[0].name;
+    } 
+    return this.group;
+  },
   categoryFilterGroupTags: function() {
     var results = [];
     if (this.category && this.category.filterGroupTags && this.category.filterGroupTags.length > 0) {
@@ -16,6 +24,7 @@ Template.experiencesSubnav.helpers({
                 option.count = option.count + 1;
               } else {
                 groupOptions.push({
+                  group: group,
                   name: groupOption,
                   count: 1
                 });
@@ -33,5 +42,6 @@ Template.experiencesSubnav.helpers({
     }
 
     return results;
-  }
+  },
+  
 });

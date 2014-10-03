@@ -231,6 +231,7 @@ Router.map(function() {
       Session.set('activeCategory', this.params.category);
     },
     onRun: function() {
+      Session.set('experienceFilters', undefined);
       Deps.nonreactive(function() {
         App.track("View Category", {
           "Name": Router.current().params.category
@@ -239,8 +240,26 @@ Router.map(function() {
     },
     data: function() {
       var activeCategory = Session.get('activeCategory');
+      var experienceFilters = Session.get('experienceFilters');
+
+      var experiencesQuery = {
+        category: activeCategory
+      }
+      if (experienceFilters && experienceFilters.length > 0) {
+        _.each(experienceFilters, function (filter) {
+          var key = filter.group + 'Tags';
+          if (typeof experiencesQuery[key] === 'undefined') {
+            experiencesQuery[key] = {};
+          }
+
+          if (typeof experiencesQuery[key].$in === 'undefined') {
+            experiencesQuery[key].$in = [];
+          }
+          experiencesQuery[key].$in.push(filter.name);
+        });
+      }
       return {
-        experiences: Experiences.find({category: activeCategory}, {sort: {sortOrder: 1}}),
+        experiences: Experiences.find(experiencesQuery, {sort: {sortOrder: 1}}),
         category: Categories.findOne({name: activeCategory})
       };
     }
