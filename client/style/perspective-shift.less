@@ -14,6 +14,8 @@ html, body, .perspective {
         z-index: 10;
         -webkit-transform: translateZ(0) translateX(0) rotateY(0deg); /* reset transforms (Chrome bug) */
         transform: translateZ(0) translateX(0) rotateY(0deg);
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
 
         &::after {
             content: '';
@@ -75,6 +77,8 @@ html, body, .perspective {
         text-align: center;
         -webkit-transform: translateX(-50%);
         transform: translateX(-50%);
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
     }
 
     &.left {
