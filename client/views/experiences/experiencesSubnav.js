@@ -49,5 +49,12 @@ Template.experiencesSubnav.helpers({
 
     return results;
   },
-  
+  dropdownMaxHeight: function() {
+    return (Session.get('dropdownMaxHeight') || 400) + 'px';
+  }
 });
+
+Template.experiencesSubnav.rendered = function () {
+  var mainHeight = $('.main').height();
+  Session.set('dropdownMaxHeight', mainHeight);
+};
