@@ -50,11 +50,30 @@ Template.experiencesSubnav.helpers({
     return results;
   },
   dropdownMaxHeight: function() {
-    return (Session.get('dropdownMaxHeight') || 400) + 'px';
+    var dropdownMaxHeight = parseInt(Session.get('dropdownMaxHeight'),10);
+    var css = !!dropdownMaxHeight ? "max-height: " + dropdownMaxHeight + "px" : 'height: auto';
+    return css;
   }
 });
 
 Template.experiencesSubnav.rendered = function () {
   var mainHeight = $('.main').height();
   Session.set('dropdownMaxHeight', mainHeight);
+
+  var that = this;
+
+  Meteor.setTimeout(function() {
+    that.$('.dropdown-menu').each(function() { 
+      var parent = $(this).parent();
+      var clone = $(this).clone();
+      $(parent).append(clone);
+      clone.removeAttr('style');
+      var heightOfMenu = clone.height();
+      clone.remove();
+      console.log(heightOfMenu);
+      if (heightOfMenu > mainHeight) {
+        $(this).addClass('scrollable');
+      } 
+    });
+  }, 1000);
 };
