@@ -1,7 +1,7 @@
 NODE_ENV?=development
 NODE_OPTIONS?=''
 APP_ENV=development
-HOST?=192.168.0.4
+HOST?=patleet.local
 PORT?=4000
 MONGO_URL?=mongodb://localhost:27017/plusmore
 MONGO_OPLOG_URL?=mongodb://localhost:27017/local
@@ -28,13 +28,19 @@ android-device:
 	NODE_OPTIONS=$(NODE_OPTIONS) \
 	MONGO_URL=$(MONGO_URL) \
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
-	meteor run --settings ./config/$(APP_ENV)/settings.json android-device -p $(HOST):$(PORT) 
+	meteor run --settings ./config/$(APP_ENV)/settings.json android-device -p $(PORT) --mobile-port $(HOST):$(PORT) 
 
 ios-device:
 	NODE_OPTIONS=$(NODE_OPTIONS) \
 	MONGO_URL=$(MONGO_URL) \
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
-	meteor run --settings ./config/$(APP_ENV)/settings.json ios-device -p $(HOST):$(PORT) --production
+	meteor run --settings ./config/$(APP_ENV)/settings.json ios-device -p $(PORT) --mobile-port $(HOST):$(PORT)
+
+all-platforms:
+	NODE_OPTIONS=$(NODE_OPTIONS) \
+	MONGO_URL=$(MONGO_URL) \
+	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
+	meteor run --settings ./config/$(APP_ENV)/settings.json ios-device android-device -p $(PORT) --mobile-port $(HOST):$(PORT)
 
 start-debug:
 	NODE_OPTIONS='--debug' \
