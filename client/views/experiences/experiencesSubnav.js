@@ -7,6 +7,12 @@ Template.experiencesSubnav.helpers({
     } 
     return this.group;
   },
+  sortedOptions: function() {
+    // debugger;
+    return _.sortBy(this.options, function(option) {
+      return option.name;
+    });
+  },
   categoryFilterGroupTags: function() {
     var results = [];
     if (this.category && this.category.filterGroupTags && this.category.filterGroupTags.length > 0) {
