@@ -13,6 +13,9 @@
     top: 0px;
     line-height: 60px;
     vertical-align: middle;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-left: -15px;
 
     span.text {
       font-size: .3em;
@@ -21,7 +24,7 @@
       top: 47px;
       text-transform: uppercase;
       font-style: normal;
-      left: 2px;
+      left: 17px;
       line-height: 1;
     }
   }
@@ -149,6 +152,49 @@
         color: #000;
         &:hover, &:active, &:focus , &:visited {
           background: transparent;
+        }
+      }
+
+      &.dropdown > ul.dropdown-menu {
+        border-radius: 4px;
+        box-shadow: 5px 10px 35px #111;
+
+        & > li {
+          
+          & > a {
+            font-size: 1.9em;
+            color: #777;
+            padding-right: 60px;
+
+            & > span.badge {
+              line-height: 1;
+              vertical-align: middle;
+            }
+          }
+
+          &.active {
+            
+            & > a {
+              background-color: transparent;
+              color: #000;
+
+              &:after {
+                *margin-right: .3em;
+                
+                font-family: "plusmore" !important;
+                font-style: normal !important;
+                font-weight: normal !important;
+                font-variant: normal !important;
+                text-transform: none !important;
+                content: 'u';
+                speak: none;
+                position: absolute;
+                right: 20px;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale; 
+              }
+            }
+          }
         }
       }
     }

@@ -10,13 +10,14 @@ Template.experienceFilterOption.helpers({
 Template.experienceFilterOption.events({
   'click a': function (e) {
     e.preventDefault();
+    e.stopImmediatePropagation();
 
     var filters = Session.get('experienceFilters') || [];
 
     var filter = {
       group: this.group,
       name: this.name
-    }
+    };
     // if the filter is active, remove it
     if (_.findWhere(filters, filter)) {
       filters = _.filter(filters, function(item) { 
