@@ -148,6 +148,9 @@ Meteor.startup(function() {
       Meteor.setTimeout(function() {
         Session.set('modalview', false);
       }, 400);
+    },
+    isMenuOpen: function() {
+      return !!Session.get('showMenu');
     }
   });
 

@@ -56,13 +56,17 @@ Meteor.startup(function() {
 
   $(document).on('touchstart', '.icon-menu', function(e) {
     e.preventDefault();
-    e.stopPropagation();
-    App.showMenu();
+    if (!App.isMenuOpen()) {
+      e.stopImmediatePropagation();
+      App.showMenu();
+    }
   });
   $(document).on('click', '.icon-menu', function(e) {
     e.preventDefault();
-    e.stopPropagation();
-    App.showMenu();
+    if (!App.isMenuOpen()) {
+      e.stopImmediatePropagation();
+      App.showMenu();
+    }
   });
 });
 

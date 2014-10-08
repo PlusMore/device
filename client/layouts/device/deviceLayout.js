@@ -26,8 +26,12 @@ Template.deviceLayout.helpers({
 
 var handlePerspectiveContainerClick = function(e, tmpl) {
   e.preventDefault();
-  App.hideMenu();
-}
+  e.stopImmediatePropagation();
+
+  if (App.isMenuOpen()) {
+    App.hideMenu();
+  }
+};
 
 Template.deviceLayout.events({
   'click .perspective.animate > .perspective-container': handlePerspectiveContainerClick,
