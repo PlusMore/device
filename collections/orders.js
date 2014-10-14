@@ -57,11 +57,11 @@ Schema.makeReservation = new SimpleSchema({
     type: Number,
     min: 1
   },
-  when: {
-    type: String
-  },
   date: {
     type: Date
+  },
+  zone: {
+    type: String
   },
   experienceId: {
     type: String
@@ -122,6 +122,7 @@ Meteor.methods({
       stayId: stay._id,
       reservation: reservation,
       requestedAt: new Date(),
+      requestedZone: reservation.zone,
       read: false,
       open: true,
       status: 'pending',
@@ -143,6 +144,8 @@ Meteor.methods({
 
     if (Meteor.isServer) {
       var url = stripTrailingSlash(Meteor.settings.apps.admin.url) + "/patron-order/{0}".format(orderId);
+      var when = moment(reservation.date).zone(reservation.zone);
+      when = when + " (" + when.calendar() + ")";
 
       Email.send({
         to: 'order-service@plusmoretablets.com',
@@ -151,7 +154,7 @@ Meteor.methods({
         text: "Device in {0} at {1} has requested a reservation.\n\n".format(device.location, hotel.name) + 
               "Reservation Details:\n\n"+ 
               "For: {0}\n".format(experience.title)+ 
-              "When: {0}\n".format(reservation.when)+ 
+              "When: {0}\n".format(when)+ 
               "Name: {0}\n".format(reservation.partyName)+ 
               "Party Size: {0}\n".format(reservation.partySize)+ 
               "Email: {0}\n".format(reservation.emailAddress)+ 
@@ -260,9 +263,7 @@ Meteor.methods({
         break;
       case 'valetServices': 
         var valetServicesSchema = new SimpleSchema({
-          date: {
-            type: Date
-          }
+          
         });
         requestSchema = _.extend(requestSchema, {
           options: {

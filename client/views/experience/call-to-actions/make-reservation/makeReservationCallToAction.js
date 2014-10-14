@@ -16,12 +16,12 @@ Template.makeReservationCallToAction.events({
 
     var reservation = {
       partySize: parseInt(tmpl.$('[name=partySize]').val(), 10),
-      when: reservationMoment.calendar(),
-      date: reservationMoment.toDate()
+      date: reservationMoment.toDate(),
+      zone: Session.get('zone')
     };
 
     App.track('Click Book Now', {
-      "Reservation Date": reservation.when,
+      "Reservation Date": moment(reservation.date).zone(reservation.zone).calendar(),
       "Party Size": reservation.partySize,
       "Experience Title": experience.title
     });

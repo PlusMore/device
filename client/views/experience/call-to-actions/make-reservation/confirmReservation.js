@@ -12,12 +12,26 @@ Template.needsRegistrationContent.helpers({
   },
   accountInfo: function () {
     return Schema.accountInfo;
+  },
+  when: function() {
+    var reservation = Session.get('reservation');
+    return moment(reservation.date).zone(reservation.zone).calendar();
   }
 });
 
 Template.registeredContent.helpers({
   reservation: function() {
     return Session.get('reservation');
+  },
+  fullName: function() {
+    return Meteor.user().profile.name;
+  },
+  emailAddress: function() {
+    return Meteor.user().emails[0].address;
+  },
+  when: function() {
+    var reservation = Session.get('reservation');
+    return moment(reservation.date).zone(reservation.zone).calendar();
   }
 });
 
@@ -27,6 +41,7 @@ Template.registeredContent.events({
     
     var reservation = Session.get('reservation');
     reservation.experienceId = Session.get('currentExperienceId');
+    reservation.zone = Session.get('zone');
         
     Meteor.call('makeReservation', reservation, function(err, result) {
       if (err) {
