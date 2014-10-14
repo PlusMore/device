@@ -15,7 +15,8 @@ Template.needsRegistrationContent.helpers({
   },
   when: function() {
     var reservation = Session.get('reservation');
-    return moment(reservation.date).zone(reservation.zone).calendar();
+    if (reservation)
+      return moment(reservation.date).zone(reservation.zone).calendar();
   }
 });
 
@@ -31,7 +32,8 @@ Template.registeredContent.helpers({
   },
   when: function() {
     var reservation = Session.get('reservation');
-    return moment(reservation.date).zone(reservation.zone).calendar();
+    if (reservation)
+      return moment(reservation.date).zone(reservation.zone).calendar();
   }
 });
 
