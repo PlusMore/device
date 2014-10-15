@@ -84,7 +84,7 @@ Template.cart.events({
             var zone = now.zone();
             Meteor.call('orderRoomServiceCartItems', now.toDate(), zone, Session.get('stayId'), function(err, result) {
               if (err) { 
-                return Errors.throw(err.reason);
+                return Errors.throw(err.message);
               }
               Router.go('orders');
             });

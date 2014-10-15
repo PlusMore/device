@@ -190,7 +190,11 @@ Router.map(function() {
         Session.set('selectedService', 'roomService'); 
       } else {
         var first = HotelServices.findOne();
-        Session.set('selectedService', first.type);
+        if (first) {
+          Session.set('selectedService', first.type);
+        } else {
+          Session.set('selectedService', 'hotelServicesDescription');
+        }
       }
 
     },
