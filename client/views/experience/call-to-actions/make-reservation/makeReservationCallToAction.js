@@ -12,16 +12,17 @@ Template.makeReservationCallToAction.events({
 
     var user = Meteor.user();
     var experience = tmpl.data;
-    var reservationMoment = moment(tmpl.selectedDate).startOf('day').add('minutes', tmpl.selectedMinutes);
+    var reservationMoment = moment(tmpl.selectedDate).startOf('day').add(tmpl.selectedMinutes, 'minutes');
 
     var reservation = {
       partySize: parseInt(tmpl.$('[name=partySize]').val(), 10),
-      when: reservationMoment.calendar(),
-      date: reservationMoment.toDate()
+      date: reservationMoment.toDate(),
+      zone: Session.get('zone'),
+      experienceId: Session.get('currentExperienceId')
     };
 
     App.track('Click Book Now', {
-      "Reservation Date": reservation.when,
+      "Reservation Date": moment(reservation.date).zone(reservation.zone).calendar(),
       "Party Size": reservation.partySize,
       "Experience Title": experience.title
     });

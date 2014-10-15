@@ -4,5 +4,8 @@ Template.menuCategories.helpers({
   },
   anytimeMenuCategories: function () {
     return MenuCategories.find({startTime: {$exists:false}});
+  },
+  noMenuCategories: function () {
+    return MenuCategories.find().count() === 0;
   }
 });

@@ -9,6 +9,12 @@ Global client-side code. Loads last.
 
 //
 Meteor.startup(function() {
+
+  var now = moment();
+  var zone = now.zone();
+
+  Session.set('zone', zone);
+
   // Subscribe to device data when a device ID is available
   Deps.autorun(function () {
     var user = Meteor.user();
