@@ -22,6 +22,14 @@
               <p class='lead'>Let us know when you are leaving and we'll make sure to have your car ready for you!</p>
               <form class="form-horizontal">
                 <fieldset>
+                  <!-- Enter Ticket Number -->
+                  <div class="form-group">
+                    <label class="col-md-2 control-label" for="ticketNumber">Ticket #</label>
+                    <div class="col-md-6">
+                      <input type='text' id="ticketNumber" name="ticketNumber" class="form-control" />
+                    </div>
+                  </div>
+
                   {{> selectDateAndTime}}
                 </fieldset>
               </form>

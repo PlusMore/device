@@ -33,6 +33,7 @@ Template.bellService.events({
 
     Meteor.call('requestService', request, function (error, result) {
       if (error) {
+        requestButton.progressError();
         return Errors.throw(error);
       }
 

@@ -30,6 +30,8 @@ Template.requestDetails.helpers({
         return 'transportationRequestDetails';
       case 'roomService': 
         return 'roomServiceRequestDetails';
+      case 'valetServices': 
+        return 'valetServicesRequestDetails';
       default:
         return '';
     }

@@ -242,7 +242,9 @@ Meteor.methods({
           }
         });
         requestSchema = _.extend(requestSchema, {
-          options: transportationSchema
+          options: {
+            type: transportationSchema
+          }
         });
         break;
       case 'bellService': 
@@ -255,7 +257,16 @@ Meteor.methods({
         // Nothing extra needed for wakeUpCall
         break;
       case 'valetServices': 
-        // Nothing extra needed for valetServices
+        var valetServicesSchema = new SimpleSchema({
+          ticketNumber: {
+            type: String
+          }
+        });
+        requestSchema = _.extend(requestSchema, {
+          options: {
+            type: valetServicesSchema
+          }
+        });
         break;
       default: 
         throw new Meteor.Error(500, 'Request type is not configured', request);
