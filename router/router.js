@@ -72,30 +72,13 @@ var filters = {
   resetExperienceState: function() {
     Session.set('experienceState', '');
   },
-  scroll: function() {
-    var scroll = Session.get('overrideNextScrollPosition');
-    var scrollPosition = Session.get('lastScrollPosition');
-    if (typeof scrollPosition !== 'undefined') {
-      if (scroll) {
-        console.log('override scroll');
-        Meteor.setTimeout(function(){
-          $('.content').scrollTop(scrollPosition);
-          Session.set('lastScrollPosition', undefined);
-          Session.set('overrideNextScrollPosition', false);
-        });  
-      } else {
-        console.log('scrollTop');
-        Meteor.setTimeout(function(){
-          $('.content').animate({scrollTop: 0}, 600);
-          Session.set('lastScrollPosition', undefined);
-          Session.set('overrideNextScrollPosition', false);
-        });   
-      }
-    }
+  clearCurrentExperienceId: function() {
+    Session.set('currentExperienceId', undefined);
   },
-  setLastScrollPosition: function() {
-    Session.set('lastScrollPosition', $('.content').scrollTop());
-    console.log(Session.get('lastScrollPosition'));
+  scroll: function() {
+    Meteor.setTimeout(function(){
+      $('.main').animate({scrollTop: 0}, 600);
+    });   
   },
   closeMenu: function() {
     App.hideMenu();
@@ -107,6 +90,8 @@ Router.onBeforeAction('loading');
 if (Meteor.isClient) {
   Router.onBeforeAction(Errors.clearSeen);
   Router.onRun(filters.closeMenu);
+  Router.onRun(filters.clearCurrentExperienceId);
+  Router.onRun(filters.scroll);
 }
 
 // Ensure user has a device account, otherwise,
@@ -122,23 +107,15 @@ Router.onBeforeAction(filters.ensureDeviceAccount, {only: [
 ]});
 
 Router.onBeforeAction(filters.ensureValidStay, {only: [
-  'experience',
   'experiences',
-  'orders'
+  'orders',
+  'hotelServices'
 ]});
 
 Router.onRun(filters.resetExperienceState);
 
 Router.onBeforeAction(filters.resetActiveCategory, {except: [
-  'experience',
   'experiences'
-]});
-
-Router.onAfterAction(filters.scroll, {except: [
-  'experience'
-]});
-Router.onStop(filters.setLastScrollPosition, {except: [
-  'experience'
 ]});
 
 

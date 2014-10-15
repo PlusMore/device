@@ -9,7 +9,10 @@
   </header>
   
   {{#if isCancelled}}
-    <p>Cancelled {{cancelledDateMomentAgo}}</p>
+    <div class="time-ago">
+      <span>Cancelled {{cancelledDateMomentAgo}}</span>  
+    </div>
+    
   {{else}}
     <div class="reservation-details">
       <p>{{when}}</p>

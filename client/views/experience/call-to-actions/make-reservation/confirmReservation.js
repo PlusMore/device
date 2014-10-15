@@ -42,12 +42,10 @@ Template.registeredContent.events({
     e.preventDefault();
     
     var reservation = Session.get('reservation');
-    reservation.experienceId = Session.get('currentExperienceId');
-    reservation.zone = Session.get('zone');
         
     Meteor.call('makeReservation', reservation, function(err, result) {
       if (err) {
-        Errors.throw(err.toString());
+        Errors.throw(err.message);
         return;
       }
       $('#confirm-reservation').modal('hide');
