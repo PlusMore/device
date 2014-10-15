@@ -8,15 +8,14 @@ accounts-base
 accounts-password
 less
 email
-percolatestudio:fastclick@0.6.7
 underscore
 jquery
-broth:inspector@0.2.2
+broth:inspector
 accounts-plusmore-device
-percolatestudio:percolatestudio-mixpanel@0.5.0
-mizzao:user-status@0.6.0
+percolatestudio:percolatestudio-mixpanel
+mizzao:user-status
 pickadate
-natestrauser:animate-css@3.1.1
+natestrauser:animate-css
 noorderstorm:hammer@0.1.3
 lezed1:bootstrap-errors@0.3.1
 plus-more-icons
@@ -24,8 +23,8 @@ mrt:googlemaps@0.0.2
 oauth1
 accounts-oauth
 tinytest
-copleykj:simple-publish@1.0.0
-mizzao:bootboxjs@4.2.1-master.1
+copleykj:simple-publish
+mizzao:bootboxjs
 appcache
 iron:router
 mrt:moment
@@ -35,5 +34,7 @@ aldeed:simple-schema
 alanning:roles
 ian:accounts-ui-bootstrap-3
 ian:bootstrap-3
-meteorhacks:kadira@2.8.1
+meteorhacks:kadira
+iron:layout
+patrickleet:tags
 

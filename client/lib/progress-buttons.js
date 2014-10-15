@@ -36,7 +36,7 @@
             var bar = $('<span class="tz-bar ' + options.type + '">').appendTo(button);
 
             // The progress event tells the button to update the progress bar
-            button.on('progress', function(e, val, absolute, finish){
+            button.on('progress', function(e, val, absolute, finish, error){
 
                 if(!button.hasClass('in-progress')){
 
@@ -74,6 +74,15 @@
                         setProgress(0);
                     });
 
+                }
+
+                if (error) {
+
+                    button.removeClass('in-progress').addClass('error');
+                    bar.delay(500).fadeOut(function() {
+                        button.trigger('progress-error');
+                        setProgress(0);
+                    });
                 }
 
                 setProgress(progress);
@@ -124,11 +133,19 @@
             window.clearInterval(interval);
         });
 
+        button.on('progress-error', function(){
+            window.clearInterval(interval);
+        });
+
         return button.progressIncrement(10);
     };
 
     $.fn.progressFinish = function(){
         return this.first().progressSet(100);
+    };
+
+    $.fn.progressError = function() {
+        return this.first().progressSet(100, true);
     };
 
     $.fn.progressIncrement = function(val){
@@ -142,15 +159,16 @@
         return this;
     };
 
-    $.fn.progressSet = function(val){
+    $.fn.progressSet = function(val, error){
         val = val || 10;
+        error = error || false;
 
         var finish = false;
-        if(val >= 100){
+        if (val >= 100 && !error) {
             finish = true;
         }
 
-        return this.first().trigger('progress',[val, true, finish]);
+        return this.first().trigger('progress',[val, true, finish, error]);
     };
 
     // This function creates a progress meter that 

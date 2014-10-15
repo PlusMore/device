@@ -135,6 +135,22 @@ Meteor.startup(function() {
       } else {
         Router.go('experiences', {category: 'Dining'});
       }
+    },
+    showMenu: function() {
+      Session.set('modalview', true);
+      Meteor.setTimeout(function() {
+        Session.set('showMenu', true);
+      }, 25);
+      // Session.set('showMenu', true);
+    },
+    hideMenu: function() {
+      Session.set('showMenu', false);
+      Meteor.setTimeout(function() {
+        Session.set('modalview', false);
+      }, 400);
+    },
+    isMenuOpen: function() {
+      return !!Session.get('showMenu');
     }
   });
 

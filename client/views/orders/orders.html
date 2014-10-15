@@ -1,0 +1,21 @@
+<template name="orders">
+  {{#Layout template="contentLayout"}}
+    {{#contentFor "title"}}
+      Orders
+    {{/contentFor}}
+
+    {{#if hasOrders}}
+      <div class="row animated fadeInRight">
+        {{#each orders}}
+          {{> order}}
+        {{/each}}
+      </div>
+    {{else}}
+      <div class="row">
+        <div class="no-orders big-text">
+          <p class="lead animated fadeInRight">You have no open orders.</p>
+        </div>
+      </div>
+    {{/if}}
+  {{/Layout}}
+</template>

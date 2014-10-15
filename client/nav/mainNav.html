@@ -1,0 +1,15 @@
+<template name="mainNav">
+  <nav class="outer-nav left vertical">
+        
+    {{#if hotelServicesEnabled}}
+      <a href="{{pathFor 'hotelServices'}}" class="icon-front-desk">Hotel Services</a>
+    {{/if}}
+    
+    {{#each categories}}
+      {{> categoryLink}}
+    {{/each}}
+
+    <a href="{{pathFor 'orders'}}" class="icon-orders">Orders</a>
+    
+  </nav>
+</template>

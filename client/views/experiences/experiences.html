@@ -1,0 +1,30 @@
+<template name="experiences">
+  {{#Layout template=experiencesLayout}}
+    {{#contentFor "title"}}
+      {{category.name}}
+    {{/contentFor}}
+
+    {{#if hasSubnav}}
+      {{#contentFor "subnav"}}
+        {{> experiencesSubnav}}
+      {{/contentFor}}
+    {{/if}}
+
+    <div class="row animated fadeInRight">
+      {{#each experiences}}
+        {{> experienceThumbnail}}
+      {{/each}}  
+    </div>
+    <div class="row animated fadeInRight">
+      {{> experiencesFooter}}
+    </div>
+
+  {{/Layout}}
+</template>
+
+<template name="experiencesFooter">
+  <footer class='col-xs-12 experiences-footer'>
+    <div class="text">PlusMor<span class="last-letter">e</span></div>
+    <div class="small-text">Your Private Concierg<span class="last-letter">e</span></div>
+  </footer>
+</template>

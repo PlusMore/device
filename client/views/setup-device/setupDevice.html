@@ -1,0 +1,51 @@
+<template name="setupDevice">
+  <section id="setup-device">
+    <div class="main container scrollable">
+      <div class="big-text">
+        <p class="lead">
+          Setup Device
+        </p>
+        {{> setupDeviceForm}}
+      </div>
+    </div>  
+  </section>
+</template>
+
+<template name="setupDeviceForm">
+
+    <div class="modal-content inline">
+
+        {{#autoForm schema=setupDeviceSchema id="setupDeviceForm" type="method" meteormethod="setupDevice"}}
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              {{> afQuickField name="hotelId" firstOption="--Select Hotel--" options=hotelOptions}}
+              {{> afQuickField name='location'}}
+              {{> afQuickField name='replacement'}}
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default btn-lg">Setup Device</button>
+        </div>
+        {{/autoForm}}
+
+    </div><!-- /.modal-content -->
+
+</template>
+
+   <!--  <div class="section">
+      {{#autoForm schema=setupDeviceSchema id="setupDeviceForm" type="method" meteormethod="setupDevice"}}
+        <fieldset>
+          {{> afQuickField name="hotelId" firstOption="--Select Hotel--" options=hotelOptions}}
+
+          {{> afQuickField name='location'}}
+ 
+          {{> afQuickField name='replacement'}}
+
+          <div>
+            <button type="submit" data-meteor-method="setupDevice" class="btn btn-primary">Setup Device</button>
+          </div>
+        </fieldset>
+      {{/autoForm}}  
+    </div> -->

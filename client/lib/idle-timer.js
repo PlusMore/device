@@ -1,7 +1,7 @@
 Meteor.startup(function () {
   // Start idle time
   Deps.autorun(function() {
-    var minutes = 2;
+    var minutes = 5;
     try {
       UserStatus.startMonitor({
         threshold: (1000*60*minutes),

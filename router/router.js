@@ -72,36 +72,16 @@ var filters = {
   resetExperienceState: function() {
     Session.set('experienceState', '');
   },
-  fullscreen: function() {
-    Session.set('fullscreen', true);
-  },
-  resetFullscreen: function() {
-    Session.set('fullscreen', false);
+  clearCurrentExperienceId: function() {
+    Session.set('currentExperienceId', undefined);
   },
   scroll: function() {
-    var scroll = Session.get('overrideNextScrollPosition');
-    var scrollPosition = Session.get('lastScrollPosition');
-    if (typeof scrollPosition !== 'undefined') {
-      if (scroll) {
-        console.log('override scroll');
-        Meteor.setTimeout(function(){
-          $('.content').scrollTop(scrollPosition);
-          Session.set('lastScrollPosition', undefined);
-          Session.set('overrideNextScrollPosition', false);
-        });  
-      } else {
-        console.log('scrollTop');
-        Meteor.setTimeout(function(){
-          $('.content').animate({scrollTop: 0}, 600);
-          Session.set('lastScrollPosition', undefined);
-          Session.set('overrideNextScrollPosition', false);
-        });   
-      }
-    }
+    Meteor.setTimeout(function(){
+      $('.main').animate({scrollTop: 0}, 400);
+    });   
   },
-  setLastScrollPosition: function() {
-    Session.set('lastScrollPosition', $('.content').scrollTop());
-    console.log(Session.get('lastScrollPosition'));
+  closeMenu: function() {
+    App.hideMenu();
   }
 };
 
@@ -109,27 +89,10 @@ Router.onBeforeAction('loading');
 
 if (Meteor.isClient) {
   Router.onBeforeAction(Errors.clearSeen);
+  Router.onRun(filters.closeMenu);
+  Router.onRun(filters.clearCurrentExperienceId);
+  Router.onRun(filters.scroll);
 }
-
-
-var fullscreenPages = [
-  'welcome',
-  'about',
-  'howToBook',
-  'experience',
-  'registerDevice',
-  'setupDevice',
-  'settingUp',
-  'enterCheckoutDate',
-  'entrySignIn',
-  'entrySignUp',
-  'entryResetPassword',
-  'entryForgotPassword',
-  'experience'
-];
-
-Router.onBeforeAction(filters.fullscreen, {only: fullscreenPages});
-Router.onBeforeAction(filters.resetFullscreen, {except: fullscreenPages});
 
 // Ensure user has a device account, otherwise,
 // redirect to device list?
@@ -144,23 +107,15 @@ Router.onBeforeAction(filters.ensureDeviceAccount, {only: [
 ]});
 
 Router.onBeforeAction(filters.ensureValidStay, {only: [
-  'experience',
   'experiences',
-  'orders'
+  'orders',
+  'hotelServices'
 ]});
 
 Router.onRun(filters.resetExperienceState);
 
 Router.onBeforeAction(filters.resetActiveCategory, {except: [
-  'experience',
   'experiences'
-]});
-
-Router.onAfterAction(filters.scroll, {except: [
-  'experience'
-]});
-Router.onStop(filters.setLastScrollPosition, {except: [
-  'experience'
 ]});
 
 
@@ -247,14 +202,13 @@ Router.map(function() {
     }
   });
 
-  this.route('message');
-
   this.route('experiences', {
     path: '/experiences/:category?',
     onBeforeAction: function() {
       Session.set('activeCategory', this.params.category);
     },
     onRun: function() {
+      Session.set('experienceFilters', undefined);
       Deps.nonreactive(function() {
         App.track("View Category", {
           "Name": Router.current().params.category
@@ -263,26 +217,28 @@ Router.map(function() {
     },
     data: function() {
       var activeCategory = Session.get('activeCategory');
-      return {
-        experiences: Experiences.find({category: activeCategory}, {sort: {sortOrder: 1}})
-      };
-    }
-  });
+      var experienceFilters = Session.get('experienceFilters');
 
-  this.route('experience', {
-    path: '/experience/:_id',
-    onRun: function () {
-      Session.set('currentExperienceId', Router.current().params._id);
-    },
-    data: function () {
+      var experiencesQuery = {
+        category: activeCategory
+      }
+      if (experienceFilters && experienceFilters.length > 0) {
+        _.each(experienceFilters, function (filter) {
+          var key = filter.group + 'Tags';
+          if (typeof experiencesQuery[key] === 'undefined') {
+            experiencesQuery[key] = {};
+          }
+
+          if (typeof experiencesQuery[key].$in === 'undefined') {
+            experiencesQuery[key].$in = [];
+          }
+          experiencesQuery[key].$in.push(filter.name);
+        });
+      }
       return {
-        experience: Experiences.findOne(this.params._id),
-        experienceId: this.params._id
+        experiences: Experiences.find(experiencesQuery, {sort: {sortOrder: 1}}),
+        category: Categories.findOne({name: activeCategory})
       };
-    },
-    action: function() {
-      // Do nothing, A reactive overlay is shown based on currentExperienceId
-      Session.set('overrideNextScrollPosition', true);
     }
   });
 

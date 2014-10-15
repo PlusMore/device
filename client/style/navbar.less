@@ -2,8 +2,41 @@
 
 .navbar-plusmore {
   width: 100%;
-  background: rgba(0,0,0,.3);
+  background: rgba(0,0,0,.7);
   border: none;
+  min-height: 65px;
+
+
+  .icon-menu {
+    font-size: 2.5em;
+    position: absolute;
+    top: 0px;
+    line-height: 60px;
+    vertical-align: middle;
+    padding-left: 15px;
+    padding-right: 10px;
+    margin-left: -15px;
+
+    span.text {
+      font-size: .3em;
+      text-decoration: none;
+      position: absolute;
+      top: 47px;
+      text-transform: uppercase;
+      font-style: normal;
+      left: 17px;
+      line-height: 1;
+    }
+  }
+
+  .navbar-title {
+    margin: 0 auto;
+    text-align: center;
+    text-transform: uppercase;
+    display: block;
+    line-height: 65px;
+    vertical-align: middle;
+  }
 
   a.navbar-brand {
     color: #fff;
@@ -13,7 +46,7 @@
   }
 
   .navbar-collapse {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.7);
     border: none;
     &.in {
       height: 518px;
@@ -24,7 +57,6 @@
   .nav {
     li {
       background: none;
-      .transition(all 600ms ease-in-out);
 
       &:hover, &:active, &:focus, &:visited {
         background: none;
@@ -66,12 +98,126 @@
   }
 }
 
+.navbar-plusmore-subnav {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  top: 65px;
+  height: 56px;
+
+  a.navbar-brand {
+    color: #000;
+    &:hover, &:active, &:focus , &:visited {
+      background: transparent;
+    }
+  }
+
+  .dropdown-menu .divider {
+    background-color: #666;
+  }
+
+  button {
+    color: #000;
+    span.icon-bar {
+      background-color: #000; 
+    }
+  }
+
+  .navbar-collapse {
+    &.in, &.collapsing {
+      background: rgba(255, 255, 255, 0.9); 
+    }
+  }
+
+  .nav {
+
+    & > li {
+      background: none;
+
+      & > a, &.dropdown > .dropdown-toggle {
+        line-height: 42px;
+        vertical-align: middle;
+        border: 1px solid;
+        margin: 6px 5px;
+        padding: 0 8px;
+        text-transform: uppercase;
+      }
+
+      &.dropdown.open .dropdown-toggle, &.active a {
+        color: #fff;
+        background-color: #000;
+      }
+
+      a {
+        color: #000;
+        &:hover, &:active, &:focus , &:visited {
+          background: transparent;
+        }
+      }
+
+      &.dropdown > ul.dropdown-menu {
+        border-radius: 4px;
+        box-shadow: 5px 10px 35px #111;
+
+        & > li {
+          
+          & > a {
+            font-size: 1.9em;
+            color: #777;
+            padding-right: 60px;
+
+            & > span.badge {
+              line-height: 1;
+              vertical-align: middle;
+            }
+          }
+
+          &.active {
+            
+            & > a {
+              background-color: transparent;
+              color: #000;
+
+              &:after {
+                *margin-right: .3em;
+                
+                font-family: "plusmore" !important;
+                font-style: normal !important;
+                font-weight: normal !important;
+                font-variant: normal !important;
+                text-transform: none !important;
+                content: 'u';
+                speak: none;
+                position: absolute;
+                right: 20px;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale; 
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 // small
 @media (min-width: 768px) {
   .navbar-plusmore {
     .navbar-collapse {
       background-color: transparent;
       border: none;
+    }
+  }
+
+  .navbar-plusmore-subnav {
+    .navbar-nav {
+      display: inline-block;
+      float: none;
+    }
+
+    .navbar-collapse {
+      text-align: center;
     }
   }
 }

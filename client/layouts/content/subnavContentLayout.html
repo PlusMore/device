@@ -1,0 +1,26 @@
+<template name="subnavContentLayout">
+  <nav class="navbar navbar-fixed-top navbar-plusmore" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <i class="icon icon-menu">
+        <span class="text">Menu</span>
+      </i>
+
+      <h3 class="navbar-title">
+        {{> yield "title"}}
+      </h3>
+
+    </div><!-- /.container-fluid -->
+  </nav>
+  <nav class="navbar navbar-fixed-top navbar-plusmore-subnav" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      {{> yield "subnav"}}
+    </div><!-- /.container-fluid -->
+  </nav>
+  <section class='with-subnav'>
+    <div class="main container-fluid scrollable">
+      {{> yield}}
+    </div>
+  </section>
+</template>

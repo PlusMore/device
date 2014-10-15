@@ -1,0 +1,52 @@
+<template name="transportation">
+  <div class="row animated fadeInRight">
+    <div class="col-md-12">
+      <div class="modal-content inline">
+        <div class="modal-header">
+          <h3 class="modal-title">
+            Transportation
+            <small>
+              Available
+              {{#if startTime}}
+                {{startTime}} - {{endTime}}
+              {{else}}
+                Anytime
+              {{/if}}
+            </small>
+          </h3>
+        </div>
+       
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <p class='lead'>Select your type of transportation, and we'll have it ready for you at the front of the hotel at the time of your request!</p>
+              <form class="form-horizontal">
+                <fieldset>
+
+                  <!-- Select Car -->
+                  <div class="form-group">
+                    <label class="col-md-2 control-label" for="transportationType">Vehicle</label>
+                    <div class="col-md-6">
+                      <select id="transportationType" name="transportationType" class="form-control">
+                        <option value="taxi">Taxi</option>
+                        <option value="limo">Limo</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {{> selectDateAndTime}}
+
+                </fieldset>
+              </form>
+            </div>
+          </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button id="btn-request" name="btn-request" class="btn btn-default progress-button" data-loading="Requesting..." data-finished="Requested!">Request Service</button>
+        </div>
+
+      </div><!-- /.modal-content -->        
+    </div>    
+  </div>
+</template>
