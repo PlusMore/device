@@ -126,23 +126,25 @@ Meteor.methods({
     orderedItems.tax = orderedItems.subtotal * 0.06; // lookup tax for state? Based on hotelId? 
     orderedItems.total = orderedItems.subtotal + orderedItems.tax;
 
+    var request = {
+      type: 'roomService',
+      orderedItems: orderedItems,
+      orderSubtotal: orderedItems.subtotal,
+      orderTax: orderedItems.tax,
+      orderTotal: orderedItems.total,
+      zone: zone
+    };
+
     return Orders.insert({
       type: 'request',
       for: 'hotel', // Make configurable 'smart routing'
-      request: {
-        type: 'roomService',
-        orderedItems: orderedItems,
-        orderSubtotal: orderedItems.subtotal,
-        orderTax: orderedItems.tax,
-        orderTotal: orderedItems.total
-      },
+      request: request,
       deviceId: device._id,
-      deviceLocation: device.location,
       hotelId: hotel._id,
       stayId: stay._id,
       requestedAt: new Date(),
+      requestedZone: zone,
       open: true,
-      read: false,
       status: 'pending',
       userId: user._id
     }, function(err) {

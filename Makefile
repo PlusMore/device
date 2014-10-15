@@ -43,11 +43,11 @@ all-platforms:
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
 	meteor run --settings ./config/$(APP_ENV)/settings.json ios-device android-device -p $(PORT) --mobile-port $(HOST):$(PORT) $(APP_OPTIONS)
 
-start-debug:
+debug:
 	NODE_OPTIONS='--debug' \
 	MONGO_URL=$(MONGO_URL) \
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
-	meteor -p $(PORT) --settings ./config/$(APP_ENV)/settings.json
+	meteor debug -p $(PORT) --settings ./config/$(APP_ENV)/settings.json
 
 start-prod:
 	NODE_OPTIONS=$(NODE_OPTIONS) \

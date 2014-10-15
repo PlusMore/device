@@ -10,7 +10,6 @@ less
 email
 underscore
 jquery
-broth:inspector
 accounts-plusmore-device
 percolatestudio:percolatestudio-mixpanel
 mizzao:user-status
@@ -37,4 +36,3 @@ ian:bootstrap-3
 meteorhacks:kadira
 iron:layout
 patrickleet:tags
-

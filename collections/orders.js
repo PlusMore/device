@@ -229,7 +229,6 @@ Meteor.methods({
   },
   requestService: function(request) {
     // Check that type is provided
-    debugger;
     check(request.type, String);
 
     // add any validation to schema for specific request types
