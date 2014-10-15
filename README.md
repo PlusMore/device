@@ -14,7 +14,7 @@ make start
 ```
 
 ## Branching model
-http://nvie.com/posts/a-successful-git-branching-model/
+We follow this(http://nvie.com/posts/a-successful-git-branching-model/), but use pull requests instead of -no-ff merges. This is for peer code review and easy to find info on Github. 
 
 With maintaining a qa-copy, dev-copy, an production copy, this just makes things easier, and having a common resource reduces the learning curve as some devs are already familiar with the pattern.
 
@@ -33,6 +33,7 @@ MINOR version when you add a feature, and
 PATCH version when you make bug fixes.
 
 Major version needs the most explanation. An example of when we might do it is if we were to make device into a thin wrapper for iframes, and separate different pages into multiple apps. Another reason might be to align with a business strategy. 
+
 
 ## File Structure
 
