@@ -77,7 +77,7 @@ var filters = {
   },
   scroll: function() {
     Meteor.setTimeout(function(){
-      $('.main').animate({scrollTop: 0}, 600);
+      $('.main').animate({scrollTop: 0}, 400);
     });   
   },
   closeMenu: function() {

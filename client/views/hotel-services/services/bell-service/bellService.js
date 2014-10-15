@@ -16,20 +16,18 @@ Template.bellService.events({
     var user = Meteor.user();
     var selectedDate = Session.get('selectedDate');
     var selectedMinutes = Session.get('selectedMinutes');
-    var reservationMoment = moment(selectedDate).startOf('day').add('minutes', selectedMinutes);
+    var reservationMoment = moment(selectedDate).startOf('day').add(selectedMinutes, 'minutes');
 
     var request = {
       type: 'bellService',
       for: 'hotel',
-      options: {
-        date: reservationMoment.toDate()
-      }
-      
+      date: reservationMoment.toDate(),
+      zone: Session.get('zone')
     };
 
     App.track('Hotel Service Request', {
       "Requested At": new Date(),
-      "Request Date": request.options.date,
+      "Request Date": request.date,
       "Hotel Service": "Bell Service"
     });
 

@@ -24,6 +24,12 @@ Schema.request = new SimpleSchema({
   },
   for: {
     type: String
+  },
+  date: {
+    type: Date
+  },
+  zone: {
+    type: Number
   }
 });
 
@@ -65,6 +71,15 @@ Schema.Order = new SimpleSchema({
     type: Object,
     optional: true,
     blackbox: true
+  },
+  request: {
+    type: Object,
+    optional: true,
+    blackbox: true
+  },
+  for: {
+    type: String,
+    optional: true
   }
 });
 
@@ -214,70 +229,33 @@ Meteor.methods({
   },
   requestService: function(request) {
     // Check that type is provided
+    debugger;
     check(request.type, String);
 
+    // add any validation to schema for specific request types
     var requestSchema = _.clone(Schema.request._schema);
     switch (request.type) {
       case 'transportation':
         var transportationSchema = new SimpleSchema({
-          date: {
-            type: Date
-          },
           transportationType: {
             type: String
           }
         });
         requestSchema = _.extend(requestSchema, {
-          options: {
-            type: transportationSchema
-          }
+          options: transportationSchema
         });
         break;
       case 'bellService': 
-        var bellServiceSchema = new SimpleSchema({
-          date: {
-            type: Date
-          }
-        });
-        requestSchema = _.extend(requestSchema, {
-          options: {
-            type: bellServiceSchema
-          }
-        });
+        // Nothing extra needed for bellService
         break;
       case 'houseKeeping': 
-        var houseKeepingSchema = new SimpleSchema({
-          date: {
-            type: Date
-          }
-        });
-        requestSchema = _.extend(requestSchema, {
-          options: {
-            type: houseKeepingSchema
-          }
-        });
+        // Nothing extra needed for houseKeeping
         break;
       case 'wakeUpCall': 
-        var wakeUpCallSchema = new SimpleSchema({
-          date: {
-            type: Date
-          }
-        });
-        requestSchema = _.extend(requestSchema, {
-          options: {
-            type: wakeUpCallSchema
-          }
-        });
+        // Nothing extra needed for wakeUpCall
         break;
       case 'valetServices': 
-        var valetServicesSchema = new SimpleSchema({
-          
-        });
-        requestSchema = _.extend(requestSchema, {
-          options: {
-            type: valetServicesSchema
-          }
-        });
+        // Nothing extra needed for valetServices
         break;
       default: 
         throw new Meteor.Error(500, 'Request type is not configured', request);
@@ -303,11 +281,12 @@ Meteor.methods({
       type: 'request',
       for: request.for,
       deviceId: device._id,
-      deviceLocation: device.location,
+      // deviceLocation: device.location,
       hotelId: hotel._id,
       stayId: stay._id,
       request: request,
       requestedAt: new Date(),
+      requestedZone: request.zone,
       open: true,
       status: 'pending',
       userId: user._id
@@ -319,6 +298,10 @@ Meteor.methods({
 
     if (Meteor.isServer) {
       var url = stripTrailingSlash(Meteor.settings.apps.admin.url) + "/patron-order/{0}".format(orderId);
+      var when = moment(request.date).zone(request.zone);
+      when = when.format('MMMM Do YYYY, h:mm a') + " (" + when.calendar() + ")";
+
+      var friendlyRequestType = HotelServices.friendlyRequestType(request.type);
 
       // for our information
       Email.send({
@@ -328,8 +311,8 @@ Meteor.methods({
         text: "This is an informational email and does not require your service\n\n" + 
               "Device in {0} at {1} has requested hotel service.\n\n".format(device.location, hotel.name)  + 
               "Request Details:\n\n" + 
-              "For: {0}\n".format(order.request.type) + 
-              "When: {0}\n".format(moment(order.request.options.date).calendar()) + 
+              "For: {0}\n".format(friendlyRequestType) + 
+              "When: {0}\n".format(when) + 
               "\nTo view the status of this request, click the link below\n\n" + 
               url
       });
