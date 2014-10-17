@@ -225,7 +225,7 @@ Router.map(function() {
 
       var experiencesQuery = {
         category: activeCategory
-      }
+      };
       if (experienceFilters && experienceFilters.length > 0) {
         _.each(experienceFilters, function (filter) {
           var key = filter.group + 'Tags';

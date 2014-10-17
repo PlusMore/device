@@ -56,14 +56,17 @@ Template.experiencesSubnav.helpers({
   }
 });
 
-Template.experiencesSubnav.rendered = function () {
-  var mainHeight = $('.main').height();
-  Session.set('dropdownMaxHeight', mainHeight);
+// Template.experiencesSubnav.rendered = function () {
+  
+// };
 
-  var that = this;
+Template.experiencesSubnav.events({
+  'show.bs.dropdown': function (e, tmpl) {
+    // calculate max height for drop down, and figure out if it should be scrollable
+    var mainHeight = $('.main').height();
+    Session.set('dropdownMaxHeight', mainHeight);
 
-  Meteor.setTimeout(function() {
-    that.$('.dropdown-menu').each(function() { 
+    tmpl.$(e.currentTarget).find('.dropdown-menu').each(function() { 
       var parent = $(this).parent();
       var clone = $(this).clone();
       $(parent).append(clone);
@@ -75,21 +78,10 @@ Template.experiencesSubnav.rendered = function () {
         $(this).addClass('scrollable');
       } 
     });
-  }, 1000);
-};
-
-Template.experiencesSubnav.events({
-  'show.bs.dropdown': function (e) {
 
     $('.main').addClass('dropdown-open');
   },
   'hidden.bs.dropdown': function (e) {
-    // debugger;
-    $('.experienceThumbnail').on('click', function() {
-      console.log('uhhh');
-    });
     $('.main').removeClass('dropdown-open');
-
-
   }
 });

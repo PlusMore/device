@@ -20,7 +20,7 @@ Template.experience.helpers({
 });
 
 Template.experience.events({
-  'click a.back': function (e) {
+  'touchstart a.back, click a.back': function (e) {
     e.preventDefault();
     Session.set('fadeOutExperience', true);
     Meteor.setTimeout(function() {
