@@ -16,7 +16,3 @@ Template.experiences.helpers({
     return false;
   }
 }); 
-
-Template.experiences.rendered = function () {
-  console.log('maybe here would be better?');
-};

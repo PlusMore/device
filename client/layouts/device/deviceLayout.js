@@ -28,12 +28,16 @@ var handlePerspectiveContainerClick = function(e, tmpl) {
   e.preventDefault();
   e.stopImmediatePropagation();
 
+  if (Session.get('animatingMenu')) {
+    return;
+  }
+
   if (App.isMenuOpen()) {
     App.hideMenu();
   }
 };
 
-Template.deviceLayout.events({
-  'click .perspective.animate > .perspective-container': handlePerspectiveContainerClick,
-  'touchstart .perspective.animate > .perspective-container': handlePerspectiveContainerClick
-});
+var events = {};
+events[clickevent + " .perspective.animate > .perspective-container"] = handlePerspectiveContainerClick;
+
+Template.deviceLayout.events(events);

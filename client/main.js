@@ -55,20 +55,12 @@ Meteor.startup(function() {
 
   $(document).on(clickevent, '.icon-menu', function(e) {
     e.preventDefault();
-    e.stopPropagation();
 
     if (!App.isMenuOpen()) {
       e.stopImmediatePropagation();
       App.showMenu();
     }
   });
-  // $(document).on('click', '.icon-menu', function(e) {
-  //   e.preventDefault();
-  //   if (!App.isMenuOpen()) {
-  //     e.stopImmediatePropagation();
-  //     App.showMenu();
-  //   }
-  // });
 });
 
 
