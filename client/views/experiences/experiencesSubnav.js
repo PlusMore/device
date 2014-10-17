@@ -56,10 +56,6 @@ Template.experiencesSubnav.helpers({
   }
 });
 
-// Template.experiencesSubnav.rendered = function () {
-  
-// };
-
 Template.experiencesSubnav.events({
   'show.bs.dropdown': function (e, tmpl) {
     // calculate max height for drop down, and figure out if it should be scrollable
