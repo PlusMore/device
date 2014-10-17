@@ -35,13 +35,18 @@ Template.mainNav.helpers({
 });
 
 var handleNav = function(e, tmpl) {
-  if (Router.current().path === $(e.currentTarget).attr('href')) {
-    e.preventDefault();
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  console.log(e.type);
+  var href = $(e.currentTarget).attr('href');
+  if (Router.current().path === href) {
     App.hideMenu();
+  } else {
+    Router.go(href);
   }
-}
+};
 
-Template.mainNav.events({
-  'click .outer-nav > a': handleNav,
-  'touchstart .outer-nav > a': handleNav
-});
+var events = {};
+events[clickevent + " .outer-nav > a"] = handleNav;
+
+Template.mainNav.events(events);
