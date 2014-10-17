@@ -77,3 +77,19 @@ Template.experiencesSubnav.rendered = function () {
     });
   }, 1000);
 };
+
+Template.experiencesSubnav.events({
+  'show.bs.dropdown': function (e) {
+
+    $('.main').addClass('dropdown-open');
+  },
+  'hidden.bs.dropdown': function (e) {
+    // debugger;
+    $('.experienceThumbnail').on('click', function() {
+      console.log('uhhh');
+    });
+    $('.main').removeClass('dropdown-open');
+
+
+  }
+});

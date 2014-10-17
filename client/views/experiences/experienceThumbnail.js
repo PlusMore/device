@@ -1,8 +1,10 @@
 Template.experienceThumbnail.events({
-  'click .experienceThumbnail': function (e, tmpl) {
-    // don't open when user just meant to open perspective container
-    if (!$(e.currentTarget).closest('.perspective').hasClass('animate')) { 
+  // 'click .experienceThumbnail': showExperience,
+  // 'touchstart .experienceThumbnail': showExperience,
+  'click .experienceThumbnail': function(e, tmpl) {
+    if ( !  ($(e.currentTarget).closest('.perspective').hasClass('animate'))   ||   ($(e.currentTarget).closest('.main').hasClass('dropdown-open'))    ) { 
       Session.set('currentExperienceId', this._id);
     }
   }
 });
+
