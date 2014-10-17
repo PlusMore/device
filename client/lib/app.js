@@ -137,11 +137,14 @@ Meteor.startup(function() {
       }
     },
     showMenu: function() {
+      Session.set('animatingMenu', true);
       Session.set('modalview', true);
       Meteor.setTimeout(function() {
         Session.set('showMenu', true);
+        Meteor.setTimeout(function() {
+          Session.set('animatingMenu', false);
+        }, 400);
       }, 25);
-      // Session.set('showMenu', true);
     },
     hideMenu: function() {
       Session.set('showMenu', false);

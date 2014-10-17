@@ -19,13 +19,16 @@ Template.experience.helpers({
   }
 });
 
-Template.experience.events({
-  'click a.back': function (e) {
-    e.preventDefault();
-    Session.set('fadeOutExperience', true);
-    Meteor.setTimeout(function() {
-      Session.set('currentExperienceId', undefined);
-      Session.set('fadeOutExperience', false);
-    }, 500);
-  }
-});
+var handleBack = function (e, tmpl) {
+  e.preventDefault();
+  Session.set('fadeOutExperience', true);
+  Meteor.setTimeout(function() {
+    Session.set('currentExperienceId', undefined);
+    Session.set('fadeOutExperience', false);
+  }, 500);
+};
+
+var events = {};
+events[clickevent + " a.back"] = handleBack;
+
+Template.experience.events(events);

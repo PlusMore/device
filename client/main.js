@@ -6,15 +6,8 @@ Global client-side code. Loads last.
 
 /+ ---------------------------------------------------- */
 
-
 //
 Meteor.startup(function() {
-
-  var now = moment();
-  var zone = now.zone();
-
-  Session.set('zone', zone);
-
   // Subscribe to device data when a device ID is available
   Deps.autorun(function () {
     var user = Meteor.user();
@@ -60,15 +53,9 @@ Meteor.startup(function() {
     }
   });
 
-  $(document).on('touchstart', '.icon-menu', function(e) {
+  $(document).on(clickevent, '.icon-menu', function(e) {
     e.preventDefault();
-    if (!App.isMenuOpen()) {
-      e.stopImmediatePropagation();
-      App.showMenu();
-    }
-  });
-  $(document).on('click', '.icon-menu', function(e) {
-    e.preventDefault();
+
     if (!App.isMenuOpen()) {
       e.stopImmediatePropagation();
       App.showMenu();

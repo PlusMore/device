@@ -29,19 +29,19 @@ android-device:
 	NODE_OPTIONS=$(NODE_OPTIONS) \
 	MONGO_URL=$(MONGO_URL) \
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
-	meteor run --settings ./config/$(APP_ENV)/settings.json android-device -p $(PORT) --mobile-port $(HOST):$(PORT) $(APP_OPTIONS)
+	meteor run --settings ./config/$(APP_ENV)/settings.json android-device -p $(PORT) --mobile-server $(HOST):$(PORT) $(APP_OPTIONS)
 
 ios-device:
 	NODE_OPTIONS=$(NODE_OPTIONS) \
 	MONGO_URL=$(MONGO_URL) \
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
-	meteor run --settings ./config/$(APP_ENV)/settings.json ios-device -p $(PORT) --mobile-port $(HOST):$(PORT) $(APP_OPTIONS)
+	meteor run --settings ./config/$(APP_ENV)/settings.json ios-device -p $(PORT) --mobile-server $(HOST):$(PORT) $(APP_OPTIONS)
 
 all-platforms:
 	NODE_OPTIONS=$(NODE_OPTIONS) \
 	MONGO_URL=$(MONGO_URL) \
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
-	meteor run --settings ./config/$(APP_ENV)/settings.json ios-device android-device -p $(PORT) --mobile-port $(HOST):$(PORT) $(APP_OPTIONS)
+	meteor run --settings ./config/$(APP_ENV)/settings.json ios-device android-device -p $(PORT) --mobile-server $(HOST):$(PORT) $(APP_OPTIONS)
 
 debug:
 	NODE_OPTIONS='--debug' \
