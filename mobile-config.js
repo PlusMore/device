@@ -11,10 +11,10 @@ App.info({
 
 App.icons({
   // iOS
-  'iphone': 'resources/icons/icon-57.png',
-  'iphone_2x': 'resources/icons/icon-57@2x.png',
-  'ipad': 'resources/icons/icon-72.png',
-  'ipad_2x': 'resources/icons/icon-72@2x.png',
+  'iphone': 'resources/icons/icon-57px.png',
+  'iphone_2x': 'resources/icons/icon-57px@2x.png',
+  'ipad': 'resources/icons/icon-72px.png',
+  'ipad_2x': 'resources/icons/icon-72px@2x.png',
 
   // Android - XXX these are the same as iOS for now
   'android_ldpi': 'resources/icons/icon-36px.png',
@@ -37,7 +37,7 @@ App.launchScreens({
   'ipad_portrait_2x': 'resources/splash/ios/768x1024@2x.png',
 
   'ipad_landscape': 'resources/splash/ios/1024x768.png',
-  'ipad_landscape_2x': 'resources/splash/ios/1024x768.png@2x.png',
+  'ipad_landscape_2x': 'resources/splash/ios/1024x768@2x.png',
 
   // Android
   'android_mdpi_portrait': 'resources/splash/android/mdpi/960x640.9.png',
