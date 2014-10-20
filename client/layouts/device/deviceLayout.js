@@ -21,6 +21,12 @@ Template.deviceLayout.helpers({
   },
   showMenu: function() {
     return Session.get('showMenu') ? 'animate' : '';
+  },
+  loaderClass: function() {
+    return Session.get('loader') ? 'animated fadeIn' : 'animated fadeOut not-visible';
+  },
+  loaderText: function() {
+    return Session.get('loader');
   }
 });
 
@@ -41,3 +47,7 @@ var events = {};
 events[clickevent + " .perspective.animate > .perspective-container"] = handlePerspectiveContainerClick;
 
 Template.deviceLayout.events(events);
+
+Template.deviceLayout.rendered = function () {
+  Session.set('loader', undefined);
+};
