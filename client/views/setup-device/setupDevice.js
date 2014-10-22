@@ -19,14 +19,19 @@ AutoForm.hooks({
       // log out the current hotel staff
 
       // Session.keys = {};
-      Router.go('settingUp');
+      // Router.go('settingUp');
+      Session.set('loader', 'Registering Device');
 
       Meteor.setTimeout(function() {
         Meteor.logout(function() {
           // attempts to create and login as new device user
           Meteor.loginDevice(deviceId, function(err) {
-            if (err) Errors.throw('Device login failed: ' + err);
+            if (err) {
+              Session.set('loader', undefined);
+              return Errors.throw('Device login failed: ' + err);
+            }
             Router.go('welcome');
+            Session.set('loader', undefined);
           });
         });
       }, 1000);

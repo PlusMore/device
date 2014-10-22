@@ -133,13 +133,16 @@ Meteor.startup(function() {
       if (!stay) {
         Router.go('enterCheckoutDate');
       } else {
-        diningCategory = Categories.findOne({name: 'Dining'});
-        if (diningCategory) {
-          Router.go('experiences', {categoryId: diningCategory._id});  
-        } else {
-          firstCategory = Categories.findOne();
-          Router.go('experiences', {categoryId: firstCategory._id});
-        }
+        App.goToStartPage();
+      }
+    },
+    goToStartPage: function() {
+      var diningCategory = Categories.findOne({name: 'Dining'});
+      if (diningCategory) {
+        Router.go('experiences', {categoryId: diningCategory._id});  
+      } else {
+        var firstCategory = Categories.findOne();
+        Router.go('experiences', {categoryId: firstCategory._id});
       }
     },
     showMenu: function() {
