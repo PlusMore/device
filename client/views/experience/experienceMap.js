@@ -18,8 +18,19 @@ var initializeMap = function() {
 
     var marker = new google.maps.Marker({
       position: experienceLatLng,
-      map: experienceMap
+      map: experienceMap,
+      icon: '/markers/restaurant.png'
     });
+
+    var hotel = Hotels.findOne();
+    if (hotel) {
+      var hotelLatLng = new google.maps.LatLng(hotel.geo.latitude, hotel.geo.longitude);
+      var marker = new google.maps.Marker({
+        position: hotelLatLng,
+        map: experienceMap,
+        icon: '/markers/hotel.png'
+      });
+    }
   } else if (retry < 5) {
     Meteor.setTimeout(arguments.callee, 100);
     retry++;
