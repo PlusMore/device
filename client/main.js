@@ -6,8 +6,10 @@ Global client-side code. Loads last.
 
 /+ ---------------------------------------------------- */
 
+
 //
 Meteor.startup(function() {
+
   // Subscribe to device data when a device ID is available
   Deps.autorun(function () {
     var user = Meteor.user();
@@ -64,6 +66,6 @@ Meteor.startup(function() {
 });
 
 
-$(window).load(function(){
-  $('.preloader').fadeOut(1000); // set duration in brackets
-});
+// $(document).load(function(){
+//   $('.preloader').fadeOut(1000); // set duration in brackets
+// });
