@@ -1,11 +1,12 @@
 NODE_ENV?=development
 NODE_OPTIONS?=''
-APP_ENV=development
+APP_ENV?=development
 HOST?=patleet.local
 PORT?=4000
 APP_OPTIONS?=
 MONGO_URL?=mongodb://localhost:27017/plusmore
 MONGO_OPLOG_URL?=mongodb://localhost:27017/local
+SUBDOMAIN?=dev-device
 
 start:
 	NODE_OPTIONS=$(NODE_OPTIONS) \
@@ -31,14 +32,15 @@ android-device:
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
 	meteor run --settings ./config/$(APP_ENV)/settings.json android-device -p $(PORT) --mobile-server $(HOST):$(PORT) $(APP_OPTIONS)
 
-build-android-qa:
-	rm -rf ~/cordova-builds/qa
-	APP_ENV=qa \
-	meteor build ~/cordova-builds/qa --server=qa-device.plusmoretablets.com --mobile-settings ./config/$(APP_ENV)/settings.json 
-	cd ~/cordova-builds/qa/android/
-	jarsigner -digestalg SHA1 ~/cordova-builds/qa/android/unaligned.apk qa-device
-	~/.meteor/android_bundle/android-sdk/build-tools/20.0.0/zipalign 4 ~/cordova-builds/qa/android/unaligned.apk ~/cordova-builds/qa/android/qa-device.apk
-	cp -f ~/cordova-builds/qa/android/qa-device.apk /Users/pat/Box\ Sync/Plus\ More/For\ Pat
+build-android:
+	rm -rf ~/cordova-builds/$(APP_ENV)
+	APP_ENV=$(APP_ENV) \
+	SUBDOMAIN=$(SUBDOMAIN) \
+	meteor build ~/cordova-builds/$(APP_ENV) --server=$(SUBDOMAIN).plusmoretablets.com --mobile-settings ./config/$(APP_ENV)/settings.json 
+	cd ~/cordova-builds/$(APP_ENV)/android/
+	jarsigner -digestalg SHA1 ~/cordova-builds/$(APP_ENV)/android/unaligned.apk $(SUBDOMAIN)
+	~/.meteor/android_bundle/android-sdk/build-tools/20.0.0/zipalign 4 ~/cordova-builds/$(APP_ENV)/android/unaligned.apk ~/cordova-builds/$(APP_ENV)/android/$(SUBDOMAIN).apk
+	cp -f ~/cordova-builds/$(APP_ENV)/android/$(SUBDOMAIN).apk /Users/pat/Box\ Sync/Plus\ More/For\ Pat
 
 build-prod:
 	meteor build ../cordova-builds/prod --server=device.plusmoretablets.com	
