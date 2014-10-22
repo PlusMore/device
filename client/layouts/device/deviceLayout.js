@@ -49,5 +49,6 @@ events[clickevent + " .perspective.animate > .perspective-container"] = handlePe
 Template.deviceLayout.events(events);
 
 Template.deviceLayout.rendered = function () {
+  console.log('layout rendered');
   Session.set('loader', undefined);
 };
