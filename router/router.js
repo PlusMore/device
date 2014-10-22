@@ -66,9 +66,6 @@ var filters = {
       Session.set('expired', true);
     }
   },
-  resetActiveCategory: function() {
-    Session.set('activeCategory', '');
-  },
   resetExperienceState: function() {
     Session.set('experienceState', '');
   },
@@ -113,10 +110,6 @@ Router.onBeforeAction(filters.ensureValidStay, {only: [
 ]});
 
 Router.onRun(filters.resetExperienceState);
-
-Router.onBeforeAction(filters.resetActiveCategory, {except: [
-  'experiences'
-]});
 
 
 // Routes
@@ -207,24 +200,22 @@ Router.map(function() {
   });
 
   this.route('experiences', {
-    path: '/experiences/:category?',
-    onBeforeAction: function() {
-      Session.set('activeCategory', this.params.category);
-    },
+    path: '/experiences/:categoryId',
     onRun: function() {
       Session.set('experienceFilters', undefined);
       Deps.nonreactive(function() {
+        category = Categories.findOne(this.params.categoryId);
         App.track("View Category", {
-          "Name": Router.current().params.category
+          "Name": category.name
         });
       });
     },
     data: function() {
-      var activeCategory = Session.get('activeCategory');
+      var activeCategoryId = this.params.categoryId;
       var experienceFilters = Session.get('experienceFilters');
 
       var experiencesQuery = {
-        category: activeCategory
+        categoryId: activeCategoryId
       };
       if (experienceFilters && experienceFilters.length > 0) {
         _.each(experienceFilters, function (filter) {
@@ -241,7 +232,7 @@ Router.map(function() {
       }
       return {
         experiences: Experiences.find(experiencesQuery, {sort: {sortOrder: 1}}),
-        category: Categories.findOne({name: activeCategory})
+        category: Categories.findOne({_id: activeCategoryId})
       };
     }
   });
