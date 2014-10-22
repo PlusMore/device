@@ -17,7 +17,8 @@ Template.enterCheckoutDate.rendered = function () {
 
           subscriptions.stayInfo.stop();
           subscriptions.stayInfo = Meteor.subscribe('stayInfo');
-          Router.go('experiences', {category: 'Dining'});
+          // Router.go('experiences', {category: 'Dining'});
+          App.goToStartPage();
         });
       }
     }
