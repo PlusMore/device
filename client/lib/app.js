@@ -133,7 +133,13 @@ Meteor.startup(function() {
       if (!stay) {
         Router.go('enterCheckoutDate');
       } else {
-        Router.go('experiences', {category: 'Dining'});
+        diningCategory = Categories.findOne({name: 'Dining'});
+        if (diningCategory) {
+          Router.go('experiences', {categoryId: diningCategory._id});  
+        } else {
+          firstCategory = Categories.findOne();
+          Router.go('experiences', {categoryId: firstCategory._id});
+        }
       }
     },
     showMenu: function() {

@@ -203,11 +203,16 @@ Router.map(function() {
     path: '/experiences/:categoryId',
     onRun: function() {
       Session.set('experienceFilters', undefined);
+      var that = this;
       Deps.nonreactive(function() {
-        category = Categories.findOne(this.params.categoryId);
-        App.track("View Category", {
-          "Name": category.name
-        });
+        category = Categories.findOne(that.params.categoryId);
+
+        if (category) {
+          App.track("View Category", {
+            "Name": category.name
+          });  
+        }
+        
       });
     },
     data: function() {
