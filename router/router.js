@@ -76,9 +76,6 @@ var filters = {
     Meteor.setTimeout(function(){
       $('.main').animate({scrollTop: 0}, 400);
     });   
-  },
-  closeMenu: function() {
-    App.hideMenu();
   }
 };
 
@@ -86,7 +83,6 @@ Router.onBeforeAction('loading');
 
 if (Meteor.isClient) {
   Router.onBeforeAction(Errors.clearSeen);
-  Router.onRun(filters.closeMenu);
   Router.onRun(filters.clearCurrentExperienceId);
   Router.onRun(filters.scroll);
 }

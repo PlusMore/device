@@ -40,7 +40,7 @@ var handleNav = function(e, tmpl) {
   console.log(e.type);
   var href = $(e.currentTarget).attr('href');
   if (Router.current().path === href) {
-    App.hideMenu();
+    Menu.hide();
   } else {
     Router.go(href);
   }

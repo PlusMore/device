@@ -144,25 +144,6 @@ Meteor.startup(function() {
         var firstCategory = Categories.findOne();
         Router.go('experiences', {categoryId: firstCategory._id});
       }
-    },
-    showMenu: function() {
-      Session.set('animatingMenu', true);
-      Session.set('modalview', true);
-      Meteor.setTimeout(function() {
-        Session.set('showMenu', true);
-        Meteor.setTimeout(function() {
-          Session.set('animatingMenu', false);
-        }, 400);
-      }, 25);
-    },
-    hideMenu: function() {
-      Session.set('showMenu', false);
-      Meteor.setTimeout(function() {
-        Session.set('modalview', false);
-      }, 400);
-    },
-    isMenuOpen: function() {
-      return !!Session.get('showMenu');
     }
   });
 
