@@ -38,8 +38,8 @@ var handlePerspectiveContainerClick = function(e, tmpl) {
     return;
   }
 
-  if (App.isMenuOpen()) {
-    App.hideMenu();
+  if (Menu.isOpen()) {
+    Menu.hide();
   }
 };
 
