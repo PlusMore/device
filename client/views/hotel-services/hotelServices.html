@@ -1,8 +1,12 @@
 <template name="hotelServices">
   {{#if subscriptionsReady}}
-    {{#Layout template="contentLayout"}}
+    {{#Layout template="subnavContentLayout"}}
       {{#contentFor "title"}}
-        Hotel Services
+        Guest Services
+      {{/contentFor}}
+
+      {{#contentFor "subnav"}}
+        {{> hotelServicesNav}}
       {{/contentFor}}
 
     
@@ -10,11 +14,7 @@
 
         <div class="row" id="hotel-services-container">
           
-          <div class="col-sm-2 affix" id='hotel-services-menu'>
-            {{> hotelServicesNav}}
-          </div> 
-
-          <div class="col-sm-10 col-sm-offset-2" id='hotel-services-content'>
+          <div class="col-sm-12" id='hotel-services-content'>
             {{> Template.dynamic template=subNavContentTemplate data=configuration}}
           </div>
           

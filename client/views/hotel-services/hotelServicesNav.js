@@ -10,7 +10,7 @@ Template.hotelServicesNav.helpers({
       if (!hotel.hotelServicesEnabled) {
         return false;
       } else {
-        return HotelServices.find({hotelId: hotel._id, active: true});
+        return HotelServices.find({hotelId: hotel._id, active: true, type: {$ne: 'roomService'}});
       }
     }
   },

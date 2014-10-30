@@ -2,7 +2,11 @@
   <nav class="outer-nav left vertical">
         
     {{#if hotelServicesEnabled}}
-      <a href="{{pathFor 'hotelServices'}}" class="icon-front-desk">Hotel Services</a>
+      <a href="{{pathFor 'hotelServices'}}" class="icon-front-desk">Guest Services</a>
+    {{/if}}
+
+    {{#if roomServiceEnabled}}
+      <a href="" class="icon-roomservice">Room Service</a>
     {{/if}}
     
     {{#each categories}}
