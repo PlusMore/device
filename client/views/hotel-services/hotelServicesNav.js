@@ -26,11 +26,14 @@ Template.hotelServicesNav.helpers({
   }
 });
 
-Template.hotelServicesNav.events({
-  'click a.menu-item': function (e, template) {
-    e.preventDefault();
-    var templateName = $(e.currentTarget).data('template') || 'hotelServicesDescription';
+var selectMenuItem = function (e, template) {
+  e.preventDefault();
+  var templateName = $(e.currentTarget).data('template') || 'hotelServicesDescription';
 
-    Session.set('selectedService', templateName);
-  }
-});
+  Session.set('selectedService', templateName);
+}
+
+var events = {};
+events[clickevent + " a.menu-item"] = selectMenuItem;
+
+Template.hotelServicesNav.events(events);
