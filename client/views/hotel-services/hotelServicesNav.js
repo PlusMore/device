@@ -29,8 +29,12 @@ Template.hotelServicesNav.helpers({
 var selectMenuItem = function (e, template) {
   e.preventDefault();
   var templateName = $(e.currentTarget).data('template') || 'hotelServicesDescription';
-
   Session.set('selectedService', templateName);
+
+  var $collapsecontainer = $(e.currentTarget).parents('.navbar-collapse:first');
+  if ($collapsecontainer.hasClass('in')) {
+    $collapsecontainer.collapse('toggle');
+  }
 }
 
 var events = {};

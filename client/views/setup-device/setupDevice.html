@@ -1,14 +1,12 @@
 <template name="setupDevice">
-  <section id="setup-device">
-    <div class="main container scrollable">
-      <div class="big-text">
-        <p class="lead">
-          Setup Device
-        </p>
-        {{> setupDeviceForm}}
+  {{#Layout template="fullContentLayout"}}
+    <div  class="row centered extra-spacing-top">
+      <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <h3>Setup Device</h3>
+        {{> setupDeviceForm}}  
       </div>
-    </div>  
-  </section>
+    </div>
+  {{/Layout}}
 </template>
 
 <template name="setupDeviceForm">

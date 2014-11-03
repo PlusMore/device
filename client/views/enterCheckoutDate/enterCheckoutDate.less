@@ -11,8 +11,25 @@
       background: inherit;
       
       .picker__frame {
-        bottom: 10%;
+        .picker__box {
+          padding: 0px 1em 1px;
+        }
       }
     }  
   } 
+}
+
+
+
+// small
+@media (min-width: 768px) {
+  .enter-checkout-date {
+    .picker--opened {
+      .picker__holder {
+        .picker__frame {
+          top: 100px;
+        }
+      }  
+    } 
+  }
 }

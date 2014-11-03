@@ -12,13 +12,7 @@
     
       {{#if hotelServicesEnabled}}
 
-        <div class="row" id="hotel-services-container">
-          
-          <div class="col-sm-12" id='hotel-services-content'>
-            {{> Template.dynamic template=subNavContentTemplate data=configuration}}
-          </div>
-          
-        </div>
+        {{> Template.dynamic template=subNavContentTemplate data=configuration}}
 
       {{else}}
         {{> hotelServicesNotConfigured}}
@@ -30,26 +24,6 @@
   {{/if}}
 </template>
 
-
-
-<template name="hotelServices_old">
-  {{> hotelServicesNavbar}}
-  {{#if subscriptionsReady}}
-    {{#if hotelServicesEnabled}}
-      <section>
-        
-        <div class="main container-fluid scrollable">
-          
-        </div>  
-      </section>
-      
-    {{else}}
-      {{> hotelServicesNotConfigured}}
-    {{/if}}
-  {{else}}
-    {{> loading}}
-  {{/if}}
-</template>
 
 <template name="hotelServicesNotConfigured">
   <section>

@@ -3,7 +3,7 @@
 .modal-content.inline {
   box-shadow: none;
   background-color: rgba(0,0,0,.4);
-  margin-bottom: 10px;
+  border-radius: 0;
 
   .modal-header {
     border-bottom: none;
@@ -64,6 +64,15 @@
   }
 
 }
+
+// small
+@media (min-width: 768px) {
+  .modal-content.inline {
+    margin-bottom: 10px;
+    border-radius: 6px;
+  }
+}
+
 
 
 // <div class="modal-content inline">
