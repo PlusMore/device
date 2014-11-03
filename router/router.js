@@ -156,25 +156,30 @@ Router.map(function() {
   this.route('hotelServices', {
     path: '/hotel-services',
     onRun: function () {
-      var roomService = HotelServices.findOne({type: 'roomService'});
-
-      if (roomService) {
-        Session.set('selectedService', 'roomService'); 
+      var first = HotelServices.findOne();
+      if (first) {
+        Session.set('selectedService', first.type);
       } else {
-        var first = HotelServices.findOne();
-        if (first) {
-          Session.set('selectedService', first.type);
-        } else {
-          Session.set('selectedService', 'hotelServicesDescription');
-        }
+        Session.set('selectedService', 'hotelServicesDescription');
       }
-
     },
     data: function () {
       var selectedService = Session.get('selectedService');
       return {
         configuration: HotelServices.findOne({type: selectedService})
       };
+    }
+  });
+
+  this.route('roomService', {
+    path: '/room-service', 
+    onRun: function() {
+      Session.set('selectedService', 'roomService');
+    },
+    data: function () {
+      return {
+        configuration: HotelServices.findOne({type: 'roomService'})
+      }
     }
   });
 
