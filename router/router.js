@@ -173,6 +173,15 @@ Router.map(function() {
 
   this.route('roomService', {
     path: '/room-service', 
+    waitOn: function() {
+      var stayId = Session.get('stayId');
+      var hotel = Hotels.findOne();
+ 
+      return [
+        Meteor.subscribe('hotelMenu', hotel._id),
+        Meteor.subscribe('cart', stayId)
+      ];
+    },
     onRun: function() {
       Session.set('selectedService', 'roomService');
     },
