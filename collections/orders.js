@@ -182,8 +182,8 @@ Meteor.methods({
               "\n"+ 
               "Venue Info\n\n"+ 
               "{0}\n".format(experience.venueName)+ 
-              "{0}\n".format(experience.street)+ 
-              "{0}, {1} {2}\n".format(experience.city, experience.state, experience.zip)+ 
+              "{0} {1}\n".format(experience.geo.streetNumber, experience.geo.streetName)+ 
+              "{0}, {1} {2}\n".format(experience.geo.city, experience.geo.state, experience.geo.zipcode)+ 
               "{0}\n".format(experience.phone)+ 
               "\nTo respond to this request, click the link below\n\n"+ 
               url
