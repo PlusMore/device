@@ -1,11 +1,21 @@
 <template name="hotelServicesNav">
-  <ul class="nav nav-pills nav-stacked animated fadeInRight">
-    {{#each activeHotelServices}}
-      {{#if isValidService}}
-        <li class="{{activeHotelServiceClass type}}">
-          <a class='menu-item' href="#" data-template='{{type}}'>{{friendlyRequestType}}</a>
-        </li>
-      {{/if}}
-    {{/each}}
-  </ul>
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#guest-services-subnav">
+      <span class="sr-only">Toggle navigation</span>
+      <span>Select Service<span class="caret"></span></span>
+    </button>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse" id="guest-services-subnav">
+    <ul class="nav navbar-nav">
+      {{#each activeHotelServices}}
+        {{#if isValidService}}
+          <li class="{{activeHotelServiceClass type}}">
+            <a class='menu-item' href="#" data-template='{{type}}'>{{friendlyRequestType}}</a>
+          </li>
+        {{/if}}
+      {{/each}}
+    </ul>  
+  </div><!-- /.navbar-collapse -->
 </template>

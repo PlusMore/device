@@ -24,7 +24,7 @@ Schema.setupDevice = new SimpleSchema({
   },
   replacement: {
     type: Boolean,
-    label: 'Is this a replacement device?'
+    label: 'Replacement device?'
   }
 });
 

@@ -72,12 +72,16 @@ span.gc-cs-link {
 }
 
 .centered {
-  padding: 40px 15px;
   text-align: center;
+}
+
+.extra-spacing-top {
+  margin-top: 25px;
 }
 
 .center-vertically {
   .vertical-center();
+  width: 100%;
 }
 
 #nprogress {
@@ -138,6 +142,10 @@ span.gc-cs-link {
   padding: 0;
 }
 
+.col-xs-no-padding {
+  padding: 0;
+}
+
 .no-padding-top {
   padding-top: 0 !important;
 }
@@ -161,12 +169,38 @@ span.gc-cs-link {
 }
 
 .animated {
-  -webkit-transform: translateZ(0);
-  -webkit-transform-style: preserve-3d;
+  // -webkit-transform: translateZ(0);
+  // -webkit-transform-style: preserve-3d;
+  
+  &.somewhat-faster {
+    -webkit-animation-duration: .75s;
+    -moz-animation-duration: .75s;
+    -o-animation-duration: .75s;
+    animation-duration: .75s;
+  }
+
+  &.fast {
+    -webkit-animation-duration: .5s;
+    -moz-animation-duration: .5s;
+    -o-animation-duration: .5s;
+    animation-duration: .5s;
+  }
+
+  &.faster {
+    -webkit-animation-duration: .25s;
+    -moz-animation-duration: .25s;
+    -o-animation-duration: .25s;
+    animation-duration: .25s; 
+  }
+
 }
 
 // small
-@media (min-width: 768px) {}
+@media (min-width: 768px) {
+  .col-xs-no-padding { 
+    padding: 0 15px;
+  }
+}
 
 // medium
 @media (min-width: 992px) {}

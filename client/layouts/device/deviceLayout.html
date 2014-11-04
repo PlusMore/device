@@ -14,27 +14,19 @@
       <div class="overlay-bg black"></div>  
       {{> meteorErrors}}
 
-      {{#if currentUser}}
-        
-        <div class="outer">
-          <div class="holder">
+      <div class="outer">
+        <div class="holder">
+          {{#if currentUser}}
             {{> yield}}
-          </div>
-        </div>
-
-      {{else}}
-
-        <div class="outer">
-          <div class="holder">
+          {{else}}
             {{#if loggingIn}}
             {{else}}
               {{> login}}
-            {{/if}}    
-          </div>
+            {{/if}}  
+          {{/if}}
         </div>
+      </div>
         
-      {{/if}}
-
     </div>
 
     {{> mainNav}}

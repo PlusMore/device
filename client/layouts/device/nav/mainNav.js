@@ -24,13 +24,16 @@ Template.mainNav.helpers({
       if (!hotel.hotelServicesEnabled) {
         return false;
       } else {
-        var activeHotelServices = HotelServices.find({hotelId: hotel._id, active: true});
+        var activeHotelServices = HotelServices.find({hotelId: hotel._id, active: true, type: {$ne: 'roomService'}});
 
         if (activeHotelServices.count() > 0) {
           return true;
         }
       }
     }
+  },
+  roomServiceEnabled: function() {
+    return true;
   }
 });
 
