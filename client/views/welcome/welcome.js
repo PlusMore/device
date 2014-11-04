@@ -1,25 +1,29 @@
 Template.welcome.helpers({
+  needsRegistration: function() {
+    if (Meteor.user()) {
+      return !Meteor.user().deviceId;
+    }
+  }
+});
+
+Template.welcomeContent.helpers({
+  hotel: function() {
+    return Hotels.findOne();
+  },
   device: function() {
     if (Meteor.user()) {
       var deviceId = Meteor.user().deviceId;
       return Devices.findOne(deviceId);
     }
-  },
-  needsRegistration: function() {
-    if (Meteor.user()) {
-      return !Meteor.user().deviceId;
-    }
-  },
-  hotelName: function() {
-    var hotel = Hotels.findOne();
-    return hotel.name;
   }
 });
 
-Template.welcome.events({
-  'click .welcome': function (e) {
-    e.preventDefault();
+var onEngage = function(e) {
+  e.preventDefault();
+  App.go();
+}
 
-    App.begin();
-  }
-});
+var events = {};
+events[clickevent + " #main"] = onEngage;
+
+Template.welcomeContent.events(events);

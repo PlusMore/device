@@ -114,20 +114,7 @@ Meteor.startup(function() {
         }
       });
     },
-    begin: function() {
-      var stay = Stays.findOne({userId: Meteor.userId()});
-
-      if (!stay) {
-        App.startTutorial();
-        // Router.go('enterCheckoutDate');
-      } else {
-        App.endTutorial();
-      }
-    },
-    startTutorial: function() {
-      Router.go('about');
-    },
-    endTutorial: function() {
+    go: function() {
       var stay = Stays.findOne({userId: Meteor.userId()});
 
       if (!stay) {

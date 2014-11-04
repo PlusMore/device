@@ -176,7 +176,7 @@ div[class^="overlay-"] {
         position: absolute;
         top: 0;
         opacity: 1;
-        padding-top: 75px;
+        padding-top: 65px;
 
 
         &.dropdown-open {
@@ -197,7 +197,7 @@ div[class^="overlay-"] {
 
       &.with-subnav {
         .main {
-          padding-top: 125px;
+          padding-top: 121px;
         }
       }
 
@@ -208,7 +208,24 @@ div[class^="overlay-"] {
 
 
 // small
-@media (min-width: 768px) {}
+@media (min-width: 768px) {
+  .outer { //picker
+    .holder {
+      section {
+
+        .main {
+          padding-top: 75px;
+        }
+
+        &.with-subnav {
+          .main {
+            padding-top: 130px;
+          }
+        }     
+      }
+    }
+  }
+}
 
 // medium
 @media (min-width: 992px) {}

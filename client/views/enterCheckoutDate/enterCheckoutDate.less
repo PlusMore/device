@@ -1,19 +1,7 @@
 .enter-checkout-date {
   header {
     text-align: center;
-    padding: 0 125px;
-    margin-bottom: 45px;
     margin-top: 25px;
-
-    h1 {
-      font-weight: 100;
-      font-size: 3em;
-    }
-
-    p.lead {
-      font-weight: 100;
-      font-size: 2em;
-    }  
   }
   input.datepicker {
     visibility: hidden;
@@ -23,8 +11,25 @@
       background: inherit;
       
       .picker__frame {
-       
+        .picker__box {
+          padding: 0px 1em 1px;
+        }
       }
     }  
   } 
+}
+
+
+
+// small
+@media (min-width: 768px) {
+  .enter-checkout-date {
+    .picker--opened {
+      .picker__holder {
+        .picker__frame {
+          top: 100px;
+        }
+      }  
+    } 
+  }
 }

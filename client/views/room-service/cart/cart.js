@@ -39,7 +39,7 @@ Template.cart.events({
           className: 'btn-cancel'
         },
         main: {
-          label: 'Remove ' + that.name,
+          label: 'Remove Item',
           className: 'btn-default',
           callback:function(result) {
             Meteor.call('removeCartItem',that._id);

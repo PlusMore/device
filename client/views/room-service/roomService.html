@@ -1,6 +1,21 @@
 <template name="roomService">
-  <div class="row animated fadeInRight">
-    <div class="col-sm-7">
+  {{#if subscriptionsReady}}
+    {{#Layout template="contentLayout"}}
+      {{#contentFor "title"}}
+        Room Service
+      {{/contentFor}}
+    
+     {{> roomServiceContent}}
+
+    {{/Layout}}
+  {{else}}
+    {{> loading}}
+  {{/if}}
+</template>
+
+<template name="roomServiceContent">
+  <div class="row animated somewhat-faster fadeInUp">
+    <div class="col-sm-7 col-xs-no-padding">
       <div class="row">
         <div class="col-sm-12">
           <div class="modal-content inline">
@@ -26,7 +41,7 @@
         </div>
       </div>
     </div>   
-    <div class="col-sm-5">
+    <div class="col-sm-5 col-xs-no-padding">
       <div class="row">
         <div class="col-sm-12">
           {{> cart}}

@@ -1,31 +1,57 @@
 @import '/client/style/imports.import.less';
 
-.welcome {
-  .welcome-text {
-    .center-block();
-    .container-fixed();
-    .vertical-center();
-    .center();
+.about {
 
-    h1 {
-      text-transform: none;
-      font-weight: 100;
-      font-size: 5em;
+  header {
+    text-align: center;
+    margin-bottom: 25px;
+    margin-top: 25px;
+  }
+  
+  .features {
+    .feature {
+      text-align: center;
+      margin-bottom: 50px;
+
+      .icon {
+        font-size: 9em;
+        line-height: 1;
+      }
+
+      h3 {
+        margin-top: 0;
+        font-size: 2em;
+      }
+
+      p {
+        font-size: 1.5em;
+      }
     }
-    .tag {
-      font-size: 3em;
-      font-weight: 100;
-      margin-bottom: 70px;
-    }
-    .instructions {
-      font-size: 3em;
-      margin-bottom: 40px;
-    }
-    .hotel {
-      font-size: 1.5em;
-    }
-    .location {
-      font-size: 2em;
-    }
-  } 
+  }
+
+  footer {
+    text-align: center;
+    margin-bottom: 50px;  
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
 }
+
+// small
+@media (min-width: 768px) {
+  .about {
+
+    header {
+      margin-bottom: 100px;
+    }
+    
+  }
+}
+
+// medium
+@media (min-width: 992px) {}
+
+// large
+@media (min-width: 1200px) {}

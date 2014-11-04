@@ -21,8 +21,8 @@
     <div class="venue">
       {{#with experience}}
         <div><strong>{{venueName}}</strong></div>
-        <div>{{street}}</div>
-        <div>{{city}}, {{state}}</div>
+        <div>{{geo.streetNumber}} {{geo.streetName}}</div>
+        <div>{{geo.city}}, {{geo.state}} {{geo.zipcode}}</div>
       {{/with}}
     </div>
 
