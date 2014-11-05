@@ -40,7 +40,9 @@ Meteor.startup(function() {
     if (currentExperienceId) {
       subscriptions.experience = Meteor.subscribe('experience', currentExperienceId);
     } else {
-      subscriptions.experience.stop();
+      if (subscriptions && subscriptions.experience && subscriptions.experience.stop) {
+        subscriptions.experience.stop();
+      }
     }
   });
 })
