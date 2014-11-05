@@ -124,6 +124,17 @@
     }
   }
 
+  .navbar-header {
+    & > .navbar-toggle {
+      &:not(.collapsed) {
+        .caret {
+          border-top-width: 0;
+          border-bottom: 4px solid #000000;
+        } 
+      }
+    }
+  }
+
   .navbar-collapse {
     &.in, &.collapsing {
       background: rgba(255, 255, 255, 0.9); 
