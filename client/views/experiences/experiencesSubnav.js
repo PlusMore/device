@@ -81,7 +81,12 @@ Template.experiencesSubnav.events({
     Meteor.setTimeout(function() {
       var width = $(document).width();
       var mainHeight = Session.get('dropdownMaxHeight', mainHeight);
-      var $dropdownMenu = tmpl.$(e.currentTarget).find('.dropdown-menu')
+      var $dropdownMenu = tmpl.$(e.currentTarget).find('.dropdown-menu:first')
+
+      var $dropdownContainer = $dropdownMenu.parents('.dropdown:first');
+
+      // $dropdownMenu.detach().appendTo('.navbar-plusmore-subnav');
+
       var $optionsList = $dropdownMenu.find('.options-list');
       var $menuOptions = $dropdownMenu.find('.dropdown-menu-options');
 
@@ -150,10 +155,5 @@ Template.experiencesSubnav.events({
     console.log('click menu options')
     e.preventDefault();
     e.stopImmediatePropagation();
-  },
-  'click .dropdown-menu': function(e) {
-    console.log('click dropdown menu')
-    e.preventDefault();
-    e.stopImmediatePropagation();
-  },
+  }
 });

@@ -136,6 +136,9 @@
   }
 
   .navbar-collapse {
+    &.in {
+      overflow-y: visible;
+    }
     &.in, &.collapsing {
       background: rgba(255, 255, 255, 0.9); 
     }
@@ -175,6 +178,9 @@
         position: fixed;
         width: 100%;
         background: #fff;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        // top: 0;
         // ----------------
 
         & > .dropdown-menu-options {
@@ -182,8 +188,25 @@
           top: 0;
           left: 0;
           right: 0;
-          background-color: lightblue;
+          background-color: #00abbf;
           padding: 10px;
+
+          .title {
+            width: 100%;
+            line-height: 25px;
+          }
+
+          .btn-reset {
+            position: absolute;
+            left: 5px;  
+            top: 5px;
+          }
+
+          .btn-done {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+          }
         }
 
         & > .options-list {
