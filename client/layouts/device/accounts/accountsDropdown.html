@@ -1,0 +1,32 @@
+<template name="accountsDropdown">
+  <ul id='accounts' class="nav navbar-right navbar-fixed-top">
+    <li id="accounts-dropdown" class="dropdown pull-right">
+      <a id="drop4" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+        {{dropdownText}}
+        <span class="caret"></span>
+      </a>
+      <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+
+        <li>
+          <a role="menuitem" tabindex="-1" href="#">Patrick Scott</a>
+        </li>
+
+        <li>
+          <a role="menuitem" tabindex="-1" href="#">Manny Sani</a>
+        </li>
+
+        <li class="divider"></li>
+        <li>
+          <a role="menuitem" tabindex="-1" href="https://twitter.com/fat">+ Additional Guest</a>
+        </li>
+
+        {{#if currentUser}}
+          <li class="divider"></li>
+          <li>
+            <a href="" role="menuitem" tabindex="-1">Log Out</a>
+          </li>
+        {{/if}}
+      </ul>
+    </li>  
+  </ul>
+</template>

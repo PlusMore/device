@@ -27,6 +27,9 @@ Template.deviceLayout.helpers({
   },
   loaderText: function() {
     return Session.get('loader');
+  },
+  registeredDevice: function() {
+    return !!LocalStore.get('deviceId');
   }
 });
 

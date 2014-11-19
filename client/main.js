@@ -10,30 +10,30 @@ Global client-side code. Loads last.
 //
 Meteor.startup(function() {
 
+
+
   // Subscribe to device data when a device ID is available
+  Tracker.autorun(function() {
+    var registeredDeviceId = LocalStore.get('deviceId');
+
+    if (registeredDeviceId) {
+      console.log('registered device');
+      subscriptions.device = Meteor.subscribe('device', registeredDeviceId);
+      subscriptions.experiencesData = Meteor.subscribe('experiencesData', registeredDeviceId);
+    }
+  });
+
+  // on login, get stay info, use that to find and set deviceId to LocalStore
   Deps.autorun(function () {
     var user = Meteor.user();
 
     if (user) {
-      var deviceId = user.deviceId || null;
-
-      if (deviceId) {
-        var device = Devices.findOne(deviceId);
-
-        if (device) {
-          console.log('subscribing for userId', user._id);
-          subscriptions.deviceData = Meteor.subscribe('deviceData');
-          subscriptions.orders = Meteor.subscribe('orders');
-          subscriptions.stayInfo = Meteor.subscribe('stayInfo');
-        }
-      }
+      console.log('subscribing for userId', user._id);
+      // subscriptions.experiencesData = Meteor.subscribe('experiencesData');
+      subscriptions.orders = Meteor.subscribe('orders');
+      subscriptions.stayInfo = Meteor.subscribe('stayInfo');
     }
     else {
-      console.log('unsubscribing user data');
-      if (subscriptions.deviceData) {
-        subscriptions.deviceData.stop();
-        subscriptions.deviceData = null;
-      }
 
       if (subscriptions.orders) {
         subscriptions.orders.stop();

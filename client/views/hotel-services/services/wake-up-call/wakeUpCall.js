@@ -31,17 +31,33 @@ Template.wakeUpCall.events({
       "Hotel Service": "Wake Up Call"
     });
 
-    Meteor.call('requestService', request, function (error, result) {
-      if (error) {
-        requestButton.progressError();
-        return Errors.throw(error);
-      }
+    $(document).one('user-selected', function() {
+      Meteor.call('requestService', request, function (error, result) {
+        if (error) {
+          requestButton.progressError();
 
-      requestButton.progressFinish();
-      Meteor.setTimeout(function() {
-        Router.go('orders');
-      }, 500);
+          return Errors.throw('Error Requesting Service');
+        }
+
+        requestButton.progressFinish();
+        Meteor.setTimeout(function() {
+          Router.go('orders');
+        }, 500);
+      });
     });
+
+    $(document).one('cancel-user-selected', function() {
+      $(document).off('user-selected');
+      $(document).off('cancel-user-selected');
+      requestButton.progressError();
+      return Errors.throw('Please log in to use this feature.');
+    });
+
+    if (!Meteor.user()) {
+      Session.set('selectUser', true);
+    } else {
+      $(document).trigger('user-selected');
+    }
   }
 });
 

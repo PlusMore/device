@@ -6,10 +6,8 @@ All publications-related code.
 
 /+ ---------------------------------------------------- */
 
-/**
- * Always publish logged-in user's hotelId
- *
- */
+// Used to get list of available hotels to register a device
+// Admin returns all, hotel-staff returns the user's hotel
 Meteor.publish('userHotelData', function () {
   var userId = this.userId;
 
@@ -73,17 +71,25 @@ Meteor.publish(null, function () {
   }
 });
 
-Meteor.publish('stayInfo', function() {
-  return [
-    Stays.find({userId: this.userId})
-  ];
+// if user doesn't have device info, publish when requested from registered device
+Meteor.publish('device', function(deviceId) {
+  if (deviceId) {
+    var device = Devices.findOne(deviceId);
+    if (device) {
+      return [
+        Devices.find(deviceId),
+        Hotels.find(device.hotelId),
+        HotelServices.find({hotelId: device.hotelId, active: true})
+      ];
+    }
+  }
 });
 
-Meteor.publish('deviceData', function(deviceId) {
+Meteor.publish('experiencesData', function(deviceId) {
   var userId = this.userId,
       user = Meteor.users.findOne(userId);
 
-  if (user) {
+  if (user || deviceId) {
     deviceId = deviceId || user.deviceId;
     var device = Devices.findOne(deviceId);
 
@@ -131,6 +137,12 @@ Meteor.publish('deviceData', function(deviceId) {
     this.ready();
     return null;
   }
+});
+
+Meteor.publish('stayInfo', function() {
+  return [
+    Stays.find({userId: this.userId})
+  ];
 });
 
 Meteor.publish('experience', function(experienceId) {

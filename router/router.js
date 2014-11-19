@@ -92,18 +92,18 @@ if (Meteor.isClient) {
 // TODO: Need to think about this.. Can we get patron's
 // information somehow? Maybe can change from auto login
 // to a form.
-Router.onBeforeAction(filters.ensureDeviceAccount, {only: [
-  'experiences',
-  'experience',
-  'orders',
-  'enterCheckoutDate'
-]});
+// Router.onBeforeAction(filters.ensureDeviceAccount, {only: [
+//   'experiences',
+//   'experience',
+//   'orders',
+//   'enterCheckoutDates'
+// ]});
 
-Router.onBeforeAction(filters.ensureValidStay, {only: [
-  'experiences',
-  'orders',
-  'hotelServices'
-]});
+// Router.onBeforeAction(filters.ensureValidStay, {only: [
+//   'experiences',
+//   'orders',
+//   'hotelServices'
+// ]});
 
 Router.onRun(filters.resetExperienceState);
 
@@ -123,8 +123,6 @@ Router.map(function() {
       ];
     }
   });
-
-  this.route('settingUp');
 
   // Patron Interface
   this.route('welcome', {

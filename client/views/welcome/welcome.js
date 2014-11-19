@@ -11,10 +11,7 @@ Template.welcomeContent.helpers({
     return Hotels.findOne();
   },
   device: function() {
-    if (Meteor.user()) {
-      var deviceId = Meteor.user().deviceId;
-      return Devices.findOne(deviceId);
-    }
+    return Devices.findOne();
   }
 });
 

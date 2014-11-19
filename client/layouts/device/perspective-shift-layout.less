@@ -54,10 +54,21 @@ html, body, .perspective {
         -webkit-transition: opacity 0.3s;
         transition: opacity 0.3s;
     }
+
+    #accounts {
+        z-index: 5;
+        -webkit-transform: translateX(-100px);
+        transform: translateX(-100px);   
+        opacity: 0;
+        -webkit-transition: -webkit-transform 0.4s, opacity 0.4s;
+        transition: transform 0.4s, opacity 0.4s; 
+    }
+    
 }
 
 /* Outer Nav */
 .outer-nav {
+    z-index: 15;
     position: absolute;
     height: auto;
     font-size: 1.4em;
@@ -194,6 +205,13 @@ html, body, .perspective {
     &.animate .outer-nav a:nth-child(7) {
         -webkit-transition-delay: 0.24s;
         transition-delay: 0.24s;
+    }
+
+    &.animate #accounts {
+        -webkit-transform: translateX(0px);
+        transform: translateX(0px);
+        opacity: 1;
+        z-index: 20;
     }
 }
 

@@ -2,10 +2,10 @@
   <div id='confirm-reservation' class="overlay-confirm modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
-        {{#if needsRegistration}}
-          {{> needsRegistrationContent}}
-        {{else}}
+        {{#if currentUser}}
           {{> registeredContent}}
+        {{else}}
+          {{> needsRegistrationContent}}
         {{/if}}
       </div>
     </div>

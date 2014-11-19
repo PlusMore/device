@@ -20,6 +20,7 @@ Meteor.startup(function() {
           if (err) throw new Meteor.Error(500, 'Device login failed');
           Session.set('expired', false);
 
+          console.log('end stay');
           Router.go('welcome');
         });
       });

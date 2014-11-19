@@ -19,26 +19,37 @@
           {{#if currentUser}}
             {{> yield}}
           {{else}}
-            {{#if loggingIn}}
+            
+            {{#if registeredDevice}}
+              {{> yield}}
             {{else}}
-              {{> login}}
-            {{/if}}  
+          
+              {{#if loggingIn}}
+              {{else}}
+                {{> login}}
+              {{/if}}  
+
+            {{/if}}
+
+            
           {{/if}}
         </div>
       </div>
         
     </div>
-
+  
+    {{> accountsDropdown}}
     {{> mainNav}}
     
   </div>
 
   <!-- Overlays -->
-  {{#if currentUser}}
-    {{> experience}}
-    {{> addItemToCartModal}}
-    {{> confirmReservation}}
-  {{/if}}
+
+  {{> selectUser}}
+  {{> experience}}
+  {{> addItemToCartModal}}
+  {{> confirmReservation}}
+
 
   {{> idleOverlay}}
 
