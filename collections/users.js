@@ -13,6 +13,35 @@ Schema.accountInfo = new SimpleSchema({
   }
 });
 
+Schema.guestInfo = new SimpleSchema({
+  firstName: {
+    type: String,
+    label: 'First Name'
+  },
+  lastName: {
+    type: String,
+    label: 'Last Name'
+  },
+  checkoutDate: {
+    type: Date,
+    label: 'Checkout Date'
+  }
+});
+
+Schema.guestNotifications = new SimpleSchema({
+  email: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Email
+  }
+});
+
+Schema.guestPassword = new SimpleSchema({
+  password: {
+    type: String,
+    min: 8
+  }
+});
+
 Meteor.methods({
   addInfoToDeviceAccount: function(requestData) {
     check(requestData, Schema.accountInfo);

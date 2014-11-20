@@ -3,104 +3,11 @@
   <div class="modal fade {{isVisibleClass}}">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <div class="pull-right">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-          </div>
-          {{#if hasStay}}
-            <h2 class="modal-title">Select User</h2>
-          {{else}}
-            {{#if stepOne}}
-              <h2 class="modal-title animated fadeInRight">Guest Verification</h2>
-            {{/if}}
-
-            {{#if stepTwo}}
-              <h2 class="modal-title animated fadeInRight">How should we notify you?</h2>
-            {{/if}}
-
-            {{#if stepThree}}
-              <h2 class="modal-title animated fadeInRight">Finally, Choose a Password</h2>
-            {{/if}}
-
-            {{#if finished}}
-              <h2 class="modal-title animated fadeInRight">Finished!</h2>
-            {{/if}}
-          {{/if}}
-        </div>
-          <div class="modal-body">
-
-            {{#if hasStay}}
-              <div class="form-group">
-                Blah
-              </div>
-            {{else}}
-              {{#if stepOne}}
-                <div class="row animated fadeInRight">
-                  <div class="col-xs-12 col-sm-6">
-                    <div class="form-group">
-                      <label class="control-label" for="firstName">First Name</label>
-                      <input type='text' name="firstName" class="form-control"/>
-                    </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-6">
-                    <div class="form-group">
-                      <label class="control-label" for="lastName">Last Name</label>
-                      <input type='text' name="lastName" class="form-control"/>
-                    </div>
-                  </div>
-                  <div class="col-xs-12">
-                    <div class="form-group">
-                      <label class="control-label" for="checkoutDate">Checkout Date</label>
-                      <input type='date' name="checkoutDate" class="form-control"/>
-                    </div>  
-                  </div>
-                </div>
-              {{/if}}
-              {{#if stepTwo}}
-                <div class="row animated fadeInRight">
-                  <div class="col-xs-12">
-                    <div class="form-group">
-                      <label for="email" class="control-label">Email</label>
-                      <input type="text" name='email' class="form-control" />
-                    </div>
-                  </div>
-                </div>
-              {{/if}}
-              {{#if stepThree}}
-                <div class="row animated fadeInRight">
-                  <div class="col-xs-12">
-                    <div class="form-group">
-                      <label for="password" class="control-label">Password</label>
-                      <input type="password" name='password' class="form-control" />
-                    </div>
-                  </div>
-                </div>
-              {{/if}}
-
-              {{#if finished}}
-                <div class="row animated fadeInRight">
-                  <div class="col-xs-12">
-                    <p class="lead">Thank you, your request will now be submitted.</p>
-                  </div>
-                </div>
-              {{/if}}
-
-            {{/if}}
-          </div>
-          <div class="modal-footer">
-            {{#if hasStay}}
-            {{else}}
-              {{#if stepOne}}
-                <button id='btn-step-one' class="btn btn-default animated fadeInRight">Continue</button>
-              {{/if}}
-              {{#if stepTwo}}
-                <button id='btn-step-two' class="btn btn-default animated fadeInRight">Continue</button>
-              {{/if}}
-              {{#if stepThree}}
-                <button id='btn-step-three' class="btn btn-default animated fadeInRight">Done</button>
-              {{/if}}
-            {{/if}}
-          </div>
+        {{#if hasStay}}
+          {{> chooseUser}}
+        {{else}}
+          {{> onboardUser}}
+        {{/if}}
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
