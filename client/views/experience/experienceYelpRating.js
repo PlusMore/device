@@ -2,6 +2,7 @@ Template.experienceYelpRating.rendered = function () {
   Session.set('hasYelp', true);
   var that = this;
   YelpAPI.business(this.data.yelpId, function(err, result) {
+    
     if (err) { 
       Errors.throw(err);
       
@@ -12,11 +13,12 @@ Template.experienceYelpRating.rendered = function () {
       if (result.rating < 3) {
         Session.set('hasYelp', false);
       }
-      Session.set('yelpStarsSrc', result.rating_img_url_large);
+      var starSrc = result.rating_img_url_large;
+      starSrc = starSrc.replace('http://', 'https://');
+      Session.set('yelpStarsSrc', starSrc);
       Session.set('yelpReviewCount', result.review_count);
     }
 
-    
   });
 };
 
