@@ -124,7 +124,21 @@
     }
   }
 
+  .navbar-header {
+    & > .navbar-toggle {
+      &:not(.collapsed) {
+        .caret {
+          border-top-width: 0;
+          border-bottom: 4px solid #000000;
+        } 
+      }
+    }
+  }
+
   .navbar-collapse {
+    &.in {
+      overflow-y: visible;
+    }
     &.in, &.collapsing {
       background: rgba(255, 255, 255, 0.9); 
     }
@@ -159,17 +173,62 @@
       &.dropdown > ul.dropdown-menu {
         border-radius: 4px;
         box-shadow: 5px 10px 35px #111;
-        // -webkit-animation-duration: .5s;
-        // -moz-animation-duration: .5s;
-        // -o-animation-duration: .5s;
-        // animation-duration: .5s;
+        
+        // For mobile -----
+        position: fixed;
+        width: 100%;
+        background: #fff;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        // top: 0;
+        // ----------------
 
-        & > li {
+        & > .dropdown-menu-options {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          background-color: #00abbf;
+          padding: 10px;
+
+          .title {
+            width: 100%;
+            line-height: 25px;
+          }
+
+          .btn-reset {
+            position: absolute;
+            left: 5px;  
+            top: 5px;
+          }
+
+          .btn-done {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+          }
+        }
+
+        & > .options-list {
+          overflow: auto;
+          padding: 0 15px;
+          margin-top: 55px;
+          
+          // For mobile ------
+          position: absolute;
+          top: 0; 
+          bottom: 0;
+          width: 100%;
+          // -----------------
+        }
+
+        & > li, & > .options-list > li {
           
           & > a {
-            font-size: 1.9em;
+            font-size: 1.5em;
             color: #777;
-            padding-right: 60px;
+            width: 100%;
+            display: block;
 
             & > span.badge {
               line-height: 1;
@@ -194,7 +253,7 @@
                 content: 'u';
                 speak: none;
                 position: absolute;
-                right: 20px;
+                right: 15px;
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale; 
               }
@@ -227,6 +286,28 @@
 
     .navbar-collapse {
       text-align: center;
+    }
+
+    .nav {
+      & > li {
+        &.dropdown > ul.dropdown-menu {
+          position: absolute;
+          width: auto;
+
+          & > .dropdown-menu-options {}
+          & > .options-list {
+            position: relative;
+            width: 400px;
+            top: inherit;
+            bottom: inherit;
+          }
+          & > li, & > .options-list > li {
+            & > a {
+              font-size: 1.8em;
+            }
+          }
+        }
+      }
     }
   }
 }

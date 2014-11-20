@@ -1,6 +1,6 @@
 Template.enterCheckoutDate.rendered = function () {
   $('.datepicker').pickadate({
-    today: false,
+    // today: false,
     clear: false,
     min: moment({hour: 12, minute: 0}).add('days', 1).toDate(),
     onSet: function(date) {

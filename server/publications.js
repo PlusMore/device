@@ -6,10 +6,10 @@ All publications-related code.
 
 /+ ---------------------------------------------------- */
 
-// /**
-//  * Always publish logged-in user's hotelId
-//  *
-//  */
+/**
+ * Always publish logged-in user's hotelId
+ *
+ */
 Meteor.publish('userHotelData', function () {
   var userId = this.userId;
 
@@ -95,14 +95,46 @@ Meteor.publish('deviceData', function(deviceId) {
         photoUrl: 1,
         title: 1
       };
+
+      var experiencePublishFields = {
+        active: 1,
+        categoryId: 1,
+        geo: 1,
+        lead: 1,
+        photoUrl: 1,
+        sortOrder: 1,
+        tagGroups: 1,
+        title: 1,
+        yelpId: 1
+      }   
+
+      var tagGroups = Meteor.tags.find( {group: {$exists: true} });
+      var tagGroupsArray = [];
+      tagGroups.forEach(function(tag) {
+        if (tag.group && tagGroupsArray.indexOf(tag.group) === -1) {
+          tagGroupsArray.push(tag.group);
+        }
+      });
+
+      _.each(tagGroupsArray, function(tagGroup) {
+        if (tagGroup !== 'filterGroup') {
+          experiencePublishFields[tagGroup+'Tags'] = 1;
+        }
+      });
+
       return [
         Categories.find({active: true}),
-        Experiences.find({active: true}, {sort: {sortOrder: 1}})
+        Experiences.find({active: true}, {fields: experiencePublishFields})
       ];
     }
   } else {
+    this.ready();
     return null;
   }
+});
+
+Meteor.publish('experience', function(experienceId) {
+  return Experiences.find(experienceId);
 });
 
 Meteor.publish('orders', function() {

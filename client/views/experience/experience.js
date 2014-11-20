@@ -32,3 +32,17 @@ var events = {};
 events[clickevent + " a.back"] = handleBack;
 
 Template.experience.events(events);
+
+Meteor.startup(function() {
+  Tracker.autorun(function() {
+    var currentExperienceId = Session.get('currentExperienceId');
+
+    if (currentExperienceId) {
+      subscriptions.experience = Meteor.subscribe('experience', currentExperienceId);
+    } else {
+      if (subscriptions && subscriptions.experience && subscriptions.experience.stop) {
+        subscriptions.experience.stop();
+      }
+    }
+  });
+})

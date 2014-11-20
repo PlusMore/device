@@ -10,16 +10,16 @@ Template.experienceFilterOption.helpers({
 Template.experienceFilterOption.events({
   'click a': function (e) {
     e.preventDefault();
-    
+    e.stopImmediatePropagation();
 
     var filters = Session.get('experienceFilters') || [];
 
     // if there is already one filter for group selected, don't automatically close the window
     // do this by immediately stopping the event from propagating
     var filtersForGroup = _.where(filters, {group: this.group});
-    if (filtersForGroup.length >= 1) {
-      e.stopImmediatePropagation();
-    }
+    // if (filtersForGroup.length >= 1) {
+    //   e.stopImmediatePropagation();
+    // }
 
     var filter = {
       group: this.group,

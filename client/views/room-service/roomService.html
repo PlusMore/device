@@ -1,16 +1,12 @@
 <template name="roomService">
-  {{#if subscriptionsReady}}
-    {{#Layout template="contentLayout"}}
-      {{#contentFor "title"}}
-        Room Service
-      {{/contentFor}}
-    
-     {{> roomServiceContent}}
+  {{#Layout template="contentLayout"}}
+    {{#contentFor "title"}}
+      Room Service
+    {{/contentFor}}
+  
+   {{> roomServiceContent}}
 
-    {{/Layout}}
-  {{else}}
-    {{> loading}}
-  {{/if}}
+  {{/Layout}}
 </template>
 
 <template name="roomServiceContent">

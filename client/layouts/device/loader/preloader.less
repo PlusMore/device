@@ -19,6 +19,15 @@
       visibility: hidden;
     }
 
+    &.compact {
+      z-index: inherit;
+      background-color: transparent;
+
+      .loader-text {
+        z-index: 1;
+      }
+    }
+
     .loader-text {
       font-size: 2em;
       height: 1em;

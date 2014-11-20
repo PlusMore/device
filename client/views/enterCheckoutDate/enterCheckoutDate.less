@@ -11,15 +11,27 @@
       background: inherit;
       
       .picker__frame {
-        .picker__box {
-          padding: 0px 1em 1px;
+        top: auto;
+        bottom: 0;
+        
+        .picker__wrap {
+          width: auto;
+          height: auto;
+          display: block;
+
+          .picker__box {
+            // padding: 0px 1em 1px;
+
+            .picker__footer > button {
+              visibility: hidden;
+            }
+          }  
         }
+        
       }
     }  
   } 
 }
-
-
 
 // small
 @media (min-width: 768px) {
