@@ -1,0 +1,22 @@
+<template name="menuCategories">
+  {{#each timedMenuCategories}}
+    {{> menuCategory}}
+  {{/each}}
+  {{#each anytimeMenuCategories}}
+    {{> menuCategory}}
+  {{/each}}
+
+  {{#if noMenuCategories}}
+    {{> noRoomServiceAvailable}}
+  {{/if}}
+</template>
+
+<template name="noRoomServiceAvailable">
+  <div id='menu-categories' class="modal-content inline animated fadeInRight">
+    <div class="modal-header">
+      <h4 class="modal-title">
+        Room Service is not available at this time.
+      </h4>
+    </div>
+  </div><!-- /.modal-content -->  
+</template>

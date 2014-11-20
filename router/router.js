@@ -66,42 +66,16 @@ var filters = {
       Session.set('expired', true);
     }
   },
-  resetActiveCategory: function() {
-    Session.set('activeCategory', '');
-  },
   resetExperienceState: function() {
     Session.set('experienceState', '');
   },
-  fullscreen: function() {
-    Session.set('fullscreen', true);
-  },
-  resetFullscreen: function() {
-    Session.set('fullscreen', false);
+  clearCurrentExperienceId: function() {
+    Session.set('currentExperienceId', undefined);
   },
   scroll: function() {
-    var scroll = Session.get('overrideNextScrollPosition');
-    var scrollPosition = Session.get('lastScrollPosition');
-    if (typeof scrollPosition !== 'undefined') {
-      if (scroll) {
-        console.log('override scroll');
-        Meteor.setTimeout(function(){
-          $('.content').scrollTop(scrollPosition);
-          Session.set('lastScrollPosition', undefined);
-          Session.set('overrideNextScrollPosition', false);
-        });  
-      } else {
-        console.log('scrollTop');
-        Meteor.setTimeout(function(){
-          $('.content').animate({scrollTop: 0}, 600);
-          Session.set('lastScrollPosition', undefined);
-          Session.set('overrideNextScrollPosition', false);
-        });   
-      }
-    }
-  },
-  setLastScrollPosition: function() {
-    Session.set('lastScrollPosition', $('.content').scrollTop());
-    console.log(Session.get('lastScrollPosition'));
+    Meteor.setTimeout(function(){
+      $('.main').animate({scrollTop: 0}, 400);
+    });   
   }
 };
 
@@ -109,27 +83,9 @@ Router.onBeforeAction('loading');
 
 if (Meteor.isClient) {
   Router.onBeforeAction(Errors.clearSeen);
+  Router.onRun(filters.clearCurrentExperienceId);
+  Router.onRun(filters.scroll);
 }
-
-
-var fullscreenPages = [
-  'welcome',
-  'about',
-  'howToBook',
-  'experience',
-  'registerDevice',
-  'setupDevice',
-  'settingUp',
-  'enterCheckoutDate',
-  'entrySignIn',
-  'entrySignUp',
-  'entryResetPassword',
-  'entryForgotPassword',
-  'experience'
-];
-
-Router.onBeforeAction(filters.fullscreen, {only: fullscreenPages});
-Router.onBeforeAction(filters.resetFullscreen, {except: fullscreenPages});
 
 // Ensure user has a device account, otherwise,
 // redirect to device list?
@@ -144,24 +100,12 @@ Router.onBeforeAction(filters.ensureDeviceAccount, {only: [
 ]});
 
 Router.onBeforeAction(filters.ensureValidStay, {only: [
-  'experience',
   'experiences',
-  'orders'
+  'orders',
+  'hotelServices'
 ]});
 
 Router.onRun(filters.resetExperienceState);
-
-Router.onBeforeAction(filters.resetActiveCategory, {except: [
-  'experience',
-  'experiences'
-]});
-
-Router.onAfterAction(filters.scroll, {except: [
-  'experience'
-]});
-Router.onStop(filters.setLastScrollPosition, {except: [
-  'experience'
-]});
 
 
 // Routes
@@ -192,23 +136,6 @@ Router.map(function() {
     }
   });
 
-  this.route('about', {
-    onRun: function() {
-      Deps.nonreactive(function() {
-        App.track("View What is PlusMore?");
-      });
-    }
-  });
-    
-
-  this.route('howToBook', {
-    onRun: function() {
-      Deps.nonreactive(function() {
-        App.track("View How to Book");
-      });
-    }
-  });
-
   this.route('enterCheckoutDate', {
     path: '/enter-checkout-date',
     onRun: function() {
@@ -229,15 +156,12 @@ Router.map(function() {
   this.route('hotelServices', {
     path: '/hotel-services',
     onRun: function () {
-      var roomService = HotelServices.findOne({type: 'roomService'});
-
-      if (roomService) {
-        Session.set('selectedService', 'roomService'); 
-      } else {
-        var first = HotelServices.findOne();
+      var first = HotelServices.findOne();
+      if (first) {
         Session.set('selectedService', first.type);
+      } else {
+        Session.set('selectedService', 'hotelServicesDescription');
       }
-
     },
     data: function () {
       var selectedService = Session.get('selectedService');
@@ -247,42 +171,67 @@ Router.map(function() {
     }
   });
 
-  this.route('message');
-
-  this.route('experiences', {
-    path: '/experiences/:category?',
-    onBeforeAction: function() {
-      Session.set('activeCategory', this.params.category);
+  this.route('roomService', {
+    path: '/room-service', 
+    waitOn: function() {
+      var stayId = Session.get('stayId');
+      var hotel = Hotels.findOne();
+ 
+      return [
+        Meteor.subscribe('hotelMenu', hotel._id),
+        Meteor.subscribe('cart', stayId)
+      ];
     },
     onRun: function() {
-      Deps.nonreactive(function() {
-        App.track("View Category", {
-          "Name": Router.current().params.category
-        });
-      });
-    },
-    data: function() {
-      var activeCategory = Session.get('activeCategory');
-      return {
-        experiences: Experiences.find({category: activeCategory}, {sort: {sortOrder: 1}})
-      };
-    }
-  });
-
-  this.route('experience', {
-    path: '/experience/:_id',
-    onRun: function () {
-      Session.set('currentExperienceId', Router.current().params._id);
+      Session.set('selectedService', 'roomService');
     },
     data: function () {
       return {
-        experience: Experiences.findOne(this.params._id),
-        experienceId: this.params._id
-      };
+        configuration: HotelServices.findOne({type: 'roomService'})
+      }
+    }
+  });
+
+  this.route('experiences', {
+    path: '/experiences/:categoryId',
+    onRun: function() {
+      Session.set('experienceFilters', undefined);
+      var that = this;
+      Deps.nonreactive(function() {
+        category = Categories.findOne(that.params.categoryId);
+
+        if (category) {
+          App.track("View Category", {
+            "Name": category.name
+          });  
+        }
+        
+      });
     },
-    action: function() {
-      // Do nothing, A reactive overlay is shown based on currentExperienceId
-      Session.set('overrideNextScrollPosition', true);
+    data: function() {
+      var activeCategoryId = this.params.categoryId;
+      var experienceFilters = Session.get('experienceFilters');
+
+      var experiencesQuery = {
+        categoryId: activeCategoryId
+      };
+      if (experienceFilters && experienceFilters.length > 0) {
+        _.each(experienceFilters, function (filter) {
+          var key = filter.group + 'Tags';
+          if (typeof experiencesQuery[key] === 'undefined') {
+            experiencesQuery[key] = {};
+          }
+
+          if (typeof experiencesQuery[key].$in === 'undefined') {
+            experiencesQuery[key].$in = [];
+          }
+          experiencesQuery[key].$in.push(filter.name);
+        });
+      }
+      return {
+        experiences: Experiences.find(experiencesQuery, {sort: {sortOrder: 1}}),
+        category: Categories.findOne({_id: activeCategoryId})
+      };
     }
   });
 

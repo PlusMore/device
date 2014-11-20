@@ -1,0 +1,57 @@
+@import '/client/style/imports.import.less';
+
+.about {
+
+  header {
+    text-align: center;
+    margin-bottom: 25px;
+    margin-top: 25px;
+  }
+  
+  .features {
+    .feature {
+      text-align: center;
+      margin-bottom: 50px;
+
+      .icon {
+        font-size: 9em;
+        line-height: 1;
+      }
+
+      h3 {
+        margin-top: 0;
+        font-size: 2em;
+      }
+
+      p {
+        font-size: 1.5em;
+      }
+    }
+  }
+
+  footer {
+    text-align: center;
+    margin-bottom: 50px;  
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
+}
+
+// small
+@media (min-width: 768px) {
+  .about {
+
+    header {
+      margin-bottom: 100px;
+    }
+    
+  }
+}
+
+// medium
+@media (min-width: 992px) {}
+
+// large
+@media (min-width: 1200px) {}

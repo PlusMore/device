@@ -1,0 +1,36 @@
+<template name="hotelServices">
+  {{#if subscriptionsReady}}
+    {{#Layout template="subnavContentLayout"}}
+      {{#contentFor "title"}}
+        Guest Services
+      {{/contentFor}}
+
+      {{#contentFor "subnav"}}
+        {{> hotelServicesNav}}
+      {{/contentFor}}
+
+    
+      {{#if hotelServicesEnabled}}
+
+        {{> Template.dynamic template=subNavContentTemplate data=configuration}}
+
+      {{else}}
+        {{> hotelServicesNotConfigured}}
+      {{/if}}
+
+    {{/Layout}}
+  {{else}}
+    {{> loading}}
+  {{/if}}
+</template>
+
+
+<template name="hotelServicesNotConfigured">
+  <section>
+    <div class="main container-fluid">
+      <div class="big-text">
+        <p class="lead">Hotel Services is not configured.</p>
+      </div>
+    </div>
+  </section>
+</template>

@@ -1,0 +1,38 @@
+@import '/client/style/imports.import.less';
+
+.order {
+  h3 {
+    text-transform: uppercase;
+
+    small {
+      color: #fff;
+      text-transform: none;
+    }
+  }
+
+  .time-ago {
+    margin-top: 40px;
+    span {
+      padding: 10px;
+      font-size: 16px;
+      background-color: rgba(255,255,255,.1);
+    }
+  }
+
+  .reservation-details {
+    margin-bottom: 10px;
+    & > p {
+      font-size: 1.5em;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  .venue {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    & > span {
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+<template name="welcome">
+  {{#if needsRegistration}}
+    {{> registerDevice}}
+  {{else}}
+    {{> welcomeContent}}
+  {{/if}}
+</template>
+
+<template name="welcomeContent">
+  <section>
+
+    <div id="main" class="main container-fluid scrollable no-padding-top about">
+      
+      <header class="row">
+        <div class="col-xs-12">
+          <h1>Welcome to {{hotel.name}}</h1>
+        </div>
+      </header>
+      
+      <div class="row features">
+        <div class="col-sm-4 feature hidden-xs">
+          <i class="icon icon-dining"></i>
+          <h3>Room Service</h3>
+        </div>
+        <div class="col-sm-4 feature hidden-xs">
+        <i class="icon icon-nightlife"></i>
+          <h3>The Best Experiences</h3>
+        </div>
+        <div class="col-sm-4 feature hidden-xs">
+          <i class="icon icon-vip"></i>
+          <h3>Explore {{hotel.geo.city}}</h3>
+        </div>
+      </div> 
+
+      <footer class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+          <a class='btn btn-lg'>Tap to begin</a>
+          <h3 class='location'>{{device.location}}</h3>
+        </div>
+      </footer>
+
+    </div>    
+    
+  </section>  
+</template>

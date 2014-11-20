@@ -1,0 +1,48 @@
+<template name="deviceLayout">
+  <div class="preloader {{loaderClass}}">
+    <div class="loader-text">{{loaderText}}</div>
+    <div class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+  </div>
+
+  <div id="perspective" class="perspective effect-persepctive-shift {{modalview}} {{showMenu}}">
+    <div class="perspective-container">
+      <img class="bg" alt='bg' src="{{hotelPhotoUrl}}" />
+      <div class="overlay-bg black"></div>  
+      {{> meteorErrors}}
+
+      <div class="outer">
+        <div class="holder">
+          {{#if currentUser}}
+            {{> yield}}
+          {{else}}
+            {{#if loggingIn}}
+            {{else}}
+              {{> login}}
+            {{/if}}  
+          {{/if}}
+        </div>
+      </div>
+        
+    </div>
+
+    {{> mainNav}}
+    
+  </div>
+
+  <!-- Overlays -->
+  {{#if currentUser}}
+    {{> experience}}
+    {{> addItemToCartModal}}
+    {{> confirmReservation}}
+  {{/if}}
+
+  {{> idleOverlay}}
+
+  <!-- {{> deviceHeader}} -->
+  
+  <div data-status="{{connectionStatus}}"></div>
+</template>

@@ -1,54 +1,4 @@
-Orders = new Meteor.Collection('orders', {
-  schema: new SimpleSchema({
-    read: {
-      type: Boolean
-    },
-    open: {
-      type: Boolean
-    },
-    requestedAt: {
-      type: Date
-    },
-    deviceId: {
-      type: String
-    },
-    hotelId: {
-      type: String
-    },
-    userId: {
-      type: String
-    },
-    type: {
-      type: String
-    },
-    confirmationDate: {
-      type: Date,
-      optional: true
-    },
-    status: {
-      type: String,
-      optional: true
-    },
-    cancelledDate: {
-      type: Date,
-      optional: true
-    }
-  })
-});
-
-// Allow/Deny
-
-Orders.allow({
-  insert: function(userId, doc){
-    return userId;
-  },
-  update:  function(userId, doc, fieldNames, modifier){
-    return userId === doc.userId;
-  },
-  remove:  function(userId, doc){
-    return false;
-  }
-});
+Orders = new Meteor.Collection('orders');
 
 // Schemas
 
@@ -57,11 +7,11 @@ Schema.makeReservation = new SimpleSchema({
     type: Number,
     min: 1
   },
-  when: {
-    type: String
-  },
   date: {
     type: Date
+  },
+  zone: {
+    type: Number
   },
   experienceId: {
     type: String
@@ -74,6 +24,78 @@ Schema.request = new SimpleSchema({
   },
   for: {
     type: String
+  },
+  date: {
+    type: Date
+  },
+  zone: {
+    type: Number
+  }
+});
+
+Schema.Order = new SimpleSchema({
+  open: {
+    type: Boolean
+  },
+  requestedAt: {
+    type: Date
+  },
+  requestedZone: {
+    type: Number
+  },
+  deviceId: {
+    type: String
+  },
+  hotelId: {
+    type: String
+  },
+  userId: {
+    type: String
+  },
+  type: {
+    type: String
+  },
+  confirmationDate: {
+    type: Date,
+    optional: true
+  },
+  status: {
+    type: String,
+    optional: true
+  },
+  cancelledDate: {
+    type: Date,
+    optional: true
+  },
+  reservation: {
+    type: Object,
+    optional: true,
+    blackbox: true
+  },
+  request: {
+    type: Object,
+    optional: true,
+    blackbox: true
+  },
+  for: {
+    type: String,
+    optional: true
+  }
+});
+
+Orders.attachSchema(Schema.Order);
+
+// Allow/Deny
+
+Orders.allow({
+  insert: function(userId, doc){
+    return userId;
+  },
+  update:  function(userId, doc, fieldNames, modifier){
+    return userId === doc.userId;
+  },
+  remove:  function(userId, doc){
+    return false;
   }
 });
 
@@ -122,7 +144,7 @@ Meteor.methods({
       stayId: stay._id,
       reservation: reservation,
       requestedAt: new Date(),
-      read: false,
+      requestedZone: reservation.zone,
       open: true,
       status: 'pending',
       userId: user._id
@@ -143,6 +165,8 @@ Meteor.methods({
 
     if (Meteor.isServer) {
       var url = stripTrailingSlash(Meteor.settings.apps.admin.url) + "/patron-order/{0}".format(orderId);
+      var when = moment(reservation.date).zone(reservation.zone);
+      when = when.format('MMMM Do YYYY, h:mm a') + " (" + when.calendar() + ")";
 
       Email.send({
         to: 'order-service@plusmoretablets.com',
@@ -151,15 +175,15 @@ Meteor.methods({
         text: "Device in {0} at {1} has requested a reservation.\n\n".format(device.location, hotel.name) + 
               "Reservation Details:\n\n"+ 
               "For: {0}\n".format(experience.title)+ 
-              "When: {0}\n".format(reservation.when)+ 
+              "When: {0}\n".format(when)+ 
               "Name: {0}\n".format(reservation.partyName)+ 
               "Party Size: {0}\n".format(reservation.partySize)+ 
               "Email: {0}\n".format(reservation.emailAddress)+ 
               "\n"+ 
               "Venue Info\n\n"+ 
               "{0}\n".format(experience.venueName)+ 
-              "{0}\n".format(experience.street)+ 
-              "{0}, {1} {2}\n".format(experience.city, experience.state, experience.zip)+ 
+              "{0} {1}\n".format(experience.geo.streetNumber, experience.geo.streetName)+ 
+              "{0}, {1} {2}\n".format(experience.geo.city, experience.geo.state, experience.geo.zipcode)+ 
               "{0}\n".format(experience.phone)+ 
               "\nTo respond to this request, click the link below\n\n"+ 
               url
@@ -181,6 +205,8 @@ Meteor.methods({
     if (Meteor.server) {
       var experience = Experiences.findOne(order.reservation.experienceId);
       var reservation = order.reservation;
+      var when = moment(reservation.date).zone(reservation.zone);
+      when = when.format('MMMM Do YYYY, h:mm a') + " (" + when.calendar() + ")";
 
       Email.send({
         to: 'order-service@plusmoretablets.com',
@@ -189,7 +215,7 @@ Meteor.methods({
         text: "Reservation for {0} has been cancelled.\n\n".format(experience.title) + 
               "Reservation Details:\n\n" + 
               "For: {0}\n".format(experience.title) + 
-              "When: {0}\n".format(reservation.when) + 
+              "When: {0}\n".format(when) + 
               "Name: {0}\n".format(reservation.partyName) + 
               "Party Size: {0}\n".format(reservation.partySize) + 
               "Email: {0}\n".format(reservation.emailAddress) + 
@@ -205,13 +231,11 @@ Meteor.methods({
     // Check that type is provided
     check(request.type, String);
 
+    // add any validation to schema for specific request types
     var requestSchema = _.clone(Schema.request._schema);
     switch (request.type) {
       case 'transportation':
         var transportationSchema = new SimpleSchema({
-          date: {
-            type: Date
-          },
           transportationType: {
             type: String
           }
@@ -223,45 +247,18 @@ Meteor.methods({
         });
         break;
       case 'bellService': 
-        var bellServiceSchema = new SimpleSchema({
-          date: {
-            type: Date
-          }
-        });
-        requestSchema = _.extend(requestSchema, {
-          options: {
-            type: bellServiceSchema
-          }
-        });
+        // Nothing extra needed for bellService
         break;
       case 'houseKeeping': 
-        var houseKeepingSchema = new SimpleSchema({
-          date: {
-            type: Date
-          }
-        });
-        requestSchema = _.extend(requestSchema, {
-          options: {
-            type: houseKeepingSchema
-          }
-        });
+        // Nothing extra needed for houseKeeping
         break;
       case 'wakeUpCall': 
-        var wakeUpCallSchema = new SimpleSchema({
-          date: {
-            type: Date
-          }
-        });
-        requestSchema = _.extend(requestSchema, {
-          options: {
-            type: wakeUpCallSchema
-          }
-        });
+        // Nothing extra needed for wakeUpCall
         break;
       case 'valetServices': 
         var valetServicesSchema = new SimpleSchema({
-          date: {
-            type: Date
+          ticketNumber: {
+            type: String
           }
         });
         requestSchema = _.extend(requestSchema, {
@@ -294,11 +291,12 @@ Meteor.methods({
       type: 'request',
       for: request.for,
       deviceId: device._id,
-      deviceLocation: device.location,
+      // deviceLocation: device.location,
       hotelId: hotel._id,
       stayId: stay._id,
       request: request,
       requestedAt: new Date(),
+      requestedZone: request.zone,
       open: true,
       status: 'pending',
       userId: user._id
@@ -310,6 +308,10 @@ Meteor.methods({
 
     if (Meteor.isServer) {
       var url = stripTrailingSlash(Meteor.settings.apps.admin.url) + "/patron-order/{0}".format(orderId);
+      var when = moment(request.date).zone(request.zone);
+      when = when.format('MMMM Do YYYY, h:mm a') + " (" + when.calendar() + ")";
+
+      var friendlyRequestType = HotelServices.friendlyRequestType(request.type);
 
       // for our information
       Email.send({
@@ -319,13 +321,21 @@ Meteor.methods({
         text: "This is an informational email and does not require your service\n\n" + 
               "Device in {0} at {1} has requested hotel service.\n\n".format(device.location, hotel.name)  + 
               "Request Details:\n\n" + 
-              "For: {0}\n".format(order.request.type) + 
-              "When: {0}\n".format(moment(order.request.options.date).calendar()) + 
+              "For: {0}\n".format(friendlyRequestType) + 
+              "When: {0}\n".format(when) + 
               "\nTo view the status of this request, click the link below\n\n" + 
               url
       });
     }
 
     return orderId;
-  }
+  }, 
+  cancelRequest: function(orderId) {
+    var order = Orders.findOne(orderId);
+    if (!order) {
+      throw new Meteor.Error(403, 'Not a valid order'); 
+    }
+
+    Orders.update(orderId, {$set: {open: false, status: 'cancelled', cancelledDate: new Date()}});
+  },
 });

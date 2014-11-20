@@ -114,26 +114,22 @@ Meteor.startup(function() {
         }
       });
     },
-    begin: function() {
-      var stay = Stays.findOne({userId: Meteor.userId()});
-
-      if (!stay) {
-        App.startTutorial();
-        // Router.go('enterCheckoutDate');
-      } else {
-        App.endTutorial();
-      }
-    },
-    startTutorial: function() {
-      Router.go('about');
-    },
-    endTutorial: function() {
+    go: function() {
       var stay = Stays.findOne({userId: Meteor.userId()});
 
       if (!stay) {
         Router.go('enterCheckoutDate');
       } else {
-        Router.go('experiences', {category: 'Dining'});
+        App.goToStartPage();
+      }
+    },
+    goToStartPage: function() {
+      var diningCategory = Categories.findOne({name: 'Dining'});
+      if (diningCategory) {
+        Router.go('experiences', {categoryId: diningCategory._id});  
+      } else {
+        var firstCategory = Categories.findOne();
+        Router.go('experiences', {categoryId: firstCategory._id});
       }
     }
   });

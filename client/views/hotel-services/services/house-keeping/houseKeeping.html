@@ -1,0 +1,41 @@
+<template name="houseKeeping">
+  <div class="row animated animated somewhat-faster fadeInUp">
+    <div class="col-xs-12 col-xs-no-padding">
+      <div class="modal-content inline">
+        <div class="modal-header">
+          <h3 class="modal-title">
+            House Keeping
+            <small>
+              Available
+              {{#if startTime}}
+                {{startTime}} - {{endTime}}
+              {{else}}
+                Anytime
+              {{/if}}
+            </small>
+          </h3>
+        </div>
+       
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <p class='lead'>
+                Know when you are going to be out? Select the time you would like House Keeping to come clean your room.
+              </p>
+              <form class="form-horizontal">
+                <fieldset>
+                  {{> selectGeneric}}
+                </fieldset>
+              </form>
+            </div>
+          </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button id="btn-request" name="btn-request" class="btn btn-default progress-button" data-loading="Requesting..." data-finished="Requested!">Request Service</button>
+        </div>
+
+      </div><!-- /.modal-content -->        
+    </div>    
+  </div>
+</template>

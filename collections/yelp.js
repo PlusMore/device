@@ -1,7 +1,7 @@
 // this package requires yelp service to be configured
 
 
-var yelp_base_url = "http://api.yelp.com/v2/";
+var yelp_base_url = "https://api.yelp.com/v2/";
 
 YelpAPI = {
   search: function(search, isCategory, latitude, longitude, callback) {
