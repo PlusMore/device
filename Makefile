@@ -32,18 +32,16 @@ android-device:
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
 	meteor run --settings ./config/$(APP_ENV)/settings.json android-device -p $(PORT) --mobile-server $(HOST):$(PORT) $(APP_OPTIONS)
 
-build-android:
+build:
 	rm -rf ~/cordova-builds/$(APP_ENV)
 	APP_ENV=$(APP_ENV) \
 	SUBDOMAIN=$(SUBDOMAIN) \
+	VERSION=$(VERSION) \
 	meteor build ~/cordova-builds/$(APP_ENV) --server=$(SUBDOMAIN).plusmoretablets.com 
 	cd ~/cordova-builds/$(APP_ENV)/android/
 	jarsigner -digestalg SHA1 ~/cordova-builds/$(APP_ENV)/android/unaligned.apk $(SUBDOMAIN)
 	~/.meteor/android_bundle/android-sdk/build-tools/20.0.0/zipalign 4 ~/cordova-builds/$(APP_ENV)/android/unaligned.apk ~/cordova-builds/$(APP_ENV)/android/$(SUBDOMAIN).apk
-	cp -f ~/cordova-builds/$(APP_ENV)/android/$(SUBDOMAIN).apk /Users/pat/Box\ Sync/Plus\ More/For\ Pat
-
-build-prod:
-	meteor build ../cordova-builds/prod --server=device.plusmoretablets.com	
+	cp -f ~/cordova-builds/$(APP_ENV)/android/$(SUBDOMAIN)-$(VERSION).apk /Users/pat/Box\ Sync/Plus\ More/For\ Pat
 
 ios-device:
 	NODE_OPTIONS=$(NODE_OPTIONS) \
