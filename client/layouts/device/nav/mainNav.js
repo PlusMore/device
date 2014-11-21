@@ -31,9 +31,6 @@ Template.mainNav.helpers({
         }
       }
     }
-  },
-  roomServiceEnabled: function() {
-    return true;
   }
 });
 
