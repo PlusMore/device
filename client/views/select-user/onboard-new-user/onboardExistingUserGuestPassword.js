@@ -1,10 +1,10 @@
-Template.onboardUserGuestNotifications.helpers({
-  guestNotificationsSchema: function() {
-    return Schema.guestNotifications;
+Template.onboardExistingUserGuestPassword.helpers({
+  guestPasswordSchema: function() {
+    return Schema.guestPassword;
   }
 });
 
-Template.onboardUserGuestNotifications.rendered = function () {
+Template.onboardUserGuestPassword.rendered = function () {
   // Convert all the links with the progress-button class to
   // actual buttons with progress meters.
   // You need to call this function once the page is loaded.
@@ -13,19 +13,19 @@ Template.onboardUserGuestNotifications.rendered = function () {
 };
 
 AutoForm.hooks({
-  guestNotifications: {
+  guestPassword: {
     onSubmit: function(insertDoc, updateDoc, currentDoc) {
       this.event.preventDefault();
 
       var accountOptions = Session.get('onboardAccountCreationOptions');
 
       accountOptions = _.extend(accountOptions, {
-        email: insertDoc.email
+        password: insertDoc.password
       });
       Session.set('onboardAccountCreationOptions', accountOptions);
-
+      
       var parent = this.template.findParentTemplate('onboardUser');
-      parent.$(parent.firstNode).trigger('onboard-step-guest-notifications-complete');
+      parent.$(parent.firstNode).trigger('onboard-step-existing-guest-password-complete');
     },
     // Called at the beginning and end of submission, respectively.
     // This is the place to disable/enable buttons or the form,

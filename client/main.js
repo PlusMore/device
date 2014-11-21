@@ -18,37 +18,54 @@ Meteor.startup(function() {
 
     if (registeredDeviceId) {
       console.log('registered device');
+      console.log('subscribing to device, experiencesData, and stayInfo')
       subscriptions.device = Meteor.subscribe('device', registeredDeviceId);
       subscriptions.experiencesData = Meteor.subscribe('experiencesData', registeredDeviceId);
-    }
-  });
-
-  // on login, get stay info, use that to find and set deviceId to LocalStore
-  Deps.autorun(function () {
-    var user = Meteor.user();
-
-    if (user) {
-      console.log('subscribing for userId', user._id);
-      // subscriptions.experiencesData = Meteor.subscribe('experiencesData');
-      subscriptions.orders = Meteor.subscribe('orders');
       subscriptions.stayInfo = Meteor.subscribe('stayInfo');
-    }
-    else {
+    } else {
+      console.log('unsubscribing device, experiencesData, and stayInfo')
 
-      if (subscriptions.orders) {
-        subscriptions.orders.stop();
-        subscriptions.orders = null;
+      if (subscriptions.device) {
+        subscriptions.device.stop();
+        subscriptions.device = null;
       }
-
+      if (subscriptions.experiencesData) {
+        subscriptions.experiencesData.stop();
+        subscriptions.experiencesData = null;
+      }
       if (subscriptions.stayInfo) {
         subscriptions.stayInfo.stop();
         subscriptions.stayInfo = null;
       }
     }
+  });
+
+  // on login, get stay info, use that to find and set deviceId to LocalStore
+  Tracker.autorun(function () {
+    var user = Meteor.user();
+
+    if (user) {
+      // subscriptions.experiencesData = Meteor.subscribe('experiencesData');
+      // subscriptions.orders = Meteor.subscribe('orders');
+      // subscriptions.stayInfo = Meteor.subscribe('stayInfo');
+    }
+    else {
+
+      // if (subscriptions.orders) {
+      //   subscriptions.orders.stop();
+      //   subscriptions.orders = null;
+      // }
+
+      // if (subscriptions.stayInfo) {
+      //   subscriptions.stayInfo.stop();
+      //   subscriptions.stayInfo = null;
+      //   Session.set('stayId', undefined);
+      // }
+    }
     
   });
 
-  Deps.autorun(function() {
+  Tracker.autorun(function() {
     var stays = Stays.find();
     if (stays.count() > 0) {
       Session.set('stayId', Stays.findOne()._id);

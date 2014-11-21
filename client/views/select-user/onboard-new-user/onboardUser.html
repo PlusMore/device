@@ -1,19 +1,5 @@
 <template name="onboardUser">
   <div id="onboard-user">
-    {{#if stepOne}}
-      {{> onboardUserGuestInfo}}
-    {{/if}}
-
-    {{#if stepTwo}}
-      {{> onboardUserGuestNotifications}}
-    {{/if}}
-
-    {{#if stepThree}}
-      {{> onboardUserGuestPassword}}
-    {{/if}}
-
-    {{#if finished}}
-      {{> onboardUserFinished}}
-    {{/if}}  
+     {{> Template.dynamic template=onboardStep}}
   </div>
 </template>

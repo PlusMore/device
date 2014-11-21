@@ -13,19 +13,28 @@ Stays.allow({
 });
 
 Meteor.methods({
-  registerStay: function (checkoutDate) {
-    check(checkoutDate, Date);
-    var user = Meteor.user();
-
-    var stay = Stays.findOne({userId: user._id, checkoutDate: {$gt: new Date()}});
-
-    if (stay) {
-      throw new Meteor.Error(500, 'Stay already registered for this user');
-    }
+  registerStay: function (deviceId, checkoutDate) {
+    debugger;
+    check(deviceId, String);
+    check(checkoutDate, {
+      date: Date,
+      zone: Number
+    });
 
     var device = Devices.findOne(user.deviceId);
     if (!device) {
       throw new Meteor.Error(500, 'Not a valid device');
+    }
+
+    if (device.stayId) {
+      var stay = Stays.findOne(device.stayId);
+
+      if (stay) {
+        if (moment.zone(checkoutDate.zone) < moment(stay.checkoutDate.date).zone()) {
+          // this device already has a registered stay
+          throw new Meteor.Error(500, 'This device\'s current stay has not ended.');
+        }
+      }
     }
 
     var hotel = Hotels.findOne(device.hotelId);
@@ -34,12 +43,14 @@ Meteor.methods({
     }
 
     var stayId = Stays.insert({
-      userId: user._id,
       checkInDate: new Date(),
-      checkoutDate: checkoutDate,
+      checkoutDate: checkoutDate.date,
+      zone: checkoutDate.zone,
       hotelId: hotel._id,
       deviceId: device._id
     });
+
+    Devices.update(device._id, {$set: {stayId: stayId}});
 
     return Stays.findOne(stayId);
   },

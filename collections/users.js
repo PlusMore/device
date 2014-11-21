@@ -23,7 +23,7 @@ Schema.guestInfo = new SimpleSchema({
     label: 'Last Name'
   },
   checkoutDate: {
-    type: Date,
+    type: String,
     label: 'Checkout Date'
   }
 });
@@ -64,5 +64,13 @@ Meteor.methods({
 
     return true;
     
-  }
+  },
+  doesUserExist: function(email) {
+    var user = Meteor.users.findOne({'emails.address': email});
+    if (user) {
+      return true;
+    } else {
+      return false;
+    }
+  } 
 });
