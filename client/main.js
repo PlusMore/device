@@ -68,34 +68,6 @@ Meteor.startup(function() {
     }
   });
 
-
-
-  // on login, get stay info, use that to find and set deviceId to LocalStore
-  Tracker.autorun(function () {
-    var user = Meteor.user();
-
-    if (user) {
-
-
-      // subscriptions.experiencesData = Meteor.subscribe('experiencesData');
-      // subscriptions.orders = Meteor.subscribe('orders');
-      // subscriptions.stayInfo = Meteor.subscribe('stayInfo');
-    }
-    else {
-
-      // if (subscriptions.orders) {
-      //   subscriptions.orders.stop();
-      //   subscriptions.orders = null;
-      // }
-
-      // if (subscriptions.stayInfo) {
-      //   subscriptions.stayInfo.stop();
-      //   subscriptions.stayInfo = null;
-      //   Session.set('stayId', undefined);
-      // }
-    }
-    
-  });
 });
 
 
