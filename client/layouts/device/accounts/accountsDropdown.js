@@ -2,8 +2,11 @@ Template.accountsDropdown.helpers({
   dropdownText: function () {
     var user = Meteor.user();
 
-    if (user) 
-      return "{0} {1}".format(user.profile.firstName, user.profile.lastName);
+    if (user) {
+      if (user.profile) {
+        return "{0} {1}".format(user.profile.firstName, user.profile.lastName);
+      }
+    }
 
     var deviceId = LocalStore.get('deviceId');
 
