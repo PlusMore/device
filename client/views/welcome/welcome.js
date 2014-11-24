@@ -1,8 +1,6 @@
 Template.welcome.helpers({
   needsRegistration: function() {
-    if (Meteor.user()) {
-      return !Meteor.user().deviceId;
-    }
+    return !LocalStore.get('deviceId');
   }
 });
 

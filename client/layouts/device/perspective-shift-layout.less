@@ -68,7 +68,7 @@ html, body, .perspective {
 
 /* Outer Nav */
 .outer-nav {
-    z-index: 15;
+    z-index: 5;
     position: absolute;
     height: auto;
     font-size: 1.4em;
@@ -161,6 +161,13 @@ html, body, .perspective {
     &.animate > .perspective-container {
         -webkit-transform: translateZ(-1500px) translateX(100%) rotateY(-45deg);
         transform: translateZ(-1500px) translateX(100%) rotateY(-45deg);
+    }
+
+    &.animate {
+        & .outer-nav {
+            z-index: 15;
+        }
+              
     }
 
     & .outer-nav a {

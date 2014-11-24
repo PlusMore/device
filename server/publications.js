@@ -139,11 +139,10 @@ Meteor.publish('experiencesData', function(deviceId) {
   }
 });
 
-Meteor.publish('stayInfo', function(deviceId) {
-  var device = Devices.findOne(deviceId);
-
+Meteor.publish('stayInfo', function(stayId) {
   return [
-    Stays.find(device.stayId)
+    Stays.find(stayId),
+    Meteor.users.find({stayId: stayId})
   ];
 });
 

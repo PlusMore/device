@@ -18,8 +18,17 @@ Template.selectUser.helpers({
       return 'hidden';
     }
   }, 
-  hasStay: function() {
-    return !!Session.get('stayId');
+  hasStayWithUsers: function() {
+    var stay = Stays.findOne(Session.get('stayId'));
+    if (stay) {
+      if (stay.users.length > 0) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
   }
 });
 
@@ -37,7 +46,10 @@ Template.selectUser.events({
   'click [data-dismiss="modal"]':function(e, tmpl){
     console.log('dismiss');
 
-    hideModal();
+    tmpl.$(tmpl.firstNode).trigger('hide-modal');
     $(document).trigger('cancel-user-selected');
+  },
+  'hide-modal': function () {
+    hideModal();
   }
 });

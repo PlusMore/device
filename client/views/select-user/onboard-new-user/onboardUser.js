@@ -8,13 +8,17 @@ Template.onboardUser.events({
   'onboard-step-guest-info-complete': function(e, tmpl) {
     var deviceId = LocalStore.get('deviceId');
     var checkoutDate = Session.get('checkoutDate');
-    // Session.set('loader', 'Verifying');
-    // Meteor.call('registerStay', deviceId, checkoutDate, function(err, stay) {
-    //   Session.set('onboardStep', 'onboardUserGuestNotifications');
-    //   Session.set('loader', undefined);
-    // });
-      Session.set('onboardStep', 'onboardUserGuestNotifications');
+    Session.set('loader', 'Verifying');
+    Meteor.call('registerStay', deviceId, checkoutDate, function(err, stay) {
+      if (err) {
+        Session.set('loader', undefined);
 
+        return Errors.throw('Unable to register stay.');
+      }
+      Session.set('stayId', stay._id);
+      Session.set('onboardStep', 'onboardUserGuestNotifications');
+      Session.set('loader', undefined);
+    });
   },
   'onboard-step-guest-notifications-complete': function(e, tmpl) {
     // check if user exists, if so, send to login, 
@@ -38,7 +42,11 @@ Template.onboardUser.events({
 
     Accounts.createUser(accountOptions, function(err) {
       if (err) return Errors.throw(err.message);
-      Meteor.call('addUserToStay', function() {
+
+      var device = Devices.findOne(LocalStore.get('deviceId'));
+      var stay = Stays.findOne(device.stayId);
+
+      Meteor.call('addUserToStay', stay._id, function() {
         Session.set('onboardStep', 'complete');
         Meteor.setTimeout(function() {
           tmpl.$(tmpl.firstNode).trigger('onboard-complete');
@@ -48,11 +56,21 @@ Template.onboardUser.events({
   },
   'onboard-step-existing-guest-password-complete': function(e, tmpl) {
     var accountOptions = Session.get('onboardAccountCreationOptions');
-    accountOptions = _.pick(accountOptions, ['profile', 'email', 'password'])
+    var user = {
+      user: {
+        email: accountOptions.email
+      },
+      password: accountOptions.password
+    }
 
-    Accounts.createUser(accountOptions, function(err) {
+
+    Meteor.loginWithPassword(user, function(err) {
       if (err) return Errors.throw(err.message);
-      Meteor.call('addUserToStay', function() {
+
+      var device = Devices.findOne(LocalStore.get('deviceId'));
+      var stay = Stays.findOne(device.stayId);
+
+      Meteor.call('addUserToStay', stay._id, function() {
         Session.set('onboardStep', 'complete');
         Meteor.setTimeout(function() {
           tmpl.$(tmpl.firstNode).trigger('onboard-complete');
@@ -61,10 +79,12 @@ Template.onboardUser.events({
     });
   },
   'onboard-complete': function(e, tmpl) {
+    tmpl.$(tmpl.firstNode).closest('.modal').trigger('hide-modal');
     $(document).trigger('user-selected');
-    hideModal();
+    
     Meteor.setTimeout(function() {
       Session.set('onboardStep', undefined);
+      Session.get('onboardAccountCreationOptions', undefined);
     }, 2000);
   }
 });

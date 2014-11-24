@@ -7,13 +7,15 @@
       </a>
       <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
 
+        {{#each users}}
         <li>
-          <a role="menuitem" tabindex="-1" href="#">Patrick Scott</a>
+          <a role="menuitem" tabindex="-1" href="#">
+            {{#with profile}}
+              {{firstName}} {{lastName}}
+            {{/with}}
+          </a>
         </li>
-
-        <li>
-          <a role="menuitem" tabindex="-1" href="#">Manny Sani</a>
-        </li>
+        {{/each}}
 
         <li class="divider"></li>
         <li>

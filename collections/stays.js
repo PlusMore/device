@@ -14,14 +14,13 @@ Stays.allow({
 
 Meteor.methods({
   registerStay: function (deviceId, checkoutDate) {
-    debugger;
     check(deviceId, String);
     check(checkoutDate, {
       date: Date,
       zone: Number
     });
 
-    var device = Devices.findOne(user.deviceId);
+    var device = Devices.findOne(deviceId);
     if (!device) {
       throw new Meteor.Error(500, 'Not a valid device');
     }
@@ -30,9 +29,12 @@ Meteor.methods({
       var stay = Stays.findOne(device.stayId);
 
       if (stay) {
-        if (moment.zone(checkoutDate.zone) < moment(stay.checkoutDate.date).zone()) {
+        if (moment().zone(checkoutDate.zone) < moment(stay.checkoutDate.date).zone()) {
           // this device already has a registered stay
-          throw new Meteor.Error(500, 'This device\'s current stay has not ended.');
+          // if no users, allow it to be overwritten
+
+          if (stay.users.length > 0) 
+            throw new Meteor.Error(500, 'This device\'s current stay has not ended.');
         }
       }
     }
@@ -53,6 +55,24 @@ Meteor.methods({
     Devices.update(device._id, {$set: {stayId: stayId}});
 
     return Stays.findOne(stayId);
+  },
+  addUserToStay: function(stayId) {
+    var user = Meteor.user();
+
+    if (user) {
+
+      var stay = Stays.findOne(stayId);
+
+      if (!stay) {
+        throw new Meteor.Error(500, 'Stay not found.');
+      }  
+
+      Meteor.users.update(user._id, {$set: {stayId: stay._id}});
+      return Stays.update(stay._id, {$addToSet: {users: user._id}});
+
+    } else {
+      throw new Meteor.Error(403, 'Please log in to use this feature');
+    }
   },
   endStay: function (stay) {
     var currentDeviceId = Meteor.user().deviceId;

@@ -9,5 +9,9 @@ Template.accountsDropdown.helpers({
     } else {
       return 'Sign in';
     }
+  },
+  users: function() {
+    var stayId = Session.get('stayId');
+    return Meteor.users.find({stayId: stayId});
   }
 });

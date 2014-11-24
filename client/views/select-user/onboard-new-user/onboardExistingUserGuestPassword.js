@@ -13,7 +13,7 @@ Template.onboardUserGuestPassword.rendered = function () {
 };
 
 AutoForm.hooks({
-  guestPassword: {
+  existingGuestPassword: {
     onSubmit: function(insertDoc, updateDoc, currentDoc) {
       this.event.preventDefault();
 

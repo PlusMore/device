@@ -21,7 +21,6 @@ Meteor.startup(function() {
       console.log('subscribing to device, experiencesData, and stayInfo')
       subscriptions.device = Meteor.subscribe('device', registeredDeviceId);
       subscriptions.experiencesData = Meteor.subscribe('experiencesData', registeredDeviceId);
-      subscriptions.stayInfo = Meteor.subscribe('stayInfo');
     } else {
       console.log('unsubscribing device, experiencesData, and stayInfo')
 
@@ -33,10 +32,30 @@ Meteor.startup(function() {
         subscriptions.experiencesData.stop();
         subscriptions.experiencesData = null;
       }
-      if (subscriptions.stayInfo) {
-        subscriptions.stayInfo.stop();
-        subscriptions.stayInfo = null;
-      }
+    }
+  });
+
+  // if a stay becomes available, set stayId for session
+  Tracker.autorun(function() {
+    var stays = Stays.find();
+    if (stays.count() > 0) {
+      console.log("stay added")
+      Session.set('stayId', Stays.findOne()._id);
+    }
+  });
+
+  // when device is available
+  Tracker.autorun(function () {
+    var device = Devices.find();
+    if (device.count() > 0) {
+      Session.set('stayId', Devices.findOne().stayId);
+    }
+  });
+
+  Tracker.autorun(function () {
+    var stayId = Session.get('stayId');
+    if (stayId) {
+      subscriptions.stayInfo = Meteor.subscribe('stayInfo', stayId);
     }
   });
 
@@ -63,13 +82,6 @@ Meteor.startup(function() {
       // }
     }
     
-  });
-
-  Tracker.autorun(function() {
-    var stays = Stays.find();
-    if (stays.count() > 0) {
-      Session.set('stayId', Stays.findOne()._id);
-    }
   });
 });
 

@@ -25,7 +25,7 @@ AutoForm.hooks({
       Session.set('onboardAccountCreationOptions', accountOptions);
       
       var parent = this.template.findParentTemplate('onboardUser');
-      parent.$(parent.firstNode).trigger('onboard-step-three-complete');
+      parent.$(parent.firstNode).trigger('onboard-step-guest-password-complete');
     },
     // Called at the beginning and end of submission, respectively.
     // This is the place to disable/enable buttons or the form,
