@@ -39,28 +39,31 @@ Meteor.publish('userHotelData', function () {
 });
 
 /**
- * Always publish logged-in devices deviceId, device data, hotel data, and hotel-service data
+ * Always publish logged-in users stayId, Stay info, device info, device data, hotel data, and hotel-service data
  *
  */
 Meteor.publish(null, function () {
   var userId = this.userId;
   
   if (userId) {
-    var fields = {deviceId:1},
-        user = Meteor.users.findOne({_id:userId}),
-        deviceId = user && user.deviceId || null;
-    if (deviceId) {
+    var fields = {
+        stayId:1
+      },
+      user = Meteor.users.findOne({_id:userId}),
+      stayId = user && user.stayId || null;
 
-      var device = Devices.findOne(deviceId);
-      if (device) {
+
+    if (stayId) {
+
+      var stay = Stays.find(stayId);
+
+      if (stay) {
         return [
           Meteor.users.find(userId, {fields: fields}),
-          Devices.find(deviceId),
-          Hotels.find(device.hotelId),
-          HotelServices.find({hotelId: device.hotelId, active: true})
+          Stays.find(stayId)
         ];
       }
-
+      
     } else {
       this.ready();
       return null;

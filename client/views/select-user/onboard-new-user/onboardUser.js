@@ -30,6 +30,7 @@ Template.onboardUser.events({
       if (err) return Errors.throw('Something went wrong.');
 
       if (userExists) {
+        Session.set('onboardAccountCreationUserId', userExists);
         Session.set('onboardStep', 'onboardExistingUserGuestPassword');
       } else {
         Session.set('onboardStep', 'onboardUserGuestPassword');
@@ -56,16 +57,18 @@ Template.onboardUser.events({
   },
   'onboard-step-existing-guest-password-complete': function(e, tmpl) {
     var accountOptions = Session.get('onboardAccountCreationOptions');
-    var user = {
-      user: {
-        email: accountOptions.email
-      },
-      password: accountOptions.password
-    }
 
-
-    Meteor.loginWithPassword(user, function(err) {
-      if (err) return Errors.throw(err.message);
+    Meteor.loginWithPassword(accountOptions.email, accountOptions.password, function(err) {
+      if (err) {
+        if (err.error === 403) {
+          if (err.reason === 'User has no password set') {
+            Accounts.setResetPasswordEmail(Session.get('onboardAccountCreationUserId'));
+            tmpl.$(tmpl.firstNode).trigger('onboard-complete');
+            return Errors.throw('No password was set for current account. Please follow instructions sent to the email you provided to set a password. Sorry for any inconvenience.');
+          }
+        }
+        return Errors.throw(err.message);
+      }
 
       var device = Devices.findOne(LocalStore.get('deviceId'));
       var stay = Stays.findOne(device.stayId);
@@ -86,5 +89,8 @@ Template.onboardUser.events({
       Session.set('onboardStep', undefined);
       Session.get('onboardAccountCreationOptions', undefined);
     }, 2000);
+  },
+  'onboard-error': function(e, tmpl) {
+     tmpl.$(tmpl.firstNode).closest('.modal').trigger('hide-modal');
   }
 });

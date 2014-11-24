@@ -74,12 +74,20 @@ Meteor.methods({
       throw new Meteor.Error(403, 'Please log in to use this feature');
     }
   },
-  endStay: function (stay) {
-    var currentDeviceId = Meteor.user().deviceId;
-    Stays.update(stay._id, {$set: {
+  stayOver: function (stayId) {
+    var stay = Stays.findOne(stayId);
+
+    // if stay is over, end it.
+    if (moment().zone(stay.zone) > moment(stay.checkoutDate).zone(stay.zone)) {
+      Stays.update(stayId, {$set: {active: false}});
+      Devices.update(stay.deviceId, {$unset: {stayId: 1}});
+      Meteor.users.update({_id: {$in: stay.users}}, {$unset: {stayId: 1}});
+    }
+  },
+  endStay: function (stayId) {
+    return Stays.update(stayId, {$set: {
       checkoutDate: new Date()
     }});
-    return currentDeviceId;
   },
   changeCheckoutDate: function(stayId, checkoutDate) {
     check(stayId, String);

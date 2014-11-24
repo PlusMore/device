@@ -148,6 +148,11 @@ Router.map(function() {
       Deps.nonreactive(function() {
         App.track("View Orders");
       });
+    },
+    waitOn: function() {
+      return [
+        this.subscribe('orders')
+      ];
     }
   });
 

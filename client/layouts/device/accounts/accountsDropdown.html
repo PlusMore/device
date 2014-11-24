@@ -7,6 +7,22 @@
       </a>
       <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
 
+        {{#if currentUser}} 
+          <li>
+            <a role="menuitem" tabindex="-1" href="#">
+              {{deviceLocation}}
+            </a>
+          </li>
+          <li class="divider"></li>
+
+        {{else}}
+          <li>
+            <a role="menuitem" tabindex="-1" href="#">
+              No users.
+            </a>
+          </li>
+        {{/if}}
+
         {{#each users}}
         <li>
           <a role="menuitem" tabindex="-1" href="#">
@@ -17,17 +33,19 @@
         </li>
         {{/each}}
 
-        <li class="divider"></li>
+        <!-- <li class="divider"></li>
         <li>
-          <a role="menuitem" tabindex="-1" href="https://twitter.com/fat">+ Additional Guest</a>
-        </li>
+          <a role="menuitem" tabindex="-1" href="#">+ Additional Guest</a>
+        </li> -->
 
         {{#if currentUser}}
           <li class="divider"></li>
           <li>
-            <a href="" role="menuitem" tabindex="-1">Log Out</a>
+            <a class='js-logout' href="" role="menuitem" tabindex="-1">Log Out</a>
           </li>
         {{/if}}
+
+  
       </ul>
     </li>  
   </ul>

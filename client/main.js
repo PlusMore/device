@@ -39,8 +39,9 @@ Meteor.startup(function() {
   Tracker.autorun(function() {
     var stays = Stays.find();
     if (stays.count() > 0) {
-      console.log("stay added")
-      Session.set('stayId', Stays.findOne()._id);
+      var stay = Stays.findOne();
+      Session.set('stayId', stay._id);
+      LocalStore.set('deviceId', stay.deviceId);
     }
   });
 
@@ -48,6 +49,7 @@ Meteor.startup(function() {
   Tracker.autorun(function () {
     var device = Devices.find();
     if (device.count() > 0) {
+      // LocalStore.set('deviceId')
       Session.set('stayId', Devices.findOne().stayId);
     }
   });
@@ -56,14 +58,25 @@ Meteor.startup(function() {
     var stayId = Session.get('stayId');
     if (stayId) {
       subscriptions.stayInfo = Meteor.subscribe('stayInfo', stayId);
+    } else {
+      console.log('unsubscribing stay info');
+
+      if (subscriptions.stayInfo) {
+        subscriptions.stayInfo.stop();
+        subscriptions.stayInfo = null;
+      }
     }
   });
+
+
 
   // on login, get stay info, use that to find and set deviceId to LocalStore
   Tracker.autorun(function () {
     var user = Meteor.user();
 
     if (user) {
+
+
       // subscriptions.experiencesData = Meteor.subscribe('experiencesData');
       // subscriptions.orders = Meteor.subscribe('orders');
       // subscriptions.stayInfo = Meteor.subscribe('stayInfo');
