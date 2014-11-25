@@ -183,6 +183,36 @@ Meteor.publish('hotelMenu', function(hotelId) {
       })
     }).start();
   }
+});
+
+Meteor.publish('hotelMenuForStay', function(stayId) {
+  var userId = this.userId,
+      user = Meteor.users.findOne(userId);
+
+  var stay = Stays.findOne(stayId);
+
+  if (stay) {
+    var hotel = Hotels.find(stay.hotelId);
+    if (hotel) {
+      var publication = new SimplePublication({
+        subHandle: this,
+        collection: MenuCategories,
+        selector: {
+          hotelId: stay.hotelId,
+          active: true
+        },
+        dependant: new SimplePublication({
+          subHandle: this,
+          collection: MenuItems,
+          selector: {
+            active: true
+          },
+          foreignKey: 'menuCategoryId'
+        })
+      }).start();
+    }  
+  }
+
   
 });
 

@@ -1,14 +1,18 @@
 <template name="selectUser">
-  <div class="modal-backdrop fade {{isVisibleClass}}"></div>
-  <div class="modal fade {{isVisibleClass}}">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        {{#if hasStay}}
+  <div id='select-user-backdrop' class="modal-backdrop fade {{isVisibleClass}}"></div>
+  <div id='select-user' class="modal fade {{isVisibleClass}}">
+    {{#if hasStayWithUsers}}
+      <div class="modal-dialog full-width col-xs-12">
+        <div class="modal-content">
           {{> chooseUser}}
-        {{else}}
-          {{> onboardUser}}
-        {{/if}}
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        </div>
+      </div>  
+    {{else}}
+      <div class="modal-dialog">
+        <div class="modal-content">
+          {{> onboardUser}}  
+        </div>
+      </div>
+    {{/if}}
   </div><!-- /.modal -->
 </template>

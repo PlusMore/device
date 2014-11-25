@@ -181,7 +181,7 @@ Router.map(function() {
       var hotel = Hotels.findOne();
  
       return [
-        Meteor.subscribe('hotelMenu', hotel._id),
+        Meteor.subscribe('hotelMenuForStay', stayId),
         Meteor.subscribe('cart', stayId)
       ];
     },

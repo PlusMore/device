@@ -61,12 +61,14 @@
   <div class="modal-body">
     <div class="row">
       <div class="col-xs-12">
-        <p class='found-table-text'>We have a table for {{reservation.partySize}} {{when}}!</p>
+        <p class='lead instructions'>We have a table for {{reservation.partySize}} {{when}}!</p>
 
         <div class="reservation-details">
           <div>
             <label for="name">Name:</label>
-            <span>{{fullName}}</span>
+            {{#with currentUser}}
+              <span>{{profile.firstName}} {{profile.lastName}}</span>
+            {{/with}}
           </div>
           <div> 
             <label for="email">Email:</label>

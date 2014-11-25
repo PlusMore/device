@@ -32,7 +32,11 @@ Template.accountsDropdown.helpers({
   }
 });
 
-Template.accountsDropdown.helpers({
+Template.accountsDropdown.events({
+  'click #accounts-dropdown-button': function(e, tmpl) {
+    e.preventDefault();
+    Session.set('selectUser', true);
+  },
   'click .js-logout': function () {
     return Meteor.logout();
   }

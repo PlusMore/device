@@ -110,7 +110,20 @@ Meteor.methods({
     }
 
     var user = Meteor.user();
-    var deviceId = user.deviceId;
+    if (!user) {
+      throw new Meteor.Error(403, 'Unauthorized');
+    }
+
+    var stay = Stays.findOne(user.stayId)
+    if (!stay) {
+      throw new Meteor.Meteor.Error(403, 'No current stay registered for user');
+    }
+
+    if (moment().zone(stay.zone) > moment(stay.checkoutDate).zone(stay.zone)) {
+      throw new Meteor.Error(500, 'Stay has ended.');
+    }
+
+    var deviceId = stay.deviceId;
     var device = Devices.findOne(deviceId);
     if (!device) {
       throw new Meteor.Error(500, 'Not a proper device');
@@ -129,14 +142,13 @@ Meteor.methods({
       throw new Meteor.Error(500, 'No email address');
     }
     
-    if (typeof user.profile !== 'undefined' && typeof user.profile.name !== 'undefined') {
-      reservation.partyName = user.profile.name;
+    if (typeof user.profile !== 'undefined' && typeof user.profile.firstName !== 'undefined' && typeof user.profile.lastName !== 'undefined') {
+      reservation.partyName = user.profile.firstName + " " + user.profile.lastName;
     } else {
       throw new Meteor.Error(500, 'No party name');
     }
 
     //valid request
-    var stay = Stays.findOne({userId: user._id});
     var order = {
       type: 'reservation',
       deviceId: device._id,
