@@ -11,7 +11,7 @@ Template.selectUser.helpers({
       if (!Meteor.user()) {
         Session.set('onboardStep', undefined);
         Session.set('onboardStep', 'onboardUserGuestInfo');
-      }
+      } 
       
       return 'show in animated fadeIn';
     } else {

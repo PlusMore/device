@@ -1,3 +1,7 @@
+Template.onboardUser.created = function () {
+  console.log('onboard user created');
+};
+
 Template.onboardUser.helpers({
   onboardStep: function() {
     return Session.get('onboardStep');
@@ -31,6 +35,7 @@ Template.onboardUser.events({
 
       if (userExists) {
         Session.set('onboardAccountCreationUserId', userExists);
+        Session.set('onboardAccountCreationUserEmail', email);
         Session.set('onboardStep', 'onboardExistingUserGuestPassword');
       } else {
         Session.set('onboardStep', 'onboardUserGuestPassword');
@@ -48,7 +53,7 @@ Template.onboardUser.events({
       var stay = Stays.findOne(device.stayId);
 
       Meteor.call('addUserToStay', stay._id, function() {
-        Session.set('onboardStep', 'complete');
+        Session.set('onboardStep', 'onboardUserFinished');
         Meteor.setTimeout(function() {
           tmpl.$(tmpl.firstNode).trigger('onboard-complete');
         }, 2000);
@@ -60,21 +65,28 @@ Template.onboardUser.events({
 
     Meteor.loginWithPassword(accountOptions.email, accountOptions.password, function(err) {
       if (err) {
+
         if (err.error === 403) {
+
+          if (err.reason === "Incorrect password") {
+            return Errors.throw(err.reason);
+          }
+
           if (err.reason === 'User has no password set') {
             Accounts.setResetPasswordEmail(Session.get('onboardAccountCreationUserId'));
             tmpl.$(tmpl.firstNode).trigger('onboard-complete');
             return Errors.throw('No password was set for current account. Please follow instructions sent to the email you provided to set a password. Sorry for any inconvenience.');
           }
+
         }
         return Errors.throw(err.message);
       }
 
       var device = Devices.findOne(LocalStore.get('deviceId'));
-      var stay = Stays.findOne(device.stayId);
+      var stay = Stays.findOne(Session.get('stayId'));
 
       Meteor.call('addUserToStay', stay._id, function() {
-        Session.set('onboardStep', 'complete');
+        Session.set('onboardStep', 'onboardUserFinished');
         Meteor.setTimeout(function() {
           tmpl.$(tmpl.firstNode).trigger('onboard-complete');
         }, 2000);

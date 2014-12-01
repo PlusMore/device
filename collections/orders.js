@@ -290,10 +290,10 @@ Meteor.methods({
       throw new Meteor.Error(403, 'Unauthorized');
     }
 
-    var stay = Stays.findOne(user.stayId)
+    var stay = Stays.findOne(user.stayId);
 
     if (!stay) {
-      throw new Meteor.Meteor.Error(403, 'No current stay registered for user');
+      throw new Meteor.Error(403, 'No current stay registered for user');
     }
 
     if (moment().zone(stay.zone) > moment(stay.checkoutDate).zone(stay.zone)) {

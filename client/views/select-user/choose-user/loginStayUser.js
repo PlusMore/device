@@ -1,10 +1,16 @@
-Template.onboardExistingUserGuestPassword.helpers({
+Template.loginStayUser.helpers({
   guestPasswordSchema: function() {
     return Schema.guestPassword;
+  },
+  userName: function() {
+    var userId = Session.get('selectedUserChoice');
+    var user = Meteor.users.find(userId);
+
+    return "{0} {1}".format(user.profile.firstName, user.profile.lastName);
   }
 });
 
-Template.onboardExistingUserGuestPassword.rendered = function () {
+Template.loginStayUser.rendered = function () {
   // Convert all the links with the progress-button class to
   // actual buttons with progress meters.
   // You need to call this function once the page is loaded.
@@ -13,19 +19,16 @@ Template.onboardExistingUserGuestPassword.rendered = function () {
 };
 
 AutoForm.hooks({
-  existingGuestPassword: {
+  loginStayUser: {
     onSubmit: function(insertDoc, updateDoc, currentDoc) {
       this.event.preventDefault();
-
-      var accountOptions = Session.get('onboardAccountCreationOptions');
-
-      accountOptions = _.extend(accountOptions, {
-        password: insertDoc.password
-      });
-      Session.set('onboardAccountCreationOptions', accountOptions);
       
-      var parent = this.template.findParentTemplate('onboardUser');
-      parent.$(parent.firstNode).trigger('onboard-step-existing-guest-password-complete');
+      var parent = this.template.findParentTemplate('chooseUser');
+
+      var levent = jQuery.Event('login-stay-user');
+      levent.password = insertDoc.password;
+
+      parent.$(parent.firstNode).trigger(levent);
     },
     // Called at the beginning and end of submission, respectively.
     // This is the place to disable/enable buttons or the form,

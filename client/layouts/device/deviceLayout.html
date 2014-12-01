@@ -9,10 +9,10 @@
   </div>
 
   <div id="perspective" class="perspective effect-persepctive-shift {{modalview}} {{showMenu}}">
+    {{> meteorErrors}}
     <div class="perspective-container">
       <img class="bg" alt='bg' src="{{hotelPhotoUrl}}" />
       <div class="overlay-bg black"></div>  
-      {{> meteorErrors}}
 
       <div class="outer">
         <div class="holder">
@@ -45,6 +45,7 @@
 
   <!-- Overlays -->
 
+  {{> accountInfo}}
   {{> selectUser}}
   {{> experience}}
   {{> addItemToCartModal}}

@@ -11,6 +11,11 @@ Meteor.startup(function () {
             throw new Meteor.Error(500, 'Unable to end stay');
           }
 
+          App.track("Stay Over", {
+            "checkInDate": stay.checkInDate,
+            "checkoutDate": stay.checkoutDate
+          });
+
           Session.set('stayId', undefined);
           Meteor.logoutOtherClients();
           Meteor.logout();

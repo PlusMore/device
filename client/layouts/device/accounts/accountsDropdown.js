@@ -35,7 +35,12 @@ Template.accountsDropdown.helpers({
 Template.accountsDropdown.events({
   'click #accounts-dropdown-button': function(e, tmpl) {
     e.preventDefault();
-    Session.set('selectUser', true);
+    e.stopImmediatePropagation();
+    if (Meteor.user()) {
+      Session.set('accountInfo', true);
+    } else {
+      Session.set('selectUser', true);
+    }
   },
   'click .js-logout': function () {
     return Meteor.logout();

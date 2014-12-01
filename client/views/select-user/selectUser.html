@@ -2,17 +2,9 @@
   <div id='select-user-backdrop' class="modal-backdrop fade {{isVisibleClass}}"></div>
   <div id='select-user' class="modal fade {{isVisibleClass}}">
     {{#if hasStayWithUsers}}
-      <div class="modal-dialog full-width col-xs-12">
-        <div class="modal-content">
-          {{> chooseUser}}
-        </div>
-      </div>  
+      {{> chooseUser}}
     {{else}}
-      <div class="modal-dialog">
-        <div class="modal-content">
-          {{> onboardUser}}  
-        </div>
-      </div>
+      {{> onboardUser}}  
     {{/if}}
   </div><!-- /.modal -->
 </template>
