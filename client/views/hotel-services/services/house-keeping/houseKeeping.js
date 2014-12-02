@@ -32,6 +32,7 @@ Template.houseKeeping.events({
     });
 
     $(document).one('user-selected', function() {
+      console.log('hey');
       Meteor.call('requestService', request, function (error, result) {
         if (error) {
           requestButton.progressError();
@@ -56,6 +57,7 @@ Template.houseKeeping.events({
     if (!Meteor.user()) {
       Session.set('selectUser', true);
     } else {
+      console.log('has user - trigger user-selected');
       $(document).trigger('user-selected');
     }
 

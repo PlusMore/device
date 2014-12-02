@@ -4,7 +4,7 @@ Template.loginStayUser.helpers({
   },
   userName: function() {
     var userId = Session.get('selectedUserChoice');
-    var user = Meteor.users.find(userId);
+    var user = Meteor.users.findOne(userId);
 
     return "{0} {1}".format(user.profile.firstName, user.profile.lastName);
   }

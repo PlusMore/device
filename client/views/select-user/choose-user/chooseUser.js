@@ -9,7 +9,7 @@ Template.chooseUser.helpers({
 });
 
 Template.chooseUser.events({
-  'user-selected': function (e, tmpl) {
+  'user-choice-selected': function (e, tmpl) {
     tmpl.step.set('loginStayUser');
   },
   'login-stay-user': function (e, tmpl) {
@@ -44,10 +44,9 @@ Template.chooseUser.events({
         tmpl.$(tmpl.firstNode).trigger('choose-user-complete');
       }, 2000);
       
-
     });
   },
-  'choose-user-complete': function() {
+  'choose-user-complete': function(e, tmpl) {
     tmpl.$(tmpl.firstNode).closest('.modal').trigger('hide-modal');
     $(document).trigger('user-selected');
 

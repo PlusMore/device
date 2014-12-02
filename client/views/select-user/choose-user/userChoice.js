@@ -3,6 +3,6 @@ Template.userChoice.events({
     Session.set('selectedUserChoice', this._id);
 
     var parent = tmpl.findParentTemplate('chooseUser');
-    parent.$(parent.firstNode).trigger('user-selected');
+    parent.$(parent.firstNode).trigger('user-choice-selected');
   }
 });

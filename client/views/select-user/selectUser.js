@@ -41,6 +41,7 @@ var hideModal = function() {
   Meteor.setTimeout(function() {
     Session.set('selectUser', undefined);
     Session.set('hideSelectUser', false);
+    Session.set('selectedUserChoice', undefined);
   }, 500);
 }
 
