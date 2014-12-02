@@ -12,6 +12,9 @@ Template.chooseUser.events({
   'user-choice-selected': function (e, tmpl) {
     tmpl.step.set('loginStayUser');
   },
+  'new-guest-selected': function (e, tmpl) {
+    tmpl.step.set('addNewGuest');
+  },
   'login-stay-user': function (e, tmpl) {
     var password = e.password;
 
