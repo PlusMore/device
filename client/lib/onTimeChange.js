@@ -17,7 +17,6 @@ Meteor.startup(function () {
           });
 
           Session.set('stayId', undefined);
-          Meteor.logoutOtherClients();
           Meteor.logout();
         });
       }

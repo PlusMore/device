@@ -79,16 +79,27 @@ Template.chooseUser.events({
           return Errors.throw(err.message);
         }
 
+        var user = Meteor.user();
+
         // update profile information if necessary
+        if (e.formData.firstName && (e.formData.firstName !== user.profile.firstName) ) {
+          Meteor.users.update(user._id, {$set: {'profile.firstName': e.formData.firstName}})
+        }
+
+        if (e.formData.lastName && (e.formData.lastName !== user.profile.lastName) ) {
+          Meteor.users.update(user._id, {$set: {'profile.lastName': e.formData.lastName}})
+        }
+
+
 
         // add user to stay
         var device = Devices.findOne(LocalStore.get('deviceId'));
         var stay = Stays.findOne(device.stayId);
 
         Meteor.call('addUserToStay', stay._id, function() {
-          Session.set('onboardStep', 'onboardUserFinished');
+          tmpl.step.set('chooseUserFinished');
           Meteor.setTimeout(function() {
-            tmpl.$(tmpl.firstNode).trigger('onboard-complete');
+            tmpl.$(tmpl.firstNode).trigger('choose-user-complete');
           }, 2000);
         });
 
@@ -101,9 +112,9 @@ Template.chooseUser.events({
         var stay = Stays.findOne(device.stayId);
 
         Meteor.call('addUserToStay', stay._id, function() {
-          Session.set('onboardStep', 'onboardUserFinished');
+          tmpl.step.set('chooseUserFinished');
           Meteor.setTimeout(function() {
-            tmpl.$(tmpl.firstNode).trigger('onboard-complete');
+            tmpl.$(tmpl.firstNode).trigger('choose-user-complete');
           }, 2000);
         });
       });  

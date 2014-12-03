@@ -58,6 +58,17 @@ Template.addNewGuest.rendered = function () {
   // You need to call this function once the page is loaded.
   // If you add buttons later, you will need to call the function only for them.
   this.$('button[type=submit]:first').progressInitialize();
+
+  var that = this;
+  Tracker.autorun(function() {
+    var firstName = that.firstName.get() || "";
+    that.$('[name=firstName]').val(firstName);   
+  });
+
+  Tracker.autorun(function() {
+    var lastName = that.lastName.get() || "";
+    that.$('[name=lastName]').val(lastName);
+  });
 };
 
 Template.addNewGuest.created = function () {
@@ -69,19 +80,6 @@ Template.addNewGuest.created = function () {
 
   var that = this;
   // update autoform fields with first and last name if we get them some other way;
-}
-
-Template.addNewGuest.rendered = function() {
-  var that = this;
-  Tracker.autorun(function() {
-    var firstName = that.firstName.get() || "";
-    that.$('[name=firstName]').val(firstName);   
-  });
-
-  Tracker.autorun(function() {
-    var lastName = that.lastName.get() || "";
-    that.$('[name=lastName]').val(lastName);
-  });
 }
 
 Template.addNewGuest.events({
@@ -121,7 +119,6 @@ AutoForm.hooks({
       var parent = this.template.findParentTemplate('chooseUser');
       var addNewGuestTmpl = Template.instance().findParentTemplate('addNewGuest');
 
-      debugger;
       var levent = jQuery.Event('add-new-user');
       levent.accountExists = addNewGuestTmpl.accountExists.get();
       levent.previousFirstName = addNewGuestTmpl.firstName.get();
