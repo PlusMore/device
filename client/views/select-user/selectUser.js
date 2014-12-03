@@ -1,4 +1,7 @@
 Template.selectUser.helpers({
+  show: function() {
+    return !!Session.get('selectUser');
+  }, 
   isVisibleClass: function() {
     if (!!Session.get('selectUser')) {
       

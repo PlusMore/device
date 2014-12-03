@@ -12,23 +12,40 @@
         </div>
         <div class="modal-body">
           <div class="row animated fadeInRight">
-            <div class="col-xs-12 col-sm-6">
-              {{> afQuickField name='firstName'}}
-            </div>
-            <div class="col-xs-12 col-sm-6">
-              {{> afQuickField name='lastName'}}
-            </div>
-            <div class="col-xs-12">
+            <div class="col-xs-12 animated fadeInRight">
               {{> afQuickField name='emailAddress'}}
+            </div>  
+
+            <div class="account-exists {{showAccountExists}}">
+              <div class="col-xs-12">
+                <p class="lead instructions">Welcome back, {{userName}}! Enter your password to sign in.</p>
+              </div>
             </div>
-            <div class="col-xs-12">
-              {{> afQuickField name='password' type='password'}}
+
+            <div class="profile-info {{showProfileForm}}">
+              <div class="col-xs-12 col-sm-6">
+                {{> afQuickField name='firstName'}}
+              </div>
+              <div class="col-xs-12 col-sm-6 ">
+                {{> afQuickField name='lastName'}}
+              </div>
             </div>
+
+            <div class="password {{showPasswordForm}}">
+              <div class="col-xs-12">
+                {{> afQuickField name='password' type='password'}}
+              </div>
+            </div>
+  
           </div>
         </div>
-        <div class="modal-footer">
-          <button type='submit' id='btn-step-one' class="btn btn-default animated fadeInRight">Done</button>
-        </div>
+        {{#if hasEmail}}
+          <div class="modal-footer">
+
+            <button type='submit' id='btn-step-one' class="btn btn-default animated fadeInRight">Done</button>
+            
+          </div>
+        {{/if}}
       </div>
     </div>
   {{/autoForm}}
