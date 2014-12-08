@@ -76,9 +76,22 @@ Meteor.methods({
     check(cartId, String);
     check(zone, Number);
     
-    // check user, device, and hotel
-    var user = Meteor.user();
-    var deviceId = user.deviceId;
+     var user = Meteor.user();
+    if (!user) {
+      throw new Meteor.Error(403, 'Unauthorized');
+    }
+
+    var stay = Stays.findOne(user.stayId);
+
+    if (!stay) {
+      throw new Meteor.Error(403, 'No current stay registered for user');
+    }
+
+    if (moment().zone(stay.zone) > moment(stay.checkoutDate).zone(stay.zone)) {
+      throw new Meteor.Error(500, 'Stay has ended.');
+    }
+
+    var deviceId = stay.deviceId;
     var device = Devices.findOne(deviceId);
     if (!device) {
       throw new Meteor.Error(420, 'Not a proper device');
@@ -87,11 +100,6 @@ Meteor.methods({
     var hotel = Hotels.findOne(device.hotelId);
     if (!hotel) {
       throw new Meteor.Error(420, 'Not a valid hotel');
-    }
-
-    var stay = Stays.findOne({userId: user._id});
-    if (!stay) {
-      throw new Meteor.Error(420, 'Not a valid stay');
     }
 
     var cartItems = CartItems.find({cartId: cartId});

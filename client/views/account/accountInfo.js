@@ -14,7 +14,10 @@ Template.accountInfo.helpers({
   checkoutDate: function () {
     var stay = Stays.findOne(Session.get('stayId'));
 
-    return moment(stay.checkoutDate).zone(stay.zone).calendar();
+    if (stay) {
+      return moment(stay.checkoutDate).zone(stay.zone).calendar();
+    }
+
   },
   emailAddress: function() {
     return this.emails[0].address;

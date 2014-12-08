@@ -114,19 +114,11 @@ Meteor.methods({
       throw new Meteor.Error(403, 'Unauthorized');
     }
 
-    var stay = Stays.findOne(user.stayId)
-    if (!stay) {
-      throw new Meteor.Meteor.Error(403, 'No current stay registered for user');
-    }
+    var stay = Stays.findOne(user.stayId);
 
-    if (moment().zone(stay.zone) > moment(stay.checkoutDate).zone(stay.zone)) {
-      throw new Meteor.Error(500, 'Stay has ended.');
-    }
-
-    var deviceId = stay.deviceId;
-    var device = Devices.findOne(deviceId);
-    if (!device) {
-      throw new Meteor.Error(500, 'Not a proper device');
+    if (stay) {
+      var deviceId = stay.deviceId;
+      var device = Devices.findOne(deviceId);
     }
 
     var hotel = Hotels.findOne(device.hotelId);
@@ -151,9 +143,9 @@ Meteor.methods({
     //valid request
     var order = {
       type: 'reservation',
-      deviceId: device._id,
+      // deviceId: device._id,
       hotelId: hotel._id,
-      stayId: stay._id,
+      // stayId: stay._id,
       reservation: reservation,
       requestedAt: new Date(),
       requestedZone: reservation.zone,
@@ -161,6 +153,14 @@ Meteor.methods({
       status: 'pending',
       userId: user._id
     };
+
+    if (stay) {
+      order.stayId = stay._id;
+    }
+
+    if (device) {
+      order.deviceId = device._id;
+    }
 
     var orderId = Orders.insert(order);
 

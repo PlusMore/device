@@ -179,11 +179,23 @@ Router.map(function() {
     waitOn: function() {
       var stayId = Session.get('stayId');
       var hotel = Hotels.findOne();
- 
-      return [
-        Meteor.subscribe('hotelMenuForStay', stayId),
-        Meteor.subscribe('cart', stayId)
-      ];
+      var user = Meteor.user();
+
+      console.log('wait on room service');
+
+      if (stayId) {
+        console.log('stayId');
+        return [
+          Meteor.subscribe('hotelMenuForStay', stayId),
+          Meteor.subscribe('cart', stayId)
+        ];  
+      } else {
+        console.log('no stay id');
+        return [
+          Meteor.subscribe('hotelMenu', hotel._id),
+          Meteor.subscribe('cart', Meteor.default_connection._lastSessionId)
+        ]
+      }
     },
     onRun: function() {
       Session.set('selectedService', 'roomService');
