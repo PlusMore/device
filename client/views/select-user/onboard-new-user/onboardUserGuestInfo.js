@@ -15,7 +15,7 @@ Template.onboardUserGuestInfo.rendered = function () {
   var $container = this.$(this.firstNode).closest('.modal');
 
   // Set up datepicker
-  $('[name=checkoutDate').pickadate({
+  $('[name=checkoutDate]').pickadate({
     // today: false,
     container: $container,
     clear: false,
