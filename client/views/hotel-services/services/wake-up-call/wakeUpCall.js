@@ -32,6 +32,9 @@ Template.wakeUpCall.events({
     });
 
     $(document).one('user-selected', function() {
+      $(document).off('user-selected');
+      $(document).off('cancel-user-selected');
+      
       Meteor.call('requestService', request, function (error, result) {
         if (error) {
           requestButton.progressError();

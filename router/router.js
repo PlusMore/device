@@ -190,11 +190,14 @@ Router.map(function() {
           Meteor.subscribe('cart', stayId)
         ];  
       } else {
-        console.log('no stay id');
-        return [
-          Meteor.subscribe('hotelMenu', hotel._id),
-          Meteor.subscribe('cart', Meteor.default_connection._lastSessionId)
-        ]
+        
+        if (hotel) {
+          return [
+            Meteor.subscribe('hotelMenu', hotel._id),
+            Meteor.subscribe('cart', Meteor.default_connection._lastSessionId)
+          ]  
+        }
+        
       }
     },
     onRun: function() {

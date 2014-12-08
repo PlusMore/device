@@ -44,10 +44,16 @@ Schema.Order = new SimpleSchema({
     type: Number
   },
   deviceId: {
-    type: String
+    type: String,
+    optional: true
   },
   hotelId: {
-    type: String
+    type: String,
+    optional: true
+  },
+  stayId: {
+    type: String,
+    optional: true
   },
   userId: {
     type: String
@@ -119,11 +125,7 @@ Meteor.methods({
     if (stay) {
       var deviceId = stay.deviceId;
       var device = Devices.findOne(deviceId);
-    }
-
-    var hotel = Hotels.findOne(device.hotelId);
-    if (!hotel) {
-      throw new Meteor.Error(500, 'Not a valid hotel');
+      var hotel = Hotels.findOne(device.hotelId);
     }
 
     if (typeof user.emails !== 'undefined' && 
@@ -143,9 +145,6 @@ Meteor.methods({
     //valid request
     var order = {
       type: 'reservation',
-      // deviceId: device._id,
-      hotelId: hotel._id,
-      // stayId: stay._id,
       reservation: reservation,
       requestedAt: new Date(),
       requestedZone: reservation.zone,
@@ -160,6 +159,10 @@ Meteor.methods({
 
     if (device) {
       order.deviceId = device._id;
+    }
+
+    if (hotel) {
+      order.hotelId = hotel._id;
     }
 
     var orderId = Orders.insert(order);
@@ -183,9 +186,8 @@ Meteor.methods({
       Email.send({
         to: 'order-service@plusmoretablets.com',
         from: "noreply@plusmoretablets.com",
-        subject: "Device in {0} at {1} has requested a reservation.\n\n".format(device.location, hotel.name), 
-        text: "Device in {0} at {1} has requested a reservation.\n\n".format(device.location, hotel.name) + 
-              "Reservation Details:\n\n"+ 
+        subject: "Reservation Request\n\n", 
+        text: "Reservation Details:\n\n"+ 
               "For: {0}\n".format(experience.title)+ 
               "When: {0}\n".format(when)+ 
               "Name: {0}\n".format(reservation.partyName)+ 

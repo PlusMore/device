@@ -18,12 +18,17 @@
           <div class="modal-body">
             <div class="row animated fadeInRight">
               <div class="col-xs-12">
-                <div class="instructions">
-                  Checkout Date: {{checkoutDate}}
-                </div>
+                <h4>Your Account</h4>
                 <div class="instructions">
                   Email: {{emailAddress}}
                 </div>
+                
+                {{#if duringStay}}
+                  <h4>Current Stay</h4>
+                  <div class="instructions">
+                    Checkout Date: {{checkoutDate}}
+                  </div>
+                {{/if}}
               </div>  
 
               <div class="col-xs-12 extra-spacing-top">

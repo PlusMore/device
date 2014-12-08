@@ -10,6 +10,14 @@ Template.welcomeContent.helpers({
   },
   device: function() {
     return Devices.findOne();
+  },
+  welcomeToName: function() {
+    var hotel = Hotels.findOne();
+
+    if (hotel) {
+      return hotel.name; 
+    }
+    return "PlusMore";
   }
 });
 

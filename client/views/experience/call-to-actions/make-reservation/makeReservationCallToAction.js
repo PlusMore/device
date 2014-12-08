@@ -30,6 +30,9 @@ Template.makeReservationCallToAction.events({
     });
 
     $(document).one('user-selected', function() {
+      $(document).off('user-selected');
+      $(document).off('cancel-user-selected');
+
       $('#confirm-reservation').modal({
         backdrop: 'static'
       });

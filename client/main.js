@@ -14,25 +14,33 @@ Meteor.startup(function() {
 
   // Subscribe to device data when a device ID is available
   Tracker.autorun(function() {
-    var registeredDeviceId = LocalStore.get('deviceId');
+    if (LocalStore.get('inRoom')) {
+      var registeredDeviceId = LocalStore.get('deviceId');
 
-    if (registeredDeviceId) {
-      console.log('registered device');
-      console.log('subscribing to device, experiencesData, and stayInfo')
-      subscriptions.device = Meteor.subscribe('device', registeredDeviceId);
-      subscriptions.experiencesData = Meteor.subscribe('experiencesData', registeredDeviceId);
+      if (registeredDeviceId) {
+        console.log('registered device');
+        console.log('subscribing to device, experiencesData, and stayInfo')
+        subscriptions.device = Meteor.subscribe('device', registeredDeviceId);
+        subscriptions.experiencesData = Meteor.subscribe('experiencesData', registeredDeviceId);
+      } else {
+        console.log('unsubscribing device, experiencesData, and stayInfo')
+
+        if (subscriptions.device) {
+          subscriptions.device.stop();
+          subscriptions.device = null;
+        }
+        if (subscriptions.experiencesData) {
+          subscriptions.experiencesData.stop();
+          subscriptions.experiencesData = null;
+        }
+      }  
     } else {
-      console.log('unsubscribing device, experiencesData, and stayInfo')
-
-      if (subscriptions.device) {
-        subscriptions.device.stop();
-        subscriptions.device = null;
-      }
-      if (subscriptions.experiencesData) {
-        subscriptions.experiencesData.stop();
-        subscriptions.experiencesData = null;
+      if (Meteor.user()) {
+        subscriptions.experiencesData = Meteor.subscribe('experiencesData');
       }
     }
+
+    
   });
 
   // if a stay becomes available, set stayId for session

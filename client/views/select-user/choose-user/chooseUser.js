@@ -70,7 +70,11 @@ Template.chooseUser.events({
             }
 
             if (err.reason === 'User has no password set') {
-              Accounts.setResetPasswordEmail(Session.get('onboardAccountCreationUserId'));
+              
+              if (Meteor.isServer) {
+                Accounts.sendResetPasswordEmail(Session.get('onboardAccountCreationUserId'));
+              }
+              
               tmpl.$(tmpl.firstNode).trigger('onboard-complete');
               return Errors.throw('No password was set for current account. Please follow instructions sent to the email you provided to set a password. Sorry for any inconvenience.');
             }

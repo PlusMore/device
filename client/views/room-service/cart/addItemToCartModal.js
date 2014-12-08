@@ -29,7 +29,7 @@ Template.addItemToCartModal.events({
     var qty = 1;
     var itemType = 'menuItem';
     var itemId = this._id;
-    var cartId = Session.get('stayId'); 
+    var cartId = Session.get('stayId') || Meteor.default_connection._lastSessionId;
     var comments = tmpl.find('[name=comments]').value;
     var now = moment();
     var zone = now.zone();

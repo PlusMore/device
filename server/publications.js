@@ -92,50 +92,48 @@ Meteor.publish('experiencesData', function(deviceId) {
   var userId = this.userId,
       user = Meteor.users.findOne(userId);
 
-  if (user || deviceId) {
-    deviceId = deviceId || user.deviceId;
-    var device = Devices.findOne(deviceId);
+  var validDeviceId = !!Devices.findOne(deviceId);
 
-    if (device) {
-      var experienceFields = {
-        active: 1,
-        category: 1,
-        lead: 1,
-        photoUrl: 1,
-        title: 1
-      };
+  if (user || validDeviceId) {
+    var experienceFields = {
+      active: 1,
+      category: 1,
+      lead: 1,
+      photoUrl: 1,
+      title: 1
+    };
 
-      var experiencePublishFields = {
-        active: 1,
-        categoryId: 1,
-        geo: 1,
-        lead: 1,
-        photoUrl: 1,
-        sortOrder: 1,
-        tagGroups: 1,
-        title: 1,
-        yelpId: 1
-      }   
+    var experiencePublishFields = {
+      active: 1,
+      categoryId: 1,
+      geo: 1,
+      lead: 1,
+      photoUrl: 1,
+      sortOrder: 1,
+      tagGroups: 1,
+      title: 1,
+      yelpId: 1
+    }   
 
-      var tagGroups = Meteor.tags.find( {group: {$exists: true} });
-      var tagGroupsArray = [];
-      tagGroups.forEach(function(tag) {
-        if (tag.group && tagGroupsArray.indexOf(tag.group) === -1) {
-          tagGroupsArray.push(tag.group);
-        }
-      });
+    var tagGroups = Meteor.tags.find( {group: {$exists: true} });
+    var tagGroupsArray = [];
+    tagGroups.forEach(function(tag) {
+      if (tag.group && tagGroupsArray.indexOf(tag.group) === -1) {
+        tagGroupsArray.push(tag.group);
+      }
+    });
 
-      _.each(tagGroupsArray, function(tagGroup) {
-        if (tagGroup !== 'filterGroup') {
-          experiencePublishFields[tagGroup+'Tags'] = 1;
-        }
-      });
+    _.each(tagGroupsArray, function(tagGroup) {
+      if (tagGroup !== 'filterGroup') {
+        experiencePublishFields[tagGroup+'Tags'] = 1;
+      }
+    });
 
-      return [
-        Categories.find({active: true}),
-        Experiences.find({active: true}, {fields: experiencePublishFields})
-      ];
-    }
+    return [
+      Categories.find({active: true}),
+      Experiences.find({active: true}, {fields: experiencePublishFields})
+    ];
+    
   } else {
     this.ready();
     return null;

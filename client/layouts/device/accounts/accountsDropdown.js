@@ -2,20 +2,30 @@ Template.accountsDropdown.helpers({
   dropdownText: function () {
     var user = Meteor.user();
 
-    if (user) {
-      if (user.profile) {
-        return "{0} {1}".format(user.profile.firstName, user.profile.lastName);
+    if (LocalStore.get('inRoom')) {
+      if (user) {
+        if (user.profile && user.profile.firstName && user.profile.lastName) {
+          return "{0} {1}".format(user.profile.firstName, user.profile.lastName);
+        }
       }
-    }
 
-    var deviceId = LocalStore.get('deviceId');
+      var deviceId = LocalStore.get('deviceId');
 
-    if (deviceId) {
-      var device = Devices.findOne(deviceId);
-      if (device)
-        return device.location;
+      if (deviceId) {
+        var device = Devices.findOne(deviceId);
+        if (device)
+          return device.location;
+      } else {
+        return 'Sign in';
+      }
     } else {
-      return 'Sign in';
+      if (user) {
+        if (user.profile && user.profile.firstName && user.profile.lastName) {
+          return "{0} {1}".format(user.profile.firstName, user.profile.lastName);
+        }
+
+        return "Account";
+      }
     }
   },
   deviceLocation: function () {

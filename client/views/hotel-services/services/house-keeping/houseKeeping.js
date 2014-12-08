@@ -32,7 +32,9 @@ Template.houseKeeping.events({
     });
 
     $(document).one('user-selected', function() {
-      console.log('hey');
+      $(document).off('user-selected');
+      $(document).off('cancel-user-selected');
+      
       Meteor.call('requestService', request, function (error, result) {
         if (error) {
           requestButton.progressError();

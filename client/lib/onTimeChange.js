@@ -17,7 +17,12 @@ Meteor.startup(function () {
           });
 
           Session.set('stayId', undefined);
-          Meteor.logout();
+
+          if (LocalStore.equals('inRoom', true)) {
+            Meteor.logout();
+          } else {
+            LocalStore.set('deviceId', undefined);
+          }
         });
       }
     }

@@ -1,12 +1,12 @@
 Template.cart.helpers({
   hasCartItems: function() {
-    var stayId = Session.get('stayId');
-    return CartItems.find({cartId: stayId}).count() > 0;
+    var cartId = Session.get('stayId') || Meteor.default_connection._lastSessionId;
+    return CartItems.find({cartId: cartId}).count() > 0;
   },
   cartItems: function(){
     var shopCart = [];
-    var stayId = Session.get('stayId');
-    var cartItems = CartItems.find({cartId: stayId});
+    var cartId = Session.get('stayId') || Meteor.default_connection._lastSessionId;
+    var cartItems = CartItems.find({cartId: cartId});
     var total = 0;
 
     cartItems.forEach(function(cartItem){
@@ -68,29 +68,50 @@ Template.cart.events({
     });
   }, 
   'click #place-order': function(e, tmpl) {
-    bootbox.dialog({
-      title: 'Place Order',
-      message: "Are you sure you would like to place your order now?", 
-      buttons: {
-        cancel: {
-          label: 'Cancel',
-          className: 'btn-cancel'
-        },
-        main: {
-          label: 'Place Order',
-          className: 'btn-default',
-          callback:function(result) {
-            var now = moment();
-            var zone = now.zone();
-            Meteor.call('orderRoomServiceCartItems', now.toDate(), zone, Session.get('stayId'), function(err, result) {
-              if (err) { 
-                return Errors.throw(err.message);
-              }
-              Router.go('orders');
-            });
+    var cartId = Session.get('stayId') || Meteor.default_connection._lastSessionId;
+
+    $(document).one('user-selected', function() {
+      $(document).off('user-selected');
+      $(document).off('cancel-user-selected');
+
+      bootbox.dialog({
+        title: 'Place Order',
+        message: "Are you sure you would like to place your order now?", 
+        buttons: {
+          cancel: {
+            label: 'Cancel',
+            className: 'btn-cancel'
+          },
+          main: {
+            label: 'Place Order',
+            className: 'btn-default',
+            callback:function(result) {
+              var now = moment();
+              var zone = now.zone();
+              Meteor.call('orderRoomServiceCartItems', now.toDate(), zone, Session.get('stayId'), function(err, result) {
+                if (err) { 
+                  return Errors.throw(err.message);
+                }
+                Router.go('orders');
+              });
+            }
           }
         }
-      }
+      });
     });
+
+    $(document).one('cancel-user-selected', function() {
+      $(document).off('user-selected');
+      $(document).off('cancel-user-selected');
+
+      return Errors.throw('Please log in to order room service.');
+    });
+
+    if (!Meteor.user()) {
+      Session.set('selectUser', true);
+    } else {
+      console.log('has user - trigger user-selected');
+      $(document).trigger('user-selected');
+    }
   }
 });

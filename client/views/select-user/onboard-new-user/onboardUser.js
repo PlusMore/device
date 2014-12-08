@@ -56,7 +56,7 @@ Template.onboardUser.events({
         Session.set('onboardStep', 'onboardUserFinished');
         Meteor.setTimeout(function() {
           tmpl.$(tmpl.firstNode).trigger('onboard-complete');
-        }, 2000);
+        }, 1000);
       });
     });
   },
