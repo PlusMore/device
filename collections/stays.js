@@ -72,7 +72,28 @@ Meteor.methods({
 
       Stays.update({users: user._id}, {$set: {active: false}});
       Meteor.users.update(user._id, {$set: {stayId: stay._id}});
-      return Stays.update(stay._id, {$addToSet: {users: user._id}});
+      var stayId = Stays.update(stay._id, {$addToSet: {users: user._id}});
+
+      this.unblock();
+
+      if (Meteor.isServer) {
+        var url = stripTrailingSlash(Meteor.settings.apps.device.url);
+        var device = Devices.findOne(stay.deviceId);
+        var hotel = Hotels.findOne(device.hotelId);
+
+        Email.send({
+          to: 'order-service@plusmoretablets.com',
+          from: "noreply@plusmoretablets.com",
+          subject: "Your Stay at {0}\n\n".format(hotel.name), 
+          text: "{0} {1},\n\n".format(user.profile.firstName, user.profile.lastName)+
+                "Thanks for choosing {0}.".format(hotel.name)+
+                "You may also access PlusMore from your mobile device!\n\n"+ 
+                "{0}\n\n".format(url)+
+                "Use PlusMore to manage your stay on the go!"
+        });
+      }
+
+      return stayId;
 
     } else {
       throw new Meteor.Error(403, 'Please log in to use this feature');
