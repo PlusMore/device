@@ -1,5 +1,10 @@
 Template.onboardUser.created = function () {
   console.log('onboard user created');
+  Session.set('onboarding', true);
+};
+
+Template.onboardUser.destroyed = function () {
+  Session.set('onboarding', false);
 };
 
 Template.onboardUser.helpers({
@@ -54,6 +59,7 @@ Template.onboardUser.events({
 
       Meteor.call('addUserToStay', stay._id, function() {
         Session.set('onboardStep', 'onboardUserFinished');
+
         Meteor.setTimeout(function() {
           tmpl.$(tmpl.firstNode).trigger('onboard-complete');
         }, 1000);
@@ -87,15 +93,17 @@ Template.onboardUser.events({
 
       Meteor.call('addUserToStay', stay._id, function() {
         Session.set('onboardStep', 'onboardUserFinished');
+        
         Meteor.setTimeout(function() {
           tmpl.$(tmpl.firstNode).trigger('onboard-complete');
-        }, 2000);
+        }, 1000);
       });
     });
   },
   'onboard-complete': function(e, tmpl) {
     tmpl.$(tmpl.firstNode).closest('.modal').trigger('hide-modal');
     $(document).trigger('user-selected');
+    Session.set('onboarding', false);
     
     Meteor.setTimeout(function() {
       Session.set('onboardStep', undefined);
@@ -104,5 +112,6 @@ Template.onboardUser.events({
   },
   'onboard-error': function(e, tmpl) {
      tmpl.$(tmpl.firstNode).closest('.modal').trigger('hide-modal');
+     Session.set('onboarding', false);
   }
 });

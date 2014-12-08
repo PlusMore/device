@@ -1,4 +1,14 @@
 Template.accountInfo.helpers({
+  title: function() {
+    var user = Meteor.user();
+
+    if (user && user.profile && user.profile.firstName && user.profile.lastName) {
+      return "{0} {1}".format(user.profile.firstName, user.profile.lastName);
+    } else {
+      return "Account";
+    }
+    
+  },
   isVisibleClass: function() {
     if (!!Session.get('accountInfo')) {
       
@@ -21,6 +31,9 @@ Template.accountInfo.helpers({
   },
   emailAddress: function() {
     return this.emails[0].address;
+  },
+  duringStay: function() {
+    return Session.get('stayId');
   }
 });
 

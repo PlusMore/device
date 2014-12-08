@@ -22,6 +22,12 @@ Template.selectUser.helpers({
     }
   }, 
   hasStayWithUsers: function() {
+    var isOnboarding = Session.get('onboarding');
+
+    if (isOnboarding) {
+      return false;
+    }
+
     var stayId = Session.get('stayId');
     var stays = Stays.find(stayId);
     if (stays.count() > 0) {

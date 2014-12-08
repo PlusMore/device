@@ -18,7 +18,7 @@ Meteor.startup(function () {
 
           Session.set('stayId', undefined);
 
-          if (LocalStore.equals('inRoom', true)) {
+          if (LocalStore.get('inRoom') === true) {
             Meteor.logout();
           } else {
             LocalStore.set('deviceId', undefined);
