@@ -103,11 +103,11 @@ Template.onboardUser.events({
   'onboard-complete': function(e, tmpl) {
     tmpl.$(tmpl.firstNode).closest('.modal').trigger('hide-modal');
     $(document).trigger('user-selected');
-    Session.set('onboarding', false);
     
     Meteor.setTimeout(function() {
       Session.set('onboardStep', undefined);
       Session.get('onboardAccountCreationOptions', undefined);
+      Session.set('onboarding', false); 
     }, 2000);
   },
   'onboard-error': function(e, tmpl) {

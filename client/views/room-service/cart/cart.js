@@ -72,48 +72,50 @@ Template.cart.events({
     var cartId = Session.get('stayId') || Meteor.default_connection._lastSessionId;
 
     console.log('place order for cart', cartId)
-    $(document).one('user-selected', function() {
-      $(document).off('user-selected');
-      $(document).off('cancel-user-selected');
+  
+    bootbox.dialog({
+      title: 'Place Order',
+      message: "Are you sure you would like to place your order now?", 
+      buttons: {
+        cancel: {
+          label: 'Cancel',
+          className: 'btn-cancel'
+        },
+        main: {
+          label: 'Place Order',
+          className: 'btn-default',
+          callback:function(result) {
+            var now = moment();
+            var zone = now.zone();
 
-      bootbox.dialog({
-        title: 'Place Order',
-        message: "Are you sure you would like to place your order now?", 
-        buttons: {
-          cancel: {
-            label: 'Cancel',
-            className: 'btn-cancel'
-          },
-          main: {
-            label: 'Place Order',
-            className: 'btn-default',
-            callback:function(result) {
-              var now = moment();
-              var zone = now.zone();
+            $(document).one('user-selected', function() {
+              $(document).off('user-selected');
+              $(document).off('cancel-user-selected');
+              
               Meteor.call('orderRoomServiceCartItems', now.toDate(), zone, cartId, function(err, result) {
                 if (err) { 
                   return Errors.throw(err.message);
                 }
                 Router.go('orders');
               });
+            });
+
+            $(document).one('cancel-user-selected', function() {
+              $(document).off('user-selected');
+              $(document).off('cancel-user-selected');
+
+              return Errors.throw('Please log in to order room service.');
+            });
+
+            if (!Meteor.user()) {
+              Session.set('selectUser', true);
+            } else {
+              console.log('has user - trigger user-selected');
+              $(document).trigger('user-selected');
             }
           }
         }
-      });
+      }
     });
-
-    $(document).one('cancel-user-selected', function() {
-      $(document).off('user-selected');
-      $(document).off('cancel-user-selected');
-
-      return Errors.throw('Please log in to order room service.');
-    });
-
-    if (!Meteor.user()) {
-      Session.set('selectUser', true);
-    } else {
-      console.log('has user - trigger user-selected');
-      $(document).trigger('user-selected');
-    }
   }
 });
