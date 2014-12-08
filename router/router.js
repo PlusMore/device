@@ -178,27 +178,27 @@ Router.map(function() {
     path: '/room-service', 
     waitOn: function() {
       var stayId = Session.get('stayId');
+      var hotels = Hotels.find();
       var hotel = Hotels.findOne();
       var user = Meteor.user();
+      var onboarding = Session.get('onboarding');
 
+      var cartId = Meteor.default_connection._lastSessionId;
       console.log('wait on room service');
 
-      if (stayId) {
-        console.log('stayId');
+      if (stayId && !onboarding) {
+        console.log('cart is stayid');
+        cartId = stayId;
+      }  
+
+      if (hotel) {
+        console.log('cart', cartId);
         return [
-          Meteor.subscribe('hotelMenuForStay', stayId),
-          Meteor.subscribe('cart', stayId)
-        ];  
-      } else {
-        
-        if (hotel) {
-          return [
-            Meteor.subscribe('hotelMenu', hotel._id),
-            Meteor.subscribe('cart', Meteor.default_connection._lastSessionId)
-          ]  
-        }
-        
+          Meteor.subscribe('hotelMenu', hotel._id),
+          Meteor.subscribe('cart', cartId)
+        ]; 
       }
+        
     },
     onRun: function() {
       Session.set('selectedService', 'roomService');

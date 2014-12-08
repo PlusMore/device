@@ -61,7 +61,8 @@ Template.cart.events({
           label: 'Empty Cart',
           className: 'btn-default',
           callback:function(result) {
-            Meteor.call('emptyCart', Session.get('stayId'));
+            var cartId = Session.get('stayId') || Meteor.default_connection._lastSessionId;
+            Meteor.call('emptyCart', cartId);
           }
         }
       }
@@ -70,6 +71,7 @@ Template.cart.events({
   'click #place-order': function(e, tmpl) {
     var cartId = Session.get('stayId') || Meteor.default_connection._lastSessionId;
 
+    console.log('place order for cart', cartId)
     $(document).one('user-selected', function() {
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
@@ -88,7 +90,7 @@ Template.cart.events({
             callback:function(result) {
               var now = moment();
               var zone = now.zone();
-              Meteor.call('orderRoomServiceCartItems', now.toDate(), zone, Session.get('stayId'), function(err, result) {
+              Meteor.call('orderRoomServiceCartItems', now.toDate(), zone, cartId, function(err, result) {
                 if (err) { 
                   return Errors.throw(err.message);
                 }

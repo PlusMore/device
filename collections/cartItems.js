@@ -76,6 +76,8 @@ Meteor.methods({
     check(cartId, String);
     check(zone, Number);
     
+    console.log('placing order for cart', cartId);
+
      var user = Meteor.user();
     if (!user) {
       throw new Meteor.Error(403, 'Unauthorized');

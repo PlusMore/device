@@ -34,7 +34,7 @@ Template.addItemToCartModal.events({
     var now = moment();
     var zone = now.zone();
 
-    console.log('add item to cart: ', now);
+    console.log('add item to cart: ', cartId, now);
 
     Meteor.call('addToCart', now.toDate(), zone, cartId, itemType, itemId, qty, comments, function(err, result) {
       if (err) {
