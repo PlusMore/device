@@ -23,10 +23,11 @@ Meteor.startup(function () {
         App.track("User Idle");
         if (inRoom) {
           Meteor.logout();
+          Meteor.disconnect();
         }
         $('#confirm-reservation').modal('hide');
         Session.set('reservation', null);
-        Meteor.disconnect();
+        
       }
 
     } else {

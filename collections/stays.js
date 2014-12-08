@@ -44,17 +44,20 @@ Meteor.methods({
       throw new Meteor.Error(500, 'Not a valid hotel');
     }
 
+    Stays.update({deviceId: deviceId}, {$set: {active: false}});
     var stayId = Stays.insert({
       checkInDate: new Date(),
       checkoutDate: checkoutDate.date,
       zone: checkoutDate.zone,
       hotelId: hotel._id,
-      deviceId: device._id
+      deviceId: device._id,
+      active: true
     });
 
     Devices.update(device._id, {$set: {stayId: stayId}});
 
-    return Stays.findOne(stayId);
+
+    return stayId;
   },
   addUserToStay: function(stayId) {
     var user = Meteor.user();
@@ -67,6 +70,7 @@ Meteor.methods({
         throw new Meteor.Error(500, 'Stay not found.');
       }  
 
+      Stays.update({users: user._id}, {$set: {active: false}});
       Meteor.users.update(user._id, {$set: {stayId: stay._id}});
       return Stays.update(stay._id, {$addToSet: {users: user._id}});
 
@@ -86,7 +90,8 @@ Meteor.methods({
   },
   endStay: function (stayId) {
     return Stays.update(stayId, {$set: {
-      checkoutDate: new Date()
+      checkoutDate: new Date(),
+      active: false
     }});
   },
   changeCheckoutDate: function(stayId, checkoutDate) {

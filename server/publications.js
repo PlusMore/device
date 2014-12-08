@@ -60,7 +60,7 @@ Meteor.publish(null, function () {
       if (stay) {
         return [
           Meteor.users.find(userId, {fields: fields}),
-          Stays.find(stayId)
+          Stays.find({_id: stayId, active: true})
         ];
       }
       
@@ -86,6 +86,24 @@ Meteor.publish('device', function(deviceId) {
       ];
     }
   }
+});
+
+Meteor.publish('deviceByStayId', function(stayId) {
+  var stay = Stays.findOne(stayId);
+
+  if (stay) {
+    if (stay.deviceId) {
+      var device = Devices.findOne(stay.deviceId);
+      if (device) {
+        return [
+          Devices.find(stay.deviceId),
+          Hotels.find(device.hotelId),
+          HotelServices.find({hotelId: device.hotelId, active: true})
+        ];
+      }
+    }  
+  }
+  
 });
 
 Meteor.publish('experiencesData', function(deviceId) {
@@ -144,6 +162,12 @@ Meteor.publish('stayInfo', function(stayId) {
   return [
     Stays.find(stayId),
     Meteor.users.find({stayId: stayId})
+  ];
+});
+
+Meteor.publish('userStays', function() {
+  return [
+    Stays.find({users: this.userId, active: true})
   ];
 });
 

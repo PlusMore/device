@@ -18,13 +18,14 @@ Template.onboardUser.events({
     var deviceId = LocalStore.get('deviceId');
     var checkoutDate = Session.get('checkoutDate');
     Session.set('loader', 'Verifying');
-    Meteor.call('registerStay', deviceId, checkoutDate, function(err, stay) {
+    Meteor.call('registerStay', deviceId, checkoutDate, function(err, stayId) {
       if (err) {
         Session.set('loader', undefined);
 
         return Errors.throw('Unable to register stay.');
       }
-      Session.set('stayId', stay._id);
+
+      Session.set('stayId', stayId);
       Session.set('onboardStep', 'onboardUserGuestNotifications');
       Session.set('loader', undefined);
     });
@@ -54,10 +55,9 @@ Template.onboardUser.events({
     Accounts.createUser(accountOptions, function(err) {
       if (err) return Errors.throw(err.message);
 
-      var device = Devices.findOne(LocalStore.get('deviceId'));
-      var stay = Stays.findOne(device.stayId);
+      var stayId = Session.get('stayId');
 
-      Meteor.call('addUserToStay', stay._id, function() {
+      Meteor.call('addUserToStay', stayId, function() {
         Session.set('onboardStep', 'onboardUserFinished');
 
         Meteor.setTimeout(function() {
@@ -88,10 +88,9 @@ Template.onboardUser.events({
         return Errors.throw(err.message);
       }
 
-      var device = Devices.findOne(LocalStore.get('deviceId'));
-      var stay = Stays.findOne(Session.get('stayId'));
+      var stayId = Session.get('stayId');
 
-      Meteor.call('addUserToStay', stay._id, function() {
+      Meteor.call('addUserToStay', stayId, function() {
         Session.set('onboardStep', 'onboardUserFinished');
         
         Meteor.setTimeout(function() {

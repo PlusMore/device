@@ -29,7 +29,7 @@ Template.deviceLayout.helpers({
     return Session.get('loader');
   },
   registeredDevice: function() {
-    return !!LocalStore.get('deviceId');
+    return !!LocalStore.get('deviceId') && LocalStore.get('inRoom');
   }
 });
 
