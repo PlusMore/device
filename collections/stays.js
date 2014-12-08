@@ -80,13 +80,15 @@ Meteor.methods({
         var url = stripTrailingSlash(Meteor.settings.apps.device.url);
         var device = Devices.findOne(stay.deviceId);
         var hotel = Hotels.findOne(device.hotelId);
+        var email = user.emails[0].address
 
         Email.send({
-          to: 'order-service@plusmoretablets.com',
+          to: email,
+          bcc: 'info@plusmoretablets.com',
           from: "noreply@plusmoretablets.com",
           subject: "Your Stay at {0}\n\n".format(hotel.name), 
           text: "{0} {1},\n\n".format(user.profile.firstName, user.profile.lastName)+
-                "Thanks for choosing {0}.".format(hotel.name)+
+                "Thanks for choosing {0}. ".format(hotel.name)+
                 "You may also access PlusMore from your mobile device!\n\n"+ 
                 "{0}\n\n".format(url)+
                 "Use PlusMore to manage your stay on the go!"
