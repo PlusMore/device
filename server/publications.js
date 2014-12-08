@@ -74,6 +74,31 @@ Meteor.publish(null, function () {
   }
 });
 
+Stays._ensureIndex('users');
+
+Meteor.publish('stayInfo', function(stayId) {
+  var fields = {
+    stayId:1
+  }
+  
+  return [
+    Stays.find(stayId),
+    Meteor.users.find({stayId: stayId})
+  ];
+});
+
+Meteor.publish('userStays', function() {
+  return [
+    Stays.find({users: this.userId, active: true})
+  ];
+});
+
+Meteor.publish('userStays', function(deviceId) {
+  return [
+    Stays.find({deviceId: deviceId, active: true})
+  ];
+});
+
 // if user doesn't have device info, publish when requested from registered device
 Meteor.publish('device', function(deviceId) {
   if (deviceId) {
@@ -156,19 +181,6 @@ Meteor.publish('experiencesData', function(deviceId) {
     this.ready();
     return null;
   }
-});
-
-Meteor.publish('stayInfo', function(stayId) {
-  return [
-    Stays.find(stayId),
-    Meteor.users.find({stayId: stayId})
-  ];
-});
-
-Meteor.publish('userStays', function() {
-  return [
-    Stays.find({users: this.userId, active: true})
-  ];
 });
 
 Meteor.publish('experience', function(experienceId) {

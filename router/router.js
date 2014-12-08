@@ -159,7 +159,7 @@ Router.map(function() {
   this.route('hotelServices', {
     path: '/hotel-services',
     onRun: function () {
-      var first = HotelServices.findOne();
+      var first = HotelServices.findOne({type: {$not: 'roomService'}});
       if (first) {
         Session.set('selectedService', first.type);
       } else {

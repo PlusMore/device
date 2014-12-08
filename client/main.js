@@ -11,97 +11,146 @@ Global client-side code. Loads last.
 Meteor.startup(function() {
 
 
-  if (LocalStore.get('inRoom')) {
+  // if in room and registered, get device data,
+  // hotel for device.hotelid
+  // hotel services for device.hotelid
+  Tracker.autorun(function() {
+    var inRoom = LocalStore.get('inRoom');
+    var registeredDeviceId = LocalStore.get('deviceId');
 
-    console.log('in room subscriptions');
+    if (inRoom && registeredDeviceId) {
+      
+        console.log('in room, getting deviceData for registered device');
+        subscriptions.registeredDeviceData = Meteor.subscribe('device', registeredDeviceId);
+        
+        console.log('in room, getting experiencesData for registered device');
+        subscriptions.registeredDeviceExperiencesData = Meteor.subscribe('experiencesData', registeredDeviceId);
+      
+    } else {
 
-    Tracker.autorun(function() {
-      var registeredDeviceId = LocalStore.get('deviceId');
+      if (subscriptions.registeredDeviceData) {
+        subscriptions.registeredDeviceData.stop();
+        delete subscriptions.registeredDeviceData;
+      }
 
-      if (registeredDeviceId) {
-        console.log('subscriptions for registered device');
-        subscriptions.device = Meteor.subscribe('device', registeredDeviceId);
-        subscriptions.experiencesData = Meteor.subscribe('experiencesData', registeredDeviceId);
-      } else {
-        if (subscriptions.device) {
-          subscriptions.device.stop();
-          subscriptions.device = null;
-        }
-        if (subscriptions.experiencesData) {
-          subscriptions.experiencesData.stop();
-          subscriptions.experiencesData = null;
-        }
-      }  
-    });
+      if (subscriptions.registeredDeviceExperiencesData) {
+        subscriptions.registeredDeviceExperiencesData.stop();
+        delete subscriptions.registeredDeviceExperiencesData;
+      }
 
-    // when device is available
-    Tracker.autorun(function () {
-      var device = Devices.find();
-      if (device.count() > 0) {
-        // LocalStore.set('deviceId')
+    }  
+  });
+
+
+  // if in room and registered
+  // when device data available, set stayId
+  Tracker.autorun(function() {
+    var inRoom = LocalStore.get('inRoom');
+    var registeredDeviceId = LocalStore.get('deviceId');
+    var devices = Devices.find();
+
+    if (inRoom && registeredDeviceId && devices.count() > 0) {
+      if (Devices.findOne().stayId) {
+        console.log('received device data with stayId');
         Session.set('stayId', Devices.findOne().stayId);
-      }
-    });
-
-  } else {
-
-    console.log('mobile subscriptions');
-
-    Tracker.autorun(function() {
-      if (Meteor.user()) {
-        subscriptions.experiencesData = Meteor.subscribe('experiencesData');
       } else {
-        if (subscriptions.experiencesData) {
-          subscriptions.experiencesData.stop();
-          subscriptions.experiencesData = null;
-        }
+        console.log('received device data, no stay id');
       }
-    });
+    }
+  });
 
-    Tracker.autorun(function() {
-      var stayId = Session.get('stayId');
-      if (stayId) {
-        console.log('device by stayId')
-        subscriptions.device = Meteor.subscribe('deviceByStayId', stayId);
-      } else {
-        if (subscriptions.device) {
-          subscriptions.device.stop();
-          subscriptions.device = null;
-        }
+  // when logged in and not in room, get experiencesData for user
+  Tracker.autorun(function() {
+    var inRoom = LocalStore.get('inRoom');
+    var user = Meteor.user();
+
+    if (!inRoom && user) {
+      console.log('not in room, getting experiencesData for user');
+      subscriptions.experiencesDataForUser = Meteor.subscribe('experiencesData');
+    } else {
+      if (subscriptions.experiencesDataForUser) {
+        subscriptions.experiencesDataForUser.stop();
+        delete subscriptions.experiencesDataForUser;
       }
-    });
-  }
+    }
+    
+  });
 
+
+  // if not in room, and stayId set, get device data by stay id
+  // and hotel for device,
+  // and hotel services for device
+  Tracker.autorun(function() {
+    var stayId = Session.get('stayId');
+    var inRoom = LocalStore.get('inRoom');
+
+    if (!inRoom && stayId) {
+      console.log('not in room, getting device by stayId')
+      subscriptions.deviceByStay = Meteor.subscribe('deviceByStayId', stayId);
+    } else {
+      if (subscriptions.deviceByStay) {
+        subscriptions.deviceByStay.stop();
+        delete subscriptions.deviceByStay;
+      }
+    }  
+  });
+
+  // if in room, and registered, get stays for device
+  Tracker.autorun(function() {
+    var inRoom = LocalStore.get('inRoom');
+    var registeredDeviceId = LocalStore.get('deviceId');
+
+    if (inRoom && registeredDeviceId) {
+      console.log('in room, get stay info for deviceId');
+      subscriptions.deviceStays = Meteor.subscribe('deviceStays', registeredDeviceId);
+    } else {
+      if (subscriptions.deviceStays) {
+        subscriptions.deviceStays.stop();
+        delete subscriptions.deviceStays;
+      }
+    }
+  });
+  
+  // if not in room, get stay by user id
   Tracker.autorun(function() {
     var userId = Meteor.userId(); 
-    if (userId) {
+    var inRoom = LocalStore.get('inRoom');
+
+    if (!inRoom && userId) {
+      console.log('not in room, get user stays');
       subscriptions.userStays = Meteor.subscribe('userStays', userId);
     } else {
       if (subscriptions.userStays) {
         subscriptions.userStays.stop();
-        subscriptions.userStays = null;
+        delete subscriptions.userStays;
       }
-    }
+    }  
   });
 
   // if a stay becomes available, set stayId for session
   Tracker.autorun(function() {
     var stays = Stays.find();
-    if (stays.count() > 0) {
-      console.log('stay subscription data received');
+    var user = Meteor.user();
+    var inRoom = LocalStore.get('inRoom');
+
+    if (!inRoom && user && stays.count() > 0) {
+      
+      console.log('not in room, stay subscription data received for user', stays.count());
       var stay = Stays.findOne();
       Session.set('stayId', stay._id);
-      if (!LocalStore.get('inRoom'))
-        LocalStore.set('deviceId', stay.deviceId);
-    } else {
+
+    } else if (!inRoom && user && stays.count() === 0) {
+
       if (!Session.get('onboarding')) {
-        console.log('unset stay info');
+        console.log('unset stay info, not in room');
         Session.set('stayId', undefined);
-        if (!LocalStore.get('inRoom')) {
-          LocalStore.set('deviceId', null);
-        } else {
-          Meteor.logout();
-        }
+      }
+
+    } else if (inRoom && user && stays.count() === 0) {
+      if (!Session.get('onboarding')) {
+        console.log('unset stay info, in room');
+        Session.set('stayId', undefined);
+        Meteor.logout();
       }
     }
   });
