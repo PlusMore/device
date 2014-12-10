@@ -1,15 +1,19 @@
-Deps.autorun(function() {
-  var user = Meteor.user();
-  if (user) {
-    if (Roles.userIsInRole(user._id, ['admin', 'hotel-staff', 'hotel-manager'])) {
-      Meteor.subscribe('hotelData');
-    }
-  }  
-});
-
 Template.setupDeviceForm.helpers({
   setupDeviceSchema: function() {
     return Schema.setupDevice;
+  },
+  hotelOptions: function() {
+    var hotels = Hotels.find().fetch();
+    var hotelOptions = [];
+
+    _.each(hotels, function(hotel) {
+      hotelOptions.push({
+        label: hotel.name,
+        value: hotel._id
+      });
+    });
+
+    return hotelOptions; 
   }
 });
 
@@ -24,15 +28,13 @@ AutoForm.hooks({
 
       Meteor.setTimeout(function() {
         Meteor.logout(function() {
-          // attempts to create and login as new device user
-          Meteor.loginDevice(deviceId, function(err) {
-            if (err) {
-              Session.set('loader', undefined);
-              return Errors.throw('Device login failed: ' + err);
-            }
-            Router.go('welcome');
-            Session.set('loader', undefined);
-          });
+
+          LocalStore.set('deviceId', deviceId);
+          LocalStore.set('inRoom', true);
+
+          Router.go('welcome');
+          Session.set('loader', undefined);
+
         });
       }, 1000);
       
@@ -41,19 +43,4 @@ AutoForm.hooks({
       if (error.reason) Errors.throw(error.reason);
     }
   }
-});
-
-
-Handlebars.registerHelper("hotelOptions", function() {
-  var hotels = Hotels.find().fetch();
-  var hotelOptions = [];
-
-  _.each(hotels, function(hotel) {
-    hotelOptions.push({
-      label: hotel.name,
-      value: hotel._id
-    });
-  });
-
-  return hotelOptions;
 });

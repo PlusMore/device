@@ -1,9 +1,5 @@
 <template name="welcome">
-  {{#if needsRegistration}}
-    {{> registerDevice}}
-  {{else}}
-    {{> welcomeContent}}
-  {{/if}}
+  {{> welcomeContent}}
 </template>
 
 <template name="welcomeContent">
@@ -13,7 +9,7 @@
       
       <header class="row">
         <div class="col-xs-12">
-          <h1>Welcome to {{hotel.name}}</h1>
+          <h1>Welcome to {{welcomeToName}}</h1>
         </div>
       </header>
       

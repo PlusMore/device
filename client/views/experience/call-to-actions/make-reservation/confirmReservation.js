@@ -25,7 +25,9 @@ Template.registeredContent.helpers({
     return Session.get('reservation');
   },
   fullName: function() {
-    return Meteor.user().profile.name;
+    if (Meteor.user() && Meteor.user().profile) {
+      return Meteor.user().profile.name;
+    }
   },
   emailAddress: function() {
     return Meteor.user().emails[0].address;

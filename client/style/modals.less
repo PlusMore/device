@@ -11,14 +11,25 @@
   }
 
   .modal-dialog {
+    &.full-width {
+      width: 100%;
+    } 
+
+    .modal-title {
+      margin-right: 40px;
+    }
 
     .modal-content {
       background: transparent;
       box-shadow: none;
       border: none;
 
-      a, span, legend {
+      a:not(.btn), span, legend {
         color: #fff;
+      }
+
+      .instructions {
+        font-family: 'Montserrat';
       }
 
       .modal-header {

@@ -6,10 +6,8 @@ All publications-related code.
 
 /+ ---------------------------------------------------- */
 
-/**
- * Always publish logged-in user's hotelId
- *
- */
+// Used to get list of available hotels to register a device
+// Admin returns all, hotel-staff returns the user's hotel
 Meteor.publish('userHotelData', function () {
   var userId = this.userId;
 
@@ -41,28 +39,31 @@ Meteor.publish('userHotelData', function () {
 });
 
 /**
- * Always publish logged-in devices deviceId, device data, hotel data, and hotel-service data
+ * Always publish logged-in users stayId, Stay info, device info, device data, hotel data, and hotel-service data
  *
  */
 Meteor.publish(null, function () {
   var userId = this.userId;
   
   if (userId) {
-    var fields = {deviceId:1},
-        user = Meteor.users.findOne({_id:userId}),
-        deviceId = user && user.deviceId || null;
-    if (deviceId) {
+    var fields = {
+        stayId:1
+      },
+      user = Meteor.users.findOne({_id:userId}),
+      stayId = user && user.stayId || null;
 
-      var device = Devices.findOne(deviceId);
-      if (device) {
+
+    if (stayId) {
+
+      var stay = Stays.find(stayId);
+
+      if (stay) {
         return [
           Meteor.users.find(userId, {fields: fields}),
-          Devices.find(deviceId),
-          Hotels.find(device.hotelId),
-          HotelServices.find({hotelId: device.hotelId, active: true})
+          Stays.find({_id: stayId, active: true})
         ];
       }
-
+      
     } else {
       this.ready();
       return null;
@@ -73,60 +74,109 @@ Meteor.publish(null, function () {
   }
 });
 
-Meteor.publish('stayInfo', function() {
+Stays._ensureIndex('users');
+
+Meteor.publish('stayInfo', function(stayId) {
+  var fields = {
+    stayId:1
+  }
+  
   return [
-    Stays.find({userId: this.userId})
+    Stays.find(stayId),
+    Meteor.users.find({stayId: stayId})
   ];
 });
 
-Meteor.publish('deviceData', function(deviceId) {
+Meteor.publish('userStays', function() {
+  return [
+    Stays.find({users: this.userId, active: true})
+  ];
+});
+
+Meteor.publish('userStays', function(deviceId) {
+  return [
+    Stays.find({deviceId: deviceId, active: true})
+  ];
+});
+
+// if user doesn't have device info, publish when requested from registered device
+Meteor.publish('device', function(deviceId) {
+  if (deviceId) {
+    var device = Devices.findOne(deviceId);
+    if (device) {
+      return [
+        Devices.find(deviceId),
+        Hotels.find(device.hotelId),
+        HotelServices.find({hotelId: device.hotelId, active: true})
+      ];
+    }
+  }
+});
+
+Meteor.publish('deviceByStayId', function(stayId) {
+  var stay = Stays.findOne(stayId);
+
+  if (stay) {
+    if (stay.deviceId) {
+      var device = Devices.findOne(stay.deviceId);
+      if (device) {
+        return [
+          Devices.find(stay.deviceId),
+          Hotels.find(device.hotelId),
+          HotelServices.find({hotelId: device.hotelId, active: true})
+        ];
+      }
+    }  
+  }
+  
+});
+
+Meteor.publish('experiencesData', function(deviceId) {
   var userId = this.userId,
       user = Meteor.users.findOne(userId);
 
-  if (user) {
-    deviceId = deviceId || user.deviceId;
-    var device = Devices.findOne(deviceId);
+  var validDeviceId = !!Devices.findOne(deviceId);
 
-    if (device) {
-      var experienceFields = {
-        active: 1,
-        category: 1,
-        lead: 1,
-        photoUrl: 1,
-        title: 1
-      };
+  if (user || validDeviceId) {
+    var experienceFields = {
+      active: 1,
+      category: 1,
+      lead: 1,
+      photoUrl: 1,
+      title: 1
+    };
 
-      var experiencePublishFields = {
-        active: 1,
-        categoryId: 1,
-        geo: 1,
-        lead: 1,
-        photoUrl: 1,
-        sortOrder: 1,
-        tagGroups: 1,
-        title: 1,
-        yelpId: 1
-      }   
+    var experiencePublishFields = {
+      active: 1,
+      categoryId: 1,
+      geo: 1,
+      lead: 1,
+      photoUrl: 1,
+      sortOrder: 1,
+      tagGroups: 1,
+      title: 1,
+      yelpId: 1
+    }   
 
-      var tagGroups = Meteor.tags.find( {group: {$exists: true} });
-      var tagGroupsArray = [];
-      tagGroups.forEach(function(tag) {
-        if (tag.group && tagGroupsArray.indexOf(tag.group) === -1) {
-          tagGroupsArray.push(tag.group);
-        }
-      });
+    var tagGroups = Meteor.tags.find( {group: {$exists: true} });
+    var tagGroupsArray = [];
+    tagGroups.forEach(function(tag) {
+      if (tag.group && tagGroupsArray.indexOf(tag.group) === -1) {
+        tagGroupsArray.push(tag.group);
+      }
+    });
 
-      _.each(tagGroupsArray, function(tagGroup) {
-        if (tagGroup !== 'filterGroup') {
-          experiencePublishFields[tagGroup+'Tags'] = 1;
-        }
-      });
+    _.each(tagGroupsArray, function(tagGroup) {
+      if (tagGroup !== 'filterGroup') {
+        experiencePublishFields[tagGroup+'Tags'] = 1;
+      }
+    });
 
-      return [
-        Categories.find({active: true}),
-        Experiences.find({active: true}, {fields: experiencePublishFields})
-      ];
-    }
+    return [
+      Categories.find({active: true}),
+      Experiences.find({active: true}, {fields: experiencePublishFields})
+    ];
+    
   } else {
     this.ready();
     return null;
@@ -167,6 +217,36 @@ Meteor.publish('hotelMenu', function(hotelId) {
       })
     }).start();
   }
+});
+
+Meteor.publish('hotelMenuForStay', function(stayId) {
+  var userId = this.userId,
+      user = Meteor.users.findOne(userId);
+
+  var stay = Stays.findOne(stayId);
+
+  if (stay) {
+    var hotel = Hotels.find(stay.hotelId);
+    if (hotel) {
+      var publication = new SimplePublication({
+        subHandle: this,
+        collection: MenuCategories,
+        selector: {
+          hotelId: stay.hotelId,
+          active: true
+        },
+        dependant: new SimplePublication({
+          subHandle: this,
+          collection: MenuItems,
+          selector: {
+            active: true
+          },
+          foreignKey: 'menuCategoryId'
+        })
+      }).start();
+    }  
+  }
+
   
 });
 

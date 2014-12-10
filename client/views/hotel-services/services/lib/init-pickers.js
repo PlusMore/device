@@ -8,8 +8,12 @@ initializeServicePickers = function(template, startMinutes, endMinutes) {
   var startTime, endTime;
   var startTomorrow = false;
 
-  var checkoutDate = Stays.findOne().checkoutDate;
+  var checkoutDate = undefined;
+  var stay = Stays.findOne();
 
+  if (stay) {
+    checkoutDate = stay.checkoutDate;
+  }
   // timepicker options
   var timepickerOptions = {
     container: 'body',

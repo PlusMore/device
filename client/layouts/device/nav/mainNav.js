@@ -1,4 +1,7 @@
 Template.mainNav.helpers({
+  inStayOrInRoom: function() {
+    return !!Session.get('stayId') || !!LocalStore.get('inRoom');
+  },
   activeRouteClass: function(/* route names */) {
     var args = Array.prototype.slice.call(arguments, 0);
     args.pop();

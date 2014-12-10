@@ -13,19 +13,30 @@ Stays.allow({
 });
 
 Meteor.methods({
-  registerStay: function (checkoutDate) {
-    check(checkoutDate, Date);
-    var user = Meteor.user();
+  registerStay: function (deviceId, checkoutDate) {
+    check(deviceId, String);
+    check(checkoutDate, {
+      date: Date,
+      zone: Number
+    });
 
-    var stay = Stays.findOne({userId: user._id, checkoutDate: {$gt: new Date()}});
-
-    if (stay) {
-      throw new Meteor.Error(500, 'Stay already registered for this user');
-    }
-
-    var device = Devices.findOne(user.deviceId);
+    var device = Devices.findOne(deviceId);
     if (!device) {
       throw new Meteor.Error(500, 'Not a valid device');
+    }
+
+    if (device.stayId) {
+      var stay = Stays.findOne(device.stayId);
+
+      if (stay) {
+        if (moment().zone(checkoutDate.zone) < moment(stay.checkoutDate.date).zone()) {
+          // this device already has a registered stay
+          // if no users, allow it to be overwritten
+
+          if (stay.users.length > 0) 
+            throw new Meteor.Error(500, 'This device\'s current stay has not ended.');
+        }
+      }
     }
 
     var hotel = Hotels.findOne(device.hotelId);
@@ -33,22 +44,78 @@ Meteor.methods({
       throw new Meteor.Error(500, 'Not a valid hotel');
     }
 
+    Stays.update({deviceId: deviceId}, {$set: {active: false}});
     var stayId = Stays.insert({
-      userId: user._id,
       checkInDate: new Date(),
-      checkoutDate: checkoutDate,
+      checkoutDate: checkoutDate.date,
+      zone: checkoutDate.zone,
       hotelId: hotel._id,
-      deviceId: device._id
+      deviceId: device._id,
+      active: true
     });
 
-    return Stays.findOne(stayId);
+    Devices.update(device._id, {$set: {stayId: stayId}});
+
+
+    return stayId;
   },
-  endStay: function (stay) {
-    var currentDeviceId = Meteor.user().deviceId;
-    Stays.update(stay._id, {$set: {
-      checkoutDate: new Date()
+  addUserToStay: function(stayId) {
+    var user = Meteor.user();
+
+    if (user) {
+
+      var stay = Stays.findOne(stayId);
+
+      if (!stay) {
+        throw new Meteor.Error(500, 'Stay not found.');
+      }  
+
+      Stays.update({users: user._id}, {$set: {active: false}});
+      Meteor.users.update(user._id, {$set: {stayId: stay._id}});
+      var stayId = Stays.update(stay._id, {$addToSet: {users: user._id}});
+
+      this.unblock();
+
+      if (Meteor.isServer) {
+        var url = stripTrailingSlash(Meteor.settings.apps.device.url);
+        var device = Devices.findOne(stay.deviceId);
+        var hotel = Hotels.findOne(device.hotelId);
+        var email = user.emails[0].address
+
+        Email.send({
+          to: email,
+          bcc: 'info@plusmoretablets.com',
+          from: "noreply@plusmoretablets.com",
+          subject: "Your Stay at {0}\n\n".format(hotel.name), 
+          text: "{0} {1},\n\n".format(user.profile.firstName, user.profile.lastName)+
+                "Thanks for choosing {0}. ".format(hotel.name)+
+                "You may also access PlusMore from your mobile device!\n\n"+ 
+                "{0}\n\n".format(url)+
+                "Use PlusMore to manage your stay on the go!"
+        });
+      }
+
+      return stayId;
+
+    } else {
+      throw new Meteor.Error(403, 'Please log in to use this feature');
+    }
+  },
+  stayOver: function (stayId) {
+    var stay = Stays.findOne(stayId);
+
+    // if stay is over, end it.
+    if (moment().zone(stay.zone) > moment(stay.checkoutDate).zone(stay.zone)) {
+      Stays.update(stayId, {$set: {active: false}});
+      Devices.update(stay.deviceId, {$unset: {stayId: 1}});
+      Meteor.users.update({_id: {$in: stay.users}}, {$unset: {stayId: 1}});
+    }
+  },
+  endStay: function (stayId) {
+    return Stays.update(stayId, {$set: {
+      checkoutDate: new Date(),
+      active: false
     }});
-    return currentDeviceId;
   },
   changeCheckoutDate: function(stayId, checkoutDate) {
     check(stayId, String);

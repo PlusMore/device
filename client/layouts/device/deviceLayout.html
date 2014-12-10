@@ -9,36 +9,48 @@
   </div>
 
   <div id="perspective" class="perspective effect-persepctive-shift {{modalview}} {{showMenu}}">
+    {{> meteorErrors}}
     <div class="perspective-container">
       <img class="bg" alt='bg' src="{{hotelPhotoUrl}}" />
       <div class="overlay-bg black"></div>  
-      {{> meteorErrors}}
 
       <div class="outer">
         <div class="holder">
           {{#if currentUser}}
             {{> yield}}
           {{else}}
-            {{#if loggingIn}}
+            
+            {{#if registeredDevice}}
+              {{> yield}}
             {{else}}
-              {{> login}}
-            {{/if}}  
+          
+              {{#if loggingIn}}
+              {{else}}
+                {{> login}}
+              {{/if}}  
+
+            {{/if}}
+
+            
           {{/if}}
         </div>
       </div>
         
     </div>
-
+  
+    {{> accountsDropdown}}
     {{> mainNav}}
     
   </div>
 
   <!-- Overlays -->
-  {{#if currentUser}}
-    {{> experience}}
-    {{> addItemToCartModal}}
-    {{> confirmReservation}}
-  {{/if}}
+
+  {{> accountInfo}}
+  {{> selectUser}}
+  {{> experience}}
+  {{> addItemToCartModal}}
+  {{> confirmReservation}}
+
 
   {{> idleOverlay}}
 

@@ -7,7 +7,7 @@ Template.makeReservationCallToAction.destroyed = function () {
 };
 
 Template.makeReservationCallToAction.events({
-  'click .btn-call-to-action': function(e, tmpl) {
+  'touchstart .btn-call-to-action, click .btn-call-to-action': function(e, tmpl) {
     e.preventDefault();
 
     var user = Meteor.user();
@@ -21,17 +21,35 @@ Template.makeReservationCallToAction.events({
       experienceId: Session.get('currentExperienceId')
     };
 
+    Session.set('reservation', reservation);
+
     App.track('Click Book Now', {
       "Reservation Date": moment(reservation.date).zone(reservation.zone).calendar(),
       "Party Size": reservation.partySize,
       "Experience Title": experience.title
     });
 
-    Session.set('reservation', reservation);
+    $(document).one('user-selected', function() {
+      $(document).off('user-selected');
+      $(document).off('cancel-user-selected');
 
-    $('#confirm-reservation').modal({
-      backdrop: 'static'
+      $('#confirm-reservation').modal({
+        backdrop: 'static'
+      });
     });
+
+    $(document).one('cancel-user-selected', function() {
+      $(document).off('user-selected');
+      $(document).off('cancel-user-selected');
+      
+      return Errors.throw('Please log in to use this feature.');
+    });
+
+    if (!Meteor.user()) {
+      Session.set('selectUser', true);
+    } else {
+      $(document).trigger('user-selected');
+    }
   }
 });
 
@@ -52,10 +70,10 @@ Template.makeReservationCallToAction.helpers({
 });
 
 var getCategoryDelay = function(category) {
-  var delay = 1;
+  var delay = 6;
 
   if (category === 'Nightlife') {
-    delay = 2;
+    delay = 6;
   }
 
   return delay;
@@ -71,7 +89,12 @@ var initializePickers = function(template) {
   var startTime, endTime;
   var startTomorrow = false;
 
-  var checkoutDate = Stays.findOne().checkoutDate;
+  var checkoutDate = undefined;
+  var stay = Stays.findOne();
+
+  if (stay) {
+    checkoutDate = stay.checkoutDate;
+  }
 
   // timepicker options
   var timepickerOptions = {

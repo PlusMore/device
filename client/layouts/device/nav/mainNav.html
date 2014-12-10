@@ -1,11 +1,20 @@
 <template name="mainNav">
   <nav class="outer-nav left vertical">
         
-    {{#if hotelServicesEnabled}}
-      <a href="{{pathFor 'hotelServices'}}" class="icon-front-desk">Guest Services</a>
-      <a href="{{pathFor 'roomService'}}" class="icon-roomservice">Room Service</a>
+
+    {{#if isInRole 'admin' 'hotel-staff' 'hotel-manager'}}
+      <a href="{{pathFor 'setupDevice'}}">Kiosk Mode</a>
     {{/if}}
-    
+
+    {{#if inStayOrInRoom}}
+  
+      {{#if hotelServicesEnabled}}
+        <a href="{{pathFor 'hotelServices'}}" class="icon-front-desk">Guest Services</a>
+        <a href="{{pathFor 'roomService'}}" class="icon-roomservice">Room Service</a>
+      {{/if}}
+
+    {{/if}}
+
     {{#each categories}}
       {{> categoryLink}}
     {{/each}}

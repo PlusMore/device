@@ -1,6 +1,6 @@
 @import '/client/style/imports.import.less';
 
-#login {
+.open-login {
 
   #login-dropdown-list {
     list-style: none;
@@ -19,6 +19,42 @@
       .clearfix();
 
       #login-other-options {
+        display: none;
+      }
+
+    }
+  }
+}
+
+.minimal-login {
+
+  #login-dropdown-list {
+    list-style: none;
+
+    & > a.dropdown-toggle {
+      display: none;
+    }
+
+    & > .dropdown-menu {
+      display: block;
+      position: relative;
+      float: none;
+      margin: 0 auto;
+      min-width: inherit;
+      background: transparent;
+      padding: 0;
+
+      .clearfix();
+
+      #login-email {
+        display: none;
+      }
+
+      #login-password {
+        border-radius: 5px;
+      }
+
+      #signup-link {
         display: none;
       }
 

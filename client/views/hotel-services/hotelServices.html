@@ -1,27 +1,23 @@
 <template name="hotelServices">
-  {{#if subscriptionsReady}}
-    {{#Layout template="subnavContentLayout"}}
-      {{#contentFor "title"}}
-        Guest Services
-      {{/contentFor}}
+  {{#Layout template="subnavContentLayout"}}
+    {{#contentFor "title"}}
+      Guest Services
+    {{/contentFor}}
 
-      {{#contentFor "subnav"}}
-        {{> hotelServicesNav}}
-      {{/contentFor}}
+    {{#contentFor "subnav"}}
+      {{> hotelServicesNav}}
+    {{/contentFor}}
 
-    
-      {{#if hotelServicesEnabled}}
+  
+    {{#if hotelServicesEnabled}}
 
-        {{> Template.dynamic template=subNavContentTemplate data=configuration}}
+      {{> Template.dynamic template=subNavContentTemplate data=configuration}}
 
-      {{else}}
-        {{> hotelServicesNotConfigured}}
-      {{/if}}
+    {{else}}
+      {{> hotelServicesNotConfigured}}
+    {{/if}}
 
-    {{/Layout}}
-  {{else}}
-    {{> loading}}
-  {{/if}}
+  {{/Layout}}
 </template>
 
 

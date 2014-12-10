@@ -92,18 +92,18 @@ if (Meteor.isClient) {
 // TODO: Need to think about this.. Can we get patron's
 // information somehow? Maybe can change from auto login
 // to a form.
-Router.onBeforeAction(filters.ensureDeviceAccount, {only: [
-  'experiences',
-  'experience',
-  'orders',
-  'enterCheckoutDate'
-]});
+// Router.onBeforeAction(filters.ensureDeviceAccount, {only: [
+//   'experiences',
+//   'experience',
+//   'orders',
+//   'enterCheckoutDates'
+// ]});
 
-Router.onBeforeAction(filters.ensureValidStay, {only: [
-  'experiences',
-  'orders',
-  'hotelServices'
-]});
+// Router.onBeforeAction(filters.ensureValidStay, {only: [
+//   'experiences',
+//   'orders',
+//   'hotelServices'
+// ]});
 
 Router.onRun(filters.resetExperienceState);
 
@@ -123,8 +123,6 @@ Router.map(function() {
       ];
     }
   });
-
-  this.route('settingUp');
 
   // Patron Interface
   this.route('welcome', {
@@ -150,13 +148,18 @@ Router.map(function() {
       Deps.nonreactive(function() {
         App.track("View Orders");
       });
+    },
+    waitOn: function() {
+      return [
+        this.subscribe('orders')
+      ];
     }
   });
 
   this.route('hotelServices', {
     path: '/hotel-services',
     onRun: function () {
-      var first = HotelServices.findOne();
+      var first = HotelServices.findOne({type: {$not: 'roomService'}});
       if (first) {
         Session.set('selectedService', first.type);
       } else {
@@ -175,12 +178,27 @@ Router.map(function() {
     path: '/room-service', 
     waitOn: function() {
       var stayId = Session.get('stayId');
+      var hotels = Hotels.find();
       var hotel = Hotels.findOne();
- 
-      return [
-        Meteor.subscribe('hotelMenu', hotel._id),
-        Meteor.subscribe('cart', stayId)
-      ];
+      var user = Meteor.user();
+      var onboarding = Session.get('onboarding');
+
+      var cartId = Meteor.default_connection._lastSessionId;
+      console.log('wait on room service');
+
+      if (stayId && !onboarding) {
+        console.log('cart is stayid');
+        cartId = stayId;
+      }  
+
+      if (hotel) {
+        console.log('cart', cartId);
+        return [
+          Meteor.subscribe('hotelMenu', hotel._id),
+          Meteor.subscribe('cart', cartId)
+        ]; 
+      }
+        
     },
     onRun: function() {
       Session.set('selectedService', 'roomService');

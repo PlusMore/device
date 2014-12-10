@@ -13,6 +13,54 @@ Schema.accountInfo = new SimpleSchema({
   }
 });
 
+Schema.newGuest = new SimpleSchema({
+   firstName: {
+    type: String,
+    label: 'First Name'
+  },
+  lastName: {
+    type: String,
+    label: 'Last Name'
+  },
+  emailAddress: {
+    type: String,
+    label: "Email Address"
+  },
+  password: {
+    type: String,
+    min: 8
+  }
+});
+
+Schema.guestInfo = new SimpleSchema({
+  firstName: {
+    type: String,
+    label: 'First Name'
+  },
+  lastName: {
+    type: String,
+    label: 'Last Name'
+  },
+  checkoutDate: {
+    type: String,
+    label: 'Checkout Date'
+  }
+});
+
+Schema.guestNotifications = new SimpleSchema({
+  email: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Email
+  }
+});
+
+Schema.guestPassword = new SimpleSchema({
+  password: {
+    type: String,
+    min: 8
+  }
+});
+
 Meteor.methods({
   addInfoToDeviceAccount: function(requestData) {
     check(requestData, Schema.accountInfo);
@@ -35,5 +83,21 @@ Meteor.methods({
 
     return true;
     
-  }
+  },
+  doesUserExist: function(email) {
+    var user = Meteor.users.findOne({'emails.address': email});
+    if (user) {
+      return user._id;
+    } else {
+      return false;
+    }
+  },
+  getProfile: function(email) {
+    var user = Meteor.users.findOne({'emails.address': email});
+    if (user) {
+      return user.profile;
+    } else {
+      return false;
+    }
+  } 
 });

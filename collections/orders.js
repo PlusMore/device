@@ -44,10 +44,16 @@ Schema.Order = new SimpleSchema({
     type: Number
   },
   deviceId: {
-    type: String
+    type: String,
+    optional: true
   },
   hotelId: {
-    type: String
+    type: String,
+    optional: true
+  },
+  stayId: {
+    type: String,
+    optional: true
   },
   userId: {
     type: String
@@ -110,15 +116,16 @@ Meteor.methods({
     }
 
     var user = Meteor.user();
-    var deviceId = user.deviceId;
-    var device = Devices.findOne(deviceId);
-    if (!device) {
-      throw new Meteor.Error(500, 'Not a proper device');
+    if (!user) {
+      throw new Meteor.Error(403, 'Unauthorized');
     }
 
-    var hotel = Hotels.findOne(device.hotelId);
-    if (!hotel) {
-      throw new Meteor.Error(500, 'Not a valid hotel');
+    var stay = Stays.findOne(user.stayId);
+
+    if (stay) {
+      var deviceId = stay.deviceId;
+      var device = Devices.findOne(deviceId);
+      var hotel = Hotels.findOne(device.hotelId);
     }
 
     if (typeof user.emails !== 'undefined' && 
@@ -129,19 +136,15 @@ Meteor.methods({
       throw new Meteor.Error(500, 'No email address');
     }
     
-    if (typeof user.profile !== 'undefined' && typeof user.profile.name !== 'undefined') {
-      reservation.partyName = user.profile.name;
+    if (typeof user.profile !== 'undefined' && typeof user.profile.firstName !== 'undefined' && typeof user.profile.lastName !== 'undefined') {
+      reservation.partyName = user.profile.firstName + " " + user.profile.lastName;
     } else {
       throw new Meteor.Error(500, 'No party name');
     }
 
     //valid request
-    var stay = Stays.findOne({userId: user._id});
     var order = {
       type: 'reservation',
-      deviceId: device._id,
-      hotelId: hotel._id,
-      stayId: stay._id,
       reservation: reservation,
       requestedAt: new Date(),
       requestedZone: reservation.zone,
@@ -149,6 +152,18 @@ Meteor.methods({
       status: 'pending',
       userId: user._id
     };
+
+    if (stay) {
+      order.stayId = stay._id;
+    }
+
+    if (device) {
+      order.deviceId = device._id;
+    }
+
+    if (hotel) {
+      order.hotelId = hotel._id;
+    }
 
     var orderId = Orders.insert(order);
 
@@ -171,9 +186,8 @@ Meteor.methods({
       Email.send({
         to: 'order-service@plusmoretablets.com',
         from: "noreply@plusmoretablets.com",
-        subject: "Device in {0} at {1} has requested a reservation.\n\n".format(device.location, hotel.name), 
-        text: "Device in {0} at {1} has requested a reservation.\n\n".format(device.location, hotel.name) + 
-              "Reservation Details:\n\n"+ 
+        subject: "Reservation Request\n\n", 
+        text: "Reservation Details:\n\n"+ 
               "For: {0}\n".format(experience.title)+ 
               "When: {0}\n".format(when)+ 
               "Name: {0}\n".format(reservation.partyName)+ 
@@ -274,7 +288,21 @@ Meteor.methods({
     check(request, new SimpleSchema(requestSchema));
 
     var user = Meteor.user();
-    var deviceId = user.deviceId;
+    if (!user) {
+      throw new Meteor.Error(403, 'Unauthorized');
+    }
+
+    var stay = Stays.findOne(user.stayId);
+
+    if (!stay) {
+      throw new Meteor.Error(403, 'No current stay registered for user');
+    }
+
+    if (moment().zone(stay.zone) > moment(stay.checkoutDate).zone(stay.zone)) {
+      throw new Meteor.Error(500, 'Stay has ended.');
+    }
+
+    var deviceId = stay.deviceId;
     var device = Devices.findOne(deviceId);
     if (!device) {
       throw new Meteor.Error(500, 'Not a proper device');
@@ -286,12 +314,11 @@ Meteor.methods({
     }
 
     // valid request
-    var stay = Stays.findOne({userId: user._id});
+    var stay = Stays.findOne({users: user._id});
     var order = {
       type: 'request',
       for: request.for,
       deviceId: device._id,
-      // deviceLocation: device.location,
       hotelId: hotel._id,
       stayId: stay._id,
       request: request,
