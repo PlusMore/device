@@ -12,7 +12,7 @@ start:
 	NODE_OPTIONS=$(NODE_OPTIONS) \
 	MONGO_URL=$(MONGO_URL) \
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
-	meteor -p $(PORT) --settings ./config/$(APP_ENV)/settings.json $(APP_OPTIONS)
+	meteor -p $(PORT) --settings ./config/$(APP_ENV)/settings.json --mobile-server $(HOST):$(PORT) $(APP_OPTIONS) 
 
 ios:
 	NODE_OPTIONS=$(NODE_OPTIONS) \
