@@ -1,18 +1,17 @@
 <template name="experience">
   {{#with experience}}
-    <div class="experience quick animated {{isVisibleClass}}" style="background-image: url('{{photoUrl}}/convert?w=1024&h=768&fit=scale&cache=true')">
+    <div class="experience scrollable quick animated {{isVisibleClass}}" style="background: #eee url({{photoUrl}}/convert?w=1024&h=768&fit=scale&cache=true);">
+      <div class="content">
+        <div class="container-fluid">
+          {{> experienceDetails}}
+        </div>
+      </div>
+
+      {{> experienceMap}}
 
       <div class="back">
         <a href="#" class="back"><i class="icon icon-back"></i>&nbsp;Back</a>
       </div>
-
-      <div class="content row">
-        {{> experienceDetails}}
-      </div>
-
-      {{#if callToAction}}
-        {{> callToAction}}
-      {{/if}}
 
     </div>
   {{/with}}

@@ -1,27 +1,33 @@
 <template name="experienceDetails">
-
-    <div class="details col-xs-12 col-md-7">
-      <h1>
-        {{title}}
-      </h1>
-      {{#if yelpId}}
-        {{> experienceYelpRating}}
-      {{/if}}
-      <!-- <p class="lead">{{lead}}</p> -->
-      <div class='tags'>
-        {{#each tags}}
-          <span class="label label-tag">{{this}}</span>
-        {{/each}}
+  
+  <div id="book" class="row centered">
+    <div class="visible-xs">
+      <div class="col-xs-12">
+        <i class="circle icon icon-menu"></i>
       </div>
-      <div class="description scrollable">
-        <p class="description ">{{description}}</p>
+      <div class="col-xs-12">
+        <span class="reservation">Dinner for 2 today between 7:00-9:00pm</span>
+      </div>
+      <div class="col-xs-12">
+        <a class="btn btn-primary" href="">Book A Table</a>
       </div>
     </div>
 
-    <div class="venue col-xs-12 col-md-5">
-      
-      {{> experienceMap}}
+    <div class="hidden-xs">
+      <i class="circle icon icon-menu"></i>
+      <span class="reservation">Dinner for 2 today between 7:00-9:00pm</span>
+      <a class="btn btn-primary" href="">Book A Table</a>
+    </div>
+  </div>
 
+  <div class="row" id="info">
+    <div class="col-sm-3 logo">
+      <div class="placeholder"></div>
+    </div>
+    <div class="col-sm-4">
+      {{#if yelpId}}
+        {{> experienceYelpRating}}
+      {{/if}}
       {{#with geo}}
 
         {{#if streetName}}
@@ -38,5 +44,19 @@
 
       {{/with}}
     </div>
-  
+    <div class="col-sm-5">
+      {{#each tags}}
+        <span class="label label-tag">{{this}}</span>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="description">
+        <p class="lead ">{{description}}</p>
+      </div>
+    </div>
+
+  </div>
 </template>
