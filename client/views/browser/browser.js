@@ -6,18 +6,26 @@ var verifyUrl = function(url) {
 
 InAppBrowser.navigate = function(url) {
   check(url, String);
-  if (verifyUrl(url)) {
+  if (typeof url === 'string' && verifyUrl(url)) {
     Session.set('browser', url);
   }
+
+  return false;
 }
 
 Meteor.startup(function() {
-  $(document).on(clickevent, 'a[target=in-app-browser]', function(e) {
+  window.alias_open = window.open;
+  window.open = function(url, name, specs, replace) { 
+    // Do nothing, or do something smart... 
+    console.log('hey... ');
+  } 
+  $(document).on('click', 'a[target=in-app-browser]', function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
 
     var url = $(e.currentTarget).attr('href');
     InAppBrowser.navigate(url);
+    return false;
   });
 });
 
@@ -26,7 +34,10 @@ Template.browser.helpers({
   isVisibleClass: function() {
     var animateOut = "fadeOutDownBig",
         animateIn = "fadeInUpBig";
-    if (!!Session.get('browser')) {
+
+    var url = Session.get('browser');
+
+    if (typeof url === 'string' && verifyUrl(url)) {
       if (Session.get('hideBrowser')) {
         return animateOut;
       }
@@ -36,7 +47,12 @@ Template.browser.helpers({
     }
   },
   url: function() {
-    return Session.get('browser');
+    var url = Session.get('browser');
+    if (typeof url === 'string' && verifyUrl(url)) {
+      return Session.get('browser');
+    }
+
+    return undefined;
   }
 });
 
