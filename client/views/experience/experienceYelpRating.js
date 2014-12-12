@@ -17,6 +17,10 @@ Template.experienceYelpRating.rendered = function () {
       starSrc = starSrc.replace('http://', 'https://');
       Session.set('yelpStarsSrc', starSrc);
       Session.set('yelpReviewCount', result.review_count);
+
+      var yelpUrl = result.mobile_url;
+      yelpUrl = yelpUrl.replace('http://', 'https://');
+      Session.set('yelpUrl', yelpUrl);
     }
 
   });
@@ -37,5 +41,8 @@ Template.experienceYelpRating.helpers({
   },
   hasYelp: function() {
     return Session.get('hasYelp');
+  },
+  yelpUrl: function() {
+    return Session.get('yelpUrl');
   }
 });

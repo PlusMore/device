@@ -31,6 +31,8 @@
   z-index: 3000;
 
   background-color: #eee;
+  // background-position: center top;
+  // background-size: 100% auto;
 
   & > .back {
     & > a {
@@ -41,7 +43,7 @@
       text-shadow: #000 1px 0px 30px;
       font-weight: 400;
 
-      position: fixed;
+      position: absolute;
       right: 7px;
       top: 0;
 
@@ -72,6 +74,7 @@
             font-size: 1.5em;
             display: inline-block;
             vertical-align: middle;
+            margin-bottom: 10px;
 
             &:before {
               display: block;
@@ -84,6 +87,8 @@
             margin: 0 5px;
             font-family: "Open Sans";
             vertical-align: middle;
+            margin-bottom: 10px;
+            display: block;
           }
 
         }
@@ -163,7 +168,17 @@
 
 @media (max-width: 767px) {}
 
-@media (min-width: 768px) {}
+@media (min-width: 768px) {
+  #book {
+    .icon.circle {
+      margin-bottom: 0;
+    }
+    .reservation {
+      margin-bottom: 0;
+      display: inline-block;
+    }
+  }
+}
 
 @media (min-width: 992px) {}
 
