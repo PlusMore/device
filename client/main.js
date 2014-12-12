@@ -5,7 +5,7 @@
 Global client-side code. Loads last.
 
 /+ ---------------------------------------------------- */
-
+var subs = new SubsManager();
 
 //
 Meteor.startup(function() {
@@ -21,10 +21,10 @@ Meteor.startup(function() {
     if (inRoom && registeredDeviceId) {
       
         console.log('in room, getting deviceData for registered device');
-        subscriptions.registeredDeviceData = Meteor.subscribe('device', registeredDeviceId);
+        subscriptions.registeredDeviceData = subs.subscribe('device', registeredDeviceId);
         
         console.log('in room, getting experiencesData for registered device');
-        subscriptions.registeredDeviceExperiencesData = Meteor.subscribe('experiencesData', registeredDeviceId);
+        subscriptions.registeredDeviceExperiencesData = subs.subscribe('experiencesData', registeredDeviceId);
       
     } else {
 
@@ -66,7 +66,7 @@ Meteor.startup(function() {
 
     if (!inRoom && user) {
       console.log('not in room, getting experiencesData for user');
-      subscriptions.experiencesDataForUser = Meteor.subscribe('experiencesData');
+      subscriptions.experiencesDataForUser = subs.subscribe('experiencesData');
     } else {
       if (subscriptions.experiencesDataForUser) {
         subscriptions.experiencesDataForUser.stop();
@@ -86,7 +86,7 @@ Meteor.startup(function() {
 
     if (!inRoom && stayId) {
       console.log('not in room, getting device by stayId')
-      subscriptions.deviceByStay = Meteor.subscribe('deviceByStayId', stayId);
+      subscriptions.deviceByStay = subs.subscribe('deviceByStayId', stayId);
     } else {
       if (subscriptions.deviceByStay) {
         subscriptions.deviceByStay.stop();
@@ -102,7 +102,7 @@ Meteor.startup(function() {
 
     if (inRoom && registeredDeviceId) {
       console.log('in room, get stay info for deviceId');
-      subscriptions.deviceStays = Meteor.subscribe('deviceStays', registeredDeviceId);
+      subscriptions.deviceStays = subs.subscribe('deviceStays', registeredDeviceId);
     } else {
       if (subscriptions.deviceStays) {
         subscriptions.deviceStays.stop();
@@ -118,7 +118,7 @@ Meteor.startup(function() {
 
     if (!inRoom && userId) {
       console.log('not in room, get user stays');
-      subscriptions.userStays = Meteor.subscribe('userStays', userId);
+      subscriptions.userStays = subs.subscribe('userStays', userId);
     } else {
       if (subscriptions.userStays) {
         subscriptions.userStays.stop();
@@ -159,7 +159,7 @@ Meteor.startup(function() {
   Tracker.autorun(function() {
     var stayId = Session.get('stayId');
     if (stayId) {
-      subscriptions.stayInfo = Meteor.subscribe('stayInfo', stayId);
+      subscriptions.stayInfo = subs.subscribe('stayInfo', stayId);
     } else {
       if (subscriptions.stayInfo) {
         subscriptions.stayInfo.stop();

@@ -15,9 +15,9 @@ Template.welcomeContent.helpers({
     var hotel = Hotels.findOne();
 
     if (hotel) {
-      return hotel.name; 
+      return "@" + hotel.name; 
     }
-    return "PlusMore";
+    return "";
   }
 });
 
