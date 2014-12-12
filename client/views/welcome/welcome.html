@@ -9,7 +9,10 @@
       
       <header class="row">
         <div class="col-xs-12">
-          <h1>Welcome to {{welcomeToName}}</h1>
+          <h1>Welcome to PlusMore</h1>
+          {{#with welcomeToName}}
+            <h4>{{this}}</h4>
+          {{/with}}
         </div>
       </header>
       

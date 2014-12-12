@@ -1,10 +1,4 @@
-/* ---------------------------------------------------- +/
-
-## Client Router ##
-
-Client-side Router.
-
-/+ ---------------------------------------------------- */
+var subs = new SubsManager();
 
 // Config
 
@@ -39,36 +33,6 @@ var filters = {
   isHotelStaff: function() {
     return Roles.userIsInRole(Meteor.userId(), ['hotel-staff', 'admin']);
   },
-  ensureDeviceAccount: function(pause) {
-    if (! Meteor.user()) {  
-
-      if (Meteor.loggingIn()) {    
-        this.render(this.loadingTemplate);
-        
-      } else {    
-        this.render('registerDevice');
-      }
-
-      pause();
-
-    } else {
-      
-      if (!Roles.userIsInRole(Meteor.userId(), ['device'])) {    
-        this.render('registerDevice');
-      } 
-
-    }
-  },
-  ensureValidStay: function (pause) {
-    var stay = Stays.findOne({userId: Meteor.userId()});
-
-    if (stay && stay.checkoutDate < new Date()) {
-      Session.set('expired', true);
-    }
-  },
-  resetExperienceState: function() {
-    Session.set('experienceState', '');
-  },
   clearCurrentExperienceId: function() {
     Session.set('currentExperienceId', undefined);
   },
@@ -87,32 +51,9 @@ if (Meteor.isClient) {
   Router.onRun(filters.scroll);
 }
 
-// Ensure user has a device account, otherwise,
-// redirect to device list?
-// TODO: Need to think about this.. Can we get patron's
-// information somehow? Maybe can change from auto login
-// to a form.
-// Router.onBeforeAction(filters.ensureDeviceAccount, {only: [
-//   'experiences',
-//   'experience',
-//   'orders',
-//   'enterCheckoutDates'
-// ]});
-
-// Router.onBeforeAction(filters.ensureValidStay, {only: [
-//   'experiences',
-//   'orders',
-//   'hotelServices'
-// ]});
-
-Router.onRun(filters.resetExperienceState);
-
-
 // Routes
 
 Router.map(function() {
-
-  this.route('registerDevice');
 
   // Hotel Staff
   this.route('setupDevice', {
@@ -151,7 +92,7 @@ Router.map(function() {
     },
     waitOn: function() {
       return [
-        this.subscribe('orders')
+        subs.subscribe('orders')
       ];
     }
   });
@@ -194,8 +135,8 @@ Router.map(function() {
       if (hotel) {
         console.log('cart', cartId);
         return [
-          Meteor.subscribe('hotelMenu', hotel._id),
-          Meteor.subscribe('cart', cartId)
+          subs.subscribe('hotelMenu', hotel._id),
+          subs.subscribe('cart', cartId)
         ]; 
       }
         
