@@ -41,4 +41,5 @@ frozeman:storage
 reactive-var
 meteorhacks:inject-initial
 coffeescript
+meteorhacks:subs-manager
 
