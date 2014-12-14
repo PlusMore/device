@@ -43,7 +43,7 @@ Template.browser.helpers({
       }
       return animateIn;
     } else {
-      return animateOut;
+      return animateOut + " hidden";
     }
   },
   url: function() {

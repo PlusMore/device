@@ -1,6 +1,8 @@
 <template name="experience">
   {{#with experience}}
-    <div class="experience scrollable quick animated {{isVisibleClass}}" style="background: #eee url({{photoUrl}}/convert?w=1024&h=768&fit=scale&cache=true);">
+    <div class="experience scrollable quick animated {{isVisibleClass}}">
+      <div class='main-image'></div>
+      <img src="{{photoUrl}}/convert?w=1024&h=768&fit=scale&cache=true" alt="">
       <div class="content">
         <div class="container-fluid">
           {{> experienceDetails}}
