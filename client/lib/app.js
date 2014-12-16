@@ -103,7 +103,7 @@ Meteor.startup(function() {
         _.extend(properties, profileInfo);
 
         _.extend(properties, {
-          "Path": IronLocation.path()
+          "Path": Router.current().url
         });
 
         if (hotel && hotel.trackAnalytics) {
