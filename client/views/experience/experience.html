@@ -1,20 +1,35 @@
 <template name="experience">
   {{#with experience}}
-    <div class="experience scrollable quick animated {{isVisibleClass}}">
-      <div class='main-image'></div>
-      <img src="{{photoUrl}}/convert?w=1024&h=768&fit=scale&cache=true" alt="">
-      <div class="content">
-        <div class="container-fluid">
-          {{> experienceDetails}}
+  <div class="experience scrollable quick animated {{isVisibleClass}}">
+    <div class="parallax scrollable ">
+
+      <div class="parallax__group">
+        <div class="parallax__layer parallax__layer--back">
+          <img src="{{photoUrl}}/convert?w=1024&h=460&fit=crop&cache=true" alt="">
+        </div>
+        <div class="parallax__layer parallax__layer--base experience-content-layer">
+          <div class="container-fluid">
+            {{> experienceDetails}}
+          </div>
+          {{> experienceMap}}
         </div>
       </div>
+    </div>
+  </div>
+  {{/with}}
+</template>
 
-      {{> experienceMap}}
+<template name="oldexperience">
+  <div class="experience scrollable quick animated {{isVisibleClass}}">
+      <div class='main-image'></div>
+      <img src="{{photoUrl}}/convert?w=1024&h=768&fit=scale&cache=true" alt="">
+      
+
+      
 
       <div class="back">
         <a href="#" class="back"><i class="icon icon-back"></i>&nbsp;Back</a>
       </div>
 
     </div>
-  {{/with}}
 </template>

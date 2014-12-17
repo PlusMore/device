@@ -1,3 +1,5 @@
+var subs = new SubsManager();
+
 Template.experience.helpers({
   isVisibleClass: function() {
     if (!!Session.get('currentExperienceId')) {
@@ -15,12 +17,17 @@ Template.experience.helpers({
 });
 
 var handleBack = function (e, tmpl) {
+  console.log('back');
   e.preventDefault();
+  e.stopImmediatePropagation();
+
   Session.set('fadeOutExperience', true);
   Meteor.setTimeout(function() {
     Session.set('currentExperienceId', undefined);
     Session.set('fadeOutExperience', false);
   }, 500);
+
+  return false;
 };
 
 var events = {};
@@ -33,7 +40,7 @@ Meteor.startup(function() {
     var currentExperienceId = Session.get('currentExperienceId');
 
     if (currentExperienceId) {
-      subscriptions.experience = Meteor.subscribe('experience', currentExperienceId);
+      subscriptions.experience = subs.subscribe('experience', currentExperienceId);
     } else {
       if (subscriptions && subscriptions.experience && subscriptions.experience.stop) {
         subscriptions.experience.stop();

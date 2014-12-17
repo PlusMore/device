@@ -1,5 +1,35 @@
 @import '/client/style/imports.import.less';
 
+// http://keithclark.co.uk/articles/pure-css-parallax-websites/
+.parallax {
+  perspective: 1px;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.parallax__layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.parallax__layer--base {
+  transform: translateZ(0);
+}
+.parallax__layer--back {
+  transform: translateZ(-1px);
+  transform: translateZ(-1px) scale(2);
+}
+.parallax__layer--deep {
+  transform: translateZ(-2px) scale(3);
+}
+.parallax__group {
+  position: relative;
+  height: 100vh;
+  transform-style: preserve-3d;
+}
+
 .btn-call-to-action {
   font-size: 1.8em;
   font-weight: 200;
@@ -53,10 +83,14 @@
     }
   }
 
-  & > .content {
+  & .experience-content-layer {
     color: #000;
     background: #fff;
     box-shadow: 0px 0px 20px #000;
+    margin-top: 460px;
+    height: auto;
+    top: inherit;
+    bottom: inherit;
 
     & > .container, & > .container-fluid {
       & > .row {
