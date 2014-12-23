@@ -13,6 +13,9 @@ Template.experience.helpers({
   },
   experience: function() {
     return Experiences.findOne(Session.get('currentExperienceId'));
+  },
+  stickBookNow: function() {
+    return Session.get('stickBookNow');
   }
 });
 
@@ -31,7 +34,7 @@ var handleBack = function (e, tmpl) {
 };
 
 var events = {};
-events[clickevent + " a.back"] = handleBack;
+events[clickevent + " .js-back"] = handleBack;
 
 Template.experience.events(events);
 

@@ -30,6 +30,9 @@ Template.deviceLayout.helpers({
   },
   registeredDevice: function() {
     return !!LocalStore.get('deviceId') && LocalStore.get('inRoom');
+  },
+  modalOpen: function() {
+    return Session.get('modalOpen') ? 'modal-open' : '';
   }
 });
 

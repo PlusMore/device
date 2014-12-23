@@ -1,60 +1,47 @@
 <template name="experienceDetails">
-  
-  <div id="book" class="row centered">
-    <div class="visible-xs">
-      <div class="col-xs-12">
-        <i class="circle icon icon-menu"></i>
-      </div>
-      <div class="col-xs-12">
-        <span class="reservation">Dinner for 2 today between 7:00-9:00pm</span>
-      </div>
-      <div class="col-xs-12">
-        <a class="btn btn-primary" href="">Book A Table</a>
-      </div>
-    </div>
 
-    <div class="hidden-xs">
-      <i class="circle icon icon-menu"></i>
-      <span class="reservation">Dinner for 2 today between 7:00-9:00pm</span>
-      <a class="btn btn-primary" href="">Book A Table</a>
-    </div>
-  </div>
-
-  <div class="row" id="info">
-    <div class="col-sm-3 logo">
-      <div class="placeholder"></div>
-    </div>
-    <div class="col-sm-4">
+  {{#unless stickBookNow}}
+    {{> callToAction}}
+  {{/unless}}
+  <div id="info" class="row stickem-container">  
+    <div class="col-xs-12 col-sm-6">
       {{#if yelpId}}
         {{> experienceYelpRating}}
       {{/if}}
       {{#with geo}}
+        <div class="address">
+          {{#if streetName}}
+          <div>{{streetNumber}} {{streetName}}</div>
+          {{/if}}
 
-        {{#if streetName}}
-        <div>{{streetNumber}} {{streetName}}</div>
-        {{/if}}
-
-        {{#if city}}
-          <div>
-            {{city}}, 
-            {{stateCode}} 
-            {{zipcode}}
-          </div>
-        {{/if}}
-
+          {{#if city}}
+            <div>
+              {{city}}, 
+              {{stateCode}} 
+              {{zipcode}}
+            </div>
+          {{/if}}  
+        </div>
       {{/with}}
-    </div>
-    <div class="col-sm-5">
-      {{#each tags}}
+      <div>
+         {{#each tags}}
         <span class="label label-tag">{{this}}</span>
-      {{/each}}
+      {{/each}}  
+      </div>
+    </div>
+  </div>
+
+  <div class="row" id="perk">
+    <div class="col-xs-12 col-sm-6">
+      <i class="icon icon-prize"></i>
+      <p class="text">Receive an exclusive perk when you book with PlusMore!</p>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-12 col-sm-6">
       <div class="description">
-        <p class="lead ">{{description}}</p>
+        <p>{{description}}</p>
       </div>
     </div>
 

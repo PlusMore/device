@@ -2,10 +2,10 @@
 
 // http://keithclark.co.uk/articles/pure-css-parallax-websites/
 .parallax {
-  perspective: 1px;
   height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
+  // .perspective(1px);
 }
 .parallax__layer {
   position: absolute;
@@ -15,19 +15,23 @@
   left: 0;
 }
 .parallax__layer--base {
-  transform: translateZ(0);
+  .translateZ(0);
+  // transform: translateZ(0);
 }
 .parallax__layer--back {
-  transform: translateZ(-1px);
-  transform: translateZ(-1px) scale(2);
+  // transform: translateZ(-1px);
+  // transform: translateZ(-1px) scale(2);
+  .parallax(-1px, 2);
 }
 .parallax__layer--deep {
-  transform: translateZ(-2px) scale(3);
+  // transform: translateZ(-2px) scale(3);
+  .parallax(-2px, 3);
 }
 .parallax__group {
   position: relative;
   height: 100vh;
-  transform-style: preserve-3d;
+  .preserve-3d();
+  .perspective(1px);
 }
 
 .btn-call-to-action {
@@ -52,6 +56,13 @@
   margin-bottom: 7px;
 }
 
+.experience-bg {
+  width: 100%;
+  height: auto;
+  margin-top: 65px;
+  .box-reflect(above);
+}
+
 .experience {
   position: fixed;
   top: 0;
@@ -61,8 +72,10 @@
   z-index: 3000;
 
   background-color: #eee;
-  // background-position: center top;
-  // background-size: 100% auto;
+  
+  .outer .holder section .main {
+    padding-top: 0;
+  }
 
   & > .back {
     & > a {
@@ -74,8 +87,8 @@
       font-weight: 400;
 
       position: absolute;
-      right: 7px;
-      top: 0;
+      right: 30px;
+      top: 30px;
 
       & > i {
         font-size: .75em;
@@ -85,9 +98,8 @@
 
   & .experience-content-layer {
     color: #000;
-    background: #fff;
     box-shadow: 0px 0px 20px #000;
-    margin-top: 460px;
+    margin-top: 220px;
     height: auto;
     top: inherit;
     bottom: inherit;
@@ -96,40 +108,45 @@
       & > .row {
         border-bottom: 1px solid #eee;
         padding: 20px;
+        background: #fff;
+      }
+    }
 
-        &#book {
-          background: #fefefe;
+    #info {
+      .address {
+        margin-bottom: 10px;
+      }
+    }
 
-          .icon.circle {
-            border-radius: 50%;
-            border: 1px solid #000;
-            padding: 6px 10px;
-            font-size: 1.5em;
-            display: inline-block;
-            vertical-align: middle;
-            margin-bottom: 10px;
+    #perk {
+      background: #eee;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
 
-            &:before {
-              display: block;
-              margin: 4px 0;
-            }
-          }
+      .icon-prize {
+        display: inline-block;
+        font-size: 5em;
+        vertical-align: middle;
+        line-height: 1;
+        position: absolute;
+        top: -15px;
+        float: right;
+      }
 
-          .reservation {
-            font-size: 1.5em;
-            margin: 0 5px;
-            font-family: "Open Sans";
-            vertical-align: middle;
-            margin-bottom: 10px;
-            display: block;
-          }
-
-        }
+      p.text {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 1.5em;
+        margin-bottom: 0;
+        margin-left: 110px;
+        line-height: 1;
       }
     }
     
     .yelp-rating {
-      height:30px;
+      display: inline-block;
+      margin-bottom: 10px;
+
       span {
         line-height: 30px;
         vertical-align: middle;
@@ -147,70 +164,99 @@
       z-index: 1000;
     }
 
-    .experience-header {
-      margin-bottom: 25px;
-
-      h1 {
-        font-weight: 100;
-        font-size: 4em;
-        margin-bottom: 5px;
-      }
-
-      p.lead {
-        font-weight: 100;
-        font-size: 2.2em;
-        margin-bottom: 0;
-        line-height: 1.1em;
-      }
-    }
-
-    .venue {
-      margin-top: 65px;
-      font-size: 1.4em;
-      margin-bottom: 20px;
-
-      & > #experience-map {
-        margin-bottom: 18px;
-        border-radius: 5px;
-        border: 1px solid #fff;
-      }
-
-      a.get-directions {
-        text-transform: uppercase;
-        font-weight: 500;
-      }
-
-      .name {
-        font-weight: 300;
-      }
-
-    }
-
     .description {
-      max-height: 470px;
-      p.description {
-        font-weight: 400;
-        font-size: 1.4em;
+
+      & > p {
         white-space: pre-wrap;
-        font-family: "Montserrat";
       }
     }
     
   }
 }
 
+#book-now {
+  border: 1px solid #ddd;
+  color: #000;
+
+  //xs 
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
+
+  background: #fff;
+
+  header {
+    
+    padding: 5px 15px;
+
+    .icon.circle {
+      border-radius: 50%;
+      border: 1px solid #000;
+      padding: 2px 6px;
+      font-size: 1em;
+      display: inline-block;
+      vertical-align: middle;
+      /* margin-bottom: 7px; */
+      float: right;
+      margin: 6px;
+
+      &:before {
+        display: block;
+        margin: 4px 0;
+      }
+    }
+  }
+}
+
+
+
 @media (max-width: 767px) {}
 
 @media (min-width: 768px) {
-  #book {
-    .icon.circle {
-      margin-bottom: 0;
+  #book-now {
+
+    top: -50px;
+    left: initial;
+    right: 35px;
+    bottom: initial;
+    position: absolute;
+
+    &.affix {
+      position: fixed;
+      top: 125px;
     }
-    .reservation {
-      margin-bottom: 0;
-      display: inline-block;
+
+    &.stuck {
+      position: fixed;
+      top: 125px;
+    }
+
+    .submit-form {
+      padding: 15px;
+    }
+     
+  }
+
+  .experience {
+    .experience-content-layer {
+      margin-top: 500px;
+      #book {
+        .icon.circle {
+          margin-bottom: 0;
+        }
+        .reservation {
+          
+        }
+      }  
     }
   }
+
+  .stickem-container {
+    position: relative;
+  }
+  
 }
 
 @media (min-width: 992px) {}
