@@ -47,6 +47,8 @@ var handlePerspectiveContainerClick = function(e, tmpl) {
   if (Menu.isOpen()) {
     Menu.hide();
   }
+
+  return false;
 };
 
 var events = {};
