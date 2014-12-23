@@ -23,7 +23,14 @@ Template.welcomeContent.helpers({
 
 var onEngage = function(e) {
   e.preventDefault();
-  App.go();
+  if (Session.get('animatingMenu')) {
+    return;
+  }
+
+  if (!Menu.isOpen()) {
+    e.stopImmediatePropagation();
+    Menu.show();
+  }
 }
 
 var events = {};

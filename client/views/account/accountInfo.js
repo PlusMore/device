@@ -37,6 +37,19 @@ Template.accountInfo.helpers({
   }
 });
 
+Meteor.startup(function() {
+  Tracker.autorun(function() {
+    var showAccountInfo = !!Session.get('accountInfo');
+
+    if (showAccountInfo) {
+      Session.set('modalOpen', true);
+    } else {
+      Session.set('modalOpen', false);
+    }
+  });
+});
+
+
 var hideModal = function() {
   Session.set('hideAccountInfo', true);
   Meteor.setTimeout(function() {
