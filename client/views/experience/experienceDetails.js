@@ -18,5 +18,16 @@ Template.experienceDetails.rendered = function () {
 Template.experienceDetails.helpers({
   stickBookNow: function() {
     return Session.get('stickBookNow');
+  },
+  tagsFromGroups: function() {
+    var results = [];
+    var that = this;
+    
+    _.each(this.tagGroups, function(group) {
+      results = results.concat(that[group+'Tags']);
+    });
+
+
+    return _.uniq(results);
   }
 });
