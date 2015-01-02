@@ -1,0 +1,33 @@
+<template name="hotelInformation">
+	{{#Layout template="contentLayout"}}
+
+		{{#contentFor "title"}}
+			Hotel Info
+		{{/contentFor}}
+
+		<h2 class="text-center">Custom Title! (Welcome, About Us:, etc)</h2><br />
+
+		<div class="row">
+
+			<div class="col-sm-5">
+				<img class="img-responsive" src="https://maps.googleapis.com/maps/api/staticmap?center={{hotel.geo.latitude}},{{hotel.geo.longitude}}&zoom=18&size=640x480&maptype=roadmap&markers=color:blue%7C{{hotel.geo.latitude}},{{hotel.geo.longitude}}" />
+				
+				<div class="row">
+					<div class="col-sm-6">
+						<p>{{hotel.street}}<br>{{hotel.city}}, {{hotel.state}} {{hotel.zip}}</p>
+					</div>
+					<div class="col-sm-6">
+						<p><span class="pull-right">Hours: #am - #pm</span><br />
+						<span class="pull-right">{{hotel.phone}}</span></p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-7">	
+				<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora consequuntur sed est tempore. Placeat, temporibus quidem, ipsam veritatis molestiae labore perferendis dolores illum est aspernatur similique officia. Officiis, consequuntur, quibusdam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam expedita, porro similique tempore eius totam hic assumenda. Fugiat possimus iste officiis error commodi minus laudantium facere natus nihil quibusdam. Magnam.</p>
+			</div>
+			
+		</div>
+
+	{{/Layout}}
+</template>
