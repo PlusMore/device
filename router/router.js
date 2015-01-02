@@ -115,6 +115,10 @@ Router.map(function() {
     }
   });
 
+  this.route('hotelInformation', {
+    path: '/hotel-info'
+  });
+
   this.route('roomService', {
     path: '/room-service', 
     waitOn: function() {
