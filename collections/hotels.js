@@ -1,8 +1,8 @@
 /* ---------------------------------------------------- +/
 
-## Items ##
+## Hotels ##
 
-All code related to the Items collection goes here.
+All code related to the Hotels collection goes here.
 
 /+ ---------------------------------------------------- */
 
