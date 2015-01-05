@@ -4,12 +4,21 @@ var initializeMap = function () {
 		var mapOptions = {
 			zoom: 18,
 			disableDefaultUI: true,
-			zoomControl: true
+			zoomControl: true,
+			mapTypeControl: true,
+			mapTypeId: 'hybrid'
 		};
-		var hotel = Hotels.findOne();
-		var hotelLatLng = new google.maps.LatLng ( hotel.geo.latitude, hotel.geo.longitude );
+		
+		if (typeof Session.get('hotelGeo') !== 'undefined'){
+			var geo = Session.get('hotelGeo');
+			var hotelLatLng = new google.maps.LatLng( geo.latitude, geo.longitude );
+		} else {
+			var hotel = Hotels.findOne();
+			var hotelLatLng = new google.maps.LatLng( hotel.geo.latitude, hotel.geo.longitude );
+			Session.set('hotelGeo', hotel.geo);
+		}
 
-		if (typeof experienceMap !== 'undefined') {
+		if (typeof hotelMap !== 'undefined') {
 		    hotelMap.unbindAll();
 		    hotelMap.setCenter(hotelLatLng);
 		    hotelMap.constructor(document.getElementById("hotel-map"), mapOptions);
@@ -31,8 +40,8 @@ var initializeMap = function () {
 
 Template.hotelInformationMap.rendered = function () {
 	GoogleMaps.init({
-		'sensor': false,
-		'key': Meteor.settings.public.googlemaps,
-		'language': 'en'
-	}, initializeMap); 
+		'sensor': false, //optional
+	    'key': Meteor.settings.public.googlemaps, //optional
+	    'language': 'en' //optional
+	}, initializeMap);
 };
