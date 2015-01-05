@@ -9,26 +9,18 @@
 
 			<div class="content row">
 
-				<div class="col-sm-7">	
-					<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora consequuntur sed est tempore. Placeat, temporibus quidem, ipsam veritatis molestiae labore perferendis dolores illum est aspernatur similique officia. Officiis, consequuntur, quibusdam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam expedita, porro similique tempore eius totam hic assumenda. Fugiat possimus iste officiis error commodi minus laudantium facere natus nihil quibusdam. Magnam.</p>
+				<div class="col-sm-7">
+
+					<p class="lead" style="text-indent:50px;">[description] Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora consequuntur sed est tempore. Placeat, temporibus quidem, ipsam veritatis molestiae labore perferendis dolores illum est aspernatur similique officia. Officiis, consequuntur, quibusdam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam expedita, porro similique tempore eius totam hic assumenda. Fugiat possimus iste officiis error commodi minus laudantium facere natus nihil quibusdam. Magnam.</p>
 				
 					{{> hotelAmenities}}
 
 				</div>
 
 				<div class="col-sm-5">
-
 					{{> hotelInformationMap}}
 					
-					<div class="row">
-						<div class="col-xs-6">
-							<p>{{hotel.street}}<br>{{hotel.city}}, {{hotel.state}} {{hotel.zip}}</p>
-						</div>
-						<div class="col-xs-6">
-							<p><span class="pull-right">Hours: #am - #pm</span><br />
-							<span class="pull-right">{{hotel.phone}}</span></p>
-						</div>
-					</div>
+					{{> underMapInfo}}
 				</div>
 				
 			</div>
