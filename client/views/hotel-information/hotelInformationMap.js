@@ -9,8 +9,14 @@ var initializeMap = function () {
 		var hotel = Hotels.findOne();
 		var hotelLatLng = new google.maps.LatLng ( hotel.geo.latitude, hotel.geo.longitude );
 
-		hotelMap = new google.maps.Map(document.getElementById("hotel-map"), mapOptions);
-		hotelMap.setCenter(hotelLatLng);
+		if (typeof experienceMap !== 'undefined') {
+		    hotelMap.unbindAll();
+		    hotelMap.setCenter(hotelLatLng);
+		    hotelMap.constructor(document.getElementById("hotel-map"), mapOptions);
+		} else {
+			hotelMap = new google.maps.Map(document.getElementById("hotel-map"), mapOptions);
+			hotelMap.setCenter(hotelLatLng);
+		}
 
 		var marker = new google.maps.Marker({
 			position: hotelLatLng,
@@ -28,5 +34,5 @@ Template.hotelInformationMap.rendered = function () {
 		'sensor': false,
 		'key': Meteor.settings.public.googlemaps,
 		'language': 'en'
-	}, initializeMap);
+	}, initializeMap); 
 };
