@@ -107,6 +107,7 @@ Meteor.startup(function() {
         });
 
         if (hotel && hotel.trackAnalytics) {
+          // mixpanel.com mobile analytics
           mixpanel.track(key, properties);
           console.log('Tracked metric: ', key, properties);
         } else {
@@ -115,23 +116,6 @@ Meteor.startup(function() {
       });
     },
     go: function() {
-      // var stay = Stays.findOne({userId: Meteor.userId()});
-
-      // if (!stay) {
-      //   Router.go('enterCheckoutDate');
-      // } else {
-      //   App.goToStartPage();
-      // }
-      App.goToStartPage();
-    },
-    goToStartPage: function() {
-      // var diningCategory = Categories.findOne({name: 'Dining'});
-      // if (diningCategory) {
-      //   Router.go('experiences', {categoryId: diningCategory._id});  
-      // } else {
-      //   var firstCategory = Categories.findOne();
-      //   Router.go('experiences', {categoryId: firstCategory._id});
-      // }
       Menu.show();
     }
   });

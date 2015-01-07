@@ -253,8 +253,3 @@ Meteor.publish('hotelMenuForStay', function(stayId) {
 Meteor.publish('cart', function(cartId) {
   return CartItems.find({cartId: cartId});
 });
-// Meteor.publish('experience', function(id) {
-//   return [
-//     Experiences.find(id)
-//   ];
-// });
