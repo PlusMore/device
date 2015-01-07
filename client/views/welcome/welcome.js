@@ -18,6 +18,15 @@ Template.welcomeContent.helpers({
       return "@" + hotel.name; 
     }
     return "";
+  },
+  city: function() {
+    var hotel = Hotels.findOne();
+
+    if (hotel) {
+      return hotel.geo.city;
+    }
+
+    return "Your City"
   }
 });
 
