@@ -24,7 +24,12 @@ Template.experienceDetails.helpers({
     var that = this;
     
     _.each(this.tagGroups, function(group) {
-      results = results.concat(that[group+'Tags']);
+      _.each(that[group+'Tags'], function(tag) {
+        results.push({
+          group: group,
+          tag: tag
+        });
+      });
     });
 
 
