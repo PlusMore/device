@@ -23,7 +23,7 @@ Template.welcomeContent.helpers({
 
 var onEngage = function(e) {
   e.preventDefault();
-  App.go();
+  App.go(); // client/lib/app.js
 }
 
 var events = {};

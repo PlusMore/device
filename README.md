@@ -9,6 +9,8 @@ npm install -g meteorite
 
 // clone project
 git clone https://github.com/PlusMore/device.git
+
+// run project (ensure mongodb plusmore is running first)
 cd device
 make start
 ```
@@ -38,34 +40,73 @@ Major version needs the most explanation. An example of when we might do it is i
 ## File Structure
 
 - **client**
-	- **CSS**
-	- **helpers**
-		- handlebars.js
+	- **config**
+	- **layouts**
+		- **content**
+		- **device**
+			- **accounts**
+			- **loader**
+			- **nav**
+			- deviceLayout.html
+			- deviceLayout.js
+			- deviceLayout.less
+			- perspective-shift-layout.less
+		- **lib**
+		- menu-icon.js
 		- router.js
+	- **lib**
+	- **style**
 	- **views**
-		- **common**
-			- footer.html
-			- header.html
-			- layout.html
-			- loading.html
-			- notFound.html
-		- **items**
-			- item.html
-			- item.js
-			- items.html
-		- **pages**
-			- homepage.html
+		- **account**
+		- **enterCheckoutDate**
+		- **experience**
+		- **experiences**
+		- **hotel-services**
+		- **idle**
+		- **orders**
+		- **room-service**
+		- **select-user**
+		- **setup-device**
+		- **shared**
+		- **welcome**
 	- main.html
 	- main.js
 - **collections**
-	- items.js
+	- cartItems.js
+	- categories.js
+	- devices.js
+	- experiences.js
+	- hotels.js
+	- hotelServices.js
+	- menuCategories.js
+	- menuItems.js
+	- orders.js
+	- stays.js
+	- users.js
+	- yelp.js
+- **config**
+	- **development**
+	- **productions**
+	- **qa**
 - **lib**
+	- **config**
+	- blazeExtensions.js
 	- helpers.js
-	- permissions.js
 - **packages**
-	- iron-router
-	- sample-package
+	- **accounts-plusmore-device**
+	- **device-tinytests**
 - **public**
+	- **icons**
+	- **images**
+	- **markers**
+- **resources**
+	- **icons**
+		- **android**
+		- **ios**
+	- **splash**
+		- **android**
+		- **ios**
+- **router**
 - **server**
-	- fixtures.js
+	- accounts.js
 	- publications.js

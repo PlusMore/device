@@ -107,6 +107,7 @@ Meteor.startup(function() {
         });
 
         if (hotel && hotel.trackAnalytics) {
+          // mixpanel.com mobile analytics
           mixpanel.track(key, properties);
           console.log('Tracked metric: ', key, properties);
         } else {
@@ -132,7 +133,7 @@ Meteor.startup(function() {
       //   var firstCategory = Categories.findOne();
       //   Router.go('experiences', {categoryId: firstCategory._id});
       // }
-      Menu.show();
+      Menu.show(); // client/layouts/lib/menu.js
     }
   });
 

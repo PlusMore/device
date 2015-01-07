@@ -11,6 +11,8 @@ Router.configure({
 // Filters
 
 var filters = {
+  // Redirects to sign-in screen unless user is logged in or logging in.
+  // Sets session variable for current path for post-sign-in redirect.
   isLoggedIn: function(router, pause, extraCondition) {
     if (extraCondition === null) {
       extraCondition = true;
@@ -24,6 +26,7 @@ var filters = {
       }
     }
   },
+  // package - alanning:roles
   isAdmin: function() {
     return Roles.userIsInRole(Meteor.userId(), ['admin']);
   },
@@ -33,9 +36,11 @@ var filters = {
   isHotelStaff: function() {
     return Roles.userIsInRole(Meteor.userId(), ['hotel-staff', 'admin']);
   },
+  // currentExperienceId is used in views/experiences to show corresponding 'experience'
   clearCurrentExperienceId: function() {
     Session.set('currentExperienceId', undefined);
   },
+  // Scrolls page to top
   scroll: function() {
     Meteor.setTimeout(function(){
       $('.main').animate({scrollTop: 0}, 400);
@@ -122,6 +127,7 @@ Router.map(function() {
       var hotels = Hotels.find();
       var hotel = Hotels.findOne();
       var user = Meteor.user();
+      // boolean for registration required
       var onboarding = Session.get('onboarding');
 
       var cartId = Meteor.default_connection._lastSessionId;
