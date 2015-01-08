@@ -7,6 +7,8 @@
     {{/if}}
 
     {{#if inStayOrInRoom}}
+    
+      <a href="{{pathFor 'hotelInformation'}}" class="icon-building">Hotel Information</a>
   
       {{#if hotelServicesEnabled}}
         <a href="{{pathFor 'hotelServices'}}" class="icon-front-desk">Guest Services</a>

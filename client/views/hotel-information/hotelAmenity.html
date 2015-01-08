@@ -1,0 +1,24 @@
+<template name="hotelAmenity">
+      <div class="inline animated fadeInRight">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            {{title}}
+            {{#with hours}}
+              <small class="pull-right"><em>{{hours.start}} - {{hours.end}}</em></small>
+            {{/with}}
+          </h4>
+        </div>
+        <div class="modal-body">
+          {{#with description}}
+            <p><strong>{{description}}</strong></p>
+          {{/with}}
+          {{#if hasBulletpoints}}
+            <ul>
+            {{#each bulletpoints}}
+              <li><p>{{line}}</p></li>
+            {{/each}}
+            </ul>
+          {{/if}}
+        </div>
+      </div>
+</template>

@@ -1,0 +1,42 @@
+<template name="hotelInformation">
+	{{#Layout template="contentLayout"}}
+
+		{{#contentFor "title"}}
+			Hotel Info
+		{{/contentFor}}
+
+		<div class="hotel-info quick animated fadeIn">
+
+			<div class="content row">
+
+				<div class="col-sm-7">
+					<h3>About {{hotel.name}}</h3>
+					{{#if hotel.description}}
+						<p class="lead">{{hotel.description}}</p>
+					{{else}}
+						<!--Filler text-->
+						<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum voluptas accusamus quasi, praesentium exercitationem optio nulla nesciunt in? Numquam labore, temporibus. Temporibus, debitis! Nesciunt doloremque odio mollitia quo ea, incidunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor incidunt fuga hic, at adipisci commodi soluta molestiae ea officia amet, assumenda, sint. Quasi quaerat incidunt ratione facere, quibusdam, nobis!</p>
+					{{/if}}
+
+					{{#each hotelAmenities}}
+						{{> hotelAmenity}}
+					{{/each}}
+
+				</div>
+
+				<div class="col-sm-5">
+					{{> hotelInformationMap}}
+					
+					{{> underMapInfo}}
+				</div>
+				
+			</div>
+			
+			<footer class='col-xs-12 hotel-info-footer'>
+			    <div class="text">PlusMor<span class="last-letter">e</span></div>
+			    <div class="small-text">Your Private Concierg<span class="last-letter">e</span></div>
+			</footer>
+		</div>
+		
+	{{/Layout}}
+</template>
