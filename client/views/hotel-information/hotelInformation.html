@@ -10,14 +10,17 @@
 			<div class="content row">
 
 				<div class="col-sm-7">
+					<h3>About {{hotel.name}}</h3>
 					{{#if hotel.description}}
-						<p class="lead" style="text-indent:50px;"></p>
+						<p class="lead">{{hotel.description}}</p>
 					{{else}}
 						<!--Filler text-->
-						<p class="lead" style="text-indent:50px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum voluptas accusamus quasi, praesentium exercitationem optio nulla nesciunt in? Numquam labore, temporibus. Temporibus, debitis! Nesciunt doloremque odio mollitia quo ea, incidunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor incidunt fuga hic, at adipisci commodi soluta molestiae ea officia amet, assumenda, sint. Quasi quaerat incidunt ratione facere, quibusdam, nobis!</p>
+						<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum voluptas accusamus quasi, praesentium exercitationem optio nulla nesciunt in? Numquam labore, temporibus. Temporibus, debitis! Nesciunt doloremque odio mollitia quo ea, incidunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolor incidunt fuga hic, at adipisci commodi soluta molestiae ea officia amet, assumenda, sint. Quasi quaerat incidunt ratione facere, quibusdam, nobis!</p>
 					{{/if}}
 
-					{{> hotelAmenities}}
+					{{#each hotelAmenities}}
+						{{> hotelAmenity}}
+					{{/each}}
 
 				</div>
 
