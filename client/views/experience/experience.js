@@ -9,11 +9,21 @@ var closestWidth = function(containerWidth) {
   // reverse it for serving the images, that way the images are scaled down
   // rather than scaled up
 
-  var width = 1200; //large device 
+  var width = 1920; // 1080p display
+
+  // android tablet horizontal
+  if (containerWidth <= 1280) {
+    width = 1280;
+  }
 
   // ipad horizontal 
   if (containerWidth <= 1024) {
     width = 1024;
+  }
+
+  // android tablet vertical 
+  if (containerWidth <= 800) {
+    width = 800;
   }
 
   // ipad vertical
@@ -43,12 +53,33 @@ var closestHeight = function (containerWidth, containerHeight) {
   // we can't be as specific with heights because there are too
   // many variations, from browser chromes, and things like 
   // "your hotspot is on" so instead we will support 
-
-  //the image should be close to 16:9 ration
+  debugger;
+  
   var width = closestWidth(containerWidth);
-  var height = width*(9/16);
+
+  //the image should be 16:9 aspect ratio
+  var aspectRatioFormula = (9/16);
+  // if container's width is greater than height, than we want to
+  // use a tighter aspect ratio of 16:7
+  if (containerWidth > containerHeight) {
+    aspectRatioFormula = (7/16);
+  }
+
+  var height = width*aspectRatioFormula;
+
+  // while the margin will cause the content to be offscreen or height 
+  // is offscreen, go down a size by recursively calling with 
+  // 50 less pixels from the width
+  while (contentOffsetTop(height) > containerHeight) {
+    height = closestHeight(width - 50, containerHeight);
+  }
 
   return height;
+}
+
+var contentOffsetTop = function(height) {
+  var navbarheight = 65;
+  return height + navbarheight - 10;
 }
 
 Template.experience.helpers({
@@ -83,9 +114,11 @@ Template.experience.helpers({
     // same as the imgheight - 10px + top-margin (65px)
     var containerHeight = ResponsiveHelpers.deviceHeight();
     var containerWidth = ResponsiveHelpers.deviceWidth();
-    var height = closestHeight(containerWidth, containerHeight) + 65 - 10;
+    var height = closestHeight(containerWidth, containerHeight);
 
-    return 'margin-top:'+height+'px;'
+    var offsetTop = contentOffsetTop(height);
+
+    return 'margin-top:'+offsetTop+'px;'
   }
 });
 
