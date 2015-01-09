@@ -1,9 +1,7 @@
 <template name="modal">
   <div class="modal-backdrop fade {{isVisibleClass}}"></div>
-  <div class="modal fade {{isVisibleClass}}">
-    <div class="modal-dialog">
-      {{> UI.dynamic template=dynamicTemp data=dynamicData}}  
-    </div><!-- /.modal-dialog -->
+  <div class="modal fade {{isVisibleClass}}">  
+    {{> UI.dynamic template=dynamicTemp data=dynamicData}}  
   </div><!-- /.modal -->
 </template>
 
