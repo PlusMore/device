@@ -120,6 +120,9 @@ Template.experience.helpers({
     var offsetTop = contentOffsetTop(height);
 
     return 'margin-top:'+offsetTop+'px;'
+  },
+  modalOpen: function() {
+    return (Session.get('modalOpen') || modal.open()) ? 'modal-open' : '';
   }
 });
 

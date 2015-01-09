@@ -1,6 +1,5 @@
 <template name="confirmReservation">
-  <div id='confirm-reservation' class="overlay-confirm modal fade">
-    <div class="modal-dialog">
+
       <div class="modal-content">
         {{#if currentUser}}
           {{> registeredContent}}
@@ -8,8 +7,7 @@
           {{> needsRegistrationContent}}
         {{/if}}
       </div>
-    </div>
-  </div>
+
 </template>
 
 <template name="needsRegistrationContent">
