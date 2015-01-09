@@ -39,14 +39,14 @@ var closestWidth = function(containerWidth) {
   return width;
 }
 
-var closestHeight = function (containerHeight, containerWidth) {
+var closestHeight = function (containerWidth, containerHeight) {
   // we can't be as specific with heights because there are too
   // many variations, from browser chromes, and things like 
   // "your hotspot is on" so instead we will support 
 
   //the image should be close to 16:9 ration
   var width = closestWidth(containerWidth);
-  var height = (9/16)*width;
+  var height = width*(9/16);
 
   return height;
 }
@@ -80,10 +80,10 @@ Template.experience.helpers({
     return 'h='+height;
   },
   contentTopMarginCss: function() {
-    // same as the imgheight - 10px
+    // same as the imgheight - 10px + top-margin (65px)
     var containerHeight = ResponsiveHelpers.deviceHeight();
     var containerWidth = ResponsiveHelpers.deviceWidth();
-    var height = closestHeight(containerWidth, containerHeight) - 10;
+    var height = closestHeight(containerWidth, containerHeight) + 65 - 10;
 
     return 'margin-top:'+height+'px;'
   }
