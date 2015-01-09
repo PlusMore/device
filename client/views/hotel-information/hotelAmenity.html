@@ -1,24 +1,24 @@
 <template name="hotelAmenity">
-      <div class="inline animated fadeInRight">
-        <div class="modal-header">
-          <h4 class="modal-title">
-            {{title}}
-            {{#with hours}}
-              <small class="pull-right"><em>{{hours.start}} - {{hours.end}}</em></small>
-            {{/with}}
-          </h4>
-        </div>
-        <div class="modal-body">
-          {{#with description}}
-            <p><strong>{{description}}</strong></p>
-          {{/with}}
-          {{#if hasBulletpoints}}
-            <ul>
-            {{#each bulletpoints}}
-              <li><p>{{line}}</p></li>
+  <div class="inline animated fadeInRight">
+    <div class="modal-header">
+      <h4 class="modal-title">
+        {{#unless availableAnytime}}
+          <h6 class="pull-right"><em>{{startTime}} - {{endTime}}</em></h6>
+        {{/unless}}  
+        {{name}}
+      </h4>
+    </div>
+    <div class="modal-body">
+      <h5>{{description}}</h5>
+      <div class="row">
+        <div class="col-sm-11">
+          <ul>
+            {{#each amenityDetails}}  
+              <li><p>{{detail}}</p></li>
             {{/each}}
-            </ul>
-          {{/if}}
+          </ul>
         </div>
       </div>
+    </div>
+  </div>
 </template>

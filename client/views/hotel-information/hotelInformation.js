@@ -4,5 +4,8 @@ Template.hotelInformation.helpers({
 	},
 	inRoom: function () {
 		return LocalStore.get('inRoom');
+	},
+	amenities: function () {
+		return HotelAmenities.find();
 	}
 });

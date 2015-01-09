@@ -193,6 +193,14 @@ Meteor.publish('orders', function() {
   ];
 });
 
+Meteor.publish('hotelAmenities', function(hotelId) {
+    return HotelAmenities.find({hotelId: hotelId});
+});
+
+Meteor.publish('amenityDetails', function(hotelId) {
+    return AmenityDetails.find({hotelId: hotelId});
+});
+
 Meteor.publish('hotelMenu', function(hotelId) {
   var userId = this.userId,
       user = Meteor.users.findOne(userId);

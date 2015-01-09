@@ -1,8 +1,5 @@
 Template.hotelAmenity.helpers({
-	bulletpoints: function () {
-		return amenityDetails.find({this._id});
-	},
-	hasBulletpoints: function () {
-		return amenityDetails.find({this._id}) > 0;
+	amenityDetails: function () {
+		return AmenityDetails.find({amenityId: this._id});
 	}
 });

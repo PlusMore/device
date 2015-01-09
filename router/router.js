@@ -121,7 +121,18 @@ Router.map(function() {
   });
 
   this.route('hotelInformation', {
-    path: '/hotel-info'
+    path: '/hotel-info',
+    waitOn: function() {
+      var hotel = Hotels.findOne();
+      
+      if(hotel){
+        return [
+          subs.subscribe('hotelAmenities', hotel._id),
+          subs.subscribe('amenityDetails', hotel._id)
+        ];
+      }
+      
+    }
   });
 
   this.route('roomService', {
