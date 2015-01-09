@@ -32,7 +32,7 @@ Template.deviceLayout.helpers({
     return !!LocalStore.get('deviceId') && LocalStore.get('inRoom');
   },
   modalOpen: function() {
-    return Session.get('modalOpen') ? 'modal-open' : '';
+    return (Session.get('modalOpen') || modal.open()) ? 'modal-open' : '';
   }
 });
 
