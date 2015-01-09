@@ -1,7 +1,5 @@
 <template name="experienceDetails">
-
-  
-  <div id="info" class="row stickem-container">  
+  <div id="info" class="row">  
     <div class="col-xs-12 col-sm-6">
       {{#if yelpId}}
         {{> experienceYelpRating}}
@@ -21,11 +19,11 @@
           {{/if}}  
         </div>
       {{/with}}
-      <div>
-          {{#each tagsFromGroups}}
-            <span class="label label-tag">{{tag}}</span>
-          {{/each}}  
-      </div>
+    </div>
+    <div class='col-xs-12 col-sm-6'>
+      {{#each tagsFromGroups}}
+        <span class="label label-tag">{{tag}}</span>
+      {{/each}}  
     </div>
   </div>
 
@@ -42,6 +40,5 @@
         <p>{{description}}</p>
       </div>
     </div>
-
   </div>
 </template>

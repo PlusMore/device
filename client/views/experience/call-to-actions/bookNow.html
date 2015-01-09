@@ -1,53 +1,44 @@
 <template name="bookNow">
-  <div id='book-now' class="col-sm-5 no-padding sticky {{stuckClass}}">
-            <div class="container-fluid">
-                   <form role="form">
-            
+  {{#hiddenXs}}
+    <form  role="form">
+      <div class="col-sm-3 form-group">
+  
+          <input type="text" class="form-control datepicker" readonly="readonly" />
+   
+      </div>
 
-              <header class="row centered">
-                <div class="col-xs-6 col-xs-offset-3">
-                  <span class="reservation">Dinner for 2 today between 7:00-9:00pm</span>  
-                </div>
-                <i class="circle icon icon-menu"></i>
-              </header>
-              
+      <div class="col-sm-3 form-group">
 
-              <div class="row">
+          <input type="text" class="form-control timepicker" readonly="readonly"/>
 
-                <div class="col-sm-12">
-          
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Date</label>
-                    <input type="text" class="form-control datepicker" readonly="readonly" />
-                  </div>
+      </div>
 
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Time</label>
-                    <input type="text" class="form-control timepicker" readonly="readonly"/>
-                  </div>
+      <div class="col-sm-3 form-group">
+    
+          <select class="form-control" name="partySize">
+            <option value="1">1 Person</option>
+            <option value="2" selected="true">2 People</option>
+            <option value="3">3 People</option>
+            <option value="4">4 People</option>
+            <option value="5">5 People</option>
+            <option value="6">6 People</option>
+            <option value="7">7 People</option>
+            <option value="8">8 People</option>
+          </select>
 
-                  <div class="form-group">
-                    <label for="exampleInputFile">Party Size</label>
-                    <select class="form-control" name="partySize">
-                      <option value="1">1 Person</option>
-                      <option value="2" selected="true">2 People</option>
-                      <option value="3">3 People</option>
-                      <option value="4">4 People</option>
-                      <option value="5">5 People</option>
-                      <option value="6">6 People</option>
-                      <option value="7">7 People</option>
-                      <option value="8">8 People</option>
-                    </select>
-                  </div>
-                             
-                </div>
-              </div>
-               
-              <div class="row submit-form">
-                <a class="btn btn-primary btn-block btn-call-to-action" href="">Book A Table</a>  
-              </div>
-</form>
- 
-        </div>  
-        </div> 
+      </div>
+
+      <div class="col-sm-3 form-group">
+        <a class="btn btn-primary btn-block btn-call-to-action" href="">Book A Table</a>     
+      </div>
+    </form> 
+  {{/hiddenXs}}
+
+  {{#visibleXs}}
+  <form role="form">
+    <div id='book-now' class="col-xs-12">
+      <a class="btn btn-primary btn-block btn-call-to-action" href="">Book A Table</a>  
+    </div> 
+  </form> 
+  {{/visibleXs}}
 </template>
