@@ -50,14 +50,15 @@ var closestWidth = function(containerWidth) {
 }
 
 var closestHeight = function (containerWidth, containerHeight) {
-  // we can't be as specific with heights because there are too
+  // we can't be too specific with heights because there are too
   // many variations, from browser chromes, and things like 
-  // "your hotspot is on" so instead we will support 
-  debugger;
-  
+  // "your hotspot is on" so instead we will support an aspect ration
+  // that will recursively shrink to fit to the viewport
   var width = closestWidth(containerWidth);
 
-  //the image should be 16:9 aspect ratio
+  //the image should be 16:9 (width:height) aspect ratio
+  // fomula to calculate the height is:
+  //      width*(aspectRatioHeight/aspectRatioWidth)
   var aspectRatioFormula = (9/16);
   // if container's width is greater than height, than we want to
   // use a tighter aspect ratio of 16:7
