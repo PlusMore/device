@@ -13,6 +13,12 @@ ResponsiveHelpers = {
     },
     isLg: function() {
         return Session.get('screen') === 'lg';
+    },
+    deviceWidth: function() {
+        return Session.get('deviceWidth');
+    },
+    deviceHeight: function() {
+        return Session.get('deviceHeight');
     }
 }
 

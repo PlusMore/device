@@ -1,38 +1,6 @@
 @import '/client/style/imports.import.less';
 
 // http://keithclark.co.uk/articles/pure-css-parallax-websites/
-.parallax {
-  height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
-  // .perspective(1px);
-}
-.parallax__layer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-.parallax__layer--base {
-  .translateZ(0);
-  // transform: translateZ(0);
-}
-.parallax__layer--back {
-  // transform: translateZ(-1px);
-  // transform: translateZ(-1px) scale(2);
-  .parallax(-1px, 2);
-}
-.parallax__layer--deep {
-  // transform: translateZ(-2px) scale(3);
-  .parallax(-2px, 3);
-}
-.parallax__group {
-  position: relative;
-  height: 100vh;
-  .preserve-3d();
-  .perspective(1px);
-}
 
 .btn-call-to-action {
   font-size: 1.8em;
@@ -64,7 +32,7 @@
   height: 100%;
   z-index: 3000;
 
-  background-color: #eee;
+  background-color: #fff;
   
   .outer .holder section .main {
     padding-top: 0;
@@ -73,30 +41,13 @@
   .experience-bg {
     width: 100%;
     height: auto;
-    margin-top: 65px;
-    .box-reflect(above);
+    // margin-top: 65px;
+    border-top: 65px solid #000;
+
+    .box-reflect(below 0px -webkit-gradient(linear, left top, left bottom, from(transparent),  color-stop(85%, transparent), to(white)););
   }
 
-  & > .back {
-    & > a {
-      color: rgb(255, 255, 255);
-      font-size: 1.8em;
-      font-weight: 200;
-      padding: 20px;
-      text-shadow: #000 1px 0px 30px;
-      font-weight: 400;
-
-      position: absolute;
-      right: 30px;
-      top: 30px;
-
-      & > i {
-        font-size: .75em;
-      }
-    }
-  }
-
-  & .experience-content-layer {
+  & .experience-content {
     color: #000;
     box-shadow: 0px 0px 20px #000;
     margin-top: 220px;
@@ -109,6 +60,10 @@
         border-bottom: 1px solid #eee;
         padding: 20px;
         background: #fff;
+
+        &:last-child {
+          border-bottom: 0;
+        }
       }
     }
 
@@ -222,7 +177,7 @@
 @media (min-width: 768px) {
   #book-now {
 
-    top: -50px;
+    margin-top: -45px;
     left: initial;
     right: 35px;
     bottom: initial;
@@ -246,11 +201,7 @@
 
   .experience {
 
-    .experience-bg {
-      margin-top: 120px;
-    }
-
-    .experience-content-layer {
+    .experience-content {
       margin-top: 600px;
       #book {
         .icon.circle {
@@ -265,6 +216,10 @@
 
   .stickem-container {
     position: relative;
+  }
+
+  .parallax--spacer {
+    height: 600px;
   }
   
 }

@@ -2,12 +2,7 @@
   {{#with experience}}
   <div class="experience quick animated {{isVisibleClass}}">
 
-    <div class="outer">
-      <div class="holder">
-        <section>
-          <div class="main">
-            
-            <nav class="navbar navbar-fixed-top navbar-plusmore" role="navigation">
+    <nav class="navbar navbar-fixed-top navbar-plusmore" role="navigation">
               <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <i class="icon icon-back js-back">
@@ -19,51 +14,36 @@
                 </h4>
 
               </div><!-- /.container-fluid -->
-            </nav>
-            <nav class="hidden-xs navbar navbar-fixed-top navbar-plusmore-subnav" role="navigation">
+          </nav>
+
+          <div id="experience-background" class="experience-background">
+
+              <img class='experience-bg img-responsive' src="{{photoUrl}}/convert?{{bgImgWidth}}&{{bgImgHeight}}&fit=crop&cache=true" alt="">
+
+            
+
+              
+
+            </div>
+
+    <div class="outer">
+      <div class="holder">
+        <section>
+
+          <div class="main scrollable">
+          
+
+            <div class="experience-content" style="{{contentTopMarginCss}}">
               <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#guest-services-subnav">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span>Jump To<span class="caret"></span></span>
-                  </button>
-                </div>
+                {{> experienceDetails}}
+                {{> experienceMap}}
+              </div>
+            </div>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="guest-services-subnav">
-                  <ul class="nav navbar-nav">
-                    <li class="">
-                      <a class='menu-item' href="#" data-template='{{type}}'>Book</a>
-                    </li>
-                    <li class="">
-                      <a class='menu-item' href="#" data-template='{{type}}'>About</a>
-                    </li>
-                    <li class="">
-                      <a class='menu-item' href="#" data-template='{{type}}'>Map</a>
-                    </li>
-                  </ul>  
-                </div><!-- /.navbar-collapse -->
-              </div><!-- /.container-fluid -->
-            </nav>
-
-            <div class="parallax scrollable">
-
-      <div class="parallax__group">
-        
-        <div class="parallax__layer parallax__layer--back">
-          <img class='experience-bg' src="{{photoUrl}}/convert?w=1024&h=500&fit=crop&cache=true" alt="">
-        </div>
-        <div class="parallax__layer parallax__layer--base experience-content-layer">
-          <div class="container-fluid">
-            {{> experienceDetails}}
-            {{> experienceMap}}
-          </div>
-        </div>
-      </div>
-    </div>
 
           </div>
+
+
         </section>
       </div>
     </div>
