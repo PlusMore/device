@@ -61,6 +61,7 @@
         border-bottom: 1px solid #eee;
         padding: 20px;
         background: #fff;
+        text-align: center;
 
         &:last-child {
           border-bottom: 0;
@@ -79,14 +80,9 @@
       border-top: 1px solid #ddd;
       border-bottom: 1px solid #ddd;
 
-      .icon-prize {
-        display: inline-block;
-        font-size: 5em;
-        vertical-align: middle;
-        line-height: 1;
-        position: absolute;
-        top: -15px;
-        float: right;
+      img {
+        margin: 0 auto;
+        display: block;
       }
 
       p.text {
@@ -94,9 +90,13 @@
         vertical-align: middle;
         font-size: 1.5em;
         margin-bottom: 0;
-        margin-left: 110px;
+        margin-left: 0px;
         line-height: 1;
       }
+    }
+
+    #description {
+      text-align: justify;
     }
     
     .yelp-rating {
@@ -204,12 +204,32 @@
 
     .experience-content {
       margin-top: 600px;
+
+      & > .container, & > .container-fluid {
+        & > .row {
+          text-align: left;
+        }
+      }
+
       #book {
         .icon.circle {
           margin-bottom: 0;
         }
         .reservation {
           
+        }
+      }
+
+      #perk {
+        img {
+          display: inline-block;
+          margin: 0;
+          margin-bottom: -21px;
+        }
+
+        p.text {
+          margin-top: 11px;
+          margin-left: 30px;
         }
       }  
     }
