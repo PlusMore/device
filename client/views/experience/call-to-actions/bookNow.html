@@ -1,31 +1,32 @@
 <template name="bookNow">
-  {{#hiddenXs}}
 
-    {{> bookNowForm}}
-    
-  {{/hiddenXs}}
-
-  {{#visibleXs}}
+  <div id="{{#if isXs}}mobile-{{/if}}call-to-action" class="{{state}} {{#unless isXs}}row{{/unless}}">
   
-    {{> bookNowMobileForm}}
-  {{/visibleXs}}
-</template>
+    <form  role="form">
 
-<template name="bookNowForm">
-  <form  role="form">
-      <div class="col-sm-3 form-group">
+    <div class="inputs animated fast {{inputContainerClasses}}">
+      <div class="col-xs-12 visible-xs">
+        <h4>
+          Reservation Details
+          <small class="close-reservation-form">
+            <i class="icon icon-x"></i>
+          </small>
+        </h4>
+      </div>
+
+      <div class="col-xs-12 col-sm-3 form-group">
   
           <input type="text" class="form-control datepicker" readonly="readonly" />
    
       </div>
 
-      <div class="col-sm-3 form-group">
+      <div class="col-xs-12 col-sm-3 form-group">
 
           <input type="text" class="form-control timepicker" readonly="readonly"/>
 
-      </div>
+      </div>  
 
-      <div class="col-sm-3 form-group">
+      <div class="col-xs-12 col-sm-3 form-group">
     
           <select class="form-control" name="partySize">
             <option value="1">1 Person</option>
@@ -40,7 +41,11 @@
 
       </div>
 
-      <div class="col-sm-3 form-group">
+      <div class="clearfix visible-xs"></div>
+
+    </div>
+
+      <div class="col-xs-12 col-sm-3 form-group btn-container">
         <button class="btn btn-primary btn-block btn-call-to-action {{state}}" href="">
           {{#unless confirm}}
             Book A Table
@@ -50,12 +55,5 @@
         </button>     
       </div>
     </form> 
-</template>
-
-<template name="bookNowMobileForm">
-  <form role="form">
-    <div id='book-now' class="col-xs-12">
-      <a class="btn btn-primary btn-block btn-call-to-action" href="">Book A Table</a>  
-    </div> 
-  </form> 
+  </div>
 </template>

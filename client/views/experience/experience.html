@@ -1,6 +1,6 @@
 <template name="experience">
   {{#with experience}}
-  <div class="experience quick animated {{isVisibleClass}} {{modalOpen}}">
+  <div class="experience fast animated {{isVisibleClass}} {{modalOpen}}">
 
     <nav class="navbar navbar-fixed-top navbar-plusmore" role="navigation">
       <div class="container-fluid">
@@ -27,9 +27,7 @@
               <div class="container-fluid">
                 {{#hiddenXs}}
                   {{#if callToAction}}
-                    <div id="call-to-action" class="row">
-                      {{> callToAction}}  
-                    </div>
+                    {{> callToAction}}  
                   {{/if}}
                 {{/hiddenXs}}
                 {{> experienceDetails}}
@@ -43,9 +41,7 @@
 
     {{#visibleXs}}
       {{#if callToAction}}
-        <div id="mobile-call-to-action">
-          {{> callToAction}}  
-        </div>
+        {{> callToAction}}  
       {{/if}}
     {{/visibleXs}}
     

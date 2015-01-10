@@ -1,60 +1,64 @@
-Template.bookNowForm.created = function () {
-  this.state = new ReactiveVar('default');
+Template.bookNow.created = function () {
+  var instance = this;
+  instance.state = new ReactiveVar('default');
 };
 
-Template.bookNowForm.destroyed = function () {
+Template.bookNow.rendered = function() {
+  initializePickers(this);
+}
+
+Template.bookNow.destroyed = function () {
   this.state = null;
   destroyPickers(this);
 };
 
-Template.bookNowForm.helpers({
+Template.bookNow.helpers({
   state: function () {
     return Template.instance().state.get();
   },
   confirm: function () {
     return Template.instance().state.get() === 'confirm';
+  },
+  inputContainerClasses: function() {
+    if (ResponsiveHelpers.isXs()) {
+      if (Template.instance().state.get() === 'confirm') {
+        return 'fadeInUpBig'
+      } else if (Template.instance().state.get() === 'hiding') {
+        return 'fadeOutDownBig'
+      } else {
+        return 'hidden'
+      }
+    } else {
+      return '';
+    }
+  },
+  isXs: function() {
+    return ResponsiveHelpers.isXs();
   }
 });
 
-Template.bookNowForm.rendered = function () {
-  initializePickers(this);
+Template.bookNow.events({
+  'click .close-reservation-form': function(e, tmpl) {
+    e.preventDefault();
+    e.stopImmediatePropagation()
 
-  var $sticky = this.$('#book-now.sticky');
-  var $info = $("#info");
-  var $map = $("#experience-map");
-
-  var handleScroll = function() {
-    var top = $sticky.offset().top;
-    var infoTop = $info.offset().top;
-    var mapTop = $map.offset().top;
-
-    var currentlyStuck = Session.get('stickBookNow');
-
-    if (top <= 125 && !currentlyStuck) {
-      Session.set('stickBookNow', true);
-      console.log('stuck');
-    }
-
-    if (currentlyStuck && infoTop >= 176) {
-      Session.set('stickBookNow', false);
-      console.log('unstuck');
-    }
-
-    if (currentlyStuck && mapTop !== 0) {
-      console.log('map top', mapTop);
-    }
-
-    return;
-  }
-
-};
-
-Template.bookNowForm.events({
+    var instance = Template.instance();
+    instance.state.set('hiding');
+    Meteor.setTimeout(function() {
+      instance.state.set('default');
+    }, 400);
+    return false;
+  },
   'click .btn-call-to-action.default': function(e, tmpl) {
     e.preventDefault();
     e.stopImmediatePropagation()
 
     Template.instance().state.set('confirm');
+    return false;
+  },
+  'click .btn-call-to-action.hiding': function(e, tmpl) {
+    e.preventDefault();
+    e.stopImmediatePropagation()
     return false;
   },
   'submit form': function(e, tmpl) {
