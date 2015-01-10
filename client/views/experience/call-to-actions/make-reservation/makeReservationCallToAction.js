@@ -21,8 +21,6 @@ Template.makeReservationCallToAction.events({
       experienceId: Session.get('currentExperienceId')
     };
 
-    Session.set('reservation', reservation);
-
     App.track('Click Book Now', {
       "Reservation Date": moment(reservation.date).zone(reservation.zone).calendar(),
       "Party Size": reservation.partySize,
@@ -33,16 +31,14 @@ Template.makeReservationCallToAction.events({
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
 
-      $('#confirm-reservation').modal({
-        backdrop: 'static'
-      });
+      modal.show('confirmReservation', reservation);
     });
 
     $(document).one('cancel-user-selected', function() {
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
       
-      return Errors.throw('Please log in to use this feature.');
+      return;
     });
 
     if (!Meteor.user()) {

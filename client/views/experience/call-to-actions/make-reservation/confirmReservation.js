@@ -3,24 +3,7 @@ Template.confirmReservation.helpers({
     if (Meteor.user()) {
       return (typeof Meteor.user().emails === 'undefined');
     }
-  }
-});
-
-Template.needsRegistrationContent.helpers({
-  reservation: function() {
-    return Session.get('reservation');
   },
-  accountInfo: function () {
-    return Schema.accountInfo;
-  },
-  when: function() {
-    var reservation = Session.get('reservation');
-    if (reservation)
-      return moment(reservation.date).zone(reservation.zone).calendar();
-  }
-});
-
-Template.registeredContent.helpers({
   reservation: function() {
     return Session.get('reservation');
   },
@@ -39,22 +22,13 @@ Template.registeredContent.helpers({
   }
 });
 
-Template.registeredContent.events({
+Template.confirmReservation.events({
   'click .btn-default': function(e) {
     e.preventDefault();
     
     var reservation = Session.get('reservation');
         
-    Meteor.call('makeReservation', reservation, function(err, result) {
-      if (err) {
-        Errors.throw(err.message);
-        return;
-      }
-      $('#confirm-reservation').modal('hide');
-      AutoForm.resetForm('accountInfoForReservation');
-      Session.set('reservation', null);
-      Router.go('orders');
-    });
+    
   }
 });
   

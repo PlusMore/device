@@ -1,10 +1,22 @@
-Template.bookNow.helpers({
-  stuckClass: function() {
-    return Session.get('stickBookNow') ? 'stuck' : '';
+Template.bookNowForm.created = function () {
+  this.state = new ReactiveVar('default');
+};
+
+Template.bookNowForm.destroyed = function () {
+  this.state = null;
+  destroyPickers(this);
+};
+
+Template.bookNowForm.helpers({
+  state: function () {
+    return Template.instance().state.get();
+  },
+  confirm: function () {
+    return Template.instance().state.get() === 'confirm';
   }
 });
 
-Template.bookNow.rendered = function () {
+Template.bookNowForm.rendered = function () {
   initializePickers(this);
 
   var $sticky = this.$('#book-now.sticky');
@@ -35,15 +47,16 @@ Template.bookNow.rendered = function () {
     return;
   }
 
-  // $('.parallax').on('scroll', _.throttle(handleScroll, 100));
 };
 
-Template.bookNow.destroyed = function () {
-  $('.parallax').off('scroll');
-  destroyPickers(this);
-};
+Template.bookNowForm.events({
+  'click .btn-call-to-action.default': function(e, tmpl) {
+    e.preventDefault();
+    e.stopImmediatePropagation()
 
-Template.bookNow.events({
+    Template.instance().state.set('confirm');
+    return false;
+  },
   'submit form': function(e, tmpl) {
     e.preventDefault();
 
@@ -58,28 +71,33 @@ Template.bookNow.events({
       experienceId: Session.get('currentExperienceId')
     };
 
-    Session.set('reservation', reservation);
-
-    App.track('Click Book Now', {
-      "Reservation Date": moment(reservation.date).zone(reservation.zone).calendar(),
-      "Party Size": reservation.partySize,
-      "Experience Title": experience.title
-    });
-
     $(document).one('user-selected', function() {
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
 
-      $('#confirm-reservation').modal({
-        backdrop: 'static'
+
+      Session.set('loader', 'Requesting Reservation');
+      Meteor.call('makeReservation', reservation, function(err, result) {
+        if (err) {
+          Errors.throw(err.message);
+          Session.set('loader', undefined);
+          return;
+        }
+
+        Router.go('orders');
+        Session.set('currentExperienceId', undefined);
+        Meteor.setTimeout(function() {
+          Session.set('loader', undefined);
+        }, 500);
+        
       });
     });
 
     $(document).one('cancel-user-selected', function() {
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
-      
-      return Errors.throw('Please log in to use this feature.');
+      tmpl.state.set('default');
+      return;
     });
 
     if (!Meteor.user()) {
@@ -88,22 +106,6 @@ Template.bookNow.events({
       $(document).trigger('user-selected');
     }
   }
-});
-
-Template.bookNow.helpers({
-  inOperatingHours: function() {
-    var now = moment();
-    // 11am
-    var start = moment().startOf('day').hours(11);
-    // end 11:59pm
-    var end = moment().endOf('day');
-
-    if (now.isAfter(start) && now.isBefore(end)) {
-      return true;
-    }
-
-    return false;
-  },
 });
 
 var getCategoryDelay = function(category) {

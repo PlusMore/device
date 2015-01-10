@@ -56,7 +56,7 @@ Template.transportation.events({
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
       requestButton.progressError();
-      return Errors.throw('Please log in to use this feature.');
+      return; 
     });
 
     if (!Meteor.user()) {

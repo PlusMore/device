@@ -1,6 +1,18 @@
 <template name="bookNow">
   {{#hiddenXs}}
-    <form  role="form">
+
+    {{> bookNowForm}}
+    
+  {{/hiddenXs}}
+
+  {{#visibleXs}}
+  
+    {{> bookNowMobileForm}}
+  {{/visibleXs}}
+</template>
+
+<template name="bookNowForm">
+  <form  role="form">
       <div class="col-sm-3 form-group">
   
           <input type="text" class="form-control datepicker" readonly="readonly" />
@@ -29,16 +41,21 @@
       </div>
 
       <div class="col-sm-3 form-group">
-        <button class="btn btn-primary btn-block btn-call-to-action" href="">Book A Table</button>     
+        <button class="btn btn-primary btn-block btn-call-to-action {{state}}" href="">
+          {{#unless confirm}}
+            Book A Table
+          {{else}}
+            Confirm
+          {{/unless}}
+        </button>     
       </div>
     </form> 
-  {{/hiddenXs}}
+</template>
 
-  {{#visibleXs}}
+<template name="bookNowMobileForm">
   <form role="form">
     <div id='book-now' class="col-xs-12">
       <a class="btn btn-primary btn-block btn-call-to-action" href="">Book A Table</a>  
     </div> 
   </form> 
-  {{/visibleXs}}
 </template>
