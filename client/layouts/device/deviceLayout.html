@@ -8,8 +8,8 @@
     </div>
   </div>
 
-  <div id="perspective" class="perspective effect-persepctive-shift {{modalview}} {{showMenu}}">
-    {{> meteorErrors}}
+  {{> meteorErrors}}
+  <div id="perspective" class="perspective effect-persepctive-shift {{modalview}} {{showMenu}} {{modalOpen}}">
     <div class="perspective-container">
       <img class="bg" alt='bg' src="{{hotelPhotoUrl}}" />
       <div class="overlay-bg black"></div>  
@@ -30,8 +30,7 @@
               {{/if}}  
 
             {{/if}}
-
-            
+    
           {{/if}}
         </div>
       </div>
@@ -49,12 +48,14 @@
   {{> selectUser}}
   {{> experience}}
   {{> addItemToCartModal}}
-  {{> confirmReservation}}
 
+  {{> browser}}
+
+  <!-- Dynamic Modal -->
+  <!-- Eventually all modals should transition to this pattern -->
+  {{> modal}}
 
   {{> idleOverlay}}
-
-  <!-- {{> deviceHeader}} -->
   
   <div data-status="{{connectionStatus}}"></div>
 </template>

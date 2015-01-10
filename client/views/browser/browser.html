@@ -1,0 +1,17 @@
+<template name="browser">
+  <div id="browser" class="animated quick {{isVisibleClass}}">
+    <nav class="navbar navbar-fixed-top navbar-plusmore" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <a href="#" class="back">
+          <i class="icon icon-back">
+          </i>
+        </a>
+        
+      </div><!-- /.container-fluid -->
+    </nav>
+    <section class='scrollable'>
+      <iframe sandbox="allow-scripts" seamless src="{{url}}" name='in-app-browser' frameborder="0"></iframe>
+    </section>  
+  </div>
+</template>

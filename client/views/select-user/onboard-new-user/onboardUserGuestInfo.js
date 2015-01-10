@@ -12,10 +12,10 @@ Template.onboardUserGuestInfo.rendered = function () {
   this.$('button[type=submit]:first').progressInitialize();
 
   // debugger;
-  var $container = this.$(this.firstNode).closest('.modal');
+  var $container = $("#select-user");
 
   // Set up datepicker
-  $('[name=checkoutDate]').pickadate({
+  this.$('[name=checkoutDate]').pickadate({
     // today: false,
     container: $container,
     clear: false,

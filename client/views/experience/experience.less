@@ -4,23 +4,34 @@
   font-size: 1.8em;
   font-weight: 200;
   background-color: white;
-  color: rgb(0, 0, 0);
+  color: #000000;
   border-radius: 4px;
   text-transform: uppercase;
   -webkit-text-stroke: initial;
   width: 100%;
-  height: 54px;
+  line-height: 31px;
+  vertical-align: middle;
+  display: inline-block;
+  background: #00a9ad;
+  color: #fff;
+
+  &.confirm {
+    background: #00f9ad;
+  }
+
+  &.hiding {
+    background: #888;
+  }
 }
 
 .label-tag {
-  border: 1px solid #fff;
-  font-size: 16px;
+  border: 1px solid #000;
+  color: #000;
   font-weight: 200;
   line-height: 2.1em;
-}
-.tags {
-  margin-bottom: 20px;
-  margin-top: 17px;
+  font-size: 1em;
+  display: inline-block;
+  margin-bottom: 7px;
 }
 
 .experience {
@@ -30,89 +41,94 @@
   left: 0;
   height: 100%;
   z-index: 3000;
-  font-size: 1em;
+  overflow: hidden;
 
-  background-color: #000;
-  background-size: cover;
+  background-color: #fff;
 
-
-
-  & > .call-to-action {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10px 0;
-    background: rgba(255,255,255, .3);
+  &.modal-open {
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+  }
+  
+  .outer .holder section .main {
+    padding-top: 0;
   }
 
-  & > .back {
-    & > a {
-      color: rgb(255, 255, 255);
-      font-size: 1.8em;
-      font-weight: 200;
-      padding: 20px;
-      text-shadow: #000 1px 0px 30px;
-      font-weight: 400;
+  .experience-bg {
+    width: 100%;
+    height: auto;
+    // margin-top: 65px;
+    border-top: 65px solid #000;
 
-      position: fixed;
-      right: 7px;
-      top: 0;
+    .box-reflect(below 0px -webkit-gradient(linear, left top, left bottom, from(transparent),  color-stop(85%, transparent), to(white)););
+  }
 
-      & > i {
-        font-size: .75em;
+  & .experience-content {
+    color: #000;
+    box-shadow: 0px 0px 20px #000;
+    margin-top: 220px;
+    height: auto;
+    top: inherit;
+    bottom: inherit;
+
+    & > .container, & > .container-fluid {
+      & > .row {
+        border-bottom: 1px solid #eee;
+        padding: 20px;
+        background: #fff;
+        text-align: center;
+
+        &:last-child {
+          border-bottom: 0;
+        }
       }
     }
-  }
 
+    #info {
+      .address {
+        margin-bottom: 10px;
+      }
+    }
 
+    #perk {
+      background: #eee;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
 
-  & > .content {
-    transition: 400ms all ease-out;
-    background-color: rgba(0,0,0,.5);
-    color: #fff;
-    padding: 40px 50px;
-    height: 100%;
-    overflow: hidden;
-    z-index: 10;
-    font-weight: 200;    
+      img {
+        margin: 0 auto;
+        display: block;
+      }
 
+      p.text {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 1.5em;
+        margin-bottom: 0;
+        margin-left: 0px;
+        line-height: 1;
+      }
+    }
+
+    #description {
+      text-align: justify;
+    }
+    
     .yelp-rating {
-      height:30px;
+      display: inline-block;
+      margin-bottom: 10px;
+
+      img.stars {
+        width: 166px;
+        height: 30px;
+      }
+
       span {
         line-height: 30px;
         vertical-align: middle;
-      }
-    }
-
-    & > .details {
-      padding-right: 40px;
-    }
-
-    &.action-form {
-      border-left: 1px solid rgba(255,255,255,.3);
-      z-index: 1;
-      .translate(-200%, 0);
-      .transition(transform 250ms ease-out);
-      -webkit-font-smoothing: antialiased;
-      font-weight: 400;
-
-      .lead {
-        font-weight: 400;
-        font-size: 1.6em;
-      }
-
-      .form-group label.control-label {
-        font-weight: 400;
-        font-size: 1.6em;
-      }
-
-      input {
-        font-weight: 400;
-      }
-  
-      &.show {
-        .translate(0, 0);
       }
     }
 
@@ -127,61 +143,168 @@
       z-index: 1000;
     }
 
-    .experience-header {
-      margin-bottom: 25px;
-
-      h1 {
-        font-weight: 100;
-        font-size: 4em;
-        margin-bottom: 5px;
-      }
-
-      p.lead {
-        font-weight: 100;
-        font-size: 2.2em;
-        margin-bottom: 0;
-        line-height: 1.1em;
-      }
-    }
-
-    .venue {
-      margin-top: 65px;
-      font-size: 1.4em;
-      margin-bottom: 20px;
-
-      & > #experience-map {
-        margin-bottom: 18px;
-        border-radius: 5px;
-        border: 1px solid #fff;
-      }
-
-      a.get-directions {
-        text-transform: uppercase;
-        font-weight: 500;
-      }
-
-      .name {
-        font-weight: 300;
-      }
-
-    }
-
     .description {
-      max-height: 470px;
-      p.description {
-        font-weight: 400;
-        font-size: 1.4em;
+
+      & > p {
         white-space: pre-wrap;
-        font-family: "Montserrat";
       }
     }
     
   }
 }
 
+#mobile-call-to-action {
+  //xs 
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
+  margin: 0;
+  padding: 0;
+  color: #000;
+
+  .inputs {
+    background: #fff;
+    box-shadow: 0px 0px 20px #000;
+    display: none;
+
+    .close-reservation-form {
+      position: absolute;
+      padding: 16px;
+      top: -4px;
+      right: 0;
+    }
+  }
+
+  h4 {
+    text-align: center;
+  }
+
+  .btn-call-to-action {
+    border-radius: 0;
+  }
+
+  .form-group{
+    &.btn-container {
+      margin-bottom: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+
+  &.confirm, &.hiding {
+    .inputs {
+      display: block;
+    }
+  }
+  
+}
+
+#call-to-action {
+  background: rgba(0,0,0,.7);
+  padding: 10px 20px;
+
+  .form-group {
+    margin: 0;
+    padding: 0 1px;
+
+
+    .form-control {
+      font-size: 1.8em;
+      line-height: 30px;
+      vertical-align: middle;
+      height: 44px;
+    }  
+  }
+  
+}
+
+.icon.circle {
+  border-radius: 50%;
+  border: 1px solid #000;
+  padding: 2px 6px;
+  font-size: 1em;
+  display: inline-block;
+  vertical-align: middle;
+  /* margin-bottom: 7px; */
+  float: right;
+  margin: 6px;
+
+  &:before {
+    display: block;
+    margin: 4px 0;
+  }
+}
+
 @media (max-width: 767px) {}
 
-@media (min-width: 768px) {}
+@media (min-width: 768px) {
+  #book-now {
+
+    margin-top: -45px;
+    left: initial;
+    right: 35px;
+    bottom: initial;
+    position: absolute;
+
+    &.affix {
+      position: fixed;
+      top: 125px;
+    }
+
+    &.stuck {
+      position: fixed;
+      top: 125px;
+    }
+
+    .submit-form {
+      padding: 15px;
+    }
+     
+  }
+
+  .experience {
+
+    .experience-content {
+      margin-top: 600px;
+
+      & > .container, & > .container-fluid {
+        & > .row {
+          text-align: left;
+        }
+      }
+
+      #book {
+        .icon.circle {
+          margin-bottom: 0;
+        }
+        .reservation {
+          
+        }
+      }
+
+      #perk {
+        img {
+          display: inline-block;
+          margin: 0;
+          margin-bottom: -21px;
+        }
+
+        p.text {
+          margin-top: 11px;
+          margin-left: 30px;
+        }
+      }  
+    }
+  }
+
+  .parallax--spacer {
+    height: 600px;
+  }
+  
+}
 
 @media (min-width: 992px) {}
 

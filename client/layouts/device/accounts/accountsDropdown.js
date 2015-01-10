@@ -46,6 +46,11 @@ Template.accountsDropdown.events({
   'click #accounts-dropdown-button': function(e, tmpl) {
     e.preventDefault();
     e.stopImmediatePropagation();
+
+    if (Session.get('animatingMenu')) {
+      return;
+    }
+    
     if (Meteor.user()) {
       Session.set('accountInfo', true);
     } else {

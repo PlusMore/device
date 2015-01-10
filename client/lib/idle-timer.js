@@ -18,16 +18,18 @@ Meteor.startup(function () {
     var inRoom = LocalStore.get('inRoom');
 
     if (isIdle) {
+
       if (status === "connecting" || status === "waiting") {
       } else if (status === "connected") {
         App.track("User Idle");
+        
+        $('#confirm-reservation').modal('hide');
+        Session.set('reservation', null);
+        
         if (inRoom) {
           Meteor.logout();
           Meteor.disconnect();
         }
-        $('#confirm-reservation').modal('hide');
-        Session.set('reservation', null);
-        
       }
 
     } else {

@@ -42,7 +42,7 @@ var handleNav = function(e, tmpl) {
   e.stopImmediatePropagation();
   console.log(e.type);
   var href = $(e.currentTarget).attr('href');
-  if (Router.current().path === href) {
+  if (Iron.Location.get().path === href) {
     Menu.hide();
   } else {
     Router.go(href);

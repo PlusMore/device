@@ -42,4 +42,5 @@ reactive-var
 meteorhacks:inject-initial
 coffeescript
 meteorhacks:subs-manager
+mquandalle:bower
 

@@ -29,33 +29,51 @@ Template.cart.helpers({
 
 Template.cart.events({
   'click .remove-item':function(e, tmpl) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
     var that = this;
+    Session.set('modalOpen', true);
+    
     bootbox.dialog({
       title: 'Remove ' + that.name,
       message: "Are you sure you would like to remove " + that.name + ' from your cart?', 
+      closeButton: false,
       buttons: {
         cancel: {
           label: 'Cancel',
-          className: 'btn-cancel'
+          className: 'btn-cancel',
+          callback: function () {
+            Session.set('modalOpen', false);
+          }
         },
         main: {
           label: 'Remove Item',
           className: 'btn-default',
           callback:function(result) {
             Meteor.call('removeCartItem',that._id);
+            Session.set('modalOpen', false);
           }
         }
       }
     });
+    return false;
   }, 
   'click .btn-reset': function(e, tmpl) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    Session.set('modalOpen', true);
     bootbox.dialog({
       title: 'Empty Cart',
-      message: "Are you sure you'd like to empty your cart?", 
+      message: "Are you sure you'd like to empty your cart?",
+      closeButton: false, 
       buttons: {
         cancel: {
           label: 'Cancel',
-          className: 'btn-cancel'
+          className: 'btn-cancel',
+          callback: function () {
+            Session.set('modalOpen', false);
+          }
         },
         main: {
           label: 'Empty Cart',
@@ -65,21 +83,32 @@ Template.cart.events({
             Meteor.call('emptyCart', cartId);
           }
         }
+      },
+      callback: function() {
+        Session.set('modalOpen', false);
       }
     });
+    return false;
   }, 
   'click #place-order': function(e, tmpl) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
     var cartId = Session.get('stayId') || Meteor.default_connection._lastSessionId;
 
     console.log('place order for cart', cartId)
-  
+    Session.set('modalOpen', true);
     bootbox.dialog({
       title: 'Place Order',
       message: "Are you sure you would like to place your order now?", 
+      closeButton: false,
       buttons: {
         cancel: {
           label: 'Cancel',
-          className: 'btn-cancel'
+          className: 'btn-cancel',
+          callback: function () {
+            Session.set('modalOpen', false);
+          }
         },
         main: {
           label: 'Place Order',
@@ -91,6 +120,8 @@ Template.cart.events({
             $(document).one('user-selected', function() {
               $(document).off('user-selected');
               $(document).off('cancel-user-selected');
+              Session.set('modalOpen', false);
+
               
               Meteor.call('orderRoomServiceCartItems', now.toDate(), zone, cartId, function(err, result) {
                 if (err) { 
@@ -103,6 +134,8 @@ Template.cart.events({
             $(document).one('cancel-user-selected', function() {
               $(document).off('user-selected');
               $(document).off('cancel-user-selected');
+              Session.set('modalOpen', false);
+
 
               return Errors.throw('Please log in to order room service.');
             });
@@ -117,5 +150,11 @@ Template.cart.events({
         }
       }
     });
+
+    return false;
   }
 });
+
+
+
+// bootbox-close-button click hideModal

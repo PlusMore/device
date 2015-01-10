@@ -16,20 +16,22 @@
         </div>
       </header>
       
+      {{#hiddenXs}}
       <div class="row features">
-        <div class="col-sm-4 feature hidden-xs">
+        <div class="col-sm-4 feature">
           <i class="icon icon-dining"></i>
           <h3>Room Service</h3>
         </div>
-        <div class="col-sm-4 feature hidden-xs">
+        <div class="col-sm-4 feature">
         <i class="icon icon-nightlife"></i>
           <h3>The Best Experiences</h3>
         </div>
-        <div class="col-sm-4 feature hidden-xs">
+        <div class="col-sm-4 feature">
           <i class="icon icon-vip"></i>
-          <h3>Explore {{hotel.geo.city}}</h3>
+          <h3>Explore {{city}}</h3>
         </div>
       </div> 
+      {{/hiddenXs}}
 
       <footer class="row">
         <div class="col-sm-4 col-sm-offset-4">

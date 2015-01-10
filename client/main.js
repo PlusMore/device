@@ -151,6 +151,7 @@ Meteor.startup(function() {
         console.log('unset stay info, in room');
         Session.set('stayId', undefined);
         Meteor.logout();
+        
       }
     }
   });

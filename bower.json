@@ -1,0 +1,8 @@
+{
+  "name": "plusmore-device",
+  "version": "0.12.1",
+  "dependencies": {
+    "enquire": "2.1.2"
+  },
+  "private": true
+}
