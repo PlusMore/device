@@ -31,5 +31,11 @@ Template.experienceDetails.helpers({
 
 
     return _.uniq(results);
+  },
+  hasPhotos: function() {
+    return PlusMoreAssets.find({
+      type: 'experience',
+      refId: this._id
+    }).count();
   }
 });
