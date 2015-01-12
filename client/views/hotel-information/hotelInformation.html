@@ -1,35 +1,35 @@
 <template name="hotelInformation">
-	{{#Layout template="contentLayout"}}
+  {{#Layout template="contentLayout"}}
 
-		{{#contentFor "title"}}
-			Hotel Info
-		{{/contentFor}}
+    {{#contentFor "title"}}
+      Hotel Info
+    {{/contentFor}}
 
-		<div class="hotel-info quick animated fadeIn">
-			<div class="content row">
-				<div class="col-sm-7">
-					{{#with hotel.description}}
-						<h3>About {{hotel.name}}</h3>
-						<p class="lead">{{hotel.description}}</p>
-					{{/with}}
+    <div class="hotel-info quick animated fadeIn">
+      <div class="content row">
+        <div class="col-sm-7">
+          {{#with hotel.description}}
+            <h3>About {{hotel.name}}</h3>
+            <p class="lead">{{hotel.description}}</p>
+          {{/with}}
 
-					{{#each amenities}}
-						{{> hotelAmenity}}
-					{{/each}}
-				</div>
+          {{#each amenities}}
+            {{> hotelAmenity}}
+          {{/each}}
+        </div>
 
-				<div class="col-sm-5">
-					{{> hotelInformationMap}}
-					
-					{{> underMapInfo}}
-				</div>
-			</div>
-			
-			<footer class='col-xs-12 hotel-info-footer'>
-			    <div class="text">PlusMor<span class="last-letter">e</span></div>
-			    <div class="small-text">Your Private Concierg<span class="last-letter">e</span></div>
-			</footer>
-		</div>
-		
-	{{/Layout}}
+        <div class="col-sm-5">
+          {{> hotelInformationMap}}
+          
+          {{> underMapInfo}}
+        </div>
+      </div>
+      
+      <footer class='col-xs-12 hotel-info-footer'>
+          <div class="text">PlusMor<span class="last-letter">e</span></div>
+          <div class="small-text">Your Private Concierg<span class="last-letter">e</span></div>
+      </footer>
+    </div>
+    
+  {{/Layout}}
 </template>
