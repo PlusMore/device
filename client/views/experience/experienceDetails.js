@@ -37,5 +37,19 @@ Template.experienceDetails.helpers({
       type: 'experience',
       refId: this._id
     }).count();
+  },
+  firstRowClass: function() {
+    // if xs, this is the first row
+    if (ResponsiveHelpers.isXs()) {
+      return 'first-row';
+    } else {
+      // otherwise, this is the first row when there is no
+      // call to action
+      if (!this.callToAction) {
+        return 'first-row';
+      }
+    }
+
+    return '';
   }
 });
