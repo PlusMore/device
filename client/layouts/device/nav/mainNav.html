@@ -23,3 +23,32 @@
     
   </nav>
 </template>
+
+<template name="mainNav2">
+  <div class="panel-group" id="accordionMenu" role="tablist">
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="hotelMenu">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordionMenu" href="hotelMenuCollapse">
+            Hotel
+          </a>
+        </h4>
+      </div>
+      <div id="hotelMenuCollapse" class="panel-collapse collapse in" role="tabpanel" labelledby="hotelMenu">
+        <div class="panel-body">
+          {{#if isInRole 'admin' 'hotel-staff' 'hotel-manager'}}
+            <a href="{{pathFor 'setupDevice'}}">Kiosk Mode</a>
+          {{/if}}
+          {{#if inStayOrInRoom}}
+            {{#if hotelServicesEnabled}}
+              <a href="{{pathFor 'hotelServices'}}" class="icon-front-desk">Guest Services</a>
+              <a href="{{pathFor 'roomService'}}" class="icon-roomservice">Room Service</a>
+            {{/if}}
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    <!-- Next Category -->
+  </div>
+
+</template>
