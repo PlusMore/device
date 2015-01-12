@@ -103,7 +103,7 @@ Meteor.startup(function() {
         _.extend(properties, profileInfo);
 
         _.extend(properties, {
-          "Path": IronLocation.path()
+          "Path": Router.current().url
         });
 
         if (hotel && hotel.trackAnalytics) {
@@ -116,24 +116,7 @@ Meteor.startup(function() {
       });
     },
     go: function() {
-      // var stay = Stays.findOne({userId: Meteor.userId()});
-
-      // if (!stay) {
-      //   Router.go('enterCheckoutDate');
-      // } else {
-      //   App.goToStartPage();
-      // }
-      App.goToStartPage();
-    },
-    goToStartPage: function() {
-      // var diningCategory = Categories.findOne({name: 'Dining'});
-      // if (diningCategory) {
-      //   Router.go('experiences', {categoryId: diningCategory._id});  
-      // } else {
-      //   var firstCategory = Categories.findOne();
-      //   Router.go('experiences', {categoryId: firstCategory._id});
-      // }
-      Menu.show(); // client/layouts/lib/menu.js
+      Menu.show();
     }
   });
 

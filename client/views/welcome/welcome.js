@@ -18,12 +18,28 @@ Template.welcomeContent.helpers({
       return "@" + hotel.name; 
     }
     return "";
+  },
+  city: function() {
+    var hotel = Hotels.findOne();
+
+    if (hotel) {
+      return hotel.geo.city;
+    }
+
+    return "Your City"
   }
 });
 
 var onEngage = function(e) {
   e.preventDefault();
-  App.go(); // client/lib/app.js
+  if (Session.get('animatingMenu')) {
+    return;
+  }
+
+  if (!Menu.isOpen()) {
+    e.stopImmediatePropagation();
+    Menu.show();
+  }
 }
 
 var events = {};

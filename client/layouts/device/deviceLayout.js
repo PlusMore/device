@@ -30,6 +30,9 @@ Template.deviceLayout.helpers({
   },
   registeredDevice: function() {
     return !!LocalStore.get('deviceId') && LocalStore.get('inRoom');
+  },
+  modalOpen: function() {
+    return (Session.get('modalOpen') || modal.open()) ? 'modal-open' : '';
   }
 });
 
@@ -44,6 +47,8 @@ var handlePerspectiveContainerClick = function(e, tmpl) {
   if (Menu.isOpen()) {
     Menu.hide();
   }
+
+  return false;
 };
 
 var events = {};

@@ -14,3 +14,22 @@ Template.experienceDetails.rendered = function () {
     });
   }
 };
+
+Template.experienceDetails.helpers({
+  tagsFromGroups: function() {
+    var results = [];
+    var that = this;
+    
+    _.each(this.tagGroups, function(group) {
+      _.each(that[group+'Tags'], function(tag) {
+        results.push({
+          group: group,
+          tag: tag
+        });
+      });
+    });
+
+
+    return _.uniq(results);
+  }
+});

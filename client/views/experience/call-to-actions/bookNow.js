@@ -1,13 +1,67 @@
-Template.makeReservationCallToAction.rendered = function () {
-  initializePickers(this);
+Template.bookNow.created = function () {
+  var instance = this;
+  instance.state = new ReactiveVar('default');
 };
 
-Template.makeReservationCallToAction.destroyed = function () {
+Template.bookNow.rendered = function() {
+  initializePickers(this);
+}
+
+Template.bookNow.destroyed = function () {
+  this.state = null;
   destroyPickers(this);
 };
 
-Template.makeReservationCallToAction.events({
-  'touchstart .btn-call-to-action, click .btn-call-to-action': function(e, tmpl) {
+Template.bookNow.helpers({
+  state: function () {
+    return Template.instance().state.get();
+  },
+  confirm: function () {
+    return Template.instance().state.get() === 'confirm';
+  },
+  inputContainerClasses: function() {
+    if (ResponsiveHelpers.isXs()) {
+      if (Template.instance().state.get() === 'confirm') {
+        return 'fadeInUpBig'
+      } else if (Template.instance().state.get() === 'hiding') {
+        return 'fadeOutDownBig'
+      } else {
+        return 'hidden'
+      }
+    } else {
+      return '';
+    }
+  },
+  isXs: function() {
+    return ResponsiveHelpers.isXs();
+  }
+});
+
+Template.bookNow.events({
+  'click .close-reservation-form': function(e, tmpl) {
+    e.preventDefault();
+    e.stopImmediatePropagation()
+
+    var instance = Template.instance();
+    instance.state.set('hiding');
+    Meteor.setTimeout(function() {
+      instance.state.set('default');
+    }, 400);
+    return false;
+  },
+  'click .btn-call-to-action.default': function(e, tmpl) {
+    e.preventDefault();
+    e.stopImmediatePropagation()
+
+    Template.instance().state.set('confirm');
+    return false;
+  },
+  'click .btn-call-to-action.hiding': function(e, tmpl) {
+    e.preventDefault();
+    e.stopImmediatePropagation()
+    return false;
+  },
+  'submit form': function(e, tmpl) {
     e.preventDefault();
 
     var user = Meteor.user();
@@ -21,28 +75,33 @@ Template.makeReservationCallToAction.events({
       experienceId: Session.get('currentExperienceId')
     };
 
-    Session.set('reservation', reservation);
-
-    App.track('Click Book Now', {
-      "Reservation Date": moment(reservation.date).zone(reservation.zone).calendar(),
-      "Party Size": reservation.partySize,
-      "Experience Title": experience.title
-    });
-
     $(document).one('user-selected', function() {
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
 
-      $('#confirm-reservation').modal({
-        backdrop: 'static'
+
+      Session.set('loader', 'Requesting Reservation');
+      Meteor.call('makeReservation', reservation, function(err, result) {
+        if (err) {
+          Errors.throw(err.message);
+          Session.set('loader', undefined);
+          return;
+        }
+
+        Router.go('orders');
+        Session.set('currentExperienceId', undefined);
+        Meteor.setTimeout(function() {
+          Session.set('loader', undefined);
+        }, 500);
+        
       });
     });
 
     $(document).one('cancel-user-selected', function() {
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
-      
-      return Errors.throw('Please log in to use this feature.');
+      tmpl.state.set('default');
+      return;
     });
 
     if (!Meteor.user()) {
@@ -51,22 +110,6 @@ Template.makeReservationCallToAction.events({
       $(document).trigger('user-selected');
     }
   }
-});
-
-Template.makeReservationCallToAction.helpers({
-  inOperatingHours: function() {
-    var now = moment();
-    // 11am
-    var start = moment().startOf('day').hours(11);
-    // end 11:59pm
-    var end = moment().endOf('day');
-
-    if (now.isAfter(start) && now.isBefore(end)) {
-      return true;
-    }
-
-    return false;
-  },
 });
 
 var getCategoryDelay = function(category) {

@@ -43,6 +43,18 @@ Template.selectUser.helpers({
   }
 });
 
+Meteor.startup(function() {
+  Tracker.autorun(function() {
+    var showSelectUser = !!Session.get('selectUser');
+
+    if (showSelectUser) {
+      Session.set('modalOpen', true);
+    } else {
+      Session.set('modalOpen', false);
+    }
+  });
+});
+
 
 
 var hideModal = function() {
