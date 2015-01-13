@@ -200,11 +200,20 @@ Meteor.publish('orders', function() {
 });
 
 Meteor.publish('hotelAmenities', function(hotelId) {
-    return HotelAmenities.find({hotelId: hotelId});
+  return HotelAmenities.find({hotelId: hotelId});
 });
 
 Meteor.publish('amenityDetails', function(hotelId) {
-    return AmenityDetails.find({hotelId: hotelId});
+  return AmenityDetails.find({hotelId: hotelId});
+});
+
+Meteor.publish('navCategories', function (){
+  return NavCategories.find();
+
+});
+
+Meteor.publish('navLinks', function () {
+  return NavLinks.find();
 });
 
 Meteor.publish('hotelMenu', function(hotelId) {
