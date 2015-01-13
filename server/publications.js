@@ -184,13 +184,27 @@ Meteor.publish('experiencesData', function(deviceId) {
 });
 
 Meteor.publish('experience', function(experienceId) {
-  return Experiences.find(experienceId);
+  return [
+    Experiences.find(experienceId),
+    PlusMoreAssets.find({
+      type: 'experience',
+      refId: experienceId
+    })
+  ];
 });
 
 Meteor.publish('orders', function() {
   return [
     Orders.find({userId: this.userId})
   ];
+});
+
+Meteor.publish('hotelAmenities', function(hotelId) {
+    return HotelAmenities.find({hotelId: hotelId});
+});
+
+Meteor.publish('amenityDetails', function(hotelId) {
+    return AmenityDetails.find({hotelId: hotelId});
 });
 
 Meteor.publish('hotelMenu', function(hotelId) {

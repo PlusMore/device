@@ -1,5 +1,3 @@
-var subs = new SubsManager();
-
 var closestWidth = function(containerWidth) {
   // iphones/ipads are common and pretty standard, so we'll support those
   // and we will support plusmore kiosk device sizes
@@ -80,25 +78,15 @@ var closestHeight = function (containerWidth, containerHeight) {
 
 var contentOffsetTop = function(height) {
   var navbarheight = 65;
-  return height + navbarheight - 10;
+  return height + navbarheight - 50;
 }
 
-Template.experience.helpers({
-  isVisibleClass: function() {
-    if (!!Session.get('currentExperienceId')) {
-      if (Session.get('fadeOutExperience')) {
-        return 'fadeOut';
-      }
-      return 'fadeIn';
-    } else {
-      return 'fadeOut';
-    }
+Template.hotelInformation.helpers({
+  hotel: function () {
+    return Hotels.findOne();
   },
-  experience: function() {
-    return Experiences.findOne(Session.get('currentExperienceId'));
-  },
-  stickBookNow: function() {
-    return Session.get('stickBookNow');
+  amenities: function () {
+    return HotelAmenities.find();
   },
   bgImgWidth: function() {
     var containerWidth = ResponsiveHelpers.deviceWidth();
@@ -120,41 +108,5 @@ Template.experience.helpers({
     var offsetTop = contentOffsetTop(height);
 
     return 'height:'+offsetTop+'px;'
-  },
-  modalOpen: function() {
-    return (Session.get('modalOpen') || modal.open()) ? 'modal-open' : '';
   }
 });
-
-var handleBack = function (e, tmpl) {
-  console.log('back');
-  e.preventDefault();
-  e.stopImmediatePropagation();
-
-  Session.set('fadeOutExperience', true);
-  Meteor.setTimeout(function() {
-    Session.set('currentExperienceId', undefined);
-    Session.set('fadeOutExperience', false);
-  }, 500);
-
-  return false;
-};
-
-var events = {};
-events[clickevent + " .js-back"] = handleBack;
-
-Template.experience.events(events);
-
-Meteor.startup(function() {
-  Tracker.autorun(function() {
-    var currentExperienceId = Session.get('currentExperienceId');
-
-    if (currentExperienceId) {
-      subscriptions.experience = subs.subscribe('experience', currentExperienceId);
-    } else {
-      if (subscriptions && subscriptions.experience && subscriptions.experience.stop) {
-        subscriptions.experience.stop();
-      }
-    }
-  });
-})
