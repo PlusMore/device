@@ -1,0 +1,51 @@
+<template name="hotelInformation">
+  <div class="hotel-info quick animated fadeIn">
+
+    <nav class="navbar navbar-fixed-top navbar-plusmore" role="navigation">
+      <div class="container-fluid">
+        <i class="icon icon-menu">
+          <span class="text">Menu</span>
+        </i>
+
+        <h3 class="navbar-title">
+          About {{hotel.name}}
+        </h3>
+
+      </div>
+    </nav>
+
+    <img class='hotel-info-bg img-responsive' src="{{hotel.photoUrl}}/convert?{{bgImgWidth}}&{{bgImgHeight}}&fit=crop&cache=true" alt="">
+
+    <div class="outer">
+      <div class="holder">
+        <section>
+          <div class="main scrollable">
+            <div class="hotel-info-content" style="{{contentTopMarginCss}}">
+              <div class="container-fluid">
+                <div class="row" id="info-header">
+                  <div class="col-xs-12">
+                    <h5>{{hotel.street}}<br>{{hotel.city}}, {{hotel.state}} {{hotel.zip}}<br>{{hotel.phone}}</h5>
+                  </div>
+                </div>
+                <div class="row" id="description">
+                  <div class="col-xs-12">
+                    <div class="description">
+                      <p>{{hotel.description}}</p>
+                    </div>
+                  </div>
+                </div>
+                {{#each amenities}}
+                  <div class="row">
+                    {{> hotelAmenity}}
+                  </div>
+                {{/each}}
+                {{> hotelInformationMap}}
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+  </div>
+</template>
