@@ -34,6 +34,14 @@ Template.bookNow.helpers({
   },
   isXs: function() {
     return ResponsiveHelpers.isXs();
+  },
+  firstRowClass: function() {
+    // if not xs and displayed, then this is the first row
+    if (!ResponsiveHelpers.isXs()) {
+      return 'first-row';
+    }
+
+    return '';
   }
 });
 

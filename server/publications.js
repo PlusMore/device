@@ -184,7 +184,13 @@ Meteor.publish('experiencesData', function(deviceId) {
 });
 
 Meteor.publish('experience', function(experienceId) {
-  return Experiences.find(experienceId);
+  return [
+    Experiences.find(experienceId),
+    PlusMoreAssets.find({
+      type: 'experience',
+      refId: experienceId
+    })
+  ];
 });
 
 Meteor.publish('orders', function() {
