@@ -99,7 +99,7 @@ Template.hotelInformation.helpers({
     var height = closestHeight(containerWidth, containerHeight);
     return 'h='+height;
   },
-  contentTopMarginCss: function() {
+  contentSpacerCss: function() {
     // same as the imgheight - 10px + top-margin (65px)
     var containerHeight = ResponsiveHelpers.deviceHeight();
     var containerWidth = ResponsiveHelpers.deviceWidth();
@@ -107,6 +107,6 @@ Template.hotelInformation.helpers({
 
     var offsetTop = contentOffsetTop(height);
 
-    return 'margin-top:'+offsetTop+'px;'
+    return 'height:'+offsetTop+'px;'
   }
 });

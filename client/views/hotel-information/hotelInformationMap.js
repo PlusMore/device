@@ -6,7 +6,7 @@ var initializeMap = function () {
       disableDefaultUI: true,
       zoomControl: true,
       mapTypeControl: true,
-      mapTypeId: 'hybrid'
+      // mapTypeId: 'hybrid'
     };
     
     if (typeof Session.get('hotelGeo') !== 'undefined'){

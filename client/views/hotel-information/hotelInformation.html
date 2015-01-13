@@ -14,15 +14,19 @@
       </div>
     </nav>
 
-    <img class='hotel-info-bg img-responsive' src="{{hotel.photoUrl}}/convert?{{bgImgWidth}}&{{bgImgHeight}}&fit=crop&cache=true" alt="">
+    <div id="hotel-bg" class="hotel-bg">
+      <img class='hotel-info-bg img-responsive' src="{{hotel.photoUrl}}/convert?{{bgImgWidth}}&{{bgImgHeight}}&fit=crop&cache=true" alt="">  
+    </div>
+    
 
     <div class="outer">
       <div class="holder">
         <section>
           <div class="main scrollable">
-            <div class="hotel-info-content" style="{{contentTopMarginCss}}">
+            <div class="hotel-info-content">
               <div class="container-fluid">
-                <div class="row" id="info-header">
+                <div class="content-spacer" style="{{contentSpacerCss}}"></div>
+                <div class="row first-row" id="info-header">
                   <div class="col-xs-12">
                     <h5>{{hotel.street}}<br>{{hotel.city}}, {{hotel.state}} {{hotel.zip}}<br>{{hotel.phone}}</h5>
                   </div>
