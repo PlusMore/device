@@ -1,26 +1,16 @@
 <template name="hotelAmenity">
-
-  <div class="inline animated fadeInRight">
-    <div class="modal-header">
-      <h4 class="modal-title">
-        {{#unless availableAnytime}}
-          <h6 class="pull-right"><em>{{startTime}} - {{endTime}}</em></h6>
-        {{/unless}}  
-        {{name}}
-      </h4>
-    </div>
-    <div class="modal-body">
-      <h5>{{description}}</h5>
-      <div class="row">
-        <div class="col-sm-11">
-          <ul>
-            {{#each amenityDetails}}  
-              <li><p>{{detail}}</p></li>
-            {{/each}}
-          </ul>
-        </div>
-      </div>
-    </div>
+  <div class="row">
+    <h4>
+      {{name}}
+      {{#unless availableAnytime}}
+        <br><small>{{startTime}} - {{endTime}}</small>
+      {{/unless}}  
+    </h4>
+    <h6>{{description}}</h6>
+    <ul>
+      {{#each amenityDetails}}  
+        <li><p>{{detail}}</p></li>
+      {{/each}}
+    </ul>
   </div>
-
 </template>

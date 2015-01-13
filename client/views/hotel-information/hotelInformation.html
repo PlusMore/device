@@ -1,35 +1,51 @@
 <template name="hotelInformation">
-  {{#Layout template="contentLayout"}}
+  <div class="hotel-info quick animated fadeIn">
 
-    {{#contentFor "title"}}
-      Hotel Info
-    {{/contentFor}}
+    <nav class="navbar navbar-fixed-top navbar-plusmore" role="navigation">
+      <div class="container-fluid">
+        <i class="icon icon-menu">
+          <span class="text">Menu</span>
+        </i>
 
-    <div class="hotel-info quick animated fadeIn">
-      <div class="content row">
-        <div class="col-sm-7">
-          {{#with hotel.description}}
-            <h3>About {{hotel.name}}</h3>
-            <p class="lead">{{hotel.description}}</p>
-          {{/with}}
+        <h3 class="navbar-title">
+          About {{hotel.name}}
+        </h3>
 
-          {{#each amenities}}
-            {{> hotelAmenity}}
-          {{/each}}
-        </div>
-
-        <div class="col-sm-5">
-          {{> hotelInformationMap}}
-          
-          {{> underMapInfo}}
-        </div>
       </div>
-      
-      <footer class='col-xs-12 hotel-info-footer'>
-          <div class="text">PlusMor<span class="last-letter">e</span></div>
-          <div class="small-text">Your Private Concierg<span class="last-letter">e</span></div>
-      </footer>
+    </nav>
+
+    <img class='hotel-info-bg img-responsive' src="{{hotel.photoUrl}}/convert?{{bgImgWidth}}&{{bgImgHeight}}&fit=crop&cache=true" alt="">
+
+    <div class="outer">
+      <div class="holder">
+        <section>
+          <div class="main scrollable">
+            <div class="hotel-info-content" style="{{contentTopMarginCss}}">
+              <div class="container-fluid">
+                <div class="row" id="info-header">
+                  <div class="col-xs-12">
+                    <h5>{{hotel.street}}<br>{{hotel.city}}, {{hotel.state}} {{hotel.zip}}<br>{{hotel.phone}}</h5>
+                  </div>
+                </div>
+                <div class="row" id="description">
+                  <div class="col-xs-12">
+                    <div class="description">
+                      <p>{{hotel.description}}</p>
+                    </div>
+                  </div>
+                </div>
+                {{#each amenities}}
+                  <div class="row">
+                    {{> hotelAmenity}}
+                  </div>
+                {{/each}}
+                {{> hotelInformationMap}}
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
-    
-  {{/Layout}}
+
+  </div>
 </template>
