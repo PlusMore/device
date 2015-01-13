@@ -47,7 +47,7 @@ var closestWidth = function(containerWidth) {
   return width;
 }
 
-var closestHeight = function (containerWidth, containerHeight) {
+var closestHeight = function (containerWidth, containerHeight, aspectRatioNumerator) {
   // we can't be too specific with heights because there are too
   // many variations, from browser chromes, and things like 
   // "your hotspot is on" so instead we will support an aspect ration
@@ -57,20 +57,16 @@ var closestHeight = function (containerWidth, containerHeight) {
   //the image should be 16:9 (width:height) aspect ratio
   // fomula to calculate the height is:
   //      width*(aspectRatioHeight/aspectRatioWidth)
-  var aspectRatioFormula = (9/16);
-  // if container's width is greater than height, than we want to
-  // use a tighter aspect ratio of 16:7
-  if (containerWidth > containerHeight) {
-    aspectRatioFormula = (7/16);
-  }
+  aspectRatioNumerator = aspectRatioNumerator || 9;
+  var aspectRatioFormula = (aspectRatioNumerator/16);
 
   var height = width*aspectRatioFormula;
 
   // while the margin will cause the content to be offscreen or height 
   // is offscreen, go down a size by recursively calling with 
-  // 50 less pixels from the width
-  while (contentOffsetTop(height) > containerHeight) {
-    height = closestHeight(width - 50, containerHeight);
+  // at least 150 pixels should show
+  while (contentOffsetTop(height) > containerHeight - 150) {
+    height = closestHeight(width, containerHeight, aspectRatioNumerator-1);
   }
 
   return height;
