@@ -78,7 +78,7 @@ var closestHeight = function (containerWidth, containerHeight) {
 
 var contentOffsetTop = function(height) {
   var navbarheight = 65;
-  return height + navbarheight - 10;
+  return height + navbarheight - 50;
 }
 
 Template.hotelInformation.helpers({
