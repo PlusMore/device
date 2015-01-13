@@ -65,7 +65,7 @@ var closestHeight = function (containerWidth, containerHeight, aspectRatioNumera
   // while the margin will cause the content to be offscreen or height 
   // is offscreen, go down a size by recursively calling with 
   // at least 150 pixels should show
-  while (contentOffsetTop(height) > containerHeight - 150) {
+  while (contentOffsetTop(height) > (containerHeight*(5/8)) ) {
     height = closestHeight(width, containerHeight, aspectRatioNumerator-1);
   }
 
