@@ -5,24 +5,15 @@
     {{/contentFor}}
 
     <div class="container">
-    	<div class="row">
-    		{{#each navCategories}}
-					<div class="col-sm-6 col-md-4">
-						<ul>
-							<li>{{name}} - <a href="#" id="edit-nav-category">Edit</a> - <a href="#" id="delete-nav-category">Delete</a></li>
-							<ul>
-								{{#each navLinks}}
-									<li>{{name}}</li>
-								{{/each}}
-								<li><a href="#" id="add-nav-link">+ Add new link</a></li>
-							</ul>
-						</ul>
-					</div>
-				{{/each}}
-    	</div>
-    	<button id="new-nav-category" type="button" class="btn btn-default">Add Menu Category</button>
-    </div>
+    	{{#each navCategories}}
+				{{> navCategory}}
+			{{/each}}
+			<div class="modal-content inline">
+				<div class="modal-header">
+					<a href="#" id="new-nav-category">+Add New Category</a>
+				</div>
+			</div>
+		</div>
 		
-
   {{/Layout}}
 </template>

@@ -1,0 +1,59 @@
+<template name="navLink">
+  <tr>
+    <td rowspan=2><span class="icon {{icon}}"></span></td>
+    <td>{{name}}</td>
+    <td><a href="#" id="edit-nav-link">Edit</a></td>
+    <td><a href="#" id="delete-nav-link">Delete</a></td>
+  </tr>
+  <tr>
+    <td>({{routeName}})</td>
+  </tr>
+</template>
+
+<template name="addNavLink">
+  <div class="container">
+    <div class="modal-content inline">
+      <div class="modal-header">
+        <div class="pull-right">
+          <a href="#" class="icon icon-x" id="dismiss-modal"></a>
+        </div>
+        <h3 class="modal-title">Add New Link</h3>
+      </div>
+      {{#autoForm collection="NavLinks" id="addNavLink" type="insert"}}
+        <div class="modal-body">
+          {{> afFieldInput name="navCategoryId" type="hidden" value=_id}}
+          {{> afQuickField name="name"}}
+          {{> afQuickField name="icon" placeholder="ex: icon-building"}}
+          {{> afQuickField name="routeName" placeholder="ex: hotelInformation, roomService, etc"}}
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+      {{/autoForm}}
+    </div>
+  </div>
+</template>
+
+<template name="editNavLink">
+  <div class="container">
+    <div class="modal-content inline">
+      <div class="modal-header">
+        <div class="pull-right">
+          <a href="#" class="icon icon-x" id="dismiss-modal"></a>
+        </div>
+        <h3 class="modal-title">Edit Link</h3>
+      </div>
+      {{#autoForm collection="NavLinks" doc=this id="editNavLink" type="update" resetOnSuccess=false}}
+        <div class="modal-body">
+          {{> afQuickField name="navCategoryId"}}
+          {{> afQuickField name="name"}}
+          {{> afQuickField name="icon"}}
+          {{> afQuickField name="routeName"}}
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      {{/autoForm}}
+    </div>
+  </div>
+</template>
