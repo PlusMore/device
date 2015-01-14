@@ -1,0 +1,28 @@
+<template name="navEditor">
+	{{#Layout template="contentLayout"}}
+    {{#contentFor "title"}}
+      Navigation Editor
+    {{/contentFor}}
+
+    <div class="container">
+    	<div class="row">
+    		{{#each navCategories}}
+					<div class="col-sm-6 col-md-4">
+						<ul>
+							<li>{{name}} - <a href="#" id="edit-nav-category">Edit</a> - <a href="#" id="delete-nav-category">Delete</a></li>
+							<ul>
+								{{#each navLinks}}
+									<li>{{name}}</li>
+								{{/each}}
+								<li><a href="#" id="add-nav-link">+ Add new link</a></li>
+							</ul>
+						</ul>
+					</div>
+				{{/each}}
+    	</div>
+    	<button id="new-nav-category" type="button" class="btn btn-default">Add Menu Category</button>
+    </div>
+		
+
+  {{/Layout}}
+</template>
