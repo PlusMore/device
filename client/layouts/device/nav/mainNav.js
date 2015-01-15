@@ -50,6 +50,6 @@ var handleNav = function(e, tmpl) {
 };
 
 var events = {};
-events[clickevent + " .outer-nav > a"] = handleNav;
+events[clickevent + " .outer-nav .sublinks > a"] = handleNav;
 
 Template.mainNav.events(events);

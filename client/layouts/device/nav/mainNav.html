@@ -1,8 +1,61 @@
 <template name="mainNav">
   <nav class="outer-nav left vertical">
+    
+    <div class="panel-group" id="nav-accordion" role="tablist" aria-multiselectable="true">
 
-    <div id="menu">
-      <div class="panel list-group">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#nav-accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Hotel
+            </a>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <a href="{{pathFor 'hotelInformation'}}" class="icon-building">Hotel Information</a>
+            <a href="{{pathFor 'roomService'}}" class="icon-roomservice">Room Service</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+          <h4 class="panel-title">
+            <a class="collapsed" data-toggle="collapse" data-parent="#nav-accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Food
+            </a>
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            <a href="{{pathFor 'hotelInformation'}}" class="icon-building">Hotel Information</a>
+            <a href="{{pathFor 'roomService'}}" class="icon-roomservice">Room Service</a>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+          <h4 class="panel-title">
+            <a class="collapsed" data-toggle="collapse" data-parent="#nav-accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Nightlife
+            </a>
+          </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            <a href="{{pathFor 'hotelInformation'}}" class="icon-building">Hotel Information</a>
+            <a href="{{pathFor 'roomService'}}" class="icon-roomservice">Room Service</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </nav>
+</template>
+
+<!-- <div id="nav-accordion" class="panel list-group">
         <a href="#" class="list-group-item" data-toggle="collapse" data-target="#hotelLinks" data-parent="#menu">Hotel</a>
         <div id="hotelLinks" class="sublinks collapse in">
           {{#if isInRole 'admin' 'hotel-staff' 'hotel-manager'}}
@@ -34,8 +87,4 @@
           <a class="list-group-item small" href="#">Link 2</a>
           <a class="list-group-item small" href="#">Link 3</a>
         </div>
-      </div>
-    </div>
-
-  </nav>
-</template>
+      </div> -->
