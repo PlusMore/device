@@ -60,12 +60,12 @@ Template.addNewGuest.rendered = function () {
   this.$('button[type=submit]:first').progressInitialize();
 
   var that = this;
-  Tracker.autorun(function() {
+  this.autorun(function() {
     var firstName = that.firstName.get() || "";
     that.$('[name=firstName]').val(firstName);   
   });
 
-  Tracker.autorun(function() {
+  this.autorun(function() {
     var lastName = that.lastName.get() || "";
     that.$('[name=lastName]').val(lastName);
   });
