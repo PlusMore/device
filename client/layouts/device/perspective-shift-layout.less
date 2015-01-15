@@ -206,11 +206,10 @@ html, body, .perspective {
     &.animate {
         & .outer-nav {
             z-index: 15;
-        }
-              
+        }         
     }
 
-    & .outer-nav a {
+    & .outer-nav .panel {
         opacity: 0;
         -webkit-transform: translateX(-150px);
         transform: translateX(-150px);
@@ -218,41 +217,44 @@ html, body, .perspective {
         transition: transform 0.4s, opacity 0.4s;
     }
 
-    &.animate .outer-nav a {
+    &.animate .outer-nav .panel {
         opacity: 1;
         -webkit-transform: translateX(0);
         transform: translateX(0);
+        
+        &:nth-child(2) {
+            -webkit-transition-delay: 0.04s;
+            transition-delay: 0.04s;
+        }
+
+        &:nth-child(3) {
+            -webkit-transition-delay: 0.08s;
+            transition-delay: 0.08s;
+        }
+
+        &:nth-child(4) {
+            -webkit-transition-delay: 0.12s;
+            transition-delay: 0.12s;
+        }
+
+        &:nth-child(5) {
+            -webkit-transition-delay: 0.16s;
+            transition-delay: 0.16s;
+        }
+
+        &:nth-child(6) {
+            -webkit-transition-delay: 0.2s;
+            transition-delay: 0.2s;
+        }
+
+        &:nth-child(7) {
+            -webkit-transition-delay: 0.24s;
+            transition-delay: 0.24s;
+        }
+
     }
 
-    &.animate .outer-nav a:nth-child(2) {
-        -webkit-transition-delay: 0.04s;
-        transition-delay: 0.04s;
-    }
-
-    &.animate .outer-nav a:nth-child(3) {
-        -webkit-transition-delay: 0.08s;
-        transition-delay: 0.08s;
-    }
-
-    &.animate .outer-nav a:nth-child(4) {
-        -webkit-transition-delay: 0.12s;
-        transition-delay: 0.12s;
-    }
-
-    &.animate .outer-nav a:nth-child(5) {
-        -webkit-transition-delay: 0.16s;
-        transition-delay: 0.16s;
-    }
-
-    &.animate .outer-nav a:nth-child(6) {
-        -webkit-transition-delay: 0.2s;
-        transition-delay: 0.2s;
-    }
-
-    &.animate .outer-nav a:nth-child(7) {
-        -webkit-transition-delay: 0.24s;
-        transition-delay: 0.24s;
-    }
+    
 
     &.animate #accounts {
         -webkit-transform: translateX(0px);
