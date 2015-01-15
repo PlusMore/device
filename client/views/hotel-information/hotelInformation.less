@@ -63,6 +63,25 @@
         white-space: pre-wrap;
       }
     }
+
+    .amenity {
+      border-bottom: 1px solid #eee;
+      padding: 15px;
+      margin-bottom: 10px;
+      padding-top: 0;
+
+
+      &:last-child {
+        margin-bottom: 0;
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      
+      ul {
+        list-style: none;
+        padding-left: 0;
+      }
+    }
     
   }
 }
@@ -75,7 +94,17 @@
 
 @media (max-width: 767px) {}
 
-@media (min-width: 768px) {}
+@media (min-width: 768px) {
+  .hotel-info {
+    .hotel-info-content {
+      .amenity {
+        margin-bottom: 0;
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+    }
+  }
+}
 
 @media (min-width: 992px) {}
 
