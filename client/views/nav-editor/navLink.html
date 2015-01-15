@@ -6,9 +6,11 @@
     <td><a href="#" id="delete-nav-link">Delete</a></td>
   </tr>
   <tr>
-    <td>({{routeName}})</td>
+    <td>({{routeName}}{{#with routeData}}/:categoryId{{/with}})</td>
   </tr>
 </template>
+
+
 
 <template name="addNavLink">
   <div class="container">
@@ -19,12 +21,22 @@
         </div>
         <h3 class="modal-title">Add New Link</h3>
       </div>
-      {{#autoForm collection="NavLinks" id="addNavLink" type="insert"}}
+      {{#autoForm collection="NavLinks" id="addNavLink" type="method" meteormethod="addNavLink"}}
         <div class="modal-body">
           {{> afFieldInput name="navCategoryId" type="hidden" value=_id}}
-          {{> afQuickField name="name"}}
-          {{> afQuickField name="icon" placeholder="ex: icon-building"}}
-          {{> afQuickField name="routeName" placeholder="ex: hotelInformation, roomService, etc"}}
+          {{> afQuickField name="routeName" options=routeOptions}}
+          {{#if afFieldValueIs name="routeName" value="experiences"}}
+            {{> afQuickField name="routeData.categoryId" options=categoryOptions}}
+            {{> afFieldInput name="name" type="hidden" value="update in method"}}
+            {{> afFieldInput name="icon" type="hidden" value="update in method"}}
+          {{else}}
+            {{> afQuickField name="name"}}
+            {{> afQuickField name="icon" placeholder="ex: icon-building"}}
+          {{/if}}
+          {{> afQuickField name="isAdmin"}}
+          {{> afQuickField name="isKiosk"}}
+          {{> afQuickField name="isMobile"}}
+          {{> afQuickField name="hotelService"}}
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Create</button>
@@ -33,6 +45,8 @@
     </div>
   </div>
 </template>
+
+
 
 <template name="editNavLink">
   <div class="container">
@@ -45,10 +59,13 @@
       </div>
       {{#autoForm collection="NavLinks" doc=this id="editNavLink" type="update" resetOnSuccess=false}}
         <div class="modal-body">
-          {{> afQuickField name="navCategoryId"}}
           {{> afQuickField name="name"}}
-          {{> afQuickField name="icon"}}
           {{> afQuickField name="routeName"}}
+          {{> afQuickField name="icon"}}
+          {{> afQuickField name="isAdmin"}}
+          {{> afQuickField name="isKiosk"}}
+          {{> afQuickField name="isMobile"}}
+          {{> afQuickField name="hotelService"}}
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Save Changes</button>
