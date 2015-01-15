@@ -23,7 +23,6 @@ accounts-oauth
 tinytest
 copleykj:simple-publish
 mizzao:bootboxjs
-appcache
 iron:router
 mrt:moment
 aldeed:collection2
@@ -45,3 +44,4 @@ meteorhacks:subs-manager
 mquandalle:bower
 
 andruschka:bootstrap-image-gallery
+appcache

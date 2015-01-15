@@ -28,7 +28,7 @@
                 <div class="content-spacer" style="{{contentSpacerCss}}"></div>
                 <div class="row first-row" id="info-header">
                   <div class="col-xs-12">
-                    <h5>{{hotel.street}}<br>{{hotel.city}}, {{hotel.state}} {{hotel.zip}}<br>{{hotel.phone}}</h5>
+                    <h5>{{hotel.geo.streetNumber}} {{hotel.geo.streetName}}<br>{{hotel.geo.city}}, {{hotel.geo.state}} {{hotel.geo.zip}}<br>{{hotel.phone}}</h5>
                   </div>
                 </div>
                 <div class="row" id="description">
@@ -38,11 +38,13 @@
                     </div>
                   </div>
                 </div>
+                <div class="row">
                 {{#each amenities}}
-                  <div class="row">
+                  <div class="col-xs-12 col-sm-4 amenity">
                     {{> hotelAmenity}}
                   </div>
                 {{/each}}
+                </div>
                 {{> hotelInformationMap}}
               </div>
             </div>
