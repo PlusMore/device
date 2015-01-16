@@ -7,10 +7,29 @@
         <h3 class="modal-title">#{{menuRank}} - {{name}}</h3>
       </div>
       <div class="modal-body">
-        <p>{{#if kioskOnly}}<span class="badge">Kiosk Only</span>{{/if}}
-        {{#if hotelService}}<span class="badge">Hotel Service</span>{{/if}}
-        {{#if mobileOnly}}<span class="badge">Mobile Only</span>{{/if}}
-        {{#if adminOnly}}<span class="badge">Admin Only</span>{{/if}}</p>
+        <p>
+
+          {{#if kioskOnly}}
+            <span class="badge">Kiosk Only</span>
+          {{/if}}
+
+          {{#if hotelService}}
+            <span class="badge">Hotel Service</span>
+          {{/if}}
+
+          {{#if mobileOnly}}
+            <span class="badge">Mobile Only</span>
+          {{/if}}
+          
+          {{#if adminOnly}}
+            <span class="badge">Admin Only</span>
+          {{/if}}
+          
+          {{#if requiresHotelData}}
+            <span class="badge">Requires Hotel Data</span>
+          {{/if}}
+          
+        </p>
         <table class="table">
           {{#each navLinks}}
             {{> navLink}}

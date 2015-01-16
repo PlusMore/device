@@ -29,7 +29,7 @@ Template.deviceLayout.helpers({
     return Session.get('loader');
   },
   registeredDevice: function() {
-    return !!LocalStore.get('deviceId') && LocalStore.get('inRoom');
+    return !!LocalStore.get('deviceId') && LocalStore.get('kiosk');
   },
   modalOpen: function() {
     return (Session.get('modalOpen') || modal.open()) ? 'modal-open' : '';

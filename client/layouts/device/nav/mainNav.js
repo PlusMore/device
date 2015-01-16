@@ -1,6 +1,6 @@
 Template.mainNav.helpers({
   inStayOrInRoom: function() {
-    return !!Session.get('stayId') || !!LocalStore.get('inRoom');
+    return !!Session.get('stayId') || !!LocalStore.get('kiosk');
   },
   activeRouteClass: function(/* route names */) {
     var args = Array.prototype.slice.call(arguments, 0);
@@ -34,6 +34,9 @@ Template.mainNav.helpers({
         }
       }
     }
+  },
+  navCategories: function() {
+    return NavCategories.find();
   }
 });
 

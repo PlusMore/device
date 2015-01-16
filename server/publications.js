@@ -6,6 +6,15 @@ All publications-related code.
 
 /+ ---------------------------------------------------- */
 
+//  nav categories and links
+Meteor.publish('nav', function() {
+  return [
+    NavCategories.find(),
+    NavLinks.find()
+  ];
+});
+
+
 // Used to get list of available hotels to register a device
 // Admin returns all, hotel-staff returns the user's hotel
 Meteor.publish('userHotelData', function () {
@@ -93,11 +102,11 @@ Meteor.publish('userStays', function() {
   ];
 });
 
-Meteor.publish('userStays', function(deviceId) {
-  return [
-    Stays.find({deviceId: deviceId, active: true})
-  ];
-});
+// Meteor.publish('userStays', function(deviceId) {
+//   return [
+//     Stays.find({deviceId: deviceId, active: true})
+//   ];
+// });
 
 // if user doesn't have device info, publish when requested from registered device
 Meteor.publish('device', function(deviceId) {
@@ -131,56 +140,45 @@ Meteor.publish('deviceByStayId', function(stayId) {
   
 });
 
-Meteor.publish('experiencesData', function(deviceId) {
-  var userId = this.userId,
-      user = Meteor.users.findOne(userId);
+Meteor.publish('experiencesData', function() {
+  var experienceFields = {
+    active: 1,
+    category: 1,
+    lead: 1,
+    photoUrl: 1,
+    title: 1
+  };
 
-  var validDeviceId = !!Devices.findOne(deviceId);
+  var experiencePublishFields = {
+    active: 1,
+    categoryId: 1,
+    geo: 1,
+    lead: 1,
+    photoUrl: 1,
+    sortOrder: 1,
+    tagGroups: 1,
+    title: 1,
+    yelpId: 1
+  }   
 
-  if (user || validDeviceId) {
-    var experienceFields = {
-      active: 1,
-      category: 1,
-      lead: 1,
-      photoUrl: 1,
-      title: 1
-    };
+  var tagGroups = Meteor.tags.find( {group: {$exists: true} });
+  var tagGroupsArray = [];
+  tagGroups.forEach(function(tag) {
+    if (tag.group && tagGroupsArray.indexOf(tag.group) === -1) {
+      tagGroupsArray.push(tag.group);
+    }
+  });
 
-    var experiencePublishFields = {
-      active: 1,
-      categoryId: 1,
-      geo: 1,
-      lead: 1,
-      photoUrl: 1,
-      sortOrder: 1,
-      tagGroups: 1,
-      title: 1,
-      yelpId: 1
-    }   
+  _.each(tagGroupsArray, function(tagGroup) {
+    if (tagGroup !== 'filterGroup') {
+      experiencePublishFields[tagGroup+'Tags'] = 1;
+    }
+  });
 
-    var tagGroups = Meteor.tags.find( {group: {$exists: true} });
-    var tagGroupsArray = [];
-    tagGroups.forEach(function(tag) {
-      if (tag.group && tagGroupsArray.indexOf(tag.group) === -1) {
-        tagGroupsArray.push(tag.group);
-      }
-    });
-
-    _.each(tagGroupsArray, function(tagGroup) {
-      if (tagGroup !== 'filterGroup') {
-        experiencePublishFields[tagGroup+'Tags'] = 1;
-      }
-    });
-
-    return [
-      Categories.find({active: true}),
-      Experiences.find({active: true}, {fields: experiencePublishFields})
-    ];
-    
-  } else {
-    this.ready();
-    return null;
-  }
+  return [
+    Categories.find({active: true}),
+    Experiences.find({active: true}, {fields: experiencePublishFields})
+  ];
 });
 
 Meteor.publish('experience', function(experienceId) {

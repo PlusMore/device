@@ -15,7 +15,7 @@ Meteor.startup(function () {
   Deps.autorun(function() {
     var isIdle = UserStatus.isIdle();
     var status = Meteor.status().status;
-    var inRoom = LocalStore.get('inRoom');
+    var kiosk = LocalStore.get('kiosk');
 
     if (isIdle) {
 
@@ -26,7 +26,7 @@ Meteor.startup(function () {
         $('#confirm-reservation').modal('hide');
         Session.set('reservation', null);
         
-        if (inRoom) {
+        if (kiosk) {
           Meteor.logout();
           Meteor.disconnect();
         }
