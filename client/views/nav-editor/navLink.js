@@ -18,6 +18,19 @@ Template.addNavLink.events({
   }
 });
 
+Template.addNavLink.helpers({
+  routeOptions: function () {
+    return _.map(getRouteNames(), function (c, i){
+      return {label: c, value: c};
+    });
+  },
+  categoryOptions: function () {
+    return Categories.find().map(function (c) {
+      return {label: c.name, value: c._id};
+    });
+  }
+});
+
 Template.editNavLink.events({
   "click #dismiss-modal": function (e) {
     e.preventDefault();
@@ -29,6 +42,10 @@ AutoForm.hooks({
   addNavLink: {
     onSuccess: function(operation, result, template) {
       modal.close();
+    },
+    onError: function(operation, error, template) {
+      console.log('error');
+      console.log(error.message);
     }
   },
   editNavLink: {
