@@ -1,6 +1,6 @@
 Template.navEditor.helpers({
 	navCategories: function () {
-		return NavCategories.find();
+		return NavCategories.find({}, {sort: {menuRank: 1}});
 	}
 });
 
