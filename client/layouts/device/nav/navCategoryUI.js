@@ -22,5 +22,11 @@ Template.navCategoryUI.helpers({
   },
   navLinks: function () {
     return NavLinks.find({navCategoryId: this._id});
+  },
+  expanded: function() {
+    return !ResponsiveHelpers.isXs();
+  },
+  expandedClass: function() {
+    return !ResponsiveHelpers.isXs() ? 'in' : '';
   }
 });
