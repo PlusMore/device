@@ -83,6 +83,7 @@ html, body, .perspective {
     z-index: 5;
     position: absolute;
     width: 65vw;
+    font-size: 1em;
 
     &.vertical {
         top: 50%;
@@ -169,6 +170,7 @@ html, body, .perspective {
                 .panel-title {
                     border-bottom: 1px solid #fff;
                     padding-bottom: 5px;
+                    font-size: .8em;
                 }
             }
 
@@ -176,22 +178,16 @@ html, body, .perspective {
                 border-top: none;
                 padding-top: 5px;
                 padding-bottom: 5px;
+
+                & > a {
+                    font-size: .7em;
+                }
             }
         }
-
-        & > a.list-group-item {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #fff;
-        }
     }
-    
-
 }
 
 /* Individual Effects */
-
-/* Effect airbnb */
 .effect-persepctive-shift {
 
     & > .perspective-container {
@@ -273,14 +269,58 @@ html, body, .perspective {
 
 // small
 @media (min-width: 768px) {
+    /* Outer Nav */
     .outer-nav {
-        font-size: 2.2em;
-        &.left {
-            left: 25%;
+        font-size: 2em;
+
+        & a {
+            display: inline-block;
+            white-space: nowrap;
+            font-weight: 400;
+            // margin: 0 0 30px 0;
+            color: #fff;
+            -webkit-transition: color 0.3s;
+            transition: color 0.3s;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            font-family: "Montserrat";
+            text-transform: uppercase;
         }
 
-        &.right {
-            right: 25%;
+        &.left {
+            left: 10%;
+        }
+
+        & a:hover {
+            color: #ffdccd;
+        }
+
+        &.vertical a {
+            display: block;
+        }
+
+        & a::before {
+            line-height: 1;
+            margin-right: 15px;
+            font-size: 1.6em;
+            margin-bottom: 7px;
+        }
+
+        #nav-accordion {
+            & > .panel {
+
+                .panel-heading {
+
+                    .panel-title {
+                        max-width: 50%;
+                        // font-size: .8em;
+                    }
+                }
+
+                .panel-body {
+                }
+            }
+
         }
     }
 }
