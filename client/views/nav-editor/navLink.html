@@ -1,6 +1,6 @@
 <template name="navLink">
   <tr>
-    <td><h4><span class="icon {{icon}}"></span> {{name}}</h4></td>
+    <td><h4>#{{linkRank}} - <span class="icon {{icon}}"></span> {{name}}</h4></td>
     <td><a href="#" id="edit-nav-link">Edit</a></td>
     <td><a href="#" id="delete-nav-link">Delete</a></td>
   </tr>
@@ -27,10 +27,12 @@
           {{> afQuickField name="routeName" options=routeOptions}}
           {{#if afFieldValueIs name="routeName" value="experiences"}}
             {{> afQuickField name="routeData.categoryId" options=categoryOptions}}
+            {{> afQuickField name="linkRank"}}
             {{> afFieldInput name="name" type="hidden" value="update in method"}}
             {{> afFieldInput name="icon" type="hidden" value="update in method"}}
           {{else}}
             {{> afQuickField name="name"}}
+            {{> afQuickField name="linkRank"}}
             {{> afQuickField name="icon" placeholder="ex: icon-building"}}
           {{/if}}
           <div class="row">
@@ -66,6 +68,7 @@
       {{#autoForm collection="NavLinks" doc=this id="editNavLink" type="update" resetOnSuccess=false}}
         <div class="modal-body">
           {{> afQuickField name="name"}}
+          {{> afQuickField name="linkRank"}}
           {{> afQuickField name="routeName"}}
           {{> afQuickField name="icon"}}
           <div class="row">

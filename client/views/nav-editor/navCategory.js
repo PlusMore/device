@@ -1,6 +1,6 @@
 Template.navCategory.helpers({
 	navLinks: function () {
-		return NavLinks.find({navCategoryId: this._id});
+		return NavLinks.find({navCategoryId: this._id}, {sort: {linkRank: 1}});
 	}
 });
 
