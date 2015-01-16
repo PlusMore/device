@@ -19,9 +19,18 @@
             <div class="row animated fadeInRight">
               <div class="col-xs-12">
                 <h4>Your Account</h4>
-                <div class="instructions">
-                  Email: {{emailAddress}}
-                </div>
+                {{#autoForm schema=accountInfoSchema type="method" meteormethod="editUserName" resetOnSuccess=false}}
+                  {{> afQuickField name="firstName" template="bootstrap3-horizontal" label-class="col-sm-3" input-col-class="col-sm-9" value=firstName label="First Name"}}
+                  {{> afQuickField name="lastName" template="bootstrap3-horizontal" label-class="col-sm-3" input-col-class="col-sm-9" value=lastName label="Last Name"}}
+                  {{> afFieldInput type="hidden" name="emailAddress" value=emailAddress}}
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Email</label>
+                    <div class="col-sm-9">
+                      <input class="form-control" id="disabledInput" type="text" placeholder={{emailAddress}} disabled>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary pull-right" style="margin-top: 10px;">Save</button>
+                {{/autoForm}}
                 
                 {{#if duringStay}}
                   <h4>Current Stay</h4>

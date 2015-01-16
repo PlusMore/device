@@ -2,8 +2,8 @@ Template.accountInfo.helpers({
   title: function() {
     var user = Meteor.user();
 
-    if (user && user.profile && user.profile.firstName && user.profile.lastName) {
-      return "{0} {1}".format(user.profile.firstName, user.profile.lastName);
+    if (user && user.profile && user.profile.name) {
+      return user.profile.name;
     } else {
       return "Account";
     }
@@ -34,6 +34,9 @@ Template.accountInfo.helpers({
   },
   duringStay: function() {
     return Session.get('stayId');
+  },
+  accountInfoSchema: function() {
+    return Schema.accountInfo;
   }
 });
 
