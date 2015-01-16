@@ -30,3 +30,15 @@ Template.navCategoryUI.helpers({
     return !ResponsiveHelpers.isXs() ? 'in' : '';
   }
 });
+
+Template.navCategoryUI.events({
+  'click .js-nav-category': function (e, tmpl) {
+    if (ResponsiveHelpers.isXs()) {
+      return;
+    }
+
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }
+});
