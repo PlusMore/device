@@ -83,7 +83,7 @@ html, body, .perspective {
     z-index: 5;
     position: absolute;
     width: 65vw;
-    font-size: 1em;
+    font-size: 1.5em;
 
     &.vertical {
         top: 50%;
@@ -326,7 +326,28 @@ html, body, .perspective {
 }
 
 // medium
-@media (min-width: 992px) {}
+@media (min-width: 992px) {
+     /* Outer Nav */
+    .outer-nav {
+        #nav-accordion {
+            & > .panel {
+                height: 200px;
+                
+                .panel-heading {
+
+                    .panel-title {
+                        max-width: 50%;
+                        // font-size: .8em;
+                    }
+                }
+
+                .panel-body {
+                }
+            }
+
+        }
+    }
+}
 
 // large
 @media (min-width: 1200px) {}
