@@ -266,6 +266,36 @@
   }
 }
 
+.navbar-outer-nav {
+  background: transparent;
+  margin-bottom: 0;
+  z-index: 5;
+
+  li {
+    display: inline-block;
+
+    #orders {
+      position: relative;
+      margin-top: -5px;
+      padding: 0;
+      padding-right: 4px;
+      padding-left: 30vw;
+      line-height: 1;
+    }
+
+    #accounts {
+      list-style: none;
+      padding-left: 15px;
+
+      #accounts-dropdown {
+        font-family: "Montserrat";
+        font-weight: 400;
+        font-size: 1.5em;
+      }  
+    }  
+  }
+}
+
 // small
 @media (min-width: 768px) {
   .navbar-plusmore {
@@ -309,6 +339,12 @@
           }
         }
       }
+    }
+  }
+  .navbar-outer-nav {
+    .navbar-nav {
+      float: initial; 
+      margin: 5; 
     }
   }
 }

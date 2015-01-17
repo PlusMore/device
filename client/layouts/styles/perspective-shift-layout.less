@@ -67,7 +67,7 @@ html, body, .perspective {
         transition: all 0.3s;
     }
 
-    #accounts {
+    .navbar-outer-nav {
         z-index: 5;
         -webkit-transform: translateX(-100px);
         transform: translateX(-100px);   
@@ -82,8 +82,8 @@ html, body, .perspective {
 .outer-nav {
     z-index: 5;
     position: absolute;
-    width: 65vw;
-    font-size: 1.5em;
+    width: 75vw;
+    font-size: 1.7em;
 
     &.vertical {
         top: 50%;
@@ -257,9 +257,7 @@ html, body, .perspective {
 
     }
 
-    
-
-    &.animate #accounts {
+    &.animate .navbar-outer-nav {
         -webkit-transform: translateX(0px);
         transform: translateX(0px);
         opacity: 1;
@@ -289,10 +287,6 @@ html, body, .perspective {
             transform-style: preserve-3d;
             font-family: "Montserrat";
             text-transform: uppercase;
-        }
-
-        &.left {
-            left: 10%;
         }
 
         & a:hover {
@@ -333,9 +327,11 @@ html, body, .perspective {
 @media (min-width: 992px) {
      /* Outer Nav */
     .outer-nav {
+        font-size: 2.3em;
+
         #nav-accordion {
             & > .panel {
-                height: 175px;
+                height: 200px;
                 
                 .panel-heading {
 
