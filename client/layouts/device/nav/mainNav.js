@@ -39,20 +39,3 @@ Template.mainNav.helpers({
     return NavCategories.find();
   }
 });
-
-var handleNav = function(e, tmpl) {
-  e.preventDefault();
-  e.stopImmediatePropagation();
-  console.log(e.type);
-  var href = $(e.currentTarget).attr('href');
-  if (Iron.Location.get().path === href) {
-    Menu.hide();
-  } else {
-    Router.go(href);
-  }
-};
-
-var events = {};
-events[clickevent + " .outer-nav .sublinks > a"] = handleNav;
-
-Template.mainNav.events(events);
