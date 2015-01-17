@@ -52,7 +52,7 @@ Template.accountsDropdown.events({
     }
     
     if (Meteor.user()) {
-      modal.show('accountInfo', null);
+      modal.show('accountInfo');
     } else {
       Session.set('selectUser', true);
     }
