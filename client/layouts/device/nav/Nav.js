@@ -30,13 +30,13 @@ Nav = {
       if (!enabled) return false;
     }
 
-    if (nav.hotelService && hotel) {
-      enabled = hotel.hotelServicesEnabled;
+    if (nav.hotelService) {
+      enabled = !!hotel && hotel.hotelServicesEnabled;
       console.log("{0} is a hotel service - {1}".format(nav.name, enabledText(enabled)));
       if (!enabled) return false;
     }
     
-    if (nav.requiresHotelData && hotel) {
+    if (nav.requiresHotelData) {
       enabled = !!hotel;
       console.log("{0} requires hotel data - {1}".format(nav.name, enabledText(enabled)));
       if (!enabled) return false;
