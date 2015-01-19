@@ -1,4 +1,7 @@
 Template.navLinkUI.helpers({
+  displayNavLink: function() {
+    return Nav.checkPermissions(this);
+  },
   path: function () {
     return Router.routes[routeName].path(routeData || {});
   }
