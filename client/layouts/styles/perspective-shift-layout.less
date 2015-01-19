@@ -67,7 +67,7 @@ html, body, .perspective {
         transition: all 0.3s;
     }
 
-    #accounts {
+    .navbar-outer-nav {
         z-index: 5;
         -webkit-transform: translateX(-100px);
         transform: translateX(-100px);   
@@ -82,8 +82,8 @@ html, body, .perspective {
 .outer-nav {
     z-index: 5;
     position: absolute;
-    width: 65vw;
-    font-size: 1em;
+    width: 75vw;
+    font-size: 1.7em;
 
     &.vertical {
         top: 50%;
@@ -181,10 +181,15 @@ html, body, .perspective {
 
                 & > a {
                     font-size: .7em;
+                    padding: 3px 0;
                 }
             }
         }
     }
+}
+
+#accounts-dropdown-button {
+    margin-right: 10px;
 }
 
 /* Individual Effects */
@@ -253,9 +258,7 @@ html, body, .perspective {
 
     }
 
-    
-
-    &.animate #accounts {
+    &.animate .navbar-outer-nav {
         -webkit-transform: translateX(0px);
         transform: translateX(0px);
         opacity: 1;
@@ -285,10 +288,6 @@ html, body, .perspective {
             transform-style: preserve-3d;
             font-family: "Montserrat";
             text-transform: uppercase;
-        }
-
-        &.left {
-            left: 10%;
         }
 
         & a:hover {
@@ -326,7 +325,30 @@ html, body, .perspective {
 }
 
 // medium
-@media (min-width: 992px) {}
+@media (min-width: 992px) {
+     /* Outer Nav */
+    .outer-nav {
+        font-size: 2.3em;
+
+        #nav-accordion {
+            & > .panel {
+                height: 200px;
+                
+                .panel-heading {
+
+                    .panel-title {
+                        max-width: 50%;
+                        // font-size: .8em;
+                    }
+                }
+
+                .panel-body {
+                }
+            }
+
+        }
+    }
+}
 
 // large
 @media (min-width: 1200px) {}

@@ -1,12 +1,3 @@
-Template.navLinkUI.helpers({
-  displayNavLink: function() {
-    return Nav.checkPermissions(this);
-  },
-  path: function () {
-    return Router.routes[routeName].path(routeData || {});
-  }
-});
-
 var handleNav = function(e, tmpl) {
   e.preventDefault();
   e.stopImmediatePropagation();
@@ -16,11 +7,10 @@ var handleNav = function(e, tmpl) {
     Menu.hide();
   } else {
     Router.go(href);
-    Menu.hide();
   }
 };
 
 var events = {};
 events[clickevent + " a"] = handleNav;
 
-Template.navLinkUI.events(events);
+Template.ordersButton.events(events);

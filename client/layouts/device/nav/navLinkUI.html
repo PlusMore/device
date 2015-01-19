@@ -1,3 +1,5 @@
 <template name="navLinkUI">
-  <a href="{{pathFor routeName data=routeData}}" class="{{icon}}">{{name}}</a>
+  {{#if displayNavLink}}
+    <a href="{{pathFor routeName data=routeData}}" class="{{icon}}">{{name}}</a>
+  {{/if}}
 </template>

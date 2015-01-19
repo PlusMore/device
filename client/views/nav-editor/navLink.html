@@ -13,7 +13,7 @@
 
 
 <template name="addNavLink">
-  <div class="container">
+  <div class="modal-dialog">
     <div class="modal-content inline">
       <div class="modal-header">
         <div class="pull-right">
@@ -37,12 +37,20 @@
           {{/if}}
           <div class="row">
             <div class="col-xs-6">
-              {{> afQuickField name="isAdmin"}}
-              {{> afQuickField name="isKiosk"}}
+              {{> afQuickField name="adminOnly"}}
+              {{> afQuickField name="kioskOnly"}}
             </div>
             <div class="col-xs-6">
-              {{> afQuickField name="isMobile"}}
+              {{> afQuickField name="mobileOnly"}}
               {{> afQuickField name="hotelService"}}
+            </div>
+            <div class="col-xs-6">
+              {{> afQuickField name="requiresHotelData"}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              {{> afQuickField name="responsiveHelper"}}
             </div>
           </div>
         </div>
@@ -57,7 +65,7 @@
 
 
 <template name="editNavLink">
-  <div class="container">
+  <div class="modal-dialog">
     <div class="modal-content inline">
       <div class="modal-header">
         <div class="pull-right">
@@ -73,12 +81,20 @@
           {{> afQuickField name="icon"}}
           <div class="row">
             <div class="col-xs-6">
-              {{> afQuickField name="isAdmin"}}
-              {{> afQuickField name="isKiosk"}}
+              {{> afQuickField name="adminOnly"}}
+              {{> afQuickField name="kioskOnly"}}
             </div>
             <div class="col-xs-6">
-              {{> afQuickField name="isMobile"}}
+              {{> afQuickField name="mobileOnly"}}
               {{> afQuickField name="hotelService"}}
+            </div>
+            <div class="col-xs-6">
+              {{> afQuickField name="requiresHotelData"}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              {{> afQuickField name="responsiveHelper"}}
             </div>
           </div>
         </div>
