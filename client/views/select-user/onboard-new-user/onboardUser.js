@@ -75,14 +75,15 @@ Template.onboardUser.events({
         if (err.error === 403) {
 
           if (err.reason === "Incorrect password") {
-            return Errors.throw(err.reason);
+            Errors.throw(err.reason);
           }
 
           if (err.reason === 'User has no password set') {
+            Errors.throw('No password was set for current account. Please follow instructions sent to the email you provided to set a password. Sorry for any inconvenience.');
             Accounts.setResetPasswordEmail(Session.get('onboardAccountCreationUserId'));
             tmpl.$(tmpl.firstNode).trigger('onboard-complete');
-            return Errors.throw('No password was set for current account. Please follow instructions sent to the email you provided to set a password. Sorry for any inconvenience.');
           }
+          return;
 
         }
         return Errors.throw(err.message);
