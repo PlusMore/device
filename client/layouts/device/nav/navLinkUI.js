@@ -16,6 +16,7 @@ var handleNav = function(e, tmpl) {
     Menu.hide();
   } else {
     Router.go(href);
+    Menu.hide();
   }
 };
 
