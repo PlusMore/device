@@ -10,7 +10,7 @@ Template.navCategoryUI.helpers({
     return Nav.checkPermissions(this);
   },
   navLinks: function () {
-    return NavLinks.find({navCategoryId: this._id});
+    return NavLinks.find({navCategoryId: this._id}, {sort: {linkRank: 1}});
   },
   expanded: function() {
     return !ResponsiveHelpers.isXs();
