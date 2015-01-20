@@ -28,9 +28,6 @@ Template.accountInfo.helpers({
   },
   duringStay: function() {
     return Session.get('stayId');
-  },
-  accountInfoSchema: function() {
-    return Schema.accountInfo;
   }
 });
 
@@ -44,5 +41,9 @@ Template.accountInfo.events({
   'click .js-logout': function(e, tmpl) {
     Meteor.logout();
     tmpl.$(tmpl.firstNode).trigger('hide-modal');
+  },
+  'click #show-edit-account':function(e){
+    e.preventDefault();
+    
   }
 });
