@@ -8,38 +8,44 @@
             <div class="pull-right">
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
             </div>
-            <h2 class="modal-title animated-fadeInRight">
-              <h2 class="modal-title animated fadeInRight">{{title}}</h2>
-            </h2>
+            <h2 class="modal-title animated fadeInRight">{{title}}</h2>
           </div>
 
-          <div class="modal-body">
-            <div class="row animated fadeInRight">
+          <div class="modal-body animated fadeInRight">
+            <div class="row">
               <div class="col-xs-12">
+                
                 <h4>
-                  Your Account — 
+                  Your Account
                   {{#unless edittingAccountInfo}}
-                    <small><a href='#' id='show-edit-account'>Edit</a></small>
+                    <button class="pull-right btn btn-default btn-xs animated fadeInRight" id='edit-account'>Edit</button>
                   {{/unless}}
                 </h4>
 
-                {{#if edittingAccountInfo}}
-                  {{> editAccountInfo}}
+                {{#unless edittingAccountInfo}}
+                  <div class="animated fadeInRight">
+                    <div class="instructions">
+                      Name: {{firstName}} {{lastName}}
+                      <br />
+                      Email: {{emailAddress}}
+                    </div>
+                  </div>
                 {{else}}
-                  <div class="instructions">
-                    Name: {{firstName}} {{lastName}}
-                    <br />
-                    Email: {{emailAddress}}
-                  </div>
-                {{/if}}
-                
+                  {{> editAccountInfo}}
+                {{/unless}}
+              </div>
+
+              <div class="col-xs-12">
                 {{#if duringStay}}
-                  <h4>Current Stay</h4>
-                  <div class="instructions">
-                    Checkout Date: {{checkoutDate}}
+                  <div class="animated fadeInRight">
+                    <h4>Current Stay</h4>
+                    <div class="instructions">
+                      Checkout Date: {{checkoutDate}}
+                    </div>
                   </div>
                 {{/if}}
-              </div>  
+              </div>
+
 
               <div class="col-xs-12 extra-spacing-top">
                 <a href="#" class="btn btn-default js-logout">Log Out</a>

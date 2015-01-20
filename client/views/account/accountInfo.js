@@ -28,6 +28,9 @@ Template.accountInfo.helpers({
   },
   duringStay: function() {
     return Session.get('stayId');
+  },
+  edittingAccountInfo: function() {
+    return Session.get('edittingAccountInfo');
   }
 });
 
@@ -36,14 +39,15 @@ Template.accountInfo.events({
     tmpl.$(tmpl.firstNode).trigger('hide-modal');
   },
   'hide-modal': function () {
+    Session.set('edittingAccountInfo', false);
     modal.close();
   },
   'click .js-logout': function(e, tmpl) {
     Meteor.logout();
     tmpl.$(tmpl.firstNode).trigger('hide-modal');
   },
-  'click #show-edit-account':function(e){
+  'click #edit-account':function(e){
     e.preventDefault();
-    
+    Session.set('edittingAccountInfo', true);
   }
 });

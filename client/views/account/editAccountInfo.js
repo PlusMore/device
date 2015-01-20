@@ -12,3 +12,17 @@ Template.editAccountInfo.helpers({
     return Schema.accountInfo;
   }
 });
+
+Template.editAccountInfo.events({
+  'click #cancel-edit-account': function(e) {
+    Session.set('edittingAccountInfo', false);
+  }
+});
+
+AutoForm.hooks({
+  editAccountForm: {
+    onSuccess: function(operation, result, template) {
+      Session.set('edittingAccountInfo', false);
+    }
+  }
+});
