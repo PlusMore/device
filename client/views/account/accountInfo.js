@@ -29,8 +29,8 @@ Template.accountInfo.helpers({
   duringStay: function() {
     return Session.get('stayId');
   },
-  edittingAccountInfo: function() {
-    return Session.get('edittingAccountInfo');
+  editingAccountInfo: function() {
+    return Session.get('editingAccountInfo');
   }
 });
 
@@ -39,7 +39,7 @@ Template.accountInfo.events({
     tmpl.$(tmpl.firstNode).trigger('hide-modal');
   },
   'hide-modal': function () {
-    Session.set('edittingAccountInfo', false);
+    Session.set('editingAccountInfo', false);
     modal.close();
   },
   'click .js-logout': function(e, tmpl) {
@@ -48,6 +48,6 @@ Template.accountInfo.events({
   },
   'click #edit-account':function(e){
     e.preventDefault();
-    Session.set('edittingAccountInfo', true);
+    Session.set('editingAccountInfo', true);
   }
 });

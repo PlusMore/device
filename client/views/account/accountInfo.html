@@ -17,12 +17,12 @@
                 
                 <h4>
                   Your Account
-                  {{#unless edittingAccountInfo}}
+                  {{#unless editingAccountInfo}}
                     <button class="pull-right btn btn-default btn-xs animated fadeInRight" id='edit-account'>Edit</button>
                   {{/unless}}
                 </h4>
 
-                {{#unless edittingAccountInfo}}
+                {{#unless editingAccountInfo}}
                   <div class="animated fadeInRight">
                     <div class="instructions">
                       Name: {{firstName}} {{lastName}}

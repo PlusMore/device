@@ -15,14 +15,14 @@ Template.editAccountInfo.helpers({
 
 Template.editAccountInfo.events({
   'click #cancel-edit-account': function(e) {
-    Session.set('edittingAccountInfo', false);
+    Session.set('editingAccountInfo', false);
   }
 });
 
 AutoForm.hooks({
   editAccountForm: {
     onSuccess: function(operation, result, template) {
-      Session.set('edittingAccountInfo', false);
+      Session.set('editingAccountInfo', false);
     }
   }
 });
