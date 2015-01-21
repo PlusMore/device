@@ -1,26 +1,4 @@
 Template.selectUser.helpers({
-  show: function() {
-    return !!Session.get('selectUser');
-  }, 
-  isVisibleClass: function() {
-    if (!!Session.get('selectUser')) {
-      
-      if (Session.get('hideSelectUser')) {
-        return 'show in animated fadeOut';
-      }
-
-      // became visible, set to first step
-
-      if (!Meteor.user()) {
-        Session.set('onboardStep', undefined);
-        Session.set('onboardStep', 'onboardUserGuestInfo');
-      } 
-      
-      return 'show in animated fadeIn';
-    } else {
-      return 'hidden';
-    }
-  }, 
   hasStayWithUsers: function() {
     var isOnboarding = Session.get('onboarding');
 
@@ -43,27 +21,16 @@ Template.selectUser.helpers({
   }
 });
 
-Meteor.startup(function() {
-  Tracker.autorun(function() {
-    var showSelectUser = !!Session.get('selectUser');
-
-    if (showSelectUser) {
-      Session.set('modalOpen', true);
-    } else {
-      Session.set('modalOpen', false);
-    }
-  });
-});
-
-
+Template.selectUser.rendered = function () {
+  if (!Meteor.user()) {
+    Session.set('onboardStep', undefined);
+    Session.set('onboardStep', 'onboardUserGuestInfo');
+  } 
+};
 
 var hideModal = function() {
-  Session.set('hideSelectUser', true);
-  Meteor.setTimeout(function() {
-    Session.set('selectUser', undefined);
-    Session.set('hideSelectUser', false);
-    Session.set('selectedUserChoice', undefined);
-  }, 500);
+  modal.close();
+  Session.set('selectedUserChoice', undefined);
 }
 
 Template.selectUser.events({

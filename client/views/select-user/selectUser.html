@@ -1,4 +1,4 @@
-<template name="selectUser">
+<template name="selectUser_">
   <div id='select-user-backdrop' class="modal-backdrop fade {{isVisibleClass}}"></div>
   <div id='select-user' class="modal fade {{isVisibleClass}}">
     {{#if show}}
@@ -9,4 +9,18 @@
       {{/if}}
     {{/if}}
   </div><!-- /.modal -->
+</template>
+
+<template name="selectUser">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div id="select-user">
+        {{#if hasStayWithUser}}
+          {{> chooseUser}}
+        {{else}}
+          {{> onboardUser}}
+        {{/if}}  
+      </div>
+    </div>
+  </div>
 </template>

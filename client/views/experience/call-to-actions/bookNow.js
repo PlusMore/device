@@ -113,7 +113,7 @@ Template.bookNow.events({
     });
 
     if (!Meteor.user()) {
-      Session.set('selectUser', true);
+      modal.show('selectUser');
     } else {
       $(document).trigger('user-selected');
     }
