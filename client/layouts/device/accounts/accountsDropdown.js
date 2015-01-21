@@ -2,7 +2,7 @@ Template.accountsDropdown.helpers({
   dropdownText: function () {
     var user = Meteor.user();
 
-    if (LocalStore.get('inRoom')) {
+    if (LocalStore.get('kiosk')) {
       if (user) {
         if (user.profile && user.profile.firstName && user.profile.lastName) {
           return "{0} {1}".format(user.profile.firstName, user.profile.lastName);

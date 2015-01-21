@@ -1,27 +1,13 @@
 <template name="mainNav">
   <nav class="outer-nav left vertical">
-        
-
-    {{#if isInRole 'admin' 'hotel-staff' 'hotel-manager'}}
-      <a href="{{pathFor 'setupDevice'}}">Kiosk Mode</a>
-    {{/if}}
-
-    {{#if inStayOrInRoom}}
     
-      <a href="{{pathFor 'hotelInformation'}}" class="icon-building">Hotel Information</a>
-  
-      {{#if hotelServicesEnabled}}
-        <a href="{{pathFor 'hotelServices'}}" class="icon-front-desk">Guest Services</a>
-        <a href="{{pathFor 'roomService'}}" class="icon-roomservice">Room Service</a>
-      {{/if}}
+    <div class="panel-group" id="nav-accordion" role="tablist" aria-multiselectable="true">
 
-    {{/if}}
+      {{#each navCategories}}
+        {{> navCategoryUI}}
+      {{/each}}
 
-    {{#each categories}}
-      {{> categoryLink}}
-    {{/each}}
+    </div>
 
-    <a href="{{pathFor 'orders'}}" class="icon-orders">Orders</a>
-    
   </nav>
 </template>
