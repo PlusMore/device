@@ -20,7 +20,7 @@
 @gray-darker:            lighten(@gray-base, 13.5%); // #222
 @gray-dark:              lighten(@gray-base, 20%);   // #333
 @gray:                   lighten(@gray-base, 33.5%); // #555
-@gray-light:             lighten(@gray-base, 46.7%); // #777
+@gray-light:             lighten(@gray-base, 60%); // #777
 @gray-lighter:           lighten(@gray-base, 93.5%); // #eee
 
 @brand-primary:         #428bca;
@@ -206,7 +206,7 @@
 @input-border-focus:             #66afe9;
 
 //** Placeholder text color
-@input-color-placeholder:        #999;
+@input-color-placeholder:        @gray-light;
 
 //** Default `.form-control` height
 @input-height-base:              (@line-height-computed + (@padding-base-vertical * 2) + 2);
@@ -271,10 +271,10 @@
 
 @zindex-navbar:            1000;
 @zindex-dropdown:          1000;
-@zindex-popover:           1060;
-@zindex-tooltip:           1070;
+@zindex-popover:           1010;
+@zindex-tooltip:           1030;
 @zindex-navbar-fixed:      1030;
-@zindex-modal:             1040;
+@zindex-modal:             6000;
 
 
 //== Media queries breakpoints
@@ -389,12 +389,12 @@
 
 // Inverted navbar
 // Reset inverted navbar basics
-@navbar-inverse-color:                      lighten(@gray-light, 15%);
+@navbar-inverse-color:                      @gray-light;
 @navbar-inverse-bg:                         #222;
 @navbar-inverse-border:                     darken(@navbar-inverse-bg, 10%);
 
 // Inverted navbar links
-@navbar-inverse-link-color:                 lighten(@gray-light, 15%);
+@navbar-inverse-link-color:                 @gray-light;
 @navbar-inverse-link-hover-color:           #fff;
 @navbar-inverse-link-hover-bg:              transparent;
 @navbar-inverse-link-active-color:          @navbar-inverse-link-hover-color;
@@ -423,6 +423,8 @@
 
 @nav-disabled-link-color:                   @gray-light;
 @nav-disabled-link-hover-color:             @gray-light;
+
+@nav-open-link-hover-color:                 #fff;
 
 //== Tabs
 @nav-tabs-border-color:                     #ddd;
@@ -548,7 +550,7 @@
 //** Popover arrow width
 @popover-arrow-width:                 10px;
 //** Popover arrow color
-@popover-arrow-color:                 @popover-bg;
+@popover-arrow-color:                 #fff;
 
 //** Popover outer arrow width
 @popover-arrow-outer-width:           (@popover-arrow-width + 1);
@@ -586,7 +588,7 @@
 //##
 
 //** Padding applied to the modal body
-@modal-inner-padding:         15px;
+@modal-inner-padding:         20px;
 
 //** Padding applied to the modal title
 @modal-title-padding:         15px;
@@ -601,7 +603,7 @@
 @modal-content-fallback-border-color:          #999;
 
 //** Modal backdrop background color
-@modal-backdrop-bg:           #000;
+@modal-backdrop-bg:           rgba(0,0,0,0.6);
 //** Modal backdrop opacity
 @modal-backdrop-opacity:      .5;
 //** Modal header border color
