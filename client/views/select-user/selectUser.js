@@ -26,7 +26,7 @@ Template.selectUser.rendered = function () {
     Session.set('onboardStep', undefined);
     Session.set('onboardStep', 'onboardUserGuestInfo');
   } 
-};
+}
 
 var hideModal = function() {
   modal.close();

@@ -131,6 +131,7 @@ Template.chooseUser.events({
     $(document).trigger('user-selected');
 
     Meteor.setTimeout(function() {
+      modal.close()
       tmpl.step.set(undefined);
       Session.set('selectedUserChoice', undefined);
     }, 2000);
