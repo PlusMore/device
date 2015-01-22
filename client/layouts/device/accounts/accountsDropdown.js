@@ -1,4 +1,4 @@
- Template.accountsDropdown.helpers({
+Template.accountsDropdown.helpers({
   dropdownText: function () {
     var user = Meteor.user();
 
