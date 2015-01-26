@@ -20,8 +20,8 @@ Template.accountsDropdown.helpers({
       }
     } else {
       if (user) {
-        if (user.profile && user.profile.name) {
-          return user.profile.name;
+        if (user.profile && user.profile.firstName && user.profile.lastName) {
+          return "{0} {1}".format(user.profile.firstName, user.profile.lastName);
         }
 
         return "Account";
