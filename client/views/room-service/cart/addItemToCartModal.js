@@ -1,33 +1,9 @@
-Template.addItemToCartModal.helpers({
-  item: function() {
-    return MenuItems.findOne(Session.get('addItem'));
-  }, 
-  isVisibleClass: function() {
-    if (!!Session.get('addItem')) {
-      if (Session.get('fadeOutAddItem')) {
-        return 'show in animated fadeOutUp';
-      }
-      return 'show in animated fadeInDown';
-    } else {
-      return 'hidden';
-    }
-  }, 
-  menuCategoryId: function() {
-    return this._id;
-  }
-});
-
 Template.addItemToCartModal.events({
   'click [data-dismiss="modal"]':function(e, tmpl){
     e.preventDefault();
     e.stopImmediatePropagation();
 
-    Session.set('fadeOutAddItem', true);
-    Session.set('modalOpen', false);
-    Meteor.setTimeout(function() {
-      Session.set('addItem', undefined);
-      Session.set('fadeOutAddItem', false);
-    }, 500);
+    modal.close();
 
     return false;
   },
@@ -49,12 +25,8 @@ Template.addItemToCartModal.events({
       if (err) {
         return Errors.throw(err.reason);
       }
-      Session.set('fadeOutAddItem', true);
-      Session.set('modalOpen', false);
-      Meteor.setTimeout(function() {
-        Session.set('addItem', undefined);
-        Session.set('fadeOutAddItem', false);
-      }, 500);
+
+      modal.close();
     });
     
     return false;
