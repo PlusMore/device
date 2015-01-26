@@ -80,9 +80,7 @@ Template.onboardUser.events({
 
           if (err.reason === 'User has no password set') {
             Errors.throw('No password was set for current account. Please follow instructions sent to the email you provided to set a password. Sorry for any inconvenience.');
-            if (Meteor.isServer) {
-              Accounts.sendResetPasswordEmail(Session.get('onboardAccountCreationUserId'));
-            }
+            Meteor.call('handleNoPasswordSet', Session.get('onboardAccountCreationUserId'));
             tmpl.$(tmpl.firstNode).trigger('onboard-complete');
           }
           return;

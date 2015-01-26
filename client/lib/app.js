@@ -85,7 +85,7 @@ Meteor.startup(function() {
         } 
 
         if (user && user.deviceId) {
-          var deviceId = user.deviceId,
+          var deviceId = LocalStore.get('deviceId'),
               device = Devices.findOne(deviceId);
 
           hotel = Hotels.findOne(device.hotelId);
