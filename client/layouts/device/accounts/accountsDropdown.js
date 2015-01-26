@@ -2,7 +2,7 @@ Template.accountsDropdown.helpers({
   dropdownText: function () {
     var user = Meteor.user();
 
-    if (LocalStore.get('kiosk')) {
+    if (LocalStore.get('inRoom')) {
       if (user) {
         if (user.profile && user.profile.firstName && user.profile.lastName) {
           return "{0} {1}".format(user.profile.firstName, user.profile.lastName);
@@ -20,8 +20,8 @@ Template.accountsDropdown.helpers({
       }
     } else {
       if (user) {
-        if (user.profile && user.profile.firstName && user.profile.lastName) {
-          return "{0} {1}".format(user.profile.firstName, user.profile.lastName);
+        if (user.profile && user.profile.name) {
+          return user.profile.name;
         }
 
         return "Account";
@@ -52,9 +52,9 @@ Template.accountsDropdown.events({
     }
     
     if (Meteor.user()) {
-      Session.set('accountInfo', true);
+      modal.show('accountInfo');
     } else {
-      modal.show('selectUser');
+      Session.set('selectUser', true);
     }
   },
   'click .js-logout': function () {
