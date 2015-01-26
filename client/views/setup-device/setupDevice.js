@@ -30,7 +30,7 @@ AutoForm.hooks({
         Meteor.logout(function() {
 
           LocalStore.set('deviceId', deviceId);
-          LocalStore.set('inRoom', true);
+          LocalStore.set('kiosk', true);
 
           Router.go('welcome');
           Session.set('loader', undefined);

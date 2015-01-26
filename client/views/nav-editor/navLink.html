@@ -1,0 +1,107 @@
+<template name="navLink">
+  <tr>
+    <td><h4>#{{linkRank}} - <span class="icon {{icon}}"></span> {{name}}</h4></td>
+    <td><a href="#" id="edit-nav-link">Edit</a></td>
+    <td><a href="#" id="delete-nav-link">Delete</a></td>
+  </tr>
+  <tr>
+    <td colspan=2><em><small>(/{{routeName}}/{{routeData.categoryId}})</small></em></td>
+  </tr>
+  <tr></tr>
+</template>
+
+
+
+<template name="addNavLink">
+  <div class="modal-dialog">
+    <div class="modal-content inline">
+      <div class="modal-header">
+        <div class="pull-right">
+          <a href="#" class="icon icon-x" id="dismiss-modal"></a>
+        </div>
+        <h3 class="modal-title">Add New Link</h3>
+      </div>
+      {{#autoForm collection="NavLinks" id="addNavLink" type="method" meteormethod="addNavLink"}}
+        <div class="modal-body">
+          {{> afFieldInput name="navCategoryId" type="hidden" value=_id}}
+          {{> afQuickField name="routeName" options=routeOptions}}
+          {{#if afFieldValueIs name="routeName" value="experiences"}}
+            {{> afQuickField name="routeData.categoryId" options=categoryOptions}}
+            {{> afQuickField name="linkRank"}}
+            {{> afFieldInput name="name" type="hidden" value="update in method"}}
+            {{> afFieldInput name="icon" type="hidden" value="update in method"}}
+          {{else}}
+            {{> afQuickField name="name"}}
+            {{> afQuickField name="linkRank"}}
+            {{> afQuickField name="icon" placeholder="ex: icon-building"}}
+          {{/if}}
+          <div class="row">
+            <div class="col-xs-6">
+              {{> afQuickField name="adminOnly"}}
+              {{> afQuickField name="kioskOnly"}}
+            </div>
+            <div class="col-xs-6">
+              {{> afQuickField name="mobileOnly"}}
+              {{> afQuickField name="hotelService"}}
+            </div>
+            <div class="col-xs-6">
+              {{> afQuickField name="requiresHotelData"}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              {{> afQuickField name="responsiveHelper"}}
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+      {{/autoForm}}
+    </div>
+  </div>
+</template>
+
+
+
+<template name="editNavLink">
+  <div class="modal-dialog">
+    <div class="modal-content inline">
+      <div class="modal-header">
+        <div class="pull-right">
+          <a href="#" class="icon icon-x" id="dismiss-modal"></a>
+        </div>
+        <h3 class="modal-title">Edit Link</h3>
+      </div>
+      {{#autoForm collection="NavLinks" doc=this id="editNavLink" type="update" resetOnSuccess=false}}
+        <div class="modal-body">
+          {{> afQuickField name="name"}}
+          {{> afQuickField name="linkRank"}}
+          {{> afQuickField name="routeName"}}
+          {{> afQuickField name="icon"}}
+          <div class="row">
+            <div class="col-xs-6">
+              {{> afQuickField name="adminOnly"}}
+              {{> afQuickField name="kioskOnly"}}
+            </div>
+            <div class="col-xs-6">
+              {{> afQuickField name="mobileOnly"}}
+              {{> afQuickField name="hotelService"}}
+            </div>
+            <div class="col-xs-6">
+              {{> afQuickField name="requiresHotelData"}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              {{> afQuickField name="responsiveHelper"}}
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      {{/autoForm}}
+    </div>
+  </div>
+</template>
