@@ -54,7 +54,7 @@ Template.accountsDropdown.events({
     if (Meteor.user()) {
       modal.show('accountInfo');
     } else {
-      Session.set('selectUser', true);
+      modal.show('selectUser');
     }
   },
   'click .js-logout': function () {

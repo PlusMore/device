@@ -12,8 +12,7 @@ Template.menuItem.events({
     }
 
     console.log('click menu-item');
-    Session.set('addItem', this._id);
-    Session.set('modalOpen', true);
+    modal.show('addItemToCartModal', this);
 
     return false;
   }

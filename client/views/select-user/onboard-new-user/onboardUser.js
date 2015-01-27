@@ -105,6 +105,7 @@ Template.onboardUser.events({
     $(document).trigger('user-selected');
     
     Meteor.setTimeout(function() {
+      modal.close();
       Session.set('onboardStep', undefined);
       Session.get('onboardAccountCreationOptions', undefined);
       Session.set('onboarding', false); 
