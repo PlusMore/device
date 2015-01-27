@@ -108,7 +108,9 @@ Template.experience.helpers({
     return 'height:'+offsetTop+'px;'
   },
   modalOpen: function() {
-    return modal.open() ? 'modal-open' : '';
+    // when bootbox is open, the session variable, "modalOpen" is used instead
+    var modalOpen = Session.get('modalOpen') || modal.open();
+    return modalOpen ? 'modal-open' : '';
   }
 });
 

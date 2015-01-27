@@ -34,7 +34,9 @@ Template.deviceLayout.helpers({
   modalOpen: function() {
     // if experience modal is open, no need to blur other content,
     // prevents uncessary redraws
-    return modal.open() && !experienceModal.open() ? 'modal-open' : '';
+    // when bootbox is open, the session variable, "modalOpen" is used instead
+    var modalOpen = Session.get('modalOpen') || modal.open();
+    return modalOpen && !experienceModal.open() ? 'modal-open' : '';
   }
 });
 
