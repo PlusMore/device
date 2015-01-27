@@ -97,7 +97,7 @@ Template.bookNow.events({
         }
 
         Router.go('orders');
-        modal.close();
+        experienceModal.close();
         Meteor.setTimeout(function() {
           Session.set('loader', undefined);
         }, 500);
