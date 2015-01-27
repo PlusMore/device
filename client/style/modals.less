@@ -1,3 +1,11 @@
+@import '/client/style/imports.import.less';
+
+button.close {
+  .icon-x {
+    font-size: 25px;
+  }
+}
+
 .modal-backdrop {
   background-color: rgba(0,0,0,0.6);
 }
@@ -20,6 +28,7 @@
   }
 
   .modal-dialog {
+    z-index: 6001;
     &.full-width {
       width: 100%;
     } 
