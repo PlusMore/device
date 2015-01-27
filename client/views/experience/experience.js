@@ -119,7 +119,7 @@ var handleBack = function (e, tmpl) {
   e.preventDefault();
   e.stopImmediatePropagation();
 
-  modal.close();
+  experienceModal.close();
   Meteor.setTimeout(function() {
     Session.set('currentExperienceId', undefined);
   }, 500);
