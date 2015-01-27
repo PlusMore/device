@@ -7,15 +7,3 @@ Template.experienceThumbnail.events({
     }
   }
 });
-
-Meteor.startup(function() {
-  Tracker.autorun(function() {
-    debugger;
-    var expId = Session.get('currentExperienceId');
-    if (!!expId && !experienceModal.open()) {
-      Meteor.setTimeout(function() {
-        experienceModal.show('experience');
-      },0)
-    }
-  });  
-});
