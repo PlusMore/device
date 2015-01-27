@@ -106,6 +106,9 @@ Template.experience.helpers({
     var offsetTop = contentOffsetTop(height);
 
     return 'height:'+offsetTop+'px;'
+  },
+  modalOpen: function() {
+    return modal.open() ? 'modal-open' : '';
   }
 });
 

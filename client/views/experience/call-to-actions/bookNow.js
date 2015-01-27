@@ -108,7 +108,7 @@ Template.bookNow.events({
     $(document).one('cancel-user-selected', function() {
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
-      tmpl.state.set('default');
+      
       return;
     });
 

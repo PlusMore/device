@@ -32,7 +32,9 @@ Template.deviceLayout.helpers({
     return !!LocalStore.get('deviceId') && LocalStore.get('kiosk');
   },
   modalOpen: function() {
-    return (Session.get('modalOpen') || modal.open()) ? 'modal-open' : '';
+    // if experience modal is open, no need to blur other content,
+    // prevents uncessary redraws
+    return modal.open() && !experienceModal.open() ? 'modal-open' : '';
   }
 });
 

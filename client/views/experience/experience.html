@@ -1,6 +1,6 @@
 <template name="experience">
   {{#with experience}}
-  <div class="experience">  
+  <div class="experience {{modalOpen}}">  
 
     <nav class="navbar navbar-fixed-top navbar-plusmore" role="navigation">
       <div class="container-fluid">
@@ -53,7 +53,7 @@
 
 <template name="experience_">
   {{#with experience}}
-  <div class="experience fast animated {{isVisibleClass}} {{modalOpen}}">
+  <div class="experience fast animated {{isVisibleClass}} ">
 
     <nav class="navbar navbar-fixed-top navbar-plusmore" role="navigation">
       <div class="container-fluid">
