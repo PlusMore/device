@@ -1,0 +1,83 @@
+.modal-backdrop {
+  background-color: rgba(0,0,0,0.6);
+}
+
+.modal-backdrop.in {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5999;
+}
+
+.modal {
+  color: #fff;
+  text-align: left;
+  z-index: 6000;
+
+  &.in {
+    display: block;
+  }
+
+  .modal-dialog {
+    &.full-width {
+      width: 100%;
+    } 
+
+    .modal-title {
+      margin-right: 40px;
+    }
+
+    .modal-content {
+      background: transparent;
+      box-shadow: none;
+      border: none;
+
+      a:not(.btn), span, legend {
+        color: #fff;
+      }
+
+      .instructions {
+        font-family: 'Montserrat';
+      }
+
+      .modal-header {
+        button.close {
+          color: #fff;
+          opacity: 1;
+          text-shadow: none;
+          font-size: 3em;
+          line-height: 1em;
+          margin-top: -5px;
+          min-width: 44px;
+          min-height: 44px;
+          text-align: right;
+        }
+      }
+
+      .modal-footer {
+        .btn {
+          font-size: 16px;
+          padding: 6px 20px;
+
+          &.btn-cancel, &.btn-reset {
+            background: transparent;
+            color: #fff;
+
+            &:hover, &:focus, &:visited {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .form-control {
+    color: #000;
+  }
+
+  .has-error .control-label {
+    color: #fff;
+  }
+}
