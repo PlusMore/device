@@ -1,0 +1,357 @@
+@import '/client/style/imports.import.less';
+
+html, body, .perspective {
+    width: 100%;
+    height: 100%;
+}
+
+.perspective {
+    position: relative;
+    z-index: 0;
+
+    // -webkit-transition : -webkit-filter 0.4s linear;
+    //         transition : filter 0.4s linear;
+
+    &.modal-open {
+        -webkit-filter: blur(5px);
+        -moz-filter: blur(5px);
+        -o-filter: blur(5px);
+        -ms-filter: blur(5px);
+        filter: blur(5px);
+    }
+
+    & > .perspective-container {
+        background: #fff;
+        min-height: 100%;
+        position: relative;
+        outline: 1px solid rgba(0,0,0,0);
+        z-index: 10;
+        -webkit-transform: translateZ(0) translateX(0) rotateY(0deg); /* reset transforms (Chrome bug) */
+        transform: translateZ(0) translateX(0) rotateY(0deg);
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0px;
+            opacity: 0;
+            background: rgba(0,0,0,0.2);
+            /* the transition delay of the height needs to be synced with the perspective-container transition time */
+            -webkit-transition: opacity 0.4s, height 0s 0.4s;
+            transition: opacity 0.4s, height 0s 0.4s;
+        }
+    }
+
+    &.modalview {
+        position: fixed;
+        -webkit-perspective: 1500px;
+        perspective: 1500px;
+
+        & > .perspective-container {
+            position: absolute;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+    }
+
+    &.animate > .perspective-container::after {
+        opacity: 1;
+        height: 101%;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+
+    .navbar-outer-nav {
+        z-index: 5;
+        -webkit-transform: translateX(-100px);
+        transform: translateX(-100px);   
+        opacity: 0;
+        -webkit-transition: -webkit-transform 0.4s, opacity 0.4s;
+        transition: transform 0.4s, opacity 0.4s; 
+    }
+    
+}
+
+/* Outer Nav */
+.outer-nav {
+    z-index: 5;
+    position: absolute;
+    width: 75vw;
+    font-size: 1.7em;
+
+    &.vertical {
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+
+    &.horizontal {
+        left: 50%;
+        width: 75%;
+        max-width: 1000px;
+        text-align: center;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+
+    &.left {
+        left: 5%;
+    }
+
+    &.right {
+        right: 10%;
+    }
+
+    & a {
+        display: inline-block;
+        white-space: nowrap;
+        font-weight: 400;
+        // margin: 0 0 30px 0;
+        color: #fff;
+        -webkit-transition: color 0.3s;
+        transition: color 0.3s;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        font-family: "Montserrat";
+        text-transform: uppercase;
+    }
+
+    & a:hover {
+        color: #ffdccd;
+    }
+
+    &.vertical a {
+        display: block;
+    }
+
+    &.horizontal a {
+        margin: 15px 20px;
+    }
+
+    & a::before {
+        display: inline-block;
+        speak: none;
+        font-family: "plusmore";
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        margin-right: 15px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        vertical-align: middle;
+        font-size: 1.6em;
+        vertical-align: middle;
+        margin-bottom: 7px;
+    }
+
+    #nav-accordion {
+        & > .panel {
+            background: transparent;
+            border: none; 
+
+            .panel-heading {
+                background: transparent;
+                border: none;
+
+                .panel-title {
+                    border-bottom: 1px solid #fff;
+                    padding-bottom: 5px;
+                    font-size: .8em;
+                    color: #fff;
+                }
+            }
+
+            .panel-body {
+                border-top: none;
+                padding-top: 5px;
+                padding-bottom: 5px;
+
+                & > a {
+                    font-size: .7em;
+                    padding: 3px 0;
+                }
+            }
+        }
+    }
+}
+
+#accounts-dropdown-button {
+    margin-right: 10px;
+}
+
+/* Individual Effects */
+.effect-persepctive-shift {
+
+    & > .perspective-container {
+        -webkit-transition: -webkit-transform 0.4s;
+        transition: transform 0.4s;
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+    }
+
+    &.animate > .perspective-container {
+        -webkit-transform: translateZ(-1500px) translateX(100%) rotateY(-45deg);
+        transform: translateZ(-1500px) translateX(100%) rotateY(-45deg);
+    }
+
+    &.animate {
+        & .outer-nav {
+            z-index: 15;
+        }         
+    }
+
+    & .outer-nav .panel {
+        opacity: 0;
+        -webkit-transform: translateX(-150px);
+        transform: translateX(-150px);
+        -webkit-transition: -webkit-transform 0.4s, opacity 0.4s;
+        transition: transform 0.4s, opacity 0.4s;
+    }
+
+    &.animate .outer-nav .panel {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+        
+        &:nth-child(2) {
+            -webkit-transition-delay: 0.04s;
+            transition-delay: 0.04s;
+        }
+
+        &:nth-child(3) {
+            -webkit-transition-delay: 0.08s;
+            transition-delay: 0.08s;
+        }
+
+        &:nth-child(4) {
+            -webkit-transition-delay: 0.12s;
+            transition-delay: 0.12s;
+        }
+
+        &:nth-child(5) {
+            -webkit-transition-delay: 0.16s;
+            transition-delay: 0.16s;
+        }
+
+        &:nth-child(6) {
+            -webkit-transition-delay: 0.2s;
+            transition-delay: 0.2s;
+        }
+
+        &:nth-child(7) {
+            -webkit-transition-delay: 0.24s;
+            transition-delay: 0.24s;
+        }
+
+    }
+
+    &.animate .navbar-outer-nav {
+        -webkit-transform: translateX(0px);
+        transform: translateX(0px);
+        opacity: 1;
+        z-index: 20;
+    }
+}
+
+.no-csstransforms3d &.animate .perspective-container {
+    left: 75%;
+}
+
+// small
+@media (min-width: 768px) {
+    /* Outer Nav */
+    .outer-nav {
+        font-size: 2em;
+
+        & a {
+            display: inline-block;
+            white-space: nowrap;
+            font-weight: 400;
+            // margin: 0 0 30px 0;
+            color: #fff;
+            -webkit-transition: color 0.3s;
+            transition: color 0.3s;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            font-family: "Montserrat";
+            text-transform: uppercase;
+        }
+
+        & a:hover {
+            color: #ffdccd;
+        }
+
+        &.vertical a {
+            display: block;
+        }
+
+        & a::before {
+            line-height: 1;
+            margin-right: 15px;
+            font-size: 1.6em;
+            margin-bottom: 7px;
+        }
+
+        #nav-accordion {
+            & > .panel {
+
+                .panel-heading {
+
+                    .panel-title {
+                        max-width: 50%;
+                        // font-size: .8em;
+                    }
+                }
+
+                .panel-body {
+                }
+            }
+
+        }
+    }
+}
+
+// medium
+@media (min-width: 992px) {
+     /* Outer Nav */
+    .outer-nav {
+        font-size: 2.3em;
+
+        #nav-accordion {
+            & > .panel {
+                height: 200px;
+                
+                .panel-heading {
+
+                    .panel-title {
+                        max-width: 50%;
+                        // font-size: .8em;
+                    }
+                }
+
+                .panel-body {
+                }
+            }
+
+        }
+    }
+}
+
+// large
+@media (min-width: 1200px) {}

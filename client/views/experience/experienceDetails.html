@@ -1,42 +1,48 @@
 <template name="experienceDetails">
-
-    <div class="details col-xs-12 col-md-7">
-      <h1>
-        {{title}}
-      </h1>
+  <div id="info" class="row  {{firstRowClass}}">  
+    <div class="col-xs-12 col-sm-6">
       {{#if yelpId}}
         {{> experienceYelpRating}}
       {{/if}}
-      <!-- <p class="lead">{{lead}}</p> -->
-      <div class='tags'>
-        {{#each tags}}
-          <span class="label label-tag">{{this}}</span>
-        {{/each}}
-      </div>
-      <div class="description scrollable">
-        <p class="description ">{{description}}</p>
-      </div>
-    </div>
-
-    <div class="venue col-xs-12 col-md-5">
-      
-      {{> experienceMap}}
-
       {{#with geo}}
+        <div class="address">
+          {{#if streetName}}
+          <div>{{streetNumber}} {{streetName}}</div>
+          {{/if}}
 
-        {{#if streetName}}
-        <div>{{streetNumber}} {{streetName}}</div>
-        {{/if}}
-
-        {{#if city}}
-          <div>
-            {{city}}, 
-            {{stateCode}} 
-            {{zipcode}}
-          </div>
-        {{/if}}
-
+          {{#if city}}
+            <div>
+              {{city}}, 
+              {{stateCode}} 
+              {{zipcode}}
+            </div>
+          {{/if}}  
+        </div>
       {{/with}}
     </div>
-  
+    <div class='col-xs-12 col-sm-6'>
+      {{#each tagsFromGroups}}
+        <span class="label label-tag">{{tag}}</span>
+      {{/each}}  
+    </div>
+  </div>
+
+  <div class="row" id="perk">
+    <div class="col-xs-12">
+      <img src="https://www.filepicker.io/api/file/FJUa9OhlTDe5i50auzJt" alt="PlusMore Perk!">
+      <p class="text">Receive an exclusive perk when you book with PlusMore!</p>
+    </div>
+  </div>
+
+  <div class="row" id="description">
+    <div class="col-xs-12">
+      <div class="description">
+        <p>{{description}}</p>
+      </div>
+    </div>
+  </div>
+
+  {{#if hasPhotos}}
+    {{> experiencePhotos}}
+  {{/if}}
 </template>

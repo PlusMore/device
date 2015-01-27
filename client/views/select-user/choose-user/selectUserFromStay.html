@@ -1,0 +1,27 @@
+<template name='selectUserFromStay'>
+  <div class="modal-dialog full-width col-xs-12">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-right">
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">
+              <i class="icon icon-x"></i>
+            </span>
+            <span class="sr-only">Close</span>
+          </button>
+        </div>
+        <h2 class="modal-title animated-fadeInRight">
+          <h2 class="modal-title animated fadeInRight">Select User</h2>
+        </h2>
+      </div>
+      <div id="choose-user-container" class="modal-body">
+        <div class="choose-user-row row animated fadeInRight centered">
+          {{#each users}}
+            {{> userChoice}}  
+          {{/each}}
+          {{> newGuest}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

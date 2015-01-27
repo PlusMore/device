@@ -1,16 +1,13 @@
 <template name="mainNav">
   <nav class="outer-nav left vertical">
-        
-    {{#if hotelServicesEnabled}}
-      <a href="{{pathFor 'hotelServices'}}" class="icon-front-desk">Guest Services</a>
-      <a href="{{pathFor 'roomService'}}" class="icon-roomservice">Room Service</a>
-    {{/if}}
     
-    {{#each categories}}
-      {{> categoryLink}}
-    {{/each}}
+    <div class="panel-group" id="nav-accordion" role="tablist" aria-multiselectable="true">
 
-    <a href="{{pathFor 'orders'}}" class="icon-orders">Orders</a>
-    
+      {{#each navCategories}}
+        {{> navCategoryUI}}
+      {{/each}}
+
+    </div>
+
   </nav>
 </template>

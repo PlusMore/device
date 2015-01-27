@@ -1,0 +1,49 @@
+@import '/client/style/imports.import.less';
+
+#select-user-backdrop {
+  z-index: 4990;
+}
+
+#select-user {
+  z-index: 5000;
+
+  #choose-user-container {
+    padding: 15px 0;
+    
+    .choose-user-row {
+      width: auto;
+      white-space: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+      margin: 20px;
+
+      .user-choice.thumbnail {
+        display: inline-block;
+        background: transparent;
+        color: #fff;
+        width: 250px;
+        margin-right: 20px;
+        border: none;
+        
+        .circle {
+          width: 200px;
+          height: 200px;
+          line-height: 200px;
+          border: 2px solid white;
+          border-radius: 100%;
+          font-size: 80px;
+          text-align: center;
+          vertical-align: middle;
+          margin: 0 auto 0 auto;
+        }
+
+        .caption {
+          color: #fff;
+        }
+      }  
+    }  
+  }
+
+  
+  
+}

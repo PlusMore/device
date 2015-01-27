@@ -85,7 +85,7 @@ Meteor.startup(function() {
         } 
 
         if (user && user.deviceId) {
-          var deviceId = user.deviceId,
+          var deviceId = LocalStore.get('deviceId'),
               device = Devices.findOne(deviceId);
 
           hotel = Hotels.findOne(device.hotelId);
@@ -103,10 +103,11 @@ Meteor.startup(function() {
         _.extend(properties, profileInfo);
 
         _.extend(properties, {
-          "Path": IronLocation.path()
+          "Path": Router.current().url
         });
 
         if (hotel && hotel.trackAnalytics) {
+          // mixpanel.com mobile analytics
           mixpanel.track(key, properties);
           console.log('Tracked metric: ', key, properties);
         } else {
@@ -115,22 +116,7 @@ Meteor.startup(function() {
       });
     },
     go: function() {
-      var stay = Stays.findOne({userId: Meteor.userId()});
-
-      if (!stay) {
-        Router.go('enterCheckoutDate');
-      } else {
-        App.goToStartPage();
-      }
-    },
-    goToStartPage: function() {
-      var diningCategory = Categories.findOne({name: 'Dining'});
-      if (diningCategory) {
-        Router.go('experiences', {categoryId: diningCategory._id});  
-      } else {
-        var firstCategory = Categories.findOne();
-        Router.go('experiences', {categoryId: firstCategory._id});
-      }
+      Menu.show();
     }
   });
 

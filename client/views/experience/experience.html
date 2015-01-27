@@ -1,21 +1,51 @@
 <template name="experience">
-  {{#if subscriptionsReady}}
-    {{#with experience}}
-      <div class="experience quick animated {{isVisibleClass}}" style="background-image: url('{{photoUrl}}/convert?w=1024&h=768&fit=scale&cache=true')">
+  {{#with experience}}
+  <div class="experience {{modalOpen}}">  
 
-        <div class="back">
-          <a href="#" class="back"><i class="icon icon-back"></i>&nbsp;Back</a>
-        </div>
+    <nav class="navbar navbar-fixed-top navbar-plusmore" role="navigation">
+      <div class="container-fluid">
+        <i class="icon icon-back js-back">
+          <span class="text">Back</span>
+        </i>
 
-        <div class="content row">
-          {{> experienceDetails}}
-        </div>
-
-        {{#if callToAction}}
-          {{> callToAction}}
-        {{/if}}
+        <h4 class="navbar-title">
+          {{title}}
+        </h4>
 
       </div>
-    {{/with}}
-  {{/if}}
+    </nav>
+
+    <div id="experience-background" class="experience-background">
+      <img class='experience-bg img-responsive' src="{{photoUrl}}/convert?{{bgImgWidth}}&{{bgImgHeight}}&fit=crop&cache=true" alt="">
+    </div>
+
+    <div class="outer">
+      <div class="holder">
+        <section>
+          <div class="main scrollable">
+            <div class="experience-content">
+              <div class="container-fluid">
+                <div class="content-spacer" style="{{contentSpacerCss}}"></div>
+                {{#hiddenXs}}
+                  {{#if callToAction}}
+                    {{> callToAction}}  
+                  {{/if}}
+                {{/hiddenXs}}
+                {{> experienceDetails}}
+                {{> experienceMap}}
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    {{#visibleXs}}
+      {{#if callToAction}}
+        {{> callToAction}}  
+      {{/if}}
+    {{/visibleXs}}
+
+  </div>
+  {{/with}}
 </template>

@@ -5,7 +5,7 @@ Meteor.startup(function() {
       Session.set('animatingMenu', true);
       Session.set('modalview', true);
       Meteor.setTimeout(function() {
-        Session.set('showMenu', true);
+        Session.set('showMenu', true); // client/layouts/device/deviceLayout
         Meteor.setTimeout(function() {
           Session.set('animatingMenu', false);
         }, 400);

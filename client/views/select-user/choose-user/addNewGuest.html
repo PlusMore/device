@@ -1,0 +1,57 @@
+<template name="addNewGuest">
+  {{#autoForm schema=newGuestSchema id='addNewGuestToStay'}}
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="pull-right">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">
+                <i class="icon icon-x"></i>
+              </span>
+              <span class="sr-only">Close</span>
+            </button>
+          </div>
+          <h2 class="modal-title animated-fadeInRight">
+            <h2 class="modal-title animated fadeInRight">Add Guest</h2>
+          </h2>
+        </div>
+        <div class="modal-body">
+          <div class="row animated fadeInRight">
+            <div class="col-xs-12 animated fadeInRight">
+              {{> afQuickField name='emailAddress'}}
+            </div>  
+
+            <div class="account-exists {{showAccountExists}}">
+              <div class="col-xs-12">
+                <p class="lead instructions">Welcome back, {{userName}}! Enter your password to sign in.</p>
+              </div>
+            </div>
+
+            <div class="profile-info {{showProfileForm}}">
+              <div class="col-xs-12 col-sm-6">
+                {{> afQuickField name='firstName'}}
+              </div>
+              <div class="col-xs-12 col-sm-6 ">
+                {{> afQuickField name='lastName'}}
+              </div>
+            </div>
+
+            <div class="password {{showPasswordForm}}">
+              <div class="col-xs-12">
+                {{> afQuickField name='password' type='password'}}
+              </div>
+            </div>
+  
+          </div>
+        </div>
+        {{#if hasEmail}}
+          <div class="modal-footer">
+
+            <button type='submit' id='btn-step-one' class="btn btn-default animated fadeInRight">Done</button>
+            
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  {{/autoForm}}
+</template>

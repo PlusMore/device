@@ -1,0 +1,40 @@
+<template name="gallery">
+  <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-use-bootstrap-modal="false">
+      <!-- The container for the modal slides -->
+      <div class="slides"></div>
+      <!-- Controls for the borderless lightbox -->
+      <h3 class="title"></h3>
+      <a class="prev"><i class="icon icon-angle-left"></i></a>
+      <a class="next"><i class="icon icon-angle-right"></i></a>
+      <a class="close"><i class="icon icon-x"></i></a>
+      <a class="play-pause"></a>
+      <ol class="indicator"></ol>
+      <!-- The modal dialog, which will be used to wrap the lightbox content -->
+      <div class="modal fade">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">
+                          <i class="icon icon-x"></i>
+                        </span>
+                        <span class="sr-only">Close</span>
+                      </button>
+                      <h4 class="modal-title"></h4>
+                  </div>
+                  <div class="modal-body next"></div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default pull-left prev">
+                          <i class="icon icon-angle-left"></i>
+                          Previous
+                      </button>
+                      <button type="button" class="btn btn-primary next">
+                          Next
+                          <i class="icon icon-angle-right"></i>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</template>

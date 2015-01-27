@@ -1,24 +1,53 @@
+@import '/client/style/imports.import.less';
+
+button.close {
+  .icon-x {
+    font-size: 25px;
+  }
+}
+
+.modal-backdrop {
+  background-color: rgba(0,0,0,0.6);
+}
+
 .modal-backdrop.in {
-  opacity: .9;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5999;
 }
 
 .modal {
   color: #fff;
   text-align: left;
+  z-index: 6000;
 
   &.in {
     display: block;
   }
 
   .modal-dialog {
+    z-index: 6001;
+    &.full-width {
+      width: 100%;
+    } 
+
+    .modal-title {
+      margin-right: 40px;
+    }
 
     .modal-content {
       background: transparent;
       box-shadow: none;
       border: none;
 
-      a, span, legend {
+      a:not(.btn), span, legend {
         color: #fff;
+      }
+
+      .instructions {
+        font-family: 'Montserrat';
       }
 
       .modal-header {

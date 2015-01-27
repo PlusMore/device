@@ -1,0 +1,52 @@
+<template name="accountsDropdown">
+  <ul id='accounts' class="">
+    <li id="accounts-dropdown" class="dropdown">
+      <a id="accounts-dropdown-button" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+        {{dropdownText}}
+        <span class="caret"></span>
+      </a>
+      <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+
+        {{#if currentUser}} 
+          <li>
+            <a role="menuitem" tabindex="-1" href="#">
+              {{deviceLocation}}
+            </a>
+          </li>
+          <li class="divider"></li>
+
+        {{else}}
+          <li>
+            <a role="menuitem" tabindex="-1" href="#">
+              No users.
+            </a>
+          </li>
+        {{/if}}
+
+        {{#each users}}
+        <li>
+          <a role="menuitem" tabindex="-1" href="#">
+            {{#with profile}}
+              {{firstName}} {{lastName}}
+            {{/with}}
+          </a>
+        </li>
+        {{/each}}
+
+        <!-- <li class="divider"></li>
+        <li>
+          <a role="menuitem" tabindex="-1" href="#">+ Additional Guest</a>
+        </li> -->
+
+        {{#if currentUser}}
+          <li class="divider"></li>
+          <li>
+            <a class='js-logout' href="" role="menuitem" tabindex="-1">Log Out</a>
+          </li>
+        {{/if}}
+
+  
+      </ul>
+    </li>  
+  </ul>
+</template>

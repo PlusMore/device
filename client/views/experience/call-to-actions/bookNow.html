@@ -1,0 +1,59 @@
+<template name="bookNow">
+
+  <div id="{{#if isXs}}mobile-{{/if}}call-to-action" class="{{state}} {{#unless isXs}}row{{/unless}} {{firstRowClass}}">
+  
+    <form  role="form">
+
+    <div class="inputs animated fast {{inputContainerClasses}}">
+      <div class="col-xs-12 visible-xs">
+        <h4>
+          Reservation Details
+          <small class="close-reservation-form">
+            <i class="icon icon-x"></i>
+          </small>
+        </h4>
+      </div>
+
+      <div class="col-xs-12 col-sm-3 form-group picker-container">
+  
+          <input type="text" class="form-control datepicker" readonly="readonly" />
+   
+      </div>
+
+      <div class="col-xs-12 col-sm-3 form-group picker-container">
+
+          <input type="text" class="form-control timepicker" readonly="readonly"/>
+
+      </div>  
+
+      <div class="col-xs-12 col-sm-3 form-group">
+    
+          <select class="form-control" name="partySize">
+            <option value="1">1 Person</option>
+            <option value="2" selected="true">2 People</option>
+            <option value="3">3 People</option>
+            <option value="4">4 People</option>
+            <option value="5">5 People</option>
+            <option value="6">6 People</option>
+            <option value="7">7 People</option>
+            <option value="8">8 People</option>
+          </select>
+
+      </div>
+
+      <div class="clearfix visible-xs"></div>
+
+    </div>
+
+      <div class="col-xs-12 col-sm-3 form-group btn-container">
+        <button class="btn btn-primary btn-block btn-call-to-action {{state}}" href="">
+          {{#unless confirm}}
+            Book A Table
+          {{else}}
+            Confirm
+          {{/unless}}
+        </button>     
+      </div>
+    </form> 
+  </div>
+</template>

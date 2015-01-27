@@ -7,42 +7,18 @@
    {{> roomServiceContent}}
 
   {{/Layout}}
+  <div id='jump-to-order' class="visible-xs animated somewhat-faster slideInRight centered">
+    <i class="icon icon-orders"></i>
+  </div>
 </template>
 
 <template name="roomServiceContent">
   <div class="row animated somewhat-faster fadeInUp">
     <div class="col-sm-7 col-xs-no-padding">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="modal-content inline">
-            <div class="modal-header">
-              <h3 class="modal-title">
-                Room Service
-                <small>
-                  Available
-                  {{#if startTime}}
-                    {{startTime}} - {{endTime}}
-                  {{else}}
-                    Anytime
-                  {{/if}}
-                </small>
-              </h3>
-            </div>
-          </div><!-- /.modal-content -->          
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-12">
-          {{> menuCategories}}
-        </div>
-      </div>
+      {{> menuCategories}}
     </div>   
     <div class="col-sm-5 col-xs-no-padding">
-      <div class="row">
-        <div class="col-sm-12">
-          {{> cart}}
-        </div>
-      </div>   
+      {{> cart}}
     </div> 
   </div>
 </template>

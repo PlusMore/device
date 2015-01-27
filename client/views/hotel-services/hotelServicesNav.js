@@ -28,13 +28,17 @@ Template.hotelServicesNav.helpers({
 
 var selectMenuItem = function (e, template) {
   e.preventDefault();
+  e.stopImmediatePropagation();
   var templateName = $(e.currentTarget).data('template') || 'hotelServicesDescription';
   Session.set('selectedService', templateName);
 
+  // collapse on mobile
   var $collapsecontainer = $(e.currentTarget).parents('.navbar-collapse:first');
   if ($collapsecontainer.hasClass('in')) {
     $collapsecontainer.collapse('toggle');
   }
+
+  return false;
 }
 
 var events = {};

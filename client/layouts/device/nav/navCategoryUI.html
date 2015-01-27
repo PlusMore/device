@@ -1,0 +1,20 @@
+<template name="navCategoryUI">
+  {{#if displayNavCategory}}
+    <div class="panel panel-default col-xs-12 col-md-6">
+      <div class="panel-heading" role="tab" id="nav-category-{{name}}">
+        <h4 class="panel-title">
+          <a class='js-nav-category' data-toggle="collapse" data-parent="#nav-accordion" href="#collapse-nav-category-{{name}}" aria-expanded="{{expanded}}" aria-controls="collapse-nav-category-{{name}}">
+            {{name}}
+          </a>
+        </h4>
+      </div>
+      <div id="collapse-nav-category-{{name}}" class="panel-collapse collapse {{expandedClass}}" role="tabpanel" aria-labelledby="nav-category-{{name}}">
+        <div class="panel-body">
+          {{#each navLinks}}
+            {{> navLinkUI}}
+          {{/each}}   
+        </div>
+      </div>
+    </div>
+  {{/if}}
+</template>

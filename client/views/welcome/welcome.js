@@ -1,8 +1,6 @@
 Template.welcome.helpers({
   needsRegistration: function() {
-    if (Meteor.user()) {
-      return !Meteor.user().deviceId;
-    }
+    return !LocalStore.get('deviceId');
   }
 });
 
@@ -11,16 +9,37 @@ Template.welcomeContent.helpers({
     return Hotels.findOne();
   },
   device: function() {
-    if (Meteor.user()) {
-      var deviceId = Meteor.user().deviceId;
-      return Devices.findOne(deviceId);
+    return Devices.findOne();
+  },
+  welcomeToName: function() {
+    var hotel = Hotels.findOne();
+
+    if (hotel) {
+      return "@" + hotel.name; 
     }
+    return "";
+  },
+  city: function() {
+    var hotel = Hotels.findOne();
+
+    if (hotel) {
+      return hotel.geo.city;
+    }
+
+    return "Your City"
   }
 });
 
 var onEngage = function(e) {
   e.preventDefault();
-  App.go();
+  if (Session.get('animatingMenu')) {
+    return;
+  }
+
+  if (!Menu.isOpen()) {
+    e.stopImmediatePropagation();
+    Menu.show();
+  }
 }
 
 var events = {};

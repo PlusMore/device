@@ -1,6 +1,6 @@
 var callToActionHelpers = {
-  callToActionIsReserve: function() {
-    return this.callToAction === "reserve";
+  callToActionTemplate: function() {
+    return this.callToAction === "reserve" ? 'bookNow' : '';
   }
 };
 

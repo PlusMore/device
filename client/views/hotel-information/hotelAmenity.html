@@ -1,0 +1,16 @@
+<template name="hotelAmenity">
+  <div class="row">
+    <h4>
+      {{name}}
+      {{#unless availableAnytime}}
+        <br><small>{{startTime}} - {{endTime}}</small>
+      {{/unless}}  
+    </h4>
+    <h6>{{description}}</h6>
+    <ul>
+      {{#each amenityDetails}}  
+        <li><p>{{detail}}</p></li>
+      {{/each}}
+    </ul>
+  </div>
+</template>

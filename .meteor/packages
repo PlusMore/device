@@ -23,7 +23,6 @@ accounts-oauth
 tinytest
 copleykj:simple-publish
 mizzao:bootboxjs
-appcache
 iron:router
 mrt:moment
 aldeed:collection2
@@ -31,9 +30,18 @@ aldeed:autoform
 aldeed:simple-schema
 alanning:roles
 ian:accounts-ui-bootstrap-3
-ian:bootstrap-3
 meteorhacks:kadira
 iron:layout
 patrickleet:tags
 fastclick
 reload
+frozeman:storage
+reactive-var
+meteorhacks:inject-initial
+coffeescript
+meteorhacks:subs-manager
+mquandalle:bower
+
+andruschka:bootstrap-image-gallery
+appcache
+nemo64:bootstrap
