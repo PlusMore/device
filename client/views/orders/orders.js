@@ -3,7 +3,19 @@ Template.orders.helpers({
     return Orders.find().count() > 0;
   },
   orders: function() {
-    return Orders.find({}, {sort: {requestedAt: -1}});
+  	var orderFilters = Session.get('orderFilters');
+  	
+  	typeFiltersList = [];
+  	_.where(orderFilters, {group: 'Orders'}).forEach(function(filter){
+  		typeFiltersList.push(filter.name);
+  	});
+
+  	statusFiltersList = []
+  	_.where(orderFilters, {group: 'Status'}).forEach(function(filter){
+  		statusFiltersList.push(filter.name);
+  	});
+
+    return Orders.find({},{sort: {requestedDate: -1}});
   }
 });
 

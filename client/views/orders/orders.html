@@ -1,7 +1,11 @@
 <template name="orders">
-  {{#Layout template="contentLayout"}}
+  {{#Layout template="subnavContentLayout"}}
     {{#contentFor "title"}}
       Orders
+    {{/contentFor}}
+
+    {{#contentFor "subnav"}}
+      {{> ordersSubnav}}
     {{/contentFor}}
 
     {{#if currentUser}}
