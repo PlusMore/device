@@ -197,6 +197,18 @@ Meteor.publish('orders', function() {
   ];
 });
 
+Meteor.publish('ordersRecent', function() {
+  return [
+    Orders.find({userId: this.userId, open: true})
+  ];
+});
+
+Meteor.publish('ordersHistory', function() {
+  return [
+    Orders.find({userId: this.userId, open: false})
+  ];
+});
+
 Meteor.publish('hotelAmenities', function(hotelId) {
   return HotelAmenities.find({hotelId: hotelId});
 });
