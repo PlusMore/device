@@ -15,11 +15,11 @@ Template.hotelServicesNav.helpers({
     }
   },
   isValidService: function() {
-    return !!HotelServices.friendlyRequestType(this.type);
+    return !!HotelServices.friendlyServiceType(this.type);
   },
-  friendlyRequestType: function() {
-    if (typeof HotelServices.friendlyRequestType === 'function') {
-      return HotelServices.friendlyRequestType(this.type);
+  friendlyServiceType: function() {
+    if (typeof HotelServices.friendlyServiceType === 'function') {
+      return HotelServices.friendlyServiceType(this.type);
     } else {
       return this.type;
     }

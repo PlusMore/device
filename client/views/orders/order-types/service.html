@@ -1,7 +1,7 @@
-<template name="request">
+<template name="service">
   <header>
     <h3>
-      Request for {{friendlyRequestType}}
+      Request for {{friendlyServiceType}}
       <small class="pull-right">
         {{orderStatus}}
       </small>
@@ -14,8 +14,8 @@
     </div>
     
   {{else}}
-    <div class="request-details">
-      {{> requestDetails}}
+    <div class="service-details">
+      {{> serviceDetails}}
     </div>
     
     <div class='time-ago'>

@@ -9,22 +9,12 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="orders-subnav">
     <ul class="nav navbar-nav">
-			{{#each orderFilterGroups}}
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{groupOrSelectedType}} <span class="caret"></span></a>
-          <ul id='{{group}}-dropdown' class="dropdown-menu animated fast {{animationClass}} {{scrollable}}" role="menu" style="{{dropdownStyle}}">
-          	<li class="dropdown-menu-options">
-              <div class="title centered">Filter {{group}}</div>
-              <button href="#" class="btn btn-default pull-right btn-done btn-js-done">Done</button>
-            </li>
-            <div class="options-list">
-              {{#each filterGroupOptions}}
-                {{> orderTypeOption}}
-              {{/each}}  
-            </div>
-          </ul>
+        <li class="{{recentLinkClass}}">
+          <a id='recent' href="#">Recent</a>
         </li>
-      {{/each}}
+        <li class="{{historyLinkClass}}">
+          <a id='history' href="#">History</a>
+        </li>
     </ul>
   </div><!-- /.navbar-collapse -->
 

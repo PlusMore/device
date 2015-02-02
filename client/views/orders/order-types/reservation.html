@@ -29,9 +29,19 @@
     <div class='time-ago'>
       <span>Requested {{requestedDateTimeAgo}}</span>
     </div>
-
-    <div class="buttons pull-right">
-      <a class="btn btn-default btn-cancel-reservation">Cancel Reservation</a>
-    </div>
+    {{#unless isExpired}}
+      {{#if isPending}}
+        <!-- EASY CANCEL -->
+        <div class="buttons pull-right">
+          <a class="btn btn-default btn-cancel-reservation">Cancel Reservation</a>
+        </div>
+      {{else}}
+        <!-- CALL TO CANCEL (TO IMPLEMENT) -->
+        <div class="buttons pull-right">
+          <a class="btn btn-default btn-cancel-reservation">Cancel Reservation</a>
+        </div>
+      {{/if}}
+      
+    {{/unless}}
   {{/if}}
 </template>
