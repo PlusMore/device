@@ -1,3 +1,5 @@
+modal = new Modal();
+
 Template.modal.created = function() {
   modal.modalTemp = this;
 }

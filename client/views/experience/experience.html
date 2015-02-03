@@ -1,6 +1,6 @@
 <template name="experience">
   {{#with experience}}
-  <div class="experience fast animated {{isVisibleClass}} {{modalOpen}}">
+  <div class="experience {{modalOpen}}">  
 
     <nav class="navbar navbar-fixed-top navbar-plusmore" role="navigation">
       <div class="container-fluid">
@@ -12,7 +12,7 @@
           {{title}}
         </h4>
 
-      </div><!-- /.container-fluid -->
+      </div>
     </nav>
 
     <div id="experience-background" class="experience-background">
@@ -45,8 +45,7 @@
         {{> callToAction}}  
       {{/if}}
     {{/visibleXs}}
-    
+
   </div>
-  
   {{/with}}
 </template>

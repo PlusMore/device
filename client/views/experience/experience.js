@@ -80,16 +80,6 @@ var contentOffsetTop = function(height) {
 }
 
 Template.experience.helpers({
-  isVisibleClass: function() {
-    if (!!Session.get('currentExperienceId')) {
-      if (Session.get('fadeOutExperience')) {
-        return 'fadeOut';
-      }
-      return 'fadeIn';
-    } else {
-      return 'fadeOut';
-    }
-  },
   experience: function() {
     return Experiences.findOne(Session.get('currentExperienceId'));
   },
@@ -118,7 +108,9 @@ Template.experience.helpers({
     return 'height:'+offsetTop+'px;'
   },
   modalOpen: function() {
-    return (Session.get('modalOpen') || modal.open()) ? 'modal-open' : '';
+    // when bootbox is open, the session variable, "modalOpen" is used instead
+    var modalOpen = Session.get('modalOpen') || modal.open();
+    return modalOpen ? 'modal-open' : '';
   }
 });
 
@@ -127,10 +119,9 @@ var handleBack = function (e, tmpl) {
   e.preventDefault();
   e.stopImmediatePropagation();
 
-  Session.set('fadeOutExperience', true);
+  experienceModal.close();
   Meteor.setTimeout(function() {
     Session.set('currentExperienceId', undefined);
-    Session.set('fadeOutExperience', false);
   }, 500);
 
   return false;

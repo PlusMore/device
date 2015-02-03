@@ -21,6 +21,7 @@ Template.onboardUserGuestInfo.rendered = function () {
     clear: false,
     min: moment({hour: 12, minute: 0}).add(1, 'days').toDate(),
     onSet: function(date) {
+      console.log('on board user info rendered');
       if (date.select) {
         var selectedDate = moment(date.select).hour(12).minute(0).second(0).toDate();
         console.log(selectedDate);

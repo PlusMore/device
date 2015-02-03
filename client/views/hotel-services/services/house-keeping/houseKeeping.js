@@ -57,7 +57,7 @@ Template.houseKeeping.events({
     });
 
     if (!Meteor.user()) {
-      Session.set('selectUser', true);
+      modal.show('selectUser');
     } else {
       console.log('has user - trigger user-selected');
       $(document).trigger('user-selected');

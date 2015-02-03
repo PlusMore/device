@@ -30,7 +30,6 @@ aldeed:autoform
 aldeed:simple-schema
 alanning:roles
 ian:accounts-ui-bootstrap-3
-ian:bootstrap-3
 meteorhacks:kadira
 iron:layout
 patrickleet:tags
@@ -45,3 +44,4 @@ mquandalle:bower
 
 andruschka:bootstrap-image-gallery
 appcache
+nemo64:bootstrap

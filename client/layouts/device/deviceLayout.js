@@ -32,7 +32,11 @@ Template.deviceLayout.helpers({
     return !!LocalStore.get('deviceId') && LocalStore.get('kiosk');
   },
   modalOpen: function() {
-    return (Session.get('modalOpen') || modal.open()) ? 'modal-open' : '';
+    // if experience modal is open, no need to blur other content,
+    // prevents uncessary redraws
+    // when bootbox is open, the session variable, "modalOpen" is used instead
+    var modalOpen = Session.get('modalOpen') || modal.open();
+    return modalOpen && !experienceModal.open() ? 'modal-open' : '';
   }
 });
 

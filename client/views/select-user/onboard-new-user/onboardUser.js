@@ -80,7 +80,7 @@ Template.onboardUser.events({
 
           if (err.reason === 'User has no password set') {
             Errors.throw('No password was set for current account. Please follow instructions sent to the email you provided to set a password. Sorry for any inconvenience.');
-            Accounts.setResetPasswordEmail(Session.get('onboardAccountCreationUserId'));
+            Meteor.call('handleNoPasswordSet', Session.get('onboardAccountCreationUserId'));
             tmpl.$(tmpl.firstNode).trigger('onboard-complete');
           }
           return;
@@ -105,6 +105,7 @@ Template.onboardUser.events({
     $(document).trigger('user-selected');
     
     Meteor.setTimeout(function() {
+      modal.close();
       Session.set('onboardStep', undefined);
       Session.get('onboardAccountCreationOptions', undefined);
       Session.set('onboarding', false); 

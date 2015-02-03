@@ -26,7 +26,7 @@ Template.reservation.helpers({
     return moment(this.requestedDate).fromNow();
   },
   when: function() {
-    var when = moment(this.reservation.date).zone(this.reservation.zone);
+    var when = moment(this.reservation.date).zone(this.reservation.zone || moment().zone());
     when = when.format('MMMM Do YYYY, h:mm a') + " (" + when.calendar() + ")";
     return when;
   },

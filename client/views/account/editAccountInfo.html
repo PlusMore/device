@@ -1,0 +1,19 @@
+<template name="editAccountInfo">
+  <div class="animated fadeInRight">
+    {{#autoForm id='editAccountForm' schema=accountInfoSchema type="method" meteormethod="editUserName" resetOnSuccess=false}}
+      {{> afQuickField name="firstName" template="bootstrap3-horizontal" label-class="col-sm-3" input-col-class="col-sm-9" value=firstName label="First Name"}}
+      {{> afQuickField name="lastName" template="bootstrap3-horizontal" label-class="col-sm-3" input-col-class="col-sm-9" value=lastName label="Last Name"}}
+      {{> afFieldInput type="hidden" name="emailAddress" value=emailAddress}}
+      <div class="form-group">
+        <label class="col-sm-3 control-label">Email</label>
+        <div class="col-sm-9">
+          <input class="form-control" id="disabledInput" type="text" value={{emailAddress}} disabled>
+        </div>
+      </div>
+      <div class="pull-right" style="margin-top: 10px;">
+        <button id="cancel-edit-account" class="btn btn-default">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    {{/autoForm}}
+  </div>
+</template>

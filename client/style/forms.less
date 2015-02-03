@@ -7,8 +7,18 @@ form:not(.navbar-form) {
     }
 
     .form-control {
-      background: #fff;
+      background: transparent;
+      color: #fff;
+    }
+
+    .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+      background-color: #eee;
       color: #000;
+    }
+
+    .form-control.picker__input {
+      background: transparent;
+      color: #fff;
     }
 
     .checkbox {
@@ -34,6 +44,7 @@ form:not(.navbar-form) {
     }
   }
 }
+
 
 .has-error .radio, .has-error .checkbox, .has-error .radio-inline, .has-error .checkbox-inline {
   color: #ff0000;

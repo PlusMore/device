@@ -9,18 +9,6 @@ Template.accountInfo.helpers({
     }
     
   },
-  isVisibleClass: function() {
-    if (!!Session.get('accountInfo')) {
-      
-      if (Session.get('hideAccountInfo')) {
-        return 'show in animated fadeOut';
-      }
-      
-      return 'show in animated fadeIn';
-    } else {
-      return 'hidden';
-    }
-  },
   checkoutDate: function () {
     var stay = Stays.findOne(Session.get('stayId'));
 
@@ -32,41 +20,34 @@ Template.accountInfo.helpers({
   emailAddress: function() {
     return this.emails[0].address;
   },
+  firstName: function() {
+    return this.profile.firstName;
+  },
+  lastName: function() {
+    return this.profile.lastName;
+  },
   duringStay: function() {
     return Session.get('stayId');
+  },
+  editingAccountInfo: function() {
+    return Session.get('editingAccountInfo');
   }
 });
-
-Meteor.startup(function() {
-  Tracker.autorun(function() {
-    var showAccountInfo = !!Session.get('accountInfo');
-
-    if (showAccountInfo) {
-      Session.set('modalOpen', true);
-    } else {
-      Session.set('modalOpen', false);
-    }
-  });
-});
-
-
-var hideModal = function() {
-  Session.set('hideAccountInfo', true);
-  Meteor.setTimeout(function() {
-    Session.set('accountInfo', undefined);
-    Session.set('hideAccountInfo', false);
-  }, 500);
-}
 
 Template.accountInfo.events({
   'click [data-dismiss="modal"]':function(e, tmpl){
     tmpl.$(tmpl.firstNode).trigger('hide-modal');
   },
   'hide-modal': function () {
-    hideModal();
+    Session.set('editingAccountInfo', false);
+    modal.close();
   },
   'click .js-logout': function(e, tmpl) {
     Meteor.logout();
     tmpl.$(tmpl.firstNode).trigger('hide-modal');
+  },
+  'click #edit-account':function(e){
+    e.preventDefault();
+    Session.set('editingAccountInfo', true);
   }
 });

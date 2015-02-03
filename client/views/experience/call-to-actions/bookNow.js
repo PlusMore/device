@@ -97,7 +97,7 @@ Template.bookNow.events({
         }
 
         Router.go('orders');
-        Session.set('currentExperienceId', undefined);
+        experienceModal.close();
         Meteor.setTimeout(function() {
           Session.set('loader', undefined);
         }, 500);
@@ -108,12 +108,12 @@ Template.bookNow.events({
     $(document).one('cancel-user-selected', function() {
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
-      tmpl.state.set('default');
+      
       return;
     });
 
     if (!Meteor.user()) {
-      Session.set('selectUser', true);
+      modal.show('selectUser');
     } else {
       $(document).trigger('user-selected');
     }

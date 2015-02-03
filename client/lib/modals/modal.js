@@ -98,5 +98,3 @@ Modal.prototype.close = function() {
 Modal.prototype.hideModal = function() {
   this.hiding(true);
 }
-
-modal = new Modal();
