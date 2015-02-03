@@ -27,11 +27,11 @@ Template.serviceDetails.helpers({
   serviceTemplate: function() {
     switch (this.service.type) {
       case 'transportation': 
-        return 'transportationserviceDetails';
+        return 'transportationServiceDetails';
       case 'roomService': 
-        return 'roomServiceserviceDetails';
+        return 'roomServiceDetails';
       case 'valetServices': 
-        return 'valetServicesserviceDetails';
+        return 'valetServiceDetails';
       default:
         return '';
     }

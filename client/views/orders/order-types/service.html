@@ -21,10 +21,10 @@
     <div class='time-ago'>
       <span>Requested {{requestedDateTimeAgo}}</span>
     </div>
-   
-    <div class="buttons pull-right">
-      <a class="btn btn-default btn-cancel-request">Cancel Request</a>
-    </div>
-     
+    {{#if isCancelable}}
+      <div class="buttons pull-right">
+        <a class="btn btn-default btn-cancel-request">Cancel Request</a>
+      </div>
+    {{/if}}
   {{/if}}
 </template>

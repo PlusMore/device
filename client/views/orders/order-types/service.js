@@ -11,6 +11,12 @@ Template.service.helpers({
   isCancelled: function() {
     return (this.status === 'cancelled');
   },
+  isCancelable: function() {
+    if (this.service.type === 'roomService' && this.status === 'pending'){
+      return false;
+    }
+    return this.open;
+  },
   cancelledDateMomentAgo: function() {
     var now = Session.get('currentTime');
     return moment(this.cancelledDate).fromNow();

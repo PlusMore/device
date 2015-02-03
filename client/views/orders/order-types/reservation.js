@@ -55,5 +55,18 @@ Template.reservation.events({
     if (confirm("Are you sure you want to cancel this reservation?")) {
       Meteor.call('cancelReservation', this._id);
     } 
+  },
+  'click .btn.btn-call-to-cancel': function(event) {
+    event.preventDefault(); 
+    experience = Experiences.findOne(this.reservation.experienceId);
+    modal.show('reservationCallToCancelModal', experience);
   }
+});
+
+Template.reservationCallToCancelModal.events({
+  'click [data-dismiss="modal"]':function(e, tmpl){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    modal.close();
+  },
 });
