@@ -1,6 +1,7 @@
 @import '/client/style/imports.import.less';
 #experience-modal-backdrop {
   z-index: 2999;
+  background: #fff;
 }
 #experience-modal {
   z-index: 3000;
@@ -41,16 +42,7 @@
 }
 
 .experience {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: 100%;
-  z-index: 3000;
-  overflow: hidden;
-
-  background-color: #fff;
-
+  
   &.modal-open {
     -webkit-filter: blur(5px);
     -moz-filter: blur(5px);
@@ -63,16 +55,23 @@
     padding-top: 0;
   }
 
-  .experience-bg {
-    width: 100%;
-    height: auto;
-    // margin-top: 65px;
-    border-top: 65px solid #000;
+  .experience-background {
+    position: fixed;
+    top: 0;
+    z-index: 0;
 
-    .box-reflect(below 0px -webkit-gradient(linear, left top, left bottom, from(transparent),  color-stop(85%, transparent), to(white)););
+    .experience-bg {
+      width: 100%;
+      height: auto;
+      // margin-top: 65px;
+      border-top: 65px solid #000;
+
+      .box-reflect(below 0px -webkit-gradient(linear, left top, left bottom, from(transparent),  color-stop(85%, transparent), to(white)););
+    }  
   }
+  
 
-  & .experience-content {
+  .experience-content {
     color: #000;
     
     height: auto;
