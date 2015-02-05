@@ -1,5 +1,7 @@
 <template name="selectGeneric">
   {{> selectDate}}
   {{> selectTime}}
-  {{> selectTip}}
+  {{#if allowTips}}
+    {{> selectTip}}
+  {{/if}}
 </template>
