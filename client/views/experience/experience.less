@@ -177,7 +177,14 @@
   .inputs {
     background: #fff;
     box-shadow: 0px 0px 20px #000;
+    color: #000;
     display: none;
+
+     
+    input, select {
+      color: #000;
+    }
+    
 
     .close-reservation-form {
       position: absolute;
@@ -219,6 +226,14 @@
   .form-group {
     margin: 0;
     padding: 0 1px;
+
+    &.picker-container {
+      &:after {
+        top: 11px;
+        right: 4px;
+        font-size: 23px;
+      }
+    }
 
 
     .form-control {
