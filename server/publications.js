@@ -158,7 +158,8 @@ Meteor.publish('experiencesData', function() {
     sortOrder: 1,
     tagGroups: 1,
     title: 1,
-    yelpId: 1
+    yelpId: 1,
+    phone: 1
   }   
 
   var tagGroups = Meteor.tags.find( {group: {$exists: true} });
