@@ -47,7 +47,7 @@ Template.transportation.events({
 
         requestButton.progressFinish();
         Meteor.setTimeout(function() {
-          Router.go('orders');
+          Router.go('recent-orders');
         }, 500);
       });
     });
