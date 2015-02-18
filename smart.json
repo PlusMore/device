@@ -1,8 +1,0 @@
-{
-  "meteor": {},
-  "packages": {
-    "pickadate": {
-      "git": "https://github.com/patrickleet/meteor-pickadate.git"
-    }
-  }
-}

@@ -12,7 +12,6 @@ underscore
 jquery
 percolatestudio:percolatestudio-mixpanel
 mizzao:user-status
-pickadate
 natestrauser:animate-css
 lezed1:bootstrap-errors@0.3.1
 mrt:googlemaps@0.0.2
@@ -43,3 +42,4 @@ andruschka:bootstrap-image-gallery
 appcache
 nemo64:bootstrap
 plusmore:plus-more-icons
+plusmore:pickadate-default-theme
