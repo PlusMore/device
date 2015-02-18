@@ -10,13 +10,10 @@ less
 email
 underscore
 jquery
-accounts-plusmore-device
 percolatestudio:percolatestudio-mixpanel
 mizzao:user-status
-pickadate
 natestrauser:animate-css
 lezed1:bootstrap-errors@0.3.1
-plus-more-icons
 mrt:googlemaps@0.0.2
 oauth1
 accounts-oauth
@@ -41,7 +38,8 @@ meteorhacks:inject-initial
 coffeescript
 meteorhacks:subs-manager
 mquandalle:bower
-
 andruschka:bootstrap-image-gallery
 appcache
 nemo64:bootstrap
+plusmore:plus-more-icons
+plusmore:pickadate-default-theme
