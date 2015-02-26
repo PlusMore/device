@@ -9,6 +9,6 @@ Template.ordersRecent.helpers({
 
 Template.ordersRecent.events({
   'click .js-select-user': function () {
-    Session.set('selectUser', true);
+    modal.show('selectUser');
   }
 });
