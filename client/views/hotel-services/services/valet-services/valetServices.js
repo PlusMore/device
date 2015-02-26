@@ -28,7 +28,7 @@ Template.valetServices.events({
     
     var request = {
       type: 'valetServices',
-      for: 'hotel',
+      handledBy: 'hotel',
       date: reservationMoment.toDate(),
       zone: Session.get('zone'),
       options: {

@@ -20,7 +20,7 @@ Template.houseKeeping.events({
     
     var request = {
       type: 'houseKeeping',
-      for: 'hotel',
+      handledBy: 'hotel',
       date: reservationMoment.toDate(),
       zone: Session.get('zone')
     };

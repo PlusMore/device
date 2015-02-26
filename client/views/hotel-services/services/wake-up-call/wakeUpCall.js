@@ -20,7 +20,7 @@ Template.wakeUpCall.events({
     
     var request = {
       type: 'wakeUpCall',
-      for: 'hotel',
+      handledBy: 'hotel',
       date: reservationMoment.toDate(),
       zone: Session.get('zone')
     };

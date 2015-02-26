@@ -20,7 +20,7 @@ Template.transportation.events({
     
     var request = {
       type: 'transportation',
-      for: 'hotel',
+      handledBy: 'hotel',
       date: reservationMoment.toDate(),
       zone: Session.get('zone'),
       options: {
