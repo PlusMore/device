@@ -1,0 +1,45 @@
+{
+  "format": "unipackage-unibuild-pre1",
+  "packageVariables": [],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "accounts-base"
+    },
+    {
+      "package": "srp"
+    },
+    {
+      "package": "email"
+    },
+    {
+      "package": "random"
+    },
+    {
+      "package": "check"
+    },
+    {
+      "package": "underscore"
+    },
+    {
+      "package": "livedata"
+    }
+  ],
+  "implies": [
+    {
+      "package": "accounts-base"
+    }
+  ],
+  "resources": [
+    {
+      "type": "prelink",
+      "file": "os/packages/accounts-plusmore-device.js",
+      "length": 7567,
+      "offset": 0,
+      "servePath": "/packages/accounts-plusmore-device.js",
+      "sourceMap": "os/packages/accounts-plusmore-device.js.map"
+    }
+  ]
+}
