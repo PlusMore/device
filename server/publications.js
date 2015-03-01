@@ -261,8 +261,7 @@ Meteor.publish('ordersRecent', function() {
 Meteor.publish('ordersHistory', function() {
   return [
     Orders.find({
-      userId: this.userId,
-      open: false
+      userId: this.userId
     })
   ];
 });
