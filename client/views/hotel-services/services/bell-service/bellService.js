@@ -20,7 +20,7 @@ Template.bellService.events({
 
     var request = {
       type: 'bellService',
-      for: 'hotel',
+      handledBy: 'hotel',
       date: reservationMoment.toDate(),
       zone: Session.get('zone')
     };
@@ -44,7 +44,7 @@ Template.bellService.events({
 
         requestButton.progressFinish();
         Meteor.setTimeout(function() {
-          Router.go('orders');
+          Router.go('recent-orders');
         }, 500);
       });
     });

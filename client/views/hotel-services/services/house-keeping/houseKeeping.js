@@ -20,7 +20,7 @@ Template.houseKeeping.events({
     
     var request = {
       type: 'houseKeeping',
-      for: 'hotel',
+      handledBy: 'hotel',
       date: reservationMoment.toDate(),
       zone: Session.get('zone')
     };
@@ -44,7 +44,7 @@ Template.houseKeeping.events({
 
         requestButton.progressFinish();
         Meteor.setTimeout(function() {
-          Router.go('orders');
+          Router.go('recent-orders');
         }, 500);
       });
     });

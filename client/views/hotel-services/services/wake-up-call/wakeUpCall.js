@@ -20,7 +20,7 @@ Template.wakeUpCall.events({
     
     var request = {
       type: 'wakeUpCall',
-      for: 'hotel',
+      handledBy: 'hotel',
       date: reservationMoment.toDate(),
       zone: Session.get('zone')
     };
@@ -44,7 +44,7 @@ Template.wakeUpCall.events({
 
         requestButton.progressFinish();
         Meteor.setTimeout(function() {
-          Router.go('orders');
+          Router.go('recent-orders');
         }, 500);
       });
     });

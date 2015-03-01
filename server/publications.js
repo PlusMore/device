@@ -17,7 +17,7 @@ Meteor.publish('nav', function() {
 
 // Used to get list of available hotels to register a device
 // Admin returns all, hotel-staff returns the user's hotel
-Meteor.publish('userHotelData', function () {
+Meteor.publish('userHotelData', function() {
   var userId = this.userId;
 
   if (userId) {
@@ -27,13 +27,23 @@ Meteor.publish('userHotelData', function () {
     if (Roles.userIsInRole(userId, 'admin')) {
       return Hotels.find();
     } else if (Roles.userIsInRole(userId, 'hotel-staff')) {
-      var fields = {hotelId:1},
-      user = Meteor.users.findOne({_id:userId}),
-      hotelId = user && user.hotelId || null;
+      var fields = {
+          hotelId: 1
+        },
+        user = Meteor.users.findOne({
+          _id: userId
+        }),
+        hotelId = user && user.hotelId || null;
       if (hotelId) {
         return [
-          Meteor.users.find({_id: userId}, {fields: fields}),
-          Hotels.find({_id: hotelId})
+          Meteor.users.find({
+            _id: userId
+          }, {
+            fields: fields
+          }),
+          Hotels.find({
+            _id: hotelId
+          })
         ];
       } else {
         this.ready();
@@ -51,14 +61,16 @@ Meteor.publish('userHotelData', function () {
  * Always publish logged-in users stayId, Stay info, device info, device data, hotel data, and hotel-service data
  *
  */
-Meteor.publish(null, function () {
+Meteor.publish(null, function() {
   var userId = this.userId;
-  
+
   if (userId) {
     var fields = {
-        stayId:1
+        stayId: 1
       },
-      user = Meteor.users.findOne({_id:userId}),
+      user = Meteor.users.findOne({
+        _id: userId
+      }),
       stayId = user && user.stayId || null;
 
 
@@ -68,11 +80,16 @@ Meteor.publish(null, function () {
 
       if (stay) {
         return [
-          Meteor.users.find(userId, {fields: fields}),
-          Stays.find({_id: stayId, active: true})
+          Meteor.users.find(userId, {
+            fields: fields
+          }),
+          Stays.find({
+            _id: stayId,
+            active: true
+          })
         ];
       }
-      
+
     } else {
       this.ready();
       return null;
@@ -87,18 +104,23 @@ Stays._ensureIndex('users');
 
 Meteor.publish('stayInfo', function(stayId) {
   var fields = {
-    stayId:1
+    stayId: 1
   }
-  
+
   return [
     Stays.find(stayId),
-    Meteor.users.find({stayId: stayId})
+    Meteor.users.find({
+      stayId: stayId
+    })
   ];
 });
 
 Meteor.publish('userStays', function() {
   return [
-    Stays.find({users: this.userId, active: true})
+    Stays.find({
+      users: this.userId,
+      active: true
+    })
   ];
 });
 
@@ -116,7 +138,10 @@ Meteor.publish('device', function(deviceId) {
       return [
         Devices.find(deviceId),
         Hotels.find(device.hotelId),
-        HotelServices.find({hotelId: device.hotelId, active: true})
+        HotelServices.find({
+          hotelId: device.hotelId,
+          active: true
+        })
       ];
     }
   }
@@ -132,12 +157,15 @@ Meteor.publish('deviceByStayId', function(stayId) {
         return [
           Devices.find(stay.deviceId),
           Hotels.find(device.hotelId),
-          HotelServices.find({hotelId: device.hotelId, active: true})
+          HotelServices.find({
+            hotelId: device.hotelId,
+            active: true
+          })
         ];
       }
-    }  
+    }
   }
-  
+
 });
 
 Meteor.publish('experiencesData', function() {
@@ -158,10 +186,15 @@ Meteor.publish('experiencesData', function() {
     sortOrder: 1,
     tagGroups: 1,
     title: 1,
-    yelpId: 1
-  }   
+    yelpId: 1,
+    phone: 1
+  }
 
-  var tagGroups = Meteor.tags.find( {group: {$exists: true} });
+  var tagGroups = Meteor.tags.find({
+    group: {
+      $exists: true
+    }
+  });
   var tagGroupsArray = [];
   tagGroups.forEach(function(tag) {
     if (tag.group && tagGroupsArray.indexOf(tag.group) === -1) {
@@ -171,13 +204,19 @@ Meteor.publish('experiencesData', function() {
 
   _.each(tagGroupsArray, function(tagGroup) {
     if (tagGroup !== 'filterGroup') {
-      experiencePublishFields[tagGroup+'Tags'] = 1;
+      experiencePublishFields[tagGroup + 'Tags'] = 1;
     }
   });
 
   return [
-    Categories.find({active: true}),
-    Experiences.find({active: true}, {fields: experiencePublishFields})
+    Categories.find({
+      active: true
+    }),
+    Experiences.find({
+      active: true
+    }, {
+      fields: experiencePublishFields
+    })
   ];
 });
 
@@ -193,24 +232,58 @@ Meteor.publish('experience', function(experienceId) {
 
 Meteor.publish('orders', function() {
   return [
-    Orders.find({userId: this.userId})
+    Orders.find({
+      userId: this.userId
+    })
+  ];
+});
+
+Meteor.publish('ordersRecent', function() {
+  var now = new Date();
+  return [
+    Orders.find({
+      userId: this.userId,
+      $or: [{
+        open: true
+      }, {
+        "service.date": {
+          $gt: now
+        }
+      }, {
+        "reservation.date": {
+          $gt: now
+        }
+      }]
+    })
+  ];
+});
+
+Meteor.publish('ordersHistory', function() {
+  return [
+    Orders.find({
+      userId: this.userId
+    })
   ];
 });
 
 Meteor.publish('hotelAmenities', function(hotelId) {
-  return HotelAmenities.find({hotelId: hotelId});
+  return HotelAmenities.find({
+    hotelId: hotelId
+  });
 });
 
 Meteor.publish('amenityDetails', function(hotelId) {
-  return AmenityDetails.find({hotelId: hotelId});
+  return AmenityDetails.find({
+    hotelId: hotelId
+  });
 });
 
-Meteor.publish('navCategories', function (){
+Meteor.publish('navCategories', function() {
   return NavCategories.find();
 
 });
 
-Meteor.publish('navLinks', function () {
+Meteor.publish('navLinks', function() {
   return NavLinks.find();
 });
 
@@ -265,12 +338,13 @@ Meteor.publish('hotelMenuForStay', function(stayId) {
           foreignKey: 'menuCategoryId'
         })
       }).start();
-    }  
+    }
   }
 
-  
 });
 
 Meteor.publish('cart', function(cartId) {
-  return CartItems.find({cartId: cartId});
+  return CartItems.find({
+    cartId: cartId
+  });
 });

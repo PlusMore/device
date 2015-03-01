@@ -127,7 +127,7 @@ Template.cart.events({
                 if (err) { 
                   return Errors.throw(err.message);
                 }
-                Router.go('orders');
+                Router.go('recent-orders');
               });
             });
 

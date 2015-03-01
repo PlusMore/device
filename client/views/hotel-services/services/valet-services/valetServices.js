@@ -28,7 +28,7 @@ Template.valetServices.events({
     
     var request = {
       type: 'valetServices',
-      for: 'hotel',
+      handledBy: 'hotel',
       date: reservationMoment.toDate(),
       zone: Session.get('zone'),
       options: {
@@ -55,7 +55,7 @@ Template.valetServices.events({
 
         requestButton.progressFinish();
         Meteor.setTimeout(function() {
-          Router.go('orders');
+          Router.go('recent-orders');
         }, 500);
       });
     });
