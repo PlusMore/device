@@ -9,7 +9,7 @@ Template.reservation.helpers({
     return (status === 'pending' || status === 'requested');
   },
   isConfirmed: function() {
-    return (this.status === 'completed');
+    return (this.status === 'confirmed');
   },
   isCancelled: function() {
     return (this.status === 'cancelled');
@@ -39,7 +39,7 @@ Template.reservation.helpers({
       return 'Cancelled';
     }
 
-    if (this.status === 'completed') {
+    if (this.status === 'confirmed') {
       return 'Confirmed';
     }
 
