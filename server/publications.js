@@ -259,7 +259,6 @@ Meteor.publish('ordersRecent', function() {
 });
 
 Meteor.publish('ordersHistory', function() {
-  var now = new Date();
   return [
     Orders.find({
       userId: this.userId,
@@ -291,7 +290,7 @@ Meteor.publish('navLinks', function() {
 
 Meteor.publish('hotelMenu', function(hotelId) {
   var userId = this.userId,
-    user = Meteor.users.findOne(userId);
+      user = Meteor.users.findOne(userId);
 
   var hotel = Hotels.find(hotelId);
   if (hotel) {
@@ -317,7 +316,7 @@ Meteor.publish('hotelMenu', function(hotelId) {
 
 Meteor.publish('hotelMenuForStay', function(stayId) {
   var userId = this.userId,
-    user = Meteor.users.findOne(userId);
+      user = Meteor.users.findOne(userId);
 
   var stay = Stays.findOne(stayId);
 
@@ -342,7 +341,6 @@ Meteor.publish('hotelMenuForStay', function(stayId) {
       }).start();
     }
   }
-
 
 });
 
