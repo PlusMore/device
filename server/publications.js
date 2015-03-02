@@ -168,6 +168,10 @@ Meteor.publish('deviceByStayId', function(stayId) {
 
 });
 
+Meteor.publish('roomsByHotelId', function(hotelId) {
+  return Rooms.find({hotelId: hotelId});
+});
+
 Meteor.publish('experiencesData', function() {
   var experienceFields = {
     active: 1,
