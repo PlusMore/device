@@ -8,13 +8,16 @@ Template.experiencePhotos.helpers({
 });
 
 Template.experiencePhotos.events({
-  'click #experience-photos': function (e, tmpl) {
+  'click #experience-photos': function(e, tmpl) {
     e.preventDefault();
 
     var target = e.target || e.srcElement,
-        link = target.src ? target.parentNode : target,
-        options = {index: link, event: e},
-        links = tmpl.$('a');
+      link = target.src ? target.parentNode : target,
+      options = {
+        index: link,
+        event: e
+      },
+      links = tmpl.$('a');
 
     blueimp.Gallery(links, options);
   }

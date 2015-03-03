@@ -1,5 +1,5 @@
 Template.accountsDropdown.helpers({
-  dropdownText: function () {
+  dropdownText: function() {
     var user = Meteor.user();
 
     if (LocalStore.get('kiosk')) {
@@ -28,7 +28,7 @@ Template.accountsDropdown.helpers({
       }
     }
   },
-  deviceLocation: function () {
+  deviceLocation: function() {
     var deviceId = LocalStore.get('deviceId');
     if (deviceId) {
       var device = Devices.findOne(deviceId);
@@ -38,7 +38,9 @@ Template.accountsDropdown.helpers({
   },
   users: function() {
     var stayId = Session.get('stayId');
-    return Meteor.users.find({stayId: stayId});
+    return Meteor.users.find({
+      stayId: stayId
+    });
   }
 });
 
@@ -50,14 +52,14 @@ Template.accountsDropdown.events({
     if (Session.get('animatingMenu')) {
       return;
     }
-    
+
     if (Meteor.user()) {
       modal.show('accountInfo');
     } else {
       modal.show('selectUser');
     }
   },
-  'click .js-logout': function () {
+  'click .js-logout': function() {
     return Meteor.logout();
   }
 });

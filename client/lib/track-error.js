@@ -1,4 +1,4 @@
-Meteor.startup(function () {
+Meteor.startup(function() {
 
   window.addEventListener('error', function(errorEvent) {
     // You can view the information in an alert to see things working

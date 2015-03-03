@@ -1,5 +1,5 @@
 var retry = 0;
-var initializeMap = function () {
+var initializeMap = function() {
   if (typeof google !== 'undefined' && typeof google.maps !== 'undefined' && typeof google.maps.Map !== 'undefined') {
     var mapOptions = {
       zoom: 18,
@@ -8,20 +8,20 @@ var initializeMap = function () {
       mapTypeControl: true,
       // mapTypeId: 'hybrid'
     };
-    
-    if (typeof Session.get('hotelGeo') !== 'undefined'){
+
+    if (typeof Session.get('hotelGeo') !== 'undefined') {
       var geo = Session.get('hotelGeo');
-      var hotelLatLng = new google.maps.LatLng( geo.latitude, geo.longitude );
+      var hotelLatLng = new google.maps.LatLng(geo.latitude, geo.longitude);
     } else {
       var hotel = Hotels.findOne();
-      var hotelLatLng = new google.maps.LatLng( hotel.geo.latitude, hotel.geo.longitude );
+      var hotelLatLng = new google.maps.LatLng(hotel.geo.latitude, hotel.geo.longitude);
       Session.set('hotelGeo', hotel.geo);
     }
 
     if (typeof hotelMap !== 'undefined') {
-        hotelMap.unbindAll();
-        hotelMap.setCenter(hotelLatLng);
-        hotelMap.constructor(document.getElementById("hotel-map"), mapOptions);
+      hotelMap.unbindAll();
+      hotelMap.setCenter(hotelLatLng);
+      hotelMap.constructor(document.getElementById("hotel-map"), mapOptions);
     } else {
       hotelMap = new google.maps.Map(document.getElementById("hotel-map"), mapOptions);
       hotelMap.setCenter(hotelLatLng);
@@ -38,10 +38,10 @@ var initializeMap = function () {
   }
 };
 
-Template.hotelInformationMap.rendered = function () {
+Template.hotelInformationMap.rendered = function() {
   GoogleMaps.init({
     'sensor': false, //optional
-      'key': Meteor.settings.public.googlemaps, //optional
-      'language': 'en' //optional
+    'key': Meteor.settings.public.googlemaps, //optional
+    'language': 'en' //optional
   }, initializeMap);
 };

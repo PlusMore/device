@@ -1,6 +1,6 @@
-var enabledText = function (enabled) {
+var enabledText = function(enabled) {
   return enabled ? 'Pass' : 'Fail';
-}
+};
 
 Nav = {
   checkPermissions: function(nav) {
@@ -17,13 +17,13 @@ Nav = {
       console.log("{0} is admin only - {1}".format(nav.name, enabledText(enabled)));
       if (!enabled) return false;
     }
-    
+
     if (nav.kioskOnly) {
       enabled = !!kiosk;
       console.log("{0} is kiosk only - {1}".format(nav.name, enabledText(enabled)));
       if (!enabled) return false;
     }
-    
+
     if (nav.mobileOnly) {
       enabled = !kiosk;
       console.log("{0} is mobile only - {1}".format(nav.name, enabledText(enabled)));
@@ -35,7 +35,7 @@ Nav = {
       console.log("{0} is a hotel service - {1}".format(nav.name, enabledText(enabled)));
       if (!enabled) return false;
     }
-    
+
     if (nav.requiresHotelData) {
       enabled = !!hotel;
       console.log("{0} requires hotel data - {1}".format(nav.name, enabledText(enabled)));
@@ -76,8 +76,8 @@ Nav = {
       case 'hidden-lg':
         return !ResponsiveHelpers.isXs();
         break;
-      default: 
+      default:
         return true;
     }
-  } 
-}
+  }
+};

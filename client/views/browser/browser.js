@@ -2,7 +2,7 @@ InAppBrowser = {};
 
 var verifyUrl = function(url) {
   return url.match(/^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/);
-}
+};
 
 InAppBrowser.navigate = function(url) {
   check(url, String);
@@ -11,14 +11,14 @@ InAppBrowser.navigate = function(url) {
   }
 
   return false;
-}
+};
 
 Meteor.startup(function() {
   window.alias_open = window.open;
-  window.open = function(url, name, specs, replace) { 
+  window.open = function(url, name, specs, replace) {
     // Do nothing, or do something smart... 
     console.log('hey... ');
-  } 
+  };
   $(document).on('click', 'a[target=in-app-browser]', function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -33,7 +33,7 @@ Meteor.startup(function() {
 Template.browser.helpers({
   isVisibleClass: function() {
     var animateOut = "fadeOutDownBig",
-        animateIn = "fadeInUpBig";
+      animateIn = "fadeInUpBig";
 
     var url = Session.get('browser');
 
@@ -56,7 +56,7 @@ Template.browser.helpers({
   }
 });
 
-var handleBack = function (e, tmpl) {
+var handleBack = function(e, tmpl) {
   e.preventDefault();
   Session.set('hideBrowser', true);
   Meteor.setTimeout(function() {

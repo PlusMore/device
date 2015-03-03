@@ -1,6 +1,6 @@
 initializeServicePickers = function(template, startMinutes, endMinutes) {
   startMinutes = startMinutes || 0;
-  endMinutes = endMinutes || 23*60+45;
+  endMinutes = endMinutes || 23 * 60 + 45;
 
   var delay = 1;
 
@@ -8,7 +8,7 @@ initializeServicePickers = function(template, startMinutes, endMinutes) {
   var startTime, endTime;
   var startTomorrow = false;
 
-  var checkoutDate = undefined;
+  var checkoutDate;
   var stay = Stays.findOne();
 
   if (stay) {
@@ -31,8 +31,8 @@ initializeServicePickers = function(template, startMinutes, endMinutes) {
     startTime = moment().startOf('day');
     startTime = startTime.minutes(startMinutes);
     timepickerOptions.min = startTime.toDate();
-  } 
-  
+  }
+
   if (typeof endMinutes !== 'undefined') {
     // If end is less than start, it's AM next day
     if (endMinutes <= startMinutes) {
@@ -63,9 +63,9 @@ initializeServicePickers = function(template, startMinutes, endMinutes) {
         // if selectedtime is before min, select min
         if (timepicker.get('min').pick > currentSelect) {
           timepicker.set('select', timepicker.get('min').pick);
-        } 
-        
-        return true; 
+        }
+
+        return true;
       }
 
       var isToday = moment(select.select).startOf('day').toDate().getTime() === moment().startOf('day').toDate().getTime();
@@ -81,7 +81,7 @@ initializeServicePickers = function(template, startMinutes, endMinutes) {
         // if selectedtime is before min, select min
         if (timepicker.get('min').pick > currentSelect) {
           timepicker.set('select', timepicker.get('min').pick);
-        } 
+        }
 
       } else {
         timepicker.set('min', startTime.toDate());
@@ -114,20 +114,20 @@ initializeServicePickers = function(template, startMinutes, endMinutes) {
 
   datepickerOptions.onStart = function() {
     var _this = this;
-    Meteor.setTimeout(function(){
+    Meteor.setTimeout(function() {
       if (startTomorrow) {
         _this.set('select', moment().add('days', 1).toDate());
       } else {
         _this.set('select', new Date());
       }
-    }); 
+    });
   };
 
   timepickerOptions.onStart = function() {
     var _this = this;
-    Meteor.setTimeout(function(){
+    Meteor.setTimeout(function() {
       _this.set('select', _this.get('min').pick);
-    });    
+    });
   };
 
   timepickerOptions.onRender = function() {

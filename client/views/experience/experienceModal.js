@@ -2,15 +2,15 @@ experienceModal = new Modal();
 
 Template.experienceModal.created = function() {
   experienceModal.modalTemp = this;
-}
+};
 
 Template.experienceModal.rendered = function() {
   experienceModal.inserted = true;
-}
+};
 
 Template.experienceModal.destroyed = function() {
   experienceModal.inserted = false;
-}
+};
 
 Template.experienceModal.helpers({
   dynamicTemp: function() {

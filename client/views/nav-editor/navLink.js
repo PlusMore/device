@@ -5,34 +5,40 @@ Template.navLink.events({
   },
   'click #delete-nav-link': function(e) {
     e.preventDefault();
-    if (confirm("Are you sure?")){
+    if (confirm("Are you sure?")) {
       NavLinks.remove(this._id);
     }
   }
 });
 
 Template.addNavLink.events({
-  'click #dismiss-modal': function (e) {
+  'click #dismiss-modal': function(e) {
     e.preventDefault();
     modal.close();
   }
 });
 
 Template.addNavLink.helpers({
-  routeOptions: function () {
-    return _.map(getRouteNames(), function (c, i){
-      return {label: c, value: c};
+  routeOptions: function() {
+    return _.map(getRouteNames(), function(c, i) {
+      return {
+        label: c,
+        value: c
+      };
     });
   },
-  categoryOptions: function () {
-    return Categories.find().map(function (c) {
-      return {label: c.name, value: c._id};
+  categoryOptions: function() {
+    return Categories.find().map(function(c) {
+      return {
+        label: c.name,
+        value: c._id
+      };
     });
   }
 });
 
 Template.editNavLink.events({
-  "click #dismiss-modal": function (e) {
+  "click #dismiss-modal": function(e) {
     e.preventDefault();
     modal.close();
   }

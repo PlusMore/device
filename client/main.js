@@ -21,10 +21,10 @@ Meteor.startup(function() {
     var registeredDeviceId = LocalStore.get('deviceId');
 
     if (kiosk && registeredDeviceId) {
-      
-        console.log('in room, getting deviceData for registered device');
-        subscriptions.registeredDeviceData = Meteor.subscribe('device', registeredDeviceId);
-        
+
+      console.log('in room, getting deviceData for registered device');
+      subscriptions.registeredDeviceData = Meteor.subscribe('device', registeredDeviceId);
+
     } else {
 
       if (subscriptions.registeredDeviceData) {
@@ -32,7 +32,7 @@ Meteor.startup(function() {
         delete subscriptions.registeredDeviceData;
       }
 
-    }  
+    }
   });
 
   // if not in room, and stayId set, get device data by stay id
@@ -43,19 +43,19 @@ Meteor.startup(function() {
     var kiosk = LocalStore.get('kiosk');
 
     if (!kiosk && stayId) {
-      console.log('not in room, getting device by stayId')
+      console.log('not in room, getting device by stayId');
       subscriptions.deviceByStay = Meteor.subscribe('deviceByStayId', stayId);
     } else {
       if (subscriptions.deviceByStay) {
         subscriptions.deviceByStay.stop();
         delete subscriptions.deviceByStay;
       }
-    }  
+    }
   });
-  
+
   // if not in room, get stay by user id
   Tracker.autorun(function() {
-    var userId = Meteor.userId(); 
+    var userId = Meteor.userId();
     var kiosk = LocalStore.get('kiosk');
 
     if (!kiosk && userId) {
@@ -66,7 +66,7 @@ Meteor.startup(function() {
         subscriptions.userStays.stop();
         delete subscriptions.userStays;
       }
-    }  
+    }
   });
 
   // if in room and registered
@@ -93,7 +93,7 @@ Meteor.startup(function() {
     var kiosk = LocalStore.get('kiosk');
 
     if (!kiosk && user && stays.count() > 0) {
-      
+
       console.log('not in room, stay subscription data received for user', stays.count());
       var stay = Stays.findOne();
       Session.set('stayId', stay._id);
@@ -110,7 +110,7 @@ Meteor.startup(function() {
         console.log('unset stay info, in room');
         Session.set('stayId', undefined);
         Meteor.logout();
-        
+
       }
     }
   });
@@ -126,5 +126,5 @@ Meteor.startup(function() {
         subscriptions.stayInfo = null;
       }
     }
-  });  
+  });
 });

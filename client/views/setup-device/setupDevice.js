@@ -24,8 +24,8 @@ Template.setupDeviceForm.helpers({
         roomOptions.push({
           label: room.name,
           value: room._id
-        })
-      })
+        });
+      });
       return roomOptions;
     }
   },

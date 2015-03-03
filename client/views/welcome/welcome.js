@@ -15,7 +15,7 @@ Template.welcomeContent.helpers({
     var hotel = Hotels.findOne();
 
     if (hotel) {
-      return "@" + hotel.name; 
+      return "@" + hotel.name;
     }
     return "";
   },
@@ -26,7 +26,7 @@ Template.welcomeContent.helpers({
       return hotel.geo.city;
     }
 
-    return "Your City"
+    return "Your City";
   }
 });
 
@@ -40,7 +40,7 @@ var onEngage = function(e) {
     e.stopImmediatePropagation();
     Menu.show();
   }
-}
+};
 
 var events = {};
 events[clickevent + " #main"] = onEngage;

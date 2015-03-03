@@ -1,11 +1,11 @@
-Template.experienceYelpRating.rendered = function () {
+Template.experienceYelpRating.rendered = function() {
   Session.set('hasYelp', true);
   var that = this;
   YelpAPI.business(this.data.yelpId, function(err, result) {
-    
-    if (err) { 
+
+    if (err) {
       Errors.throw(err);
-      
+
       return Session.set('hasYelp', false);
     }
 
@@ -26,17 +26,17 @@ Template.experienceYelpRating.rendered = function () {
   });
 };
 
-Template.experienceYelpRating.destroyed = function () {
+Template.experienceYelpRating.destroyed = function() {
   Session.set('yelpStarsSrc', null);
   Session.set('yelpReviewCount', 'Loading Yelp');
   Session.set('hasYelp', true);
 };
 
 Template.experienceYelpRating.helpers({
-  yelpStarsSrc: function () {
+  yelpStarsSrc: function() {
     return Session.get('yelpStarsSrc');
   },
-  yelpReviewCount: function () {
+  yelpReviewCount: function() {
     return Session.get('yelpReviewCount');
   },
   hasYelp: function() {

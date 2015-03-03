@@ -1,5 +1,5 @@
 Template.menuItem.events({
-  'click .menu-item': function (e, tmpl) {
+  'click .menu-item': function(e, tmpl) {
     e.preventDefault();
     e.stopImmediatePropagation();
 
@@ -7,7 +7,7 @@ Template.menuItem.events({
       return;
     }
 
-    if ($(e.currentTarget).closest('.perspective').hasClass('modalview')) { 
+    if ($(e.currentTarget).closest('.perspective').hasClass('modalview')) {
       return;
     }
 

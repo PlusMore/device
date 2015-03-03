@@ -1,4 +1,4 @@
-Meteor.startup(function() { 
+Meteor.startup(function() {
   App = {};
   var isUserAgentBlacklisted = function() {
     var blacklist = ['PhantomJS', 'Googlebot', 'Bing', 'Yahoo'];
@@ -17,10 +17,10 @@ Meteor.startup(function() {
   };
 
   _.extend(App, {
-  	identify: function() {
-      Deps.autorun(function() { 
+    identify: function() {
+      Deps.autorun(function() {
         var user = Meteor.user(),
-            peopleProperties = {};
+          peopleProperties = {};
 
         if (user) {
           mixpanel.identify(user._id);
@@ -28,7 +28,7 @@ Meteor.startup(function() {
 
           if (user && user.deviceId) {
             var deviceId = user.deviceId,
-                device = Devices.findOne(deviceId);
+              device = Devices.findOne(deviceId);
 
             if (device) {
               var hotel = Hotels.findOne(device.hotelId);
@@ -39,17 +39,17 @@ Meteor.startup(function() {
                   "Device Id": user.deviceId,
                   "Device Location": device.location,
                   "Hotel Name": hotel.name
-                });  
+                });
 
-                mixpanel.people.set(peopleProperties);  
+                mixpanel.people.set(peopleProperties);
                 console.log('People properties set.');
               }
-            }  
+            }
           }
 
-          
-        }   
-      });   
+
+        }
+      });
     },
     track: function(key, properties) {
       properties = properties || {};
@@ -66,13 +66,13 @@ Meteor.startup(function() {
         if (user && user.emails && user.emails.length > 0) {
           emailProperties['$email'] = user.emails[0].address;
         } else {
-          emailProperties['$email']  = 'anonymous';            
+          emailProperties['$email'] = 'anonymous';
         }
         _.extend(properties, emailProperties);
 
         var profileInfo = {};
         if (user && user.profile) {
-          
+
           if (user.profile.name) {
             profileInfo['$name'] = user.profile.name;
           }
@@ -82,11 +82,11 @@ Meteor.startup(function() {
           if (user.profile.lastName) {
             profileInfo['$last_name'] = user.profile.lastName;
           }
-        } 
+        }
 
         if (user && user.deviceId) {
           var deviceId = LocalStore.get('deviceId'),
-              device = Devices.findOne(deviceId);
+            device = Devices.findOne(deviceId);
 
           hotel = Hotels.findOne(device.hotelId);
 
@@ -120,10 +120,9 @@ Meteor.startup(function() {
     }
   });
 
-  App.helpers = {
-  };
+  App.helpers = {};
 
-  _.each(App.helpers, function (helper, key) {
+  _.each(App.helpers, function(helper, key) {
     Handlebars.registerHelper(key, helper);
   });
 
@@ -134,7 +133,7 @@ Meteor.startup(function() {
     Meteor.setTimeout(function() {
       App.identify();
     }, 0);
-  }); 
+  });
 
   // Deps.autorun(function() {
   //   var currentRoute = Router.current();
