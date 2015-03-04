@@ -1,4 +1,4 @@
-<template name="roomServiceRequestDetails">
+<template name="roomServiceDetails">
   <table class="span4 table">
     <thead>
       <th>Qty</th>
@@ -6,7 +6,7 @@
       <th class='text-align-right'>Price</th>
     </thead>
     <tbody>
-      {{#each request.orderedItems}}
+      {{#each service.orderedItems}}
         <tr>
           <td>{{qty}}</td>
           <td>
@@ -28,15 +28,15 @@
       {{/each}}
       <tr>
         <td class="totalcol text-align-right" colspan="2">SubTotal:</td>
-        <td class='text-align-right'>{{currency request.orderSubtotal}}</td>
+        <td class='text-align-right'>{{currency service.orderSubtotal}}</td>
       </tr>
       <tr>
         <td class="totalcol text-align-right" colspan="2">Tax 6%:</td>
-        <td class='text-align-right'>{{currency request.orderTax}}</td>
+        <td class='text-align-right'>{{currency service.orderTax}}</td>
       </tr>
       <tr>
         <td class="totalcol text-align-right" colspan="2">Total:</td>
-        <td class='text-align-right'>{{currency request.orderTotal}}</td>
+        <td class='text-align-right'>{{currency service.orderTotal}}</td>
       </tr>
     </tbody>
   </table>

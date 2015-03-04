@@ -1,0 +1,52 @@
+<template name="ordersHistory">
+  {{#Layout template="subnavContentLayout"}}
+    {{#contentFor "title"}}
+      Orders
+    {{/contentFor}}
+
+    {{#contentFor "subnav"}}
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#orders-subnav">
+          <span class="sr-only">Toggle navigation</span>
+          <span>Filter <span class="caret"></span></span>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse" id="orders-subnav">
+        <ul class="nav navbar-nav">
+            <li>
+              <a href="{{pathFor 'recent-orders'}}">Recent</a>
+            </li>
+            <li class="active">
+              <a href="{{pathFor 'orders-history'}}">History</a>
+            </li>
+        </ul>
+      </div>
+    {{/contentFor}}
+
+    {{#if currentUser}}
+
+      {{#if hasOrders}}
+        <div class="row animated fadeInRight">
+          {{#each orders}}
+            {{> order}}
+          {{/each}}
+        </div>
+      {{else}}
+        <div class="row">
+          <div class="col-xs-12 no-orders big-text">
+            <p class="lead animated fadeInRight">You have no orders in your order history.</p>
+          </div>
+        </div>
+      {{/if}}
+
+    {{else}}
+      <div class="row">
+        <div class="col-xs-12 no-orders big-text">
+          <p class="lead animated fadeInRight">Please login to see your order history.</p>
+          <button class="btn btn-lg btn-default js-select-user">Login</button>
+        </div>
+      </div>
+    {{/if}}
+  {{/Layout}}
+</template>

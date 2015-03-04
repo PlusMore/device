@@ -5,18 +5,17 @@ Template.reservation.helpers({
   experience: function() {
     return Experiences.findOne(this.reservation.experienceId);
   },
-  needsAction: function() {
-    return this.open;
-  },
   isPending: function() {
-    var status = this.status || 'pending';
-    return (status === 'pending');
+    return (status === 'pending' || status === 'requested');
   },
   isConfirmed: function() {
-    return (this.status === 'confirmed' || !!this.confirmationDate);
+    return (this.status === 'confirmed');
   },
   isCancelled: function() {
     return (this.status === 'cancelled');
+  },
+  isExpired: function() {
+    return (this.status === 'expired');
   },
   cancelledDateMomentAgo: function() {
     var now = Session.get('currentTime');
@@ -24,7 +23,7 @@ Template.reservation.helpers({
   },
   requestedDateTimeAgo: function() {
     var now = Session.get('currentTime');
-    return moment(this.requestedAt).fromNow();
+    return moment(this.requestedDate).fromNow();
   },
   when: function() {
     var when = moment(this.reservation.date).zone(this.reservation.zone || moment().zone());
@@ -32,16 +31,22 @@ Template.reservation.helpers({
     return when;
   },
   orderStatus: function() {
-    if (this.status === 'confirmed') {
-      return 'Confirmed';
+    if (this.status === 'requested' || this.status === 'pending') {
+      return '(In Progress)';
     } 
 
     if (this.status === 'cancelled') {
       return 'Cancelled';
     }
 
-    return '(In Progress)';
-  }
+    if (this.status === 'confirmed') {
+      return 'Confirmed';
+    }
+
+    if (this.status === 'expired') {
+      return 'Expired';
+    }
+  },
 });
 
 Template.reservation.events({
@@ -50,5 +55,18 @@ Template.reservation.events({
     if (confirm("Are you sure you want to cancel this reservation?")) {
       Meteor.call('cancelReservation', this._id);
     } 
+  },
+  'click .btn.btn-call-to-cancel': function(event) {
+    event.preventDefault(); 
+    experience = Experiences.findOne(this.reservation.experienceId);
+    modal.show('reservationCallToCancelModal', experience);
   }
+});
+
+Template.reservationCallToCancelModal.events({
+  'click [data-dismiss="modal"]':function(e, tmpl){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    modal.close();
+  },
 });

@@ -20,7 +20,7 @@ Template.transportation.events({
     
     var request = {
       type: 'transportation',
-      for: 'hotel',
+      handledBy: 'hotel',
       date: reservationMoment.toDate(),
       zone: Session.get('zone'),
       options: {
@@ -47,7 +47,7 @@ Template.transportation.events({
 
         requestButton.progressFinish();
         Meteor.setTimeout(function() {
-          Router.go('orders');
+          Router.go('recent-orders');
         }, 500);
       });
     });
