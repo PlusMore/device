@@ -20,6 +20,7 @@ Template.onboardUserGuestInfo.rendered = function () {
     container: $container,
     clear: false,
     min: moment({hour: 12, minute: 0}).add(1, 'days').toDate(),
+    today: false,
     onSet: function(date) {
       console.log('on board user info rendered');
       if (date.select) {
