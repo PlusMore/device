@@ -11,7 +11,7 @@ var subs = new SubsManager();
 Meteor.startup(function() {
 
   subs.subscribe('nav');
-  subs.subscribe('experiencesData');
+  //subs.subscribe('experiencesData');
 
   // if in room and registered, get device data,
   // hotel for device.hotelid
