@@ -118,8 +118,7 @@ Meteor.publish('stayInfo', function(stayId) {
 Meteor.publish('userStays', function() {
   return [
     Stays.find({
-      users: this.userId,
-      active: true
+      users: this.userId
     })
   ];
 });
@@ -136,6 +135,7 @@ Meteor.publish('device', function(deviceId) {
     var device = Devices.findOne(deviceId);
     if (device) {
       return [
+        Rooms.find(device.roomId),
         Devices.find(deviceId),
         Hotels.find(device.hotelId),
         HotelServices.find({
@@ -151,14 +151,18 @@ Meteor.publish('deviceByStayId', function(stayId) {
   var stay = Stays.findOne(stayId);
 
   if (stay) {
-    if (stay.deviceId) {
-      var device = Devices.findOne(stay.deviceId);
+    var room = Rooms.findOne({stayId: stayId});
+
+    if (room) {
+      var device = Devices.findOne({roomId: room._id});
+
       if (device) {
         return [
-          Devices.find(stay.deviceId),
-          Hotels.find(device.hotelId),
+          Devices.find({roomId: room._id}),
+          Hotels.find(room.hotelId),
+          Rooms.find({stayId: stayId}),
           HotelServices.find({
-            hotelId: device.hotelId,
+            hotelId: room.hotelId,
             active: true
           })
         ];
