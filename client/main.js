@@ -75,11 +75,13 @@ Meteor.startup(function() {
     var kiosk = LocalStore.get('kiosk');
     var registeredDeviceId = LocalStore.get('deviceId');
     var devices = Devices.find();
+    var rooms = Rooms.find();
 
     if (kiosk && registeredDeviceId && devices.count() > 0) {
-      if (Devices.findOne().stayId) {
+      var roomId = Devices.findOne().roomId;
+      if (Rooms.findOne(roomId) && Rooms.findOne(roomId).stayId) {
         console.log('received device data with stayId');
-        Session.set('stayId', Devices.findOne().stayId);
+        Session.set('stayId', Rooms.findOne(roomId).stayId);
       } else {
         console.log('received device data, no stay id');
       }

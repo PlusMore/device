@@ -18,6 +18,7 @@ Template.onboardUser.events({
     var deviceId = LocalStore.get('deviceId');
     var checkoutDate = Session.get('checkoutDate');
     Session.set('loader', 'Verifying');
+    
     Meteor.call('registerStay', deviceId, checkoutDate, function(err, stayId) {
       if (err) {
         Session.set('loader', undefined);
@@ -50,7 +51,7 @@ Template.onboardUser.events({
   },
   'onboard-step-guest-password-complete': function(e, tmpl) {
     var accountOptions = Session.get('onboardAccountCreationOptions');
-    accountOptions = _.pick(accountOptions, ['profile', 'email', 'password'])
+    accountOptions = _.pick(accountOptions, ['profile', 'email', 'password']);
 
     Accounts.createUser(accountOptions, function(err) {
       if (err) return Errors.throw(err.message);

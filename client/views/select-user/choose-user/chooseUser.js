@@ -98,9 +98,9 @@ Template.chooseUser.events({
 
         // add user to stay
         var device = Devices.findOne(LocalStore.get('deviceId'));
-        var stay = Stays.findOne(device.stayId);
+        var room = Rooms.findOne(device.roomId);
 
-        Meteor.call('addUserToStay', stay._id, function() {
+        Meteor.call('addUserToStay', room.stayId, function() {
           tmpl.step.set('chooseUserFinished');
           Meteor.setTimeout(function() {
             tmpl.$(tmpl.firstNode).trigger('choose-user-complete');
@@ -113,9 +113,9 @@ Template.chooseUser.events({
         if (err) return Errors.throw(err.message);
 
         var device = Devices.findOne(LocalStore.get('deviceId'));
-        var stay = Stays.findOne(device.stayId);
+        var room = Rooms.findOne(device.roomId);
 
-        Meteor.call('addUserToStay', stay._id, function() {
+        Meteor.call('addUserToStay', room.stayId, function() {
           tmpl.step.set('chooseUserFinished');
           Meteor.setTimeout(function() {
             tmpl.$(tmpl.firstNode).trigger('choose-user-complete');
