@@ -168,7 +168,7 @@ Meteor.publish('deviceByStayId', function(stayId) {
 
 });
 
-Meteor.publish('experiencesData', function() {
+Meteor.publish('experiencesData', function(categoryId, stateCode) {
   var experienceFields = {
     active: 1,
     category: 1,
@@ -213,7 +213,9 @@ Meteor.publish('experiencesData', function() {
       active: true
     }),
     Experiences.find({
-      active: true
+      active: true,
+      categoryId: categoryId,
+      "geo.stateCode": stateCode
     }, {
       fields: experiencePublishFields
     })
