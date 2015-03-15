@@ -15,6 +15,7 @@ var handleNav = function(e, tmpl) {
   if (Iron.Location.get().path === href) {
     Menu.hide();
   } else {
+    Menu.hide();
     Router.go(href);
   }
 };

@@ -13,8 +13,12 @@ Template.accountsDropdown.helpers({
 
       if (deviceId) {
         var device = Devices.findOne(deviceId);
-        if (device)
+        if (device) {
           return device.location;
+        } else {
+          return 'Unregistered Kiosk'
+        }
+
       } else {
         return 'Sign in';
       }
@@ -27,8 +31,10 @@ Template.accountsDropdown.helpers({
         return "Account";
       }
     }
+
+    return 'Account';
   },
-  deviceLocation: function() {
+  deviceLocation: function () {
     var deviceId = LocalStore.get('deviceId');
     if (deviceId) {
       var device = Devices.findOne(deviceId);
@@ -53,6 +59,23 @@ Template.accountsDropdown.events({
       return;
     }
 
+    // if user somehow gets here, when they click unregistered kiosk, just reset everything.
+    if (LocalStore.get('kiosk')) {
+      // if no device id or can't find device for id
+      var deviceId = LocalStore.get('deviceId');
+      if (!deviceId) {
+        LocalStore.set('kiosk', null);
+        Menu.hide();
+        return;
+      }
+      if (deviceId && !Devices.findOne(deviceId)) {
+        LocalStore.set('kiosk', null);
+        LocalStore.set('deviceId', null);
+        Menu.hide();
+        return;
+      }
+    }
+    
     if (Meteor.user()) {
       modal.show('accountInfo');
     } else {
