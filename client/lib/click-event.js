@@ -14,3 +14,16 @@ function supportsTouch() {
 
 clickevent = supportsTouch() ? 'touchstart' : 'click';
 Session.set('clickevent', clickevent);
+
+fastTouchEvent = function(fn, event, tmpl) {
+  event.stopPropagation();
+  event.preventDefault();
+  if(event.handled !== true) {
+
+      return fn(event, tmpl);
+
+      event.handled = true;
+  } else {
+      return false;
+  }
+}

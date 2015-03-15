@@ -21,6 +21,7 @@ callback-hook@1.0.2
 check@1.0.4
 coffeescript@1.0.5
 copleykj:simple-publish@1.0.4
+dburles:collection-helpers@1.0.2
 dburles:mongo-collection-instances@0.3.3
 ddp@1.0.14
 deps@1.0.6

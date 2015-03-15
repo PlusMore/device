@@ -31,6 +31,9 @@ Template.accountInfo.helpers({
   },
   editingAccountInfo: function() {
     return Session.get('editingAccountInfo');
+  },
+  stay: function() {
+    return Stays.findOne(Session.get('stayId'));
   }
 });
 

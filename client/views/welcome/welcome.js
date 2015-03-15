@@ -31,18 +31,22 @@ Template.welcomeContent.helpers({
 });
 
 var onEngage = function(e) {
+  console.log('Welcome' , e);
   e.preventDefault();
   if (Session.get('animatingMenu')) {
     return;
   }
 
   if (!Menu.isOpen()) {
+    console.log('show menu');
     e.stopImmediatePropagation();
     Menu.show();
   }
 };
 
-var events = {};
-events[clickevent + " #main"] = onEngage;
-
-Template.welcomeContent.events(events);
+Template.welcomeContent.events({
+  'touchstart #main, click #main': function(e, tmpl) {
+    console.log('meteor DOM event');
+    fastTouchEvent(onEngage, e, tmpl);
+  }
+});
