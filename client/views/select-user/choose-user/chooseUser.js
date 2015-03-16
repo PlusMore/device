@@ -10,7 +10,7 @@ Template.chooseUser.helpers({
 
 Template.chooseUser.events({
   'user-choice-selected': function (e, tmpl) {
-    tmpl.step.set('loginStayUser');
+    tmpl.step.set('authenticateStayUser');
   },
   'new-guest-selected': function (e, tmpl) {
     tmpl.step.set('addNewGuest');
@@ -32,7 +32,7 @@ Template.chooseUser.events({
           }
 
           if (err.reason === 'User has no password set') {
-            Accounts.setResetPasswordEmail(Session.get('onboardAccountCreationUserId'));
+            Accounts.sendResetPasswordEmail(Session.get('onboardAccountCreationUserId'));
             tmpl.$(tmpl.firstNode).trigger('onboard-complete');
             return Errors.throw('No password was set for current account. Please follow instructions sent to the email you provided to set a password. Sorry for any inconvenience.');
           }
@@ -45,9 +45,24 @@ Template.chooseUser.events({
       tmpl.step.set('chooseUserFinished');
       Meteor.setTimeout(function() {
         tmpl.$(tmpl.firstNode).trigger('choose-user-complete');
-      }, 2000);
+      }, 1000);
       
     });
+  },
+  'create-stay-user-password': function (e, tmpl) {
+    var password = e.password;
+
+    var userId = Session.get('selectedUserChoice');
+    var user = Meteor.users.findOne(userId);
+    var token = user.services.password.reset.token;
+
+    Accounts.resetPassword(token, password, function() {
+      tmpl.step.set('chooseUserFinished');
+      Meteor.setTimeout(function() {
+        tmpl.$(tmpl.firstNode).trigger('choose-user-complete');
+      }, 1000);
+    });
+
   },
   'add-new-user': function (e, tmpl) {
     var accountOptions = {
@@ -104,7 +119,7 @@ Template.chooseUser.events({
           tmpl.step.set('chooseUserFinished');
           Meteor.setTimeout(function() {
             tmpl.$(tmpl.firstNode).trigger('choose-user-complete');
-          }, 2000);
+          }, 1000);
         });
 
       });
@@ -119,7 +134,7 @@ Template.chooseUser.events({
           tmpl.step.set('chooseUserFinished');
           Meteor.setTimeout(function() {
             tmpl.$(tmpl.firstNode).trigger('choose-user-complete');
-          }, 2000);
+          }, 1000);
         });
       });  
     }
@@ -134,7 +149,7 @@ Template.chooseUser.events({
       modal.close()
       tmpl.step.set(undefined);
       Session.set('selectedUserChoice', undefined);
-    }, 2000);
+    }, 1000);
     
   }
 });
