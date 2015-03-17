@@ -24,7 +24,7 @@ Template.setupDeviceForm.helpers({
     if (rooms) {
       _.each(rooms, function(room) {
         var active = '';
-        if (room.stay() && room.stay().isActive()) {
+        if (room.stay() && room.stay().isActive()) { //collection helper
           active = ' (has active stay)';
         }
         roomOptions.push({
