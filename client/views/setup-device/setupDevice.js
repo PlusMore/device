@@ -17,12 +17,18 @@ Template.setupDeviceForm.helpers({
   },
   roomOptions: function() {
     var hotelId = AutoForm.getFieldValue('setupDeviceForm', 'hotelId');
-    var rooms = Rooms.find().fetch();
+    var roomsCursor = Rooms.find({}, {$sort: {name: 1}});
+    var stays = Stays.find();
+    var rooms = roomsCursor.fetch();
     var roomOptions = [];
     if (rooms) {
       _.each(rooms, function(room) {
+        var active = '';
+        if (room.stay() && room.stay().isActive()) {
+          active = ' (has active stay)';
+        }
         roomOptions.push({
-          label: room.name,
+          label: room.name + active,
           value: room._id
         });
       });
@@ -41,6 +47,7 @@ Template.setupDeviceForm.created = function() {
     var selectedHotelId = AutoForm.getFieldValue('setupDeviceForm', 'hotelId');
 
     Meteor.subscribe('roomsByHotelId', selectedHotelId);
+    Meteor.subscribe('activeStaysByHotelId', selectedHotelId);
   });
 };
 

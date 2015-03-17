@@ -57,6 +57,23 @@ Meteor.publish('userHotelData', function() {
   }
 });
 
+Meteor.publish('activeStaysByHotelId', function(hotelId) {
+  var now = new Date();
+
+  return Stays.find({
+    hotelId: hotelId,
+    checkInDate: {
+      $lte: now
+    },
+    checkoutDate: {
+      $gte: now
+    },
+    zone: {
+      $exists: true
+    }
+  });
+});
+
 /**
  * Always publish logged-in users stayId, Stay info, device info, device data, hotel data, and hotel-service data
  *
@@ -151,16 +168,24 @@ Meteor.publish('deviceByStayId', function(stayId) {
   var stay = Stays.findOne(stayId);
 
   if (stay) {
-    var room = Rooms.findOne({stayId: stayId});
+    var room = Rooms.findOne({
+      stayId: stayId
+    });
 
     if (room) {
-      var device = Devices.findOne({roomId: room._id});
+      var device = Devices.findOne({
+        roomId: room._id
+      });
 
       if (device) {
         return [
-          Devices.find({roomId: room._id}),
+          Devices.find({
+            roomId: room._id
+          }),
           Hotels.find(room.hotelId),
-          Rooms.find({stayId: stayId}),
+          Rooms.find({
+            stayId: stayId
+          }),
           HotelServices.find({
             hotelId: room.hotelId,
             active: true
