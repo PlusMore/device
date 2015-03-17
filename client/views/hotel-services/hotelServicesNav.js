@@ -1,16 +1,22 @@
 Template.hotelServicesNav.helpers({
-  activeHotelServiceClass: function(serviceName) { 
+  activeHotelServiceClass: function(serviceName) {
     return Session.get('selectedService') === serviceName ? 'active' : '';
   },
   activeHotelServices: function() {
     var hotelCursor = Hotels.find();
-    
+
     if (hotelCursor.count() > 0) {
       var hotel = Hotels.findOne();
       if (!hotel.hotelServicesEnabled) {
         return false;
       } else {
-        return HotelServices.find({hotelId: hotel._id, active: true, type: {$ne: 'roomService'}});
+        return HotelServices.find({
+          hotelId: hotel._id,
+          active: true,
+          type: {
+            $ne: 'roomService'
+          }
+        });
       }
     }
   },
@@ -26,7 +32,7 @@ Template.hotelServicesNav.helpers({
   }
 });
 
-var selectMenuItem = function (e, template) {
+var selectMenuItem = function(e, template) {
   e.preventDefault();
   e.stopImmediatePropagation();
   var templateName = $(e.currentTarget).data('template') || 'hotelServicesDescription';
@@ -39,7 +45,7 @@ var selectMenuItem = function (e, template) {
   }
 
   return false;
-}
+};
 
 var events = {};
 events[clickevent + " a.menu-item"] = selectMenuItem;

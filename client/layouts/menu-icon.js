@@ -7,4 +7,4 @@ Meteor.startup(function() {
       Menu.show();
     }
   });
-})
+});

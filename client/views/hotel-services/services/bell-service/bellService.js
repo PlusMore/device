@@ -1,4 +1,4 @@
-Template.bellService.rendered = function () {
+Template.bellService.rendered = function() {
   // Convert all the links with the progress-button class to
   // actual buttons with progress meters.
   // You need to call this function once the page is loaded.
@@ -9,7 +9,7 @@ Template.bellService.rendered = function () {
 Template.bellService.events({
   'click #btn-request:not(.in-progress):not(.finished)': function(e, tmpl) {
     e.preventDefault();
-    
+
     var requestButton = tmpl.$(e.currentTarget);
     requestButton.progressStart();
 
@@ -34,8 +34,8 @@ Template.bellService.events({
     $(document).one('user-selected', function() {
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
-      
-      Meteor.call('requestService', request, function (error, result) {
+
+      Meteor.call('requestService', request, function(error, result) {
         if (error) {
           requestButton.progressError();
 
@@ -53,7 +53,7 @@ Template.bellService.events({
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
       requestButton.progressError();
-      return; 
+      return;
     });
 
     if (!Meteor.user()) {
@@ -63,4 +63,3 @@ Template.bellService.events({
     }
   }
 });
-

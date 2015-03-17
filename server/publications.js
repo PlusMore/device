@@ -105,7 +105,7 @@ Stays._ensureIndex('users');
 Meteor.publish('stayInfo', function(stayId) {
   var fields = {
     stayId: 1
-  }
+  };
 
   return [
     Stays.find(stayId),
@@ -118,8 +118,7 @@ Meteor.publish('stayInfo', function(stayId) {
 Meteor.publish('userStays', function() {
   return [
     Stays.find({
-      users: this.userId,
-      active: true
+      users: this.userId
     })
   ];
 });
@@ -136,6 +135,7 @@ Meteor.publish('device', function(deviceId) {
     var device = Devices.findOne(deviceId);
     if (device) {
       return [
+        Rooms.find(device.roomId),
         Devices.find(deviceId),
         Hotels.find(device.hotelId),
         HotelServices.find({
@@ -151,14 +151,18 @@ Meteor.publish('deviceByStayId', function(stayId) {
   var stay = Stays.findOne(stayId);
 
   if (stay) {
-    if (stay.deviceId) {
-      var device = Devices.findOne(stay.deviceId);
+    var room = Rooms.findOne({stayId: stayId});
+
+    if (room) {
+      var device = Devices.findOne({roomId: room._id});
+
       if (device) {
         return [
-          Devices.find(stay.deviceId),
-          Hotels.find(device.hotelId),
+          Devices.find({roomId: room._id}),
+          Hotels.find(room.hotelId),
+          Rooms.find({stayId: stayId}),
           HotelServices.find({
-            hotelId: device.hotelId,
+            hotelId: room.hotelId,
             active: true
           })
         ];
@@ -166,6 +170,12 @@ Meteor.publish('deviceByStayId', function(stayId) {
     }
   }
 
+});
+
+Meteor.publish('roomsByHotelId', function(hotelId) {
+  return Rooms.find({
+    hotelId: hotelId
+  });
 });
 
 Meteor.publish('experiencesData', function(categoryId, stateCode) {
@@ -188,7 +198,7 @@ Meteor.publish('experiencesData', function(categoryId, stateCode) {
     title: 1,
     yelpId: 1,
     phone: 1
-  }
+  };
 
   var tagGroups = Meteor.tags.find({
     group: {
@@ -291,7 +301,7 @@ Meteor.publish('navLinks', function() {
 
 Meteor.publish('hotelMenu', function(hotelId) {
   var userId = this.userId,
-      user = Meteor.users.findOne(userId);
+    user = Meteor.users.findOne(userId);
 
   var hotel = Hotels.find(hotelId);
   if (hotel) {
@@ -317,7 +327,7 @@ Meteor.publish('hotelMenu', function(hotelId) {
 
 Meteor.publish('hotelMenuForStay', function(stayId) {
   var userId = this.userId,
-      user = Meteor.users.findOne(userId);
+    user = Meteor.users.findOne(userId);
 
   var stay = Stays.findOne(stayId);
 

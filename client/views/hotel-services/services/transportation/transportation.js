@@ -1,4 +1,4 @@
-Template.transportation.rendered = function () {
+Template.transportation.rendered = function() {
   // Convert all the links with the progress-button class to
   // actual buttons with progress meters.
   // You need to call this function once the page is loaded.
@@ -9,7 +9,7 @@ Template.transportation.rendered = function () {
 Template.transportation.events({
   'click #btn-request:not(.in-progress):not(.finished)': function(e, tmpl) {
     e.preventDefault();
-    
+
     var requestButton = tmpl.$(e.currentTarget);
     requestButton.progressStart();
 
@@ -17,7 +17,7 @@ Template.transportation.events({
     var selectedDate = Session.get('selectedDate');
     var selectedMinutes = Session.get('selectedMinutes');
     var reservationMoment = moment(selectedDate).startOf('day').add(selectedMinutes, 'minutes');
-    
+
     var request = {
       type: 'transportation',
       handledBy: 'hotel',
@@ -37,8 +37,8 @@ Template.transportation.events({
     $(document).one('user-selected', function() {
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
-      
-      Meteor.call('requestService', request, function (error, result) {
+
+      Meteor.call('requestService', request, function(error, result) {
         if (error) {
           requestButton.progressError();
 
@@ -56,7 +56,7 @@ Template.transportation.events({
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
       requestButton.progressError();
-      return; 
+      return;
     });
 
     if (!Meteor.user()) {
@@ -66,4 +66,3 @@ Template.transportation.events({
     }
   }
 });
-

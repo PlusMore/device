@@ -22,6 +22,3 @@ Meteor.startup(function() {
     }
   });
 });
-
-
-    

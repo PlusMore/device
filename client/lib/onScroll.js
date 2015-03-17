@@ -1,8 +1,8 @@
-Meteor.startup(function(){
+Meteor.startup(function() {
   var scrolling = false;
 
   document.body.addEventListener('touchmove', function(e) {
-    if (! $(e.target).parents().hasClass("scrollable" )) {
+    if (!$(e.target).parents().hasClass("scrollable")) {
       e.preventDefault();
     } else if ($(e.target).is('input, textarea')) {
       e.preventDefault();
@@ -11,10 +11,10 @@ Meteor.startup(function(){
       var scrollable = $scrollable[0];
       if (!scrolling) {
         console.log('else');
-        scrolling = true;   
+        scrolling = true;
 
-        if (scrollable.scrollTop === 0 && 
-            (scrollable.scrollHeight === scrollable.scrollTop + scrollable.offsetHeight)) {
+        if (scrollable.scrollTop === 0 &&
+          (scrollable.scrollHeight === scrollable.scrollTop + scrollable.offsetHeight)) {
           e.preventDefault();
         }
         if (scrollable.scrollTop === 0) {

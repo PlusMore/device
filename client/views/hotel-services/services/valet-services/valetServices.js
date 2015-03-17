@@ -1,4 +1,4 @@
-Template.valetServices.rendered = function () {
+Template.valetServices.rendered = function() {
   // Convert all the links with the progress-button class to
   // actual buttons with progress meters.
   // You need to call this function once the page is loaded.
@@ -9,7 +9,7 @@ Template.valetServices.rendered = function () {
 Template.valetServices.events({
   'click #btn-request:not(.in-progress):not(.finished)': function(e, tmpl) {
     e.preventDefault();
-    
+
     var requestButton = tmpl.$(e.currentTarget);
     requestButton.progressStart();
 
@@ -25,7 +25,7 @@ Template.valetServices.events({
       return Errors.throw('Ticket Number is required');
     }
 
-    
+
     var request = {
       type: 'valetServices',
       handledBy: 'hotel',
@@ -45,8 +45,8 @@ Template.valetServices.events({
     $(document).one('user-selected', function() {
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
-      
-      Meteor.call('requestService', request, function (error, result) {
+
+      Meteor.call('requestService', request, function(error, result) {
         if (error) {
           requestButton.progressError();
 
@@ -64,7 +64,7 @@ Template.valetServices.events({
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
       requestButton.progressError();
-      return; 
+      return;
     });
 
     if (!Meteor.user()) {
@@ -74,4 +74,3 @@ Template.valetServices.events({
     }
   }
 });
-

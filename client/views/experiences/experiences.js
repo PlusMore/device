@@ -1,5 +1,5 @@
 Template.experiences.helpers({
-  experiencesLayout: function () {
+  experiencesLayout: function() {
     if (this.category) {
       if (this.category.filterGroupTags && this.category.filterGroupTags.length > 0) {
         return "subnavContentLayout";
@@ -7,7 +7,7 @@ Template.experiences.helpers({
     }
     return "contentLayout";
   },
-  hasSubnav: function () {
+  hasSubnav: function() {
     if (this.category) {
       if (this.category.filterGroupTags && this.category.filterGroupTags.length > 0) {
         return true;
@@ -15,4 +15,4 @@ Template.experiences.helpers({
     }
     return false;
   }
-}); 
+});

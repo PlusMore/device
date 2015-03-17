@@ -1,0 +1,7 @@
+<template name="authenticateStayUser">
+  {{#if hasPassword}}
+    {{> loginStayUser}}
+  {{else}}
+    {{> createPasswordForStayUser}}
+  {{/if}}
+</template>

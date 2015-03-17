@@ -42,12 +42,21 @@
 
               <div class="col-xs-12">
                 {{#if duringStay}}
-                  <div class="animated fadeInRight">
-                    <h4>Current Stay</h4>
-                    <div class="instructions">
-                      Checkout Date: {{checkoutDate}}
+                  {{#with stay}}
+                    <div class="animated fadeInRight">
+                      <h4>Current Stay</h4>
+                      <div class="instructions">
+                        Hotel: {{hotel.name}}
+                      </div>
+                      <div class="instructions">
+                        Room: {{roomName}}
+                      </div>
+                      <div class="instructions">
+                        Checkout Date: {{checkoutDate}}
+                      </div>
+
                     </div>
-                  </div>
+                  {{/with}}
                 {{/if}}
               </div>
 

@@ -7,9 +7,9 @@ Template.accountInfo.helpers({
     } else {
       return "Account";
     }
-    
+
   },
-  checkoutDate: function () {
+  checkoutDate: function() {
     var stay = Stays.findOne(Session.get('stayId'));
 
     if (stay) {
@@ -31,14 +31,17 @@ Template.accountInfo.helpers({
   },
   editingAccountInfo: function() {
     return Session.get('editingAccountInfo');
+  },
+  stay: function() {
+    return Stays.findOne(Session.get('stayId'));
   }
 });
 
 Template.accountInfo.events({
-  'click [data-dismiss="modal"]':function(e, tmpl){
+  'click [data-dismiss="modal"]': function(e, tmpl) {
     tmpl.$(tmpl.firstNode).trigger('hide-modal');
   },
-  'hide-modal': function () {
+  'hide-modal': function() {
     Session.set('editingAccountInfo', false);
     modal.close();
   },
@@ -46,7 +49,7 @@ Template.accountInfo.events({
     Meteor.logout();
     tmpl.$(tmpl.firstNode).trigger('hide-modal');
   },
-  'click #edit-account':function(e){
+  'click #edit-account': function(e) {
     e.preventDefault();
     Session.set('editingAccountInfo', true);
   }

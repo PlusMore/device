@@ -1,4 +1,4 @@
-Meteor.startup(function () {
+Meteor.startup(function() {
   // set zone
   var now = moment();
   var zone = now.zone();

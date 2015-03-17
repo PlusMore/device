@@ -13,9 +13,36 @@ Template.setupDeviceForm.helpers({
       });
     });
 
-    return hotelOptions; 
+    return hotelOptions;
+  },
+  roomOptions: function() {
+    var hotelId = AutoForm.getFieldValue('setupDeviceForm', 'hotelId');
+    var rooms = Rooms.find().fetch();
+    var roomOptions = [];
+    if (rooms) {
+      _.each(rooms, function(room) {
+        roomOptions.push({
+          label: room.name,
+          value: room._id
+        });
+      });
+      return roomOptions;
+    }
+  },
+  hotelSelected: function() {
+    return AutoForm.getFieldValue('setupDeviceForm', 'hotelId');
   }
 });
+
+Template.setupDeviceForm.created = function() {
+  var template = this;
+
+  template.autorun(function() {
+    var selectedHotelId = AutoForm.getFieldValue('setupDeviceForm', 'hotelId');
+
+    Meteor.subscribe('roomsByHotelId', selectedHotelId);
+  });
+};
 
 AutoForm.hooks({
   setupDeviceForm: {
@@ -37,7 +64,7 @@ AutoForm.hooks({
 
         });
       }, 1000);
-      
+
     },
     onError: function(operation, error, template) {
       if (error.reason) Errors.throw(error.reason);

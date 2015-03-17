@@ -1,5 +1,5 @@
 Template.deviceLayout.helpers({
-  connectionStatus: function () {
+  connectionStatus: function() {
     return Meteor.status().status;
   },
   hotelPhotoUrl: function() {
@@ -12,8 +12,8 @@ Template.deviceLayout.helpers({
           return hotel.photoUrl + '/convert?w=1024&h=768&fit=scale&cache=true';
         }
       }
-    } 
-    
+    }
+
     return Meteor.settings.public.bgPhotoUrl + '/convert?w=1024&h=768&fit=scale&cache=true';
   },
   modalview: function() {
@@ -60,6 +60,6 @@ events[clickevent + " .perspective.animate > .perspective-container"] = handlePe
 
 Template.deviceLayout.events(events);
 
-Template.deviceLayout.rendered = function () {
+Template.deviceLayout.rendered = function() {
   Session.set('loader', undefined);
 };
