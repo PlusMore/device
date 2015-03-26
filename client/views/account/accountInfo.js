@@ -10,7 +10,7 @@ Template.accountInfo.helpers({
 
   },
   checkoutDate: function() {
-    var stay = Stays.findOne(Session.get('stayId'));
+    var stay = Stays.findOne();
 
     if (stay) {
       return moment(stay.checkoutDate).zone(stay.zone).calendar();
@@ -27,13 +27,13 @@ Template.accountInfo.helpers({
     return this.profile.lastName;
   },
   duringStay: function() {
-    return Session.get('stayId');
+    return !!Stays.findOne();
   },
   editingAccountInfo: function() {
     return Session.get('editingAccountInfo');
   },
   stay: function() {
-    return Stays.findOne(Session.get('stayId'));
+    return Stays.findOne();
   }
 });
 

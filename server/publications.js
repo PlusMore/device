@@ -78,44 +78,44 @@ Meteor.publish('activeStaysByHotelId', function(hotelId) {
  * Always publish logged-in users stayId, Stay info, device info, device data, hotel data, and hotel-service data
  *
  */
-Meteor.publish(null, function() {
-  var userId = this.userId;
+// Meteor.publish(null, function() {
+//   var userId = this.userId;
 
-  if (userId) {
-    var fields = {
-        stayId: 1
-      },
-      user = Meteor.users.findOne({
-        _id: userId
-      }),
-      stayId = user && user.stayId || null;
+//   if (userId) {
+//     var fields = {
+//         stayId: 1
+//       },
+//       user = Meteor.users.findOne({
+//         _id: userId
+//       }),
+//       stayId = user && user.stayId || null;
 
 
-    if (stayId) {
+//     if (stayId) {
 
-      var stay = Stays.find(stayId);
+//       var stay = Stays.find(stayId);
 
-      if (stay) {
-        return [
-          Meteor.users.find(userId, {
-            fields: fields
-          }),
-          Stays.find({
-            _id: stayId,
-            active: true
-          })
-        ];
-      }
+//       if (stay) {
+//         return [
+//           Meteor.users.find(userId, {
+//             fields: fields
+//           }),
+//           Stays.find({
+//             _id: stayId,
+//             active: true
+//           })
+//         ];
+//       }
 
-    } else {
-      this.ready();
-      return null;
-    }
-  } else {
-    this.ready();
-    return null;
-  }
-});
+//     } else {
+//       this.ready();
+//       return null;
+//     }
+//   } else {
+//     this.ready();
+//     return null;
+//   }
+// });
 
 Stays._ensureIndex('users');
 
@@ -132,6 +132,69 @@ Meteor.publish('stayInfo', function(stayId) {
   ];
 });
 
+Meteor.publish('device', function(deviceId) {
+  console.log('publishing device data for ' + deviceId);
+  if (deviceId) {
+    var device = Devices.findOne(deviceId);
+    if (device) {
+      return [
+        Devices.find(deviceId)
+      ];
+    } else {
+      console.log('no device data found for ' + deviceId);
+    }
+  }
+});
+
+Meteor.publish('room', function(roomId) {
+  console.log('publishing room data for ' + roomId);
+  if (roomId) {
+    var room = Rooms.findOne(roomId);
+    if (room) {
+      return [
+        Rooms.find(roomId)
+      ];
+    } else {
+      console.log('no room data found for ' + roomId);
+    }
+  }
+});
+
+Meteor.publish('stay', function(stayId) {
+  console.log('publishing stay data for ' + stayId);
+  if (stayId) {
+    var stay = Stays.findOne(stayId);
+    if (stay) {
+      return [
+        Stays.find(stayId),
+        Meteor.users.find({
+          stayId: stayId
+        })
+      ];
+    } else {
+      console.log('no stay data found for ' + stayId);
+    }
+  }
+});
+
+Meteor.publish('hotel', function(hotelId) {
+  console.log('publishing hotel data for ' + hotelId);
+  if (hotelId) {
+    var hotel = Hotels.findOne(hotelId);
+    if (hotel) {
+      return [
+        Hotels.find(hotelId),
+        HotelServices.find({
+          hotelId: hotelId,
+          active: true
+        })
+      ];
+    } else {
+      console.log('no hotel data found for ' + hotelId);
+    }
+  }
+});
+
 Meteor.publish('userStays', function() {
   return [
     Stays.find({
@@ -140,29 +203,31 @@ Meteor.publish('userStays', function() {
   ];
 });
 
-// Meteor.publish('userStays', function(deviceId) {
-//   return [
-//     Stays.find({deviceId: deviceId, active: true})
-//   ];
-// });
+Meteor.publish('roomForStay', function(stayId) {
+  return [
+    Rooms.find({
+      stayId: stayId
+    })
+  ];
+});
 
 // if user doesn't have device info, publish when requested from registered device
-Meteor.publish('device', function(deviceId) {
-  if (deviceId) {
-    var device = Devices.findOne(deviceId);
-    if (device) {
-      return [
-        Rooms.find(device.roomId),
-        Devices.find(deviceId),
-        Hotels.find(device.hotelId),
-        HotelServices.find({
-          hotelId: device.hotelId,
-          active: true
-        })
-      ];
-    }
-  }
-});
+// Meteor.publish('_device', function(deviceId) {
+//   if (deviceId) {
+//     var device = Devices.findOne(deviceId);
+//     if (device) {
+//       return [
+//         Rooms.find(device.roomId),
+//         Devices.find(deviceId),
+//         Hotels.find(device.hotelId),
+//         HotelServices.find({
+//           hotelId: device.hotelId,
+//           active: true
+//         })
+//       ];
+//     }
+//   }
+// });
 
 Meteor.publish('deviceByStayId', function(stayId) {
   var stay = Stays.findOne(stayId);
