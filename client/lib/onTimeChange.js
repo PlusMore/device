@@ -1,5 +1,5 @@
-Meteor.startup(function () {
-  Tracker.autorun(function () {
+Meteor.startup(function() {
+  Tracker.autorun(function() {
     var time = Session.get('currentTime');
     var stayId = Session.get('stayId');
 
@@ -26,6 +26,5 @@ Meteor.startup(function () {
         });
       }
     }
-  })
-  
+  });
 });

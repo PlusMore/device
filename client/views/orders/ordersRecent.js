@@ -3,12 +3,16 @@ Template.ordersRecent.helpers({
     return Orders.find({}).count() > 0;
   },
   orders: function() {
-  	return Orders.find({},{sort: {requestedDate: -1}});
+    return Orders.find({}, {
+      sort: {
+        requestedDate: -1
+      }
+    });
   }
 });
 
 Template.ordersRecent.events({
-  'click .js-select-user': function () {
+  'click .js-select-user': function() {
     modal.show('selectUser');
   }
 });

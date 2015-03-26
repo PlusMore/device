@@ -1,6 +1,6 @@
 function supportsTouch() {
   var bool;
-  if(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
+  if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
     bool = true;
   } else {
     bool = false;
@@ -9,8 +9,21 @@ function supportsTouch() {
     //   bool = node.offsetTop === 9;
     // });
   }
-  return bool; 
+  return bool;
 }
 
 clickevent = supportsTouch() ? 'touchstart' : 'click';
 Session.set('clickevent', clickevent);
+
+fastTouchEvent = function(fn, event, tmpl) {
+  event.stopPropagation();
+  event.preventDefault();
+  if(event.handled !== true) {
+
+      return fn(event, tmpl);
+
+      event.handled = true;
+  } else {
+      return false;
+  }
+}

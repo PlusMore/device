@@ -1,5 +1,9 @@
 Template.mainNav.helpers({
   navCategories: function() {
-    return NavCategories.find({}, {sort: {menuRank: 1}});
+    return NavCategories.find({}, {
+      sort: {
+        menuRank: 1
+      }
+    });
   }
 });

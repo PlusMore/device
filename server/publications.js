@@ -57,6 +57,23 @@ Meteor.publish('userHotelData', function() {
   }
 });
 
+Meteor.publish('activeStaysByHotelId', function(hotelId) {
+  var now = new Date();
+
+  return Stays.find({
+    hotelId: hotelId,
+    checkInDate: {
+      $lte: now
+    },
+    checkoutDate: {
+      $gte: now
+    },
+    zone: {
+      $exists: true
+    }
+  });
+});
+
 /**
  * Always publish logged-in users stayId, Stay info, device info, device data, hotel data, and hotel-service data
  *
@@ -105,7 +122,7 @@ Stays._ensureIndex('users');
 Meteor.publish('stayInfo', function(stayId) {
   var fields = {
     stayId: 1
-  }
+  };
 
   return [
     Stays.find(stayId),
@@ -118,8 +135,7 @@ Meteor.publish('stayInfo', function(stayId) {
 Meteor.publish('userStays', function() {
   return [
     Stays.find({
-      users: this.userId,
-      active: true
+      users: this.userId
     })
   ];
 });
@@ -136,6 +152,7 @@ Meteor.publish('device', function(deviceId) {
     var device = Devices.findOne(deviceId);
     if (device) {
       return [
+        Rooms.find(device.roomId),
         Devices.find(deviceId),
         Hotels.find(device.hotelId),
         HotelServices.find({
@@ -151,14 +168,26 @@ Meteor.publish('deviceByStayId', function(stayId) {
   var stay = Stays.findOne(stayId);
 
   if (stay) {
-    if (stay.deviceId) {
-      var device = Devices.findOne(stay.deviceId);
+    var room = Rooms.findOne({
+      stayId: stayId
+    });
+
+    if (room) {
+      var device = Devices.findOne({
+        roomId: room._id
+      });
+
       if (device) {
         return [
-          Devices.find(stay.deviceId),
-          Hotels.find(device.hotelId),
+          Devices.find({
+            roomId: room._id
+          }),
+          Hotels.find(room.hotelId),
+          Rooms.find({
+            stayId: stayId
+          }),
           HotelServices.find({
-            hotelId: device.hotelId,
+            hotelId: room.hotelId,
             active: true
           })
         ];
@@ -168,7 +197,13 @@ Meteor.publish('deviceByStayId', function(stayId) {
 
 });
 
-Meteor.publish('experiencesData', function() {
+Meteor.publish('roomsByHotelId', function(hotelId) {
+  return Rooms.find({
+    hotelId: hotelId
+  });
+});
+
+Meteor.publish('experiencesData', function(categoryId, stateCode) {
   var experienceFields = {
     active: 1,
     category: 1,
@@ -188,7 +223,7 @@ Meteor.publish('experiencesData', function() {
     title: 1,
     yelpId: 1,
     phone: 1
-  }
+  };
 
   var tagGroups = Meteor.tags.find({
     group: {
@@ -213,7 +248,9 @@ Meteor.publish('experiencesData', function() {
       active: true
     }),
     Experiences.find({
-      active: true
+      active: true,
+      categoryId: categoryId,
+      "geo.stateCode": stateCode
     }, {
       fields: experiencePublishFields
     })
@@ -289,7 +326,7 @@ Meteor.publish('navLinks', function() {
 
 Meteor.publish('hotelMenu', function(hotelId) {
   var userId = this.userId,
-      user = Meteor.users.findOne(userId);
+    user = Meteor.users.findOne(userId);
 
   var hotel = Hotels.find(hotelId);
   if (hotel) {
@@ -315,7 +352,7 @@ Meteor.publish('hotelMenu', function(hotelId) {
 
 Meteor.publish('hotelMenuForStay', function(stayId) {
   var userId = this.userId,
-      user = Meteor.users.findOne(userId);
+    user = Meteor.users.findOne(userId);
 
   var stay = Stays.findOne(stayId);
 

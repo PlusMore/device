@@ -15,7 +15,7 @@ Template.welcomeContent.helpers({
     var hotel = Hotels.findOne();
 
     if (hotel) {
-      return "@" + hotel.name; 
+      return "@" + hotel.name;
     }
     return "";
   },
@@ -26,23 +26,27 @@ Template.welcomeContent.helpers({
       return hotel.geo.city;
     }
 
-    return "Your City"
+    return "Your City";
   }
 });
 
 var onEngage = function(e) {
+  console.log('Welcome' , e);
   e.preventDefault();
   if (Session.get('animatingMenu')) {
     return;
   }
 
   if (!Menu.isOpen()) {
+    console.log('show menu');
     e.stopImmediatePropagation();
     Menu.show();
   }
-}
+};
 
-var events = {};
-events[clickevent + " #main"] = onEngage;
-
-Template.welcomeContent.events(events);
+Template.welcomeContent.events({
+  'touchstart #main, click #main': function(e, tmpl) {
+    console.log('meteor DOM event');
+    fastTouchEvent(onEngage, e, tmpl);
+  }
+});

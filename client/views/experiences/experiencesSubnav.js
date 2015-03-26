@@ -1,10 +1,12 @@
 Template.experiencesSubnav.helpers({
   groupOrSelectedOption: function() {
     var filters = Session.get('experienceFilters');
-    var selectedFromGroup = _.where(filters, {group: this.group});
+    var selectedFromGroup = _.where(filters, {
+      group: this.group
+    });
     if (selectedFromGroup && selectedFromGroup.length > 0) {
       return selectedFromGroup.length > 1 ? this.group + ' (' + selectedFromGroup.length + ' Selected)' : selectedFromGroup[0].name;
-    } 
+    }
     return this.group;
   },
   sortedOptions: function() {
@@ -16,16 +18,20 @@ Template.experiencesSubnav.helpers({
   categoryFilterGroupTags: function() {
     var results = [];
     if (this.category && this.category.filterGroupTags && this.category.filterGroupTags.length > 0) {
-      var experiencesForCategory = Experiences.find({categoryId: this.category._id});
+      var experiencesForCategory = Experiences.find({
+        categoryId: this.category._id
+      });
 
       _.each(this.category.filterGroupTags, function(group) {
-        
+
         var groupOptions = [];
         experiencesForCategory.forEach(function(experience) {
-          var tagGroupKey = group+"Tags";
+          var tagGroupKey = group + "Tags";
           if (experience[tagGroupKey] && experience[tagGroupKey].length > 0) {
-            _.each(experience[tagGroupKey], function (groupOption) {
-              var option = _.findWhere(groupOptions, {name: groupOption});
+            _.each(experience[tagGroupKey], function(groupOption) {
+              var option = _.findWhere(groupOptions, {
+                name: groupOption
+              });
               if (option) {
                 option.count = option.count + 1;
               } else {
@@ -37,14 +43,14 @@ Template.experiencesSubnav.helpers({
               }
             });
           }
-          
+
         });
 
         results.push({
           group: group,
-          options : groupOptions
+          options: groupOptions
         });
-      });  
+      });
     }
 
     return results;
@@ -59,7 +65,7 @@ Template.experiencesSubnav.helpers({
   },
   dropdownStyle: function() {
     var width = $(document).width();
-    var maxHeight = parseInt(Session.get('dropdownMaxHeight'),10);
+    var maxHeight = parseInt(Session.get('dropdownMaxHeight'), 10);
     var css = "";
 
     if (width >= 768) {
@@ -73,15 +79,15 @@ Template.experiencesSubnav.helpers({
 });
 
 Template.experiencesSubnav.events({
-  'shown.bs.dropdown': function (e, tmpl) {
+  'shown.bs.dropdown': function(e, tmpl) {
     var mainHeight = $('.main').height();
     Session.set('dropdownMaxHeight', mainHeight);
-    $('.main').addClass('dropdown-open');    
+    $('.main').addClass('dropdown-open');
 
     Meteor.setTimeout(function() {
       var width = $(document).width();
       var mainHeight = Session.get('dropdownMaxHeight', mainHeight);
-      var $dropdownMenu = tmpl.$(e.currentTarget).find('.dropdown-menu:first')
+      var $dropdownMenu = tmpl.$(e.currentTarget).find('.dropdown-menu:first');
 
       var $dropdownContainer = $dropdownMenu.parents('.dropdown:first');
 
@@ -95,7 +101,7 @@ Template.experiencesSubnav.events({
       $optionsList.height('auto');
 
       if (width >= 768) {
-        
+
 
         // closest guess
         if ($dropdownMenu[0].scrollHeight > $dropdownMenu[0].offsetHeight) {
@@ -116,11 +122,11 @@ Template.experiencesSubnav.events({
           $optionsList.addClass('scrollable');
         }
       }
-    }, 1)
+    }, 1);
 
-    
+
   },
-  'hidden.bs.dropdown': function (e) {
+  'hidden.bs.dropdown': function(e) {
     $('.main').removeClass('dropdown-open');
   },
   // click 'Done'
@@ -152,7 +158,7 @@ Template.experiencesSubnav.events({
   },
   // clicking options bar shouldn't close menu
   'click .dropdown-menu-options': function(e) {
-    console.log('click menu options')
+    console.log('click menu options');
     e.preventDefault();
     e.stopImmediatePropagation();
   }

@@ -1,5 +1,5 @@
 Template.accountsDropdown.helpers({
-  dropdownText: function () {
+  dropdownText: function() {
     var user = Meteor.user();
 
     if (LocalStore.get('kiosk')) {
@@ -44,7 +44,9 @@ Template.accountsDropdown.helpers({
   },
   users: function() {
     var stayId = Session.get('stayId');
-    return Meteor.users.find({stayId: stayId});
+    return Meteor.users.find({
+      stayId: stayId
+    });
   }
 });
 
@@ -80,7 +82,7 @@ Template.accountsDropdown.events({
       modal.show('selectUser');
     }
   },
-  'click .js-logout': function () {
+  'click .js-logout': function() {
     return Meteor.logout();
   }
 });

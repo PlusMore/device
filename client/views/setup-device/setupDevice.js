@@ -13,9 +13,43 @@ Template.setupDeviceForm.helpers({
       });
     });
 
-    return hotelOptions; 
+    return hotelOptions;
+  },
+  roomOptions: function() {
+    var hotelId = AutoForm.getFieldValue('setupDeviceForm', 'hotelId');
+    var roomsCursor = Rooms.find({}, {$sort: {name: 1}});
+    var stays = Stays.find();
+    var rooms = roomsCursor.fetch();
+    var roomOptions = [];
+    if (rooms) {
+      _.each(rooms, function(room) {
+        var active = '';
+        if (room.stay() && room.stay().isActive()) { //collection helper
+          active = ' (has active stay)';
+        }
+        roomOptions.push({
+          label: room.name + active,
+          value: room._id
+        });
+      });
+      return roomOptions;
+    }
+  },
+  hotelSelected: function() {
+    return AutoForm.getFieldValue('setupDeviceForm', 'hotelId');
   }
 });
+
+Template.setupDeviceForm.created = function() {
+  var template = this;
+
+  template.autorun(function() {
+    var selectedHotelId = AutoForm.getFieldValue('setupDeviceForm', 'hotelId');
+
+    Meteor.subscribe('roomsByHotelId', selectedHotelId);
+    Meteor.subscribe('activeStaysByHotelId', selectedHotelId);
+  });
+};
 
 AutoForm.hooks({
   setupDeviceForm: {
@@ -37,7 +71,7 @@ AutoForm.hooks({
 
         });
       }, 1000);
-      
+
     },
     onError: function(operation, error, template) {
       if (error.reason) Errors.throw(error.reason);

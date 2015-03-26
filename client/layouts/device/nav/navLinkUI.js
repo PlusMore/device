@@ -2,7 +2,7 @@ Template.navLinkUI.helpers({
   displayNavLink: function() {
     return Nav.checkPermissions(this);
   },
-  path: function () {
+  path: function() {
     return Router.routes[routeName].path(routeData || {});
   }
 });
@@ -15,6 +15,7 @@ var handleNav = function(e, tmpl) {
   if (Iron.Location.get().path === href) {
     Menu.hide();
   } else {
+    Menu.hide();
     Router.go(href);
   }
 };
