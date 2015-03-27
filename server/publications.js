@@ -74,49 +74,6 @@ Meteor.publish('activeStaysByHotelId', function(hotelId) {
   });
 });
 
-/**
- * Always publish logged-in users stayId, Stay info, device info, device data, hotel data, and hotel-service data
- *
- */
-// Meteor.publish(null, function() {
-//   var userId = this.userId;
-
-//   if (userId) {
-//     var fields = {
-//         stayId: 1
-//       },
-//       user = Meteor.users.findOne({
-//         _id: userId
-//       }),
-//       stayId = user && user.stayId || null;
-
-
-//     if (stayId) {
-
-//       var stay = Stays.find(stayId);
-
-//       if (stay) {
-//         return [
-//           Meteor.users.find(userId, {
-//             fields: fields
-//           }),
-//           Stays.find({
-//             _id: stayId,
-//             active: true
-//           })
-//         ];
-//       }
-
-//     } else {
-//       this.ready();
-//       return null;
-//     }
-//   } else {
-//     this.ready();
-//     return null;
-//   }
-// });
-
 Stays._ensureIndex('users');
 
 Meteor.publish('stayInfo', function(stayId) {
@@ -211,24 +168,6 @@ Meteor.publish('roomForStay', function(stayId) {
     })
   ];
 });
-
-// if user doesn't have device info, publish when requested from registered device
-// Meteor.publish('_device', function(deviceId) {
-//   if (deviceId) {
-//     var device = Devices.findOne(deviceId);
-//     if (device) {
-//       return [
-//         Rooms.find(device.roomId),
-//         Devices.find(deviceId),
-//         Hotels.find(device.hotelId),
-//         HotelServices.find({
-//           hotelId: device.hotelId,
-//           active: true
-//         })
-//       ];
-//     }
-//   }
-// });
 
 Meteor.publish('deviceByStayId', function(stayId) {
   var stay = Stays.findOne(stayId);
