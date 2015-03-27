@@ -198,7 +198,8 @@ Meteor.publish('hotel', function(hotelId) {
 Meteor.publish('userStays', function() {
   return [
     Stays.find({
-      users: this.userId
+      users: this.userId,
+      active: true
     })
   ];
 });
