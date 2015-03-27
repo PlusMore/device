@@ -43,7 +43,9 @@ Template.accountsDropdown.helpers({
     }
   },
   users: function() {
-    var stayId = Session.get('stayId');
+    var stays = Stays.find();
+    var stay = Stays.findOne();
+    var stayId = stay._id;
     return Meteor.users.find({
       stayId: stayId
     });
@@ -75,7 +77,7 @@ Template.accountsDropdown.events({
         return;
       }
     }
-    
+
     if (Meteor.user()) {
       modal.show('accountInfo');
     } else {

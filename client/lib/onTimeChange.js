@@ -1,7 +1,9 @@
 Meteor.startup(function() {
   Tracker.autorun(function() {
     var time = Session.get('currentTime');
-    var stayId = Session.get('stayId');
+    var stays = Stays.find();
+    var stay = Stays.findOne();
+    var stayId = stay._id;
 
     var stay = Stays.findOne(stayId);
     if (stay) {
@@ -15,8 +17,6 @@ Meteor.startup(function() {
             "checkInDate": stay.checkInDate,
             "checkoutDate": stay.checkoutDate
           });
-
-          Session.set('stayId', undefined);
 
           if (LocalStore.get('kiosk')) {
             Meteor.logout();
