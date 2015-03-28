@@ -45,7 +45,7 @@ Template.accountsDropdown.helpers({
   users: function() {
     var stays = Stays.find();
     var stay = Stays.findOne();
-    var stayId = stay._id;
+    var stayId = stay && stay._id;
     return Meteor.users.find({
       stayId: stayId
     });
