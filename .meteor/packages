@@ -47,3 +47,7 @@ patrickleet:enquire
 plusmore:reactive-responsive-helpers
 msavin:mongol
 dburles:collection-helpers
+velocityjs:velocityjs
+nblazer:casperjs
+velocity:html-reporter
+velocity:console-reporter

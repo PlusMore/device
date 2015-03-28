@@ -13,7 +13,14 @@ start:
 	NODE_OPTIONS=$(NODE_OPTIONS) \
 	MONGO_URL=$(MONGO_URL) \
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
-	meteor -p $(PORT) --settings ./config/$(APP_ENV)/settings.json --mobile-server $(HOST):$(PORT) $(APP_OPTIONS) 
+	meteor -p $(PORT) --settings ./config/$(APP_ENV)/settings.json --mobile-server $(HOST):$(PORT) $(APP_OPTIONS)
+
+test:
+	NODE_OPTIONS=$(NODE_OPTIONS) \
+	MONGO_URL=$(MONGO_URL) \
+	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
+	meteor --verbose --test -p $(PORT) --settings ./config/$(APP_ENV)/settings.json $(APP_OPTIONS)
+
 
 ios:
 	NODE_OPTIONS=$(NODE_OPTIONS) \
@@ -38,7 +45,7 @@ build:
 	APP_ENV=$(APP_ENV) \
 	SUBDOMAIN=$(SUBDOMAIN) \
 	VERSION=$(VERSION) \
-	meteor build ~/cordova-builds/$(APP_ENV) --server=https://$(SUBDOMAIN).plusmoretablets.com 
+	meteor build ~/cordova-builds/$(APP_ENV) --server=https://$(SUBDOMAIN).plusmoretablets.com
 	cd ~/cordova-builds/$(APP_ENV)/android/
 	jarsigner -digestalg SHA1 ~/cordova-builds/$(APP_ENV)/android/unaligned.apk $(SUBDOMAIN)
 	~/.meteor/android_bundle/android-sdk/build-tools/20.0.0/zipalign 4 ~/cordova-builds/$(APP_ENV)/android/unaligned.apk ~/cordova-builds/$(APP_ENV)/android/$(SUBDOMAIN)-$(VERSION).apk
