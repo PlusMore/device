@@ -38,7 +38,6 @@ Tracker.autorun(function() {
 
 // 2) From the stay, find out what room the user is associated with
 Tracker.autorun(function() {
-  console.log('App Subscriptions - 2) From the stay, find out what room the user is associated with')
   var kiosk = LocalStore.get('kiosk');
   var user = Meteor.user();
   var activeStays = Stays.find({active: true}); // for reactivity
@@ -47,7 +46,7 @@ Tracker.autorun(function() {
   // if not kiosk and user logged in and has stay
   if (!kiosk && user && stay) {
 
-    console.log('  - not kiosk, found user and stay - getting room');
+    console.log('App Subscriptions - 2) From the stay, find out what room the user is associated with');
     subscriptions.roomForStay = Meteor.subscribe('roomForStay', stay._id);
 
   } else {

@@ -1,6 +1,8 @@
-var _checkIfStayHasExpired = function(stay) {
-  if (moment(time).zone(stay.zone) > moment(stay.checkoutDate).zone(stay.zone)) {
-    Meteor.call('stayOver', stayId, function(err) {
+var checkIfStayHasExpired = function(time, stay) {
+  var now = moment(time).zone(stay.zone);
+  var checkoutDate = moment(stay.checkoutDate).zone(stay.zone);
+  if (now > checkoutDate) {
+    Meteor.call('stayOver', stay._id, function(err) {
       if (err) {
         return Errors.throw('Unable to end stay');
       }
@@ -19,18 +21,14 @@ var _checkIfStayHasExpired = function(stay) {
   }
 }
 
-var checkIfStayHasExpired = _.debounce(_checkIfStayHasExpired, 10000);
-
 Meteor.startup(function() {
   Tracker.autorun(function() {
     var time = Session.get('currentTime');
     var stays = Stays.find();
     var stay = Stays.findOne();
-    var stayId = stay && stay._id;
 
-    var stay = Stays.findOne(stayId);
     if (stay) {
-      checkIfStayHasExpired(stay);
+      checkIfStayHasExpired(time, stay);
     }
   });
 });
