@@ -90,8 +90,8 @@ Meteor.publish('stayInfo', function(stayId) {
 });
 
 Meteor.publish('device', function(deviceId) {
-  console.log('publishing device data for ' + deviceId);
   if (deviceId) {
+    console.log('publishing device data for ' + deviceId);
     var device = Devices.findOne(deviceId);
     if (device) {
       return [
@@ -104,8 +104,8 @@ Meteor.publish('device', function(deviceId) {
 });
 
 Meteor.publish('room', function(roomId) {
-  console.log('publishing room data for ' + roomId);
   if (roomId) {
+    console.log('publishing room data for ' + roomId);
     var room = Rooms.findOne(roomId);
     if (room) {
       return [
@@ -118,8 +118,8 @@ Meteor.publish('room', function(roomId) {
 });
 
 Meteor.publish('stay', function(stayId) {
-  console.log('publishing stay data for ' + stayId);
   if (stayId) {
+    console.log('publishing stay data for ' + stayId);
     var stay = Stays.findOne(stayId);
     if (stay) {
       return [
@@ -135,8 +135,8 @@ Meteor.publish('stay', function(stayId) {
 });
 
 Meteor.publish('hotel', function(hotelId) {
-  console.log('publishing hotel data for ' + hotelId);
   if (hotelId) {
+    console.log('publishing hotel data for ' + hotelId);
     var hotel = Hotels.findOne(hotelId);
     if (hotel) {
       return [
