@@ -1,13 +1,15 @@
 Template.cart.helpers({
   hasCartItems: function() {
     var stay = Stays.findOne();
-    var cartId = stay._id || Meteor.default_connection._lastSessionId;
+    var stayId = stay && stay._id;
+    var cartId = stayId || Meteor.default_connection._lastSessionId;
     return CartItems.find({cartId: cartId}).count() > 0;
   },
   cartItems: function(){
     var shopCart = [];
     var stay = Stays.findOne();
-    var cartId = stay._id || Meteor.default_connection._lastSessionId;
+    var stayId = stay && stay._id;
+    var cartId = stayId || Meteor.default_connection._lastSessionId;
     var cartItems = CartItems.find({cartId: cartId});
     var total = 0;
 
