@@ -100,7 +100,8 @@ Template.cart.events({
     e.stopImmediatePropagation();
 
     var stay = Stays.findOne();
-    var cartId = stay._id || Meteor.default_connection._lastSessionId;
+    var stayId = stay && stay._id;
+    var cartId = stayId || Meteor.default_connection._lastSessionId;
 
     console.log('place order for cart', cartId)
     Session.set('modalOpen', true);

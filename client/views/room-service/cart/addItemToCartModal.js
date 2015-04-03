@@ -15,7 +15,8 @@ Template.addItemToCartModal.events({
     var itemType = 'menuItem';
     var itemId = this._id;
     var stay = Stays.findOne();
-    var cartId = stay._id || Meteor.default_connection._lastSessionId;
+    var stayId = stay && stay._id;
+    var cartId = stayId || Meteor.default_connection._lastSessionId;
     var comments = tmpl.find('[name=comments]').value;
     var now = moment();
     var zone = now.zone();
