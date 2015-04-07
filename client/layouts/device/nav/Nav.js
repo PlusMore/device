@@ -33,6 +33,23 @@ Nav = {
     if (nav.hotelService) {
       enabled = !!hotel && hotel.hotelServicesEnabled;
       console.log("{0} is a hotel service - {1}".format(nav.name, enabledText(enabled)));
+
+      if (enabled) {
+
+        // if roomService, check that room service is enabled by the hotel
+        if (nav.routeName === 'roomService') {
+          var roomService = HotelServices.findOne({type: 'roomService'});
+          enabled = !!(roomService && roomService.active);
+        }
+
+        // check that there are hotel services active
+        if (nav.routeName === 'hotelServices') {
+          var hotelServices = HotelServices.find({active: true, type: {$ne: 'roomService'}});
+          enabled = !!(hotelServices.count() > 0);
+        }
+
+      }
+
       if (!enabled) return false;
     }
 

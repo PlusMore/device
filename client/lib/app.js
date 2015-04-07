@@ -117,6 +117,9 @@ Meteor.startup(function() {
     },
     go: function() {
       Menu.show();
+    },
+    kioskMode: function() {
+      return LocalStore.get('kiosk');
     }
   });
 
