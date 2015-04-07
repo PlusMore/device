@@ -8,16 +8,16 @@
         </i>
 
         <h3 class="navbar-title">
-          About {{hotel.name}}
+          Hotel Info
         </h3>
 
       </div>
     </nav>
 
     <div id="hotel-bg" class="hotel-bg">
-      <img class='hotel-info-bg img-responsive' src="{{hotel.photoUrl}}/convert?{{bgImgWidth}}&{{bgImgHeight}}&fit=crop&cache=true" alt="">  
+      <img class='hotel-info-bg img-responsive' src="{{hotel.photoUrl}}/convert?{{bgImgWidth}}&{{bgImgHeight}}&fit=crop&cache=true" alt="">
     </div>
-    
+
 
     <div class="outer">
       <div class="holder">
@@ -28,6 +28,7 @@
                 <div class="content-spacer" style="{{contentSpacerCss}}"></div>
                 <div class="row first-row" id="info-header">
                   <div class="col-xs-12">
+                    <h4>{{hotel.name}}</h4>
                     <h5>{{hotel.geo.streetNumber}} {{hotel.geo.streetName}}<br>{{hotel.geo.city}}, {{hotel.geo.state}} {{hotel.geo.zip}}<br>{{hotel.phone}}</h5>
                   </div>
                 </div>

@@ -1,11 +1,15 @@
 Template.cart.helpers({
   hasCartItems: function() {
-    var cartId = Session.get('stayId') || Meteor.default_connection._lastSessionId;
+    var stay = Stays.findOne();
+    var stayId = stay && stay._id;
+    var cartId = stayId || Meteor.default_connection._lastSessionId;
     return CartItems.find({cartId: cartId}).count() > 0;
   },
   cartItems: function(){
     var shopCart = [];
-    var cartId = Session.get('stayId') || Meteor.default_connection._lastSessionId;
+    var stay = Stays.findOne();
+    var stayId = stay && stay._id;
+    var cartId = stayId || Meteor.default_connection._lastSessionId;
     var cartItems = CartItems.find({cartId: cartId});
     var total = 0;
 
@@ -21,11 +25,11 @@ Template.cart.helpers({
     });
 
     shopCart.subtotal = total;
-    shopCart.tax = shopCart.subtotal * 0.06; // lookup tax for state? Based on hotelId? 
+    shopCart.tax = shopCart.subtotal * 0.06; // lookup tax for state? Based on hotelId?
     shopCart.total = shopCart.subtotal + shopCart.tax;
     return shopCart;
   }
-}); 
+});
 
 Template.cart.events({
   'click .remove-item':function(e, tmpl) {
@@ -33,10 +37,10 @@ Template.cart.events({
     e.stopImmediatePropagation();
     var that = this;
     Session.set('modalOpen', true);
-    
+
     bootbox.dialog({
       title: 'Remove ' + that.name,
-      message: "Are you sure you would like to remove " + that.name + ' from your cart?', 
+      message: "Are you sure you would like to remove " + that.name + ' from your cart?',
       closeButton: false,
       buttons: {
         cancel: {
@@ -57,7 +61,7 @@ Template.cart.events({
       }
     });
     return false;
-  }, 
+  },
   'click .btn-reset': function(e, tmpl) {
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -66,7 +70,7 @@ Template.cart.events({
     bootbox.dialog({
       title: 'Empty Cart',
       message: "Are you sure you'd like to empty your cart?",
-      closeButton: false, 
+      closeButton: false,
       buttons: {
         cancel: {
           label: 'Cancel',
@@ -79,7 +83,8 @@ Template.cart.events({
           label: 'Empty Cart',
           className: 'btn-default',
           callback:function(result) {
-            var cartId = Session.get('stayId') || Meteor.default_connection._lastSessionId;
+            var stay = Stays.findOne();
+            var cartId = stay._id || Meteor.default_connection._lastSessionId;
             Meteor.call('emptyCart', cartId);
           }
         }
@@ -89,18 +94,20 @@ Template.cart.events({
       }
     });
     return false;
-  }, 
+  },
   'click #place-order': function(e, tmpl) {
     e.preventDefault();
     e.stopImmediatePropagation();
 
-    var cartId = Session.get('stayId') || Meteor.default_connection._lastSessionId;
+    var stay = Stays.findOne();
+    var stayId = stay && stay._id;
+    var cartId = stayId || Meteor.default_connection._lastSessionId;
 
     console.log('place order for cart', cartId)
     Session.set('modalOpen', true);
     bootbox.dialog({
       title: 'Place Order',
-      message: "Are you sure you would like to place your order now?", 
+      message: "Are you sure you would like to place your order now?",
       closeButton: false,
       buttons: {
         cancel: {
@@ -122,9 +129,9 @@ Template.cart.events({
               $(document).off('cancel-user-selected');
               Session.set('modalOpen', false);
 
-              
+
               Meteor.call('orderRoomServiceCartItems', now.toDate(), zone, cartId, function(err, result) {
-                if (err) { 
+                if (err) {
                   return Errors.throw(err.message);
                 }
                 Router.go('recent-orders');
