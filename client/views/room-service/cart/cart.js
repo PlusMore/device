@@ -84,7 +84,8 @@ Template.cart.events({
           className: 'btn-default',
           callback:function(result) {
             var stay = Stays.findOne();
-            var cartId = stay._id || Meteor.default_connection._lastSessionId;
+            var stayId = stay && stay._id;
+            var cartId = stayId || Meteor.default_connection._lastSessionId;
             Meteor.call('emptyCart', cartId);
           }
         }
