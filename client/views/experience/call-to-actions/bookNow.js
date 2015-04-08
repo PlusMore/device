@@ -61,8 +61,23 @@ Template.bookNow.events({
     e.preventDefault();
     e.stopImmediatePropagation()
 
+    if (!ResponsiveHelpers.isXs()) {
+      if (tmpl.unavailable) {
+        alert('No more available times for selected date. Please try another date.');
+        return false;
+      }
+    }
+
     Template.instance().state.set('confirm');
     return false;
+  },
+  'click .btn-call-to-action.confirm': function(e, tmpl) {
+    if (tmpl.unavailable) {
+      alert('No more available times for selected date. Please try another date.');
+      e.preventDefault();
+      e.stopImmediatePropagation()
+      return false;
+    }
   },
   'click .btn-call-to-action.hiding': function(e, tmpl) {
     e.preventDefault();
@@ -101,14 +116,14 @@ Template.bookNow.events({
         Meteor.setTimeout(function() {
           Session.set('loader', undefined);
         }, 500);
-        
+
       });
     });
 
     $(document).one('cancel-user-selected', function() {
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
-      
+
       return;
     });
 
@@ -133,11 +148,16 @@ var getCategoryDelay = function(category) {
 var initializePickers = function(template) {
   var experience = Experiences.findOne(template.data._id);
 
+  // the delay for this type of category in half hour intervals
+  // a three hour delay, for example, is 6
+  // delays are from the end of the current half hour block
   var delay = getCategoryDelay(experience.category);
+  var delayHours = delay / 2;
 
   var startMinutes = experience.reservationStartMinutes;
   var endMinutes = experience.reservationEndMinutes;
   var startTime, endTime;
+
   var startTomorrow = false;
 
   var checkoutDate = undefined;
@@ -152,13 +172,19 @@ var initializePickers = function(template) {
     container: 'body',
     clear: null,
     onSet: function(select) {
-      
-      if (select.select) {
-        template.selectedMinutes = select.select;
+      // if use selected a time, store the time value in minute on the template
+      // storing it on the template allows the datepicker to access the data
+      var selectedTimeInMinutes = select.select;
+      if (selectedTimeInMinutes) {
+        template.selectedMinutes = selectedTimeInMinutes;
       }
     }
   };
 
+  // if there is a start time defined, set the 'min' in timepickeroptions
+  // the value should be today's date at the time reservations are allowed
+  // calculate that by finding the start of the day and adding startMinutes to it
+  // if hours are not defines, default to 4pm for now
   if (typeof startMinutes !== 'undefined') {
     startTime = moment().startOf('day');
     startTime = startTime.minutes(startMinutes);
@@ -166,7 +192,10 @@ var initializePickers = function(template) {
   } else {
     timepickerOptions.min = moment().startOf('day').hours(16).toDate();
   }
-  
+
+  // now find the max option for the timepicker
+  // do the same calculation for startTime to also find the endTime.
+  // if endMinutes is less that than startMinutes, the end is the next day
   if (typeof endMinutes !== 'undefined') {
     // If end is less than start, it's AM next day
     if (endMinutes <= startMinutes) {
@@ -183,90 +212,157 @@ var initializePickers = function(template) {
     format: 'dddd, mmmm d',
     clear: null,
     onSet: function(select) {
-      // set selectedDate on template
+      // when a date is selected, we need set the time availability for that day
+      // if it is today, we need to set the minimum time to now plus the delay
+      // required to be able to get the reservation
+
+      // set selectedDate on template that way timepicker can access it
       template.selectedDate = select.select;
+      var selectedDate = select.select;
 
+      // the timepicker control
       var timepicker = template.timepicker.pickatime('picker');
+      var currentSelectedTime = timepicker.get('select').pick;
+      // make sure it's enabled
+      timepicker.set('enable', true);
 
-      var currentSelect = timepicker.get('select').pick;
-
-      if (!select.select) {
+      // if an invalid date has been selected, we need to allow selection of all times
+      // for when a guest then selects a date
+      if (!selectedDate) {
+        // set the min to the start of the availability
         timepicker.set('min', startTime.toDate());
 
-        // if selectedtim is before min, select min
-        if (timepicker.get('min').pick > currentSelect) {
+        // if the currently selected time is before min, select min
+        // as the currently selected time is not possible
+        if (timepicker.get('min').pick > currentSelectedTime) {
           timepicker.set('select', timepicker.get('min').pick);
-        } 
-        
-        return true; 
+        } else {
+          timepicker.set('select', currentSelectedTime);
+        }
+
+        return true;
       }
 
-      var isToday = moment(select.select).startOf('day').toDate().getTime() === moment().startOf('day').toDate().getTime();
+      // is datepicker being set for today?
+      // calculate the available times for today
+      // is right now + required delay between the start time and end time for reservations?
+      var isToday = moment(selectedDate).startOf('day').toDate().getTime() === moment().startOf('day').toDate().getTime();
+      var inAvailablityHours = false;
       if (isToday) {
-        // if two hours from now are in between start and end
-        // set first available time to be {{delay}} hours from now
-        if ((moment().add('hours', delay) > startTime) && (moment().add('hours', delay) < endTime)) {
+
+        // if delay/2 hours from now are in between start and end
+        // set first available time to be delay hours from now
+        // delay is in half hour intervals
+        var nowPlusDelay = moment().add(delayHours, 'hours');
+
+        // the api for this is a bit weird, but 'min' accepts a number value
+        // which is used as the min number of time blocks, which default to 30 minutes,
+        // from the current time. 3 hours is about 6 half hour delays
+        // if nowPlusDelay is not within the availability time, then set the
+        // min time to the first available time from startTime
+        if ( (nowPlusDelay > startTime) && (nowPlusDelay < endTime) ) {
+          inAvailablityHours = true;
           timepicker.set('min', delay);
         } else {
           timepicker.set('min', startTime.toDate());
+          timepicker.set('disable', true);
+
+          $('#call-to-action .btn-primary').addClass('unavailable');
+          $('#mobile-call-to-action .btn-primary.confirm').addClass('unavailable');
+          template.unavailable = true;
+
+          Meteor.defer(function() {
+            timepicker.clear();
+          });
+          return true;
         }
 
-        // if selectedtime is before min, select min
-        if (timepicker.get('min').pick > currentSelect) {
+        // if the currently selected time is before min, select min
+        // as the currently selected time is not available for the given date
+        if (timepicker.get('min').pick > currentSelectedTime) {
           timepicker.set('select', timepicker.get('min').pick);
-        } 
+        }
 
       } else {
+        // if it's not today, any selected time will work, and set min to first
+        // available time
         timepicker.set('min', startTime.toDate());
+        // if the currently selected time is before min, select min
+        // as the currently selected time is not available for the given date
+        if (timepicker.get('min').pick > currentSelectedTime) {
+          timepicker.set('select', timepicker.get('min').pick);
+        } else {
+          timepicker.set('select', currentSelectedTime);
+        }
       }
 
+      $('#call-to-action .btn-primary').removeClass('unavailable');
+      $('#mobile-call-to-action .btn-primary').removeClass('unavailable');
+      template.unavailable = false;
       return true;
     }
   };
 
-  if (moment() < startTime) {
-    // if it is today at 3pm, and reservations start 
-    // at from 5pm, start at today in datepicker
-    datepickerOptions.min = true;
-  } else if ((moment() > startTime) && (moment() < endTime)) {
-    // if we are inside of reservation hours
-    // then start datepicker at today
-    datepickerOptions.min = true;
-    // unless {{delay}} hours from now is past endTime, don't allow 
-    // any more reservations
-    if (moment().add('hours', delay) > endTime) {
-      startTomorrow = true;
-      datepickerOptions.min = 1;
-    }
-  } else {
-    // after hours, make datepicker start tomorrow
-    startTomorrow = true;
-    datepickerOptions.min = 1;
-  }
 
+  // here we are deciding which day to start the date picker at. If we are within
+  // the availability times for today, then the minumum available date should be today,
+  // if we are already outside of it, then the minumum should be tomorrow
+
+  // // if right now is before the first available time, then the start should be today
+  // if (moment() < startTime) {
+  //   // if it is today at 3pm, and reservations start
+  //   // at from 5pm, start at today in datepicker
+  //   datepickerOptions.min = true;
+  // } else if ((moment() > startTime) && (moment() < endTime)) {
+  //   // if we are inside of reservation hours
+  //   // then start datepicker at today
+  //   datepickerOptions.min = true;
+  //   // unless {{delay}} hours from now is past endTime, don't allow
+  //   // any more reservations
+  //   if (moment().add(delayHours, 'hours') > endTime) {
+  //     startTomorrow = true;
+  //     datepickerOptions.min = 1; // min is 1 day away
+  //   }
+  // } else {
+  //   // after hours, make datepicker start tomorrow
+  //   startTomorrow = true;
+  //   datepickerOptions.min = 1;
+  // }
+
+  // trying something new, always set min to today, when user tries to book for
+  // today, show a message saying there is no more availability
+  startTomorrow = false;
+  datepickerOptions.min = true;
+
+  // on initialize, select the date determined above, which is either today or
+  // tomorrow
   datepickerOptions.onStart = function() {
     var _this = this;
     Meteor.setTimeout(function(){
       if (startTomorrow) {
-        _this.set('select', moment().add('days', 1).toDate());
+        _this.set('select', moment().add(1, 'days').toDate());
       } else {
         _this.set('select', new Date());
       }
-    }); 
+    });
   };
 
+  // and select the first available time
   timepickerOptions.onStart = function() {
     var _this = this;
     Meteor.setTimeout(function(){
       _this.set('select', _this.get('min').pick);
-    });    
+    });
   };
 
+  // make the pickers scrollable
   timepickerOptions.onRender = function() {
     return this.$root.find('.picker__holder:first').addClass('scrollable');
   };
 
-
+  // alright, all the options have been calculated, and we told the pickers
+  // how to handle dates and times being changed
+  // now just initialize by passing in the options
   template.datepicker = this.$('.datepicker').pickadate(datepickerOptions);
   template.timepicker = this.$('.timepicker').pickatime(timepickerOptions);
 };
