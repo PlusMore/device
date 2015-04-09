@@ -263,7 +263,9 @@ var initializePickers = function(template) {
         if ( (nowPlusDelay > startTime) && (nowPlusDelay < endTime) ) {
           inAvailablityHours = true;
           timepicker.set('min', delay);
-        } else {
+        } else if (nowPlusDelay < startTime){
+          timepicker.set('min', startTime.toDate());
+        } else if (nowPlusDelay > endTime) {
           timepicker.set('min', startTime.toDate());
           timepicker.set('disable', true);
 
