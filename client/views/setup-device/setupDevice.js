@@ -17,7 +17,7 @@ Template.setupDeviceForm.helpers({
   },
   roomOptions: function() {
     var hotelId = AutoForm.getFieldValue('setupDeviceForm', 'hotelId');
-    var roomsCursor = Rooms.find({}, {$sort: {name: 1}});
+    var roomsCursor = Rooms.find({hotelId: hotelId}, {$sort: {name: 1}});
     var stays = Stays.find();
     var rooms = roomsCursor.fetch();
     var roomOptions = [];
