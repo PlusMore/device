@@ -6,18 +6,15 @@ Template.selectUser.helpers({
       return false;
     }
 
-    var stayId = Session.get('stayId');
-    var stays = Stays.find(stayId);
+    var stays = Stays.find();
     if (stays.count() > 0) {
-      var stay = Stays.findOne(stayId);
+      var stay = Stays.findOne();
       if (stay.users && stay.users.length > 0) {
         return true;
-      } else {
-        return false;
       }
-    } else {
-      return false;
     }
+
+    return false;
   }
 });
 

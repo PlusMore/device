@@ -1,6 +1,11 @@
 Template.selectUserFromStay.helpers({
   users: function() {
-    var stayId = Session.get('stayId');
-    return Meteor.users.find({stayId: stayId});
+    var stays = Stays.find();
+    var stay = Stays.findOne();
+    if (stay) {
+      return Meteor.users.find({stayId: stay._id});
+    }
+
+    return false;
   }
 });

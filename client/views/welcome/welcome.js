@@ -8,8 +8,8 @@ Template.welcomeContent.helpers({
   hotel: function() {
     return Hotels.findOne();
   },
-  device: function() {
-    return Devices.findOne();
+  room: function() {
+    return Rooms.findOne();
   },
   welcomeToName: function() {
     var hotel = Hotels.findOne();

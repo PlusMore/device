@@ -2,8 +2,11 @@ Template.createPasswordForStayUser.helpers({
   userName: function() {
     var userId = Session.get('selectedUserChoice');
     var user = Meteor.users.findOne(userId);
+    if (user && user.profile) {
+      return "{0} {1}".format(user.profile.firstName, user.profile.lastName);
+    }
 
-    return "{0} {1}".format(user.profile.firstName, user.profile.lastName);
+    return "No User Selected";
   },
   guestPasswordSchema: function() {
     return Schema.guestPassword;
@@ -14,7 +17,7 @@ AutoForm.hooks({
   createPasswordForStayUser: {
     onSubmit: function(insertDoc, updateDoc, currentDoc) {
       this.event.preventDefault();
-      
+
       var parent = this.template.findParentTemplate('chooseUser');
 
       var cevent = jQuery.Event('create-stay-user-password');

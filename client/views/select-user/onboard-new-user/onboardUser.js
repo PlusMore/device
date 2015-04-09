@@ -18,7 +18,7 @@ Template.onboardUser.events({
     var deviceId = LocalStore.get('deviceId');
     var checkoutDate = Session.get('checkoutDate');
     Session.set('loader', 'Verifying');
-    
+
     Meteor.call('registerStay', deviceId, checkoutDate, function(err, stayId) {
       if (err) {
         Session.set('loader', undefined);
@@ -26,13 +26,12 @@ Template.onboardUser.events({
         return Errors.throw('Unable to register stay.');
       }
 
-      Session.set('stayId', stayId);
       Session.set('onboardStep', 'onboardUserGuestNotifications');
       Session.set('loader', undefined);
     });
   },
   'onboard-step-guest-notifications-complete': function(e, tmpl) {
-    // check if user exists, if so, send to login, 
+    // check if user exists, if so, send to login,
     // otherwise send to account creation
     var accountOptions = Session.get('onboardAccountCreationOptions');
     var email = accountOptions.email;
@@ -56,7 +55,8 @@ Template.onboardUser.events({
     Accounts.createUser(accountOptions, function(err) {
       if (err) return Errors.throw(err.message);
 
-      var stayId = Session.get('stayId');
+      var stay = Stays.findOne();
+      var stayId = stay._id;
 
       Meteor.call('addUserToStay', stayId, function() {
         Session.set('onboardStep', 'onboardUserFinished');
@@ -90,11 +90,12 @@ Template.onboardUser.events({
         return Errors.throw(err.message);
       }
 
-      var stayId = Session.get('stayId');
+      var stay = Stays.findOne();
+      var stayId = stay._id;
 
       Meteor.call('addUserToStay', stayId, function() {
         Session.set('onboardStep', 'onboardUserFinished');
-        
+
         Meteor.setTimeout(function() {
           tmpl.$(tmpl.firstNode).trigger('onboard-complete');
         }, 1000);
@@ -104,12 +105,12 @@ Template.onboardUser.events({
   'onboard-complete': function(e, tmpl) {
     tmpl.$(tmpl.firstNode).closest('.modal').trigger('hide-modal');
     $(document).trigger('user-selected');
-    
+
     Meteor.setTimeout(function() {
       modal.close();
       Session.set('onboardStep', undefined);
       Session.get('onboardAccountCreationOptions', undefined);
-      Session.set('onboarding', false); 
+      Session.set('onboarding', false);
     }, 2000);
   },
   'onboard-error': function(e, tmpl) {
