@@ -336,22 +336,26 @@ Meteor.publish('hotelMenu', function(hotelId) {
   var hotel = Hotels.find(hotelId);
   if (hotel) {
 
-    var publication = new SimplePublication({
-      subHandle: this,
-      collection: MenuCategories,
-      selector: {
-        hotelId: hotelId,
-        active: true
-      },
-      dependant: new SimplePublication({
-        subHandle: this,
-        collection: MenuItems,
-        selector: {
-          active: true
+    var menuCategoriesCursor = MenuCategories.find({
+      hotelId: hotelId,
+      active: true
+    });
+
+    var categoryIds = [];
+
+    menuCategoriesCursor.map(function(category) {
+      categoryIds.push(category._id);
+    });
+
+    return [
+      menuCategoriesCursor,
+      MenuItems.find({
+        menuCategoryId: {
+          $in: categoryIds
         },
-        foreignKey: 'menuCategoryId'
+        active: true
       })
-    }).start();
+    ];
   }
 });
 
@@ -364,25 +368,29 @@ Meteor.publish('hotelMenuForStay', function(stayId) {
   if (stay) {
     var hotel = Hotels.find(stay.hotelId);
     if (hotel) {
-      var publication = new SimplePublication({
-        subHandle: this,
-        collection: MenuCategories,
-        selector: {
-          hotelId: stay.hotelId,
-          active: true
-        },
-        dependant: new SimplePublication({
-          subHandle: this,
-          collection: MenuItems,
-          selector: {
-            active: true
+
+      var menuCategoriesCursor = MenuCategories.find({
+        hotelId: stay.hotelId,
+        active: true
+      });
+
+      var categoryIds = [];
+
+      menuCategoriesCursor.map(function(category) {
+        categoryIds.push(category._id);
+      });
+
+      return [
+        menuCategoriesCursor,
+        MenuItems.find({
+          menuCategoryId: {
+            $in: categoryIds
           },
-          foreignKey: 'menuCategoryId'
+          active: true
         })
-      }).start();
+      ];
     }
   }
-
 });
 
 Meteor.publish('cart', function(cartId) {
