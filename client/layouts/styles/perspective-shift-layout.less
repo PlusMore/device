@@ -6,7 +6,7 @@ html, body, .perspective {
 }
 
 .perspective {
-    position: relative;
+    position: fixed;
     z-index: 0;
 
     // -webkit-transition : -webkit-filter 0.4s linear;
@@ -72,12 +72,12 @@ html, body, .perspective {
     .navbar-outer-nav {
         z-index: 5;
         -webkit-transform: translateX(-100px);
-        transform: translateX(-100px);   
+        transform: translateX(-100px);
         opacity: 0;
         -webkit-transition: -webkit-transform 0.4s, opacity 0.4s;
-        transition: transform 0.4s, opacity 0.4s; 
+        transition: transform 0.4s, opacity 0.4s;
     }
-    
+
 }
 
 /* Outer Nav */
@@ -163,7 +163,7 @@ html, body, .perspective {
     #nav-accordion {
         & > .panel {
             background: transparent;
-            border: none; 
+            border: none;
 
             .panel-heading {
                 background: transparent;
@@ -213,7 +213,7 @@ html, body, .perspective {
     &.animate {
         & .outer-nav {
             z-index: 15;
-        }         
+        }
     }
 
     & .outer-nav .panel {
@@ -228,7 +228,7 @@ html, body, .perspective {
         opacity: 1;
         -webkit-transform: translateX(0);
         transform: translateX(0);
-        
+
         &:nth-child(2) {
             -webkit-transition-delay: 0.04s;
             transition-delay: 0.04s;
@@ -336,7 +336,7 @@ html, body, .perspective {
         #nav-accordion {
             & > .panel {
                 height: 200px;
-                
+
                 .panel-heading {
 
                     .panel-title {
