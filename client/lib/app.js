@@ -120,6 +120,14 @@ Meteor.startup(function() {
     },
     kioskMode: function() {
       return LocalStore.get('kiosk');
+    },
+    // redrawPicture forces DOM to reflow and properly render the picker
+    // this is to fix a bug present on iPhone (ios 8.1 - 8.3)
+    redrawPicker: function($picker) {
+      $picker.css('display', 'none');
+      Meteor.setTimeout(function() {
+        $picker.css('display', 'block');
+      }, 0);
     }
   });
 

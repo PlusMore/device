@@ -3,7 +3,7 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-standard-app-packages
+meteor-platform
 accounts-base
 accounts-password
 less
@@ -42,8 +42,8 @@ andruschka:bootstrap-image-gallery
 appcache
 nemo64:bootstrap
 plusmore:plus-more-icons
-plusmore:pickadate-default-theme
 patrickleet:enquire
 plusmore:reactive-responsive-helpers
 msavin:mongol
 dburles:collection-helpers
+plusmore:pickadate-default-theme@3.5.5
