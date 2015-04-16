@@ -374,7 +374,16 @@ var initializePickers = function(template) {
   });
 
   template.timepicker.pickatime('picker').on({
-    open: App.pickerOpenedHax,
+    open: function() {
+      console.log('opened timepicker');
+      if (template.unavailable) {
+        alert('No more available times for selected date. Please try another date.');
+        this.close();
+        return;
+      }
+
+      return App.pickerOpenedHax.call(this);
+    },
     close: App.pickerClosedHax
   });
 };
