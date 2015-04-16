@@ -150,8 +150,8 @@ initializeServicePickers = function(template, startMinutes, endMinutes) {
 };
 
 destroyServicePickers = function(template) {
-  template.datepicker.pickadate('picker').stop();
-  template.timepicker.pickatime('picker').stop();
+  template.datepicker.stop();
+  template.timepicker.stop();
 
   $('.picker', 'body').remove();
 
