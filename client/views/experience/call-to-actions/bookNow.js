@@ -367,12 +367,33 @@ var initializePickers = function(template) {
   // now just initialize by passing in the options
   template.datepicker = this.$('.datepicker').pickadate(datepickerOptions);
   template.timepicker = this.$('.timepicker').pickatime(timepickerOptions);
+
+  template.datepicker.pickadate('picker').on({
+    open: App.pickerOpenedHax,
+    close: App.pickerClosedHax
+  });
+
+  template.timepicker.pickatime('picker').on({
+    open: function() {
+      console.log('opened timepicker');
+      if (template.unavailable) {
+        alert('No more available times for selected date. Please try another date.');
+        this.close();
+        return;
+      }
+
+      return App.pickerOpenedHax.call(this);
+    },
+    close: App.pickerClosedHax
+  });
 };
 
 var destroyPickers = function(template) {
+  template.datepicker.pickadate('picker').stop();
+  template.timepicker.pickatime('picker').stop();
+
   $('.picker', 'body').remove();
-  $(template.datepicker).stop();
+
   template.datepicker = null;
-  $(template.timepicker).stop();
   template.timepicker = null;
 };
