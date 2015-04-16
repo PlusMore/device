@@ -367,12 +367,24 @@ var initializePickers = function(template) {
   // now just initialize by passing in the options
   template.datepicker = this.$('.datepicker').pickadate(datepickerOptions);
   template.timepicker = this.$('.timepicker').pickatime(timepickerOptions);
+
+  template.datepicker.pickadate('picker').on({
+    open: App.pickerOpenedHax,
+    close: App.pickerClosedHax
+  });
+
+  template.timepicker.pickatime('picker').on({
+    open: App.pickerOpenedHax,
+    close: App.pickerClosedHax
+  });
 };
 
 var destroyPickers = function(template) {
+  template.datepicker.pickadate('picker').stop();
+  template.timepicker.pickatime('picker').stop();
+
   $('.picker', 'body').remove();
-  $(template.datepicker).stop();
+
   template.datepicker = null;
-  $(template.timepicker).stop();
   template.timepicker = null;
 };
