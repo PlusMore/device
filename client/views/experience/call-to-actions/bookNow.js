@@ -222,7 +222,8 @@ var initializePickers = function(template) {
 
       // the timepicker control
       var timepicker = template.timepicker.pickatime('picker');
-      var currentSelectedTime = timepicker.get('select').pick;
+      var currentSelectedTime = timepicker.component.item.select && timepicker.component.item.select.pick;
+      console.log('currentSelectedTime', currentSelectedTime);
       // make sure it's enabled
       timepicker.set('enable', true);
 
