@@ -121,13 +121,33 @@ Meteor.startup(function() {
     kioskMode: function() {
       return LocalStore.get('kiosk');
     },
-    // redrawPicture forces DOM to reflow and properly render the picker
+    // forceReflow forces DOM to reflow and properly render
     // this is to fix a bug present on iPhone (ios 8.1 - 8.3)
-    redrawPicker: function($picker) {
-      $picker.css('display', 'none');
+    forceReflow: function($el) {
+      $el.css('display', 'none');
       Meteor.setTimeout(function() {
-        $picker.css('display', 'block');
+        $el.css('display', 'block');
       }, 0);
+    },
+    pickerOpenedHax: function() {
+      console.log('picker opened');
+      var picker = this;
+      // hax to force reflow cause ios bugs
+      App.forceReflow(picker.$root);
+
+      // hax to force blur off input
+      // fixed in next version of pickadate
+      // remove when updating
+      $(picker.$node).blur();
+    },
+    pickerClosedHax: function() {
+      console.log('picker closed');
+      var picker = this;
+
+      // hax to force blur off input
+      // fixed in next version of pickadate
+      // remove when updating
+      $(picker.$node).blur();
     }
   });
 

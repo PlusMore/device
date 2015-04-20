@@ -93,14 +93,14 @@ initializeServicePickers = function(template, startMinutes, endMinutes) {
 
   // if now is less than startTime
   if (moment() < startTime) {
-    // if it is today at 3pm, and start time is 
+    // if it is today at 3pm, and start time is
     // at 5pm, start at today in datepicker
     datepickerOptions.min = true;
   } else if ((moment() > startTime) && (moment() < endTime)) {
     // if we are inside of hours
     // then start datepicker at today
     datepickerOptions.min = true;
-    // unless {{delay}} hours from now is past endTime, don't allow 
+    // unless {{delay}} hours from now is past endTime, don't allow
     // any more reservations
     if (moment().add('hours', delay) > endTime) {
       startTomorrow = true;
@@ -137,12 +137,24 @@ initializeServicePickers = function(template, startMinutes, endMinutes) {
 
   template.datepicker = this.$('.datepicker').pickadate(datepickerOptions);
   template.timepicker = this.$('.timepicker').pickatime(timepickerOptions);
+
+  template.datepicker.pickadate('picker').on({
+    open: App.pickerOpenedHax,
+    close: App.pickerClosedHax
+  });
+
+  template.timepicker.pickatime('picker').on({
+    open: App.pickerOpenedHax,
+    close: App.pickerClosedHax
+  });
 };
 
 destroyServicePickers = function(template) {
+  template.datepicker.stop();
+  template.timepicker.stop();
+
   $('.picker', 'body').remove();
-  $(template.datepicker).stop();
+
   template.datepicker = null;
-  $(template.timepicker).stop();
   template.timepicker = null;
 };
