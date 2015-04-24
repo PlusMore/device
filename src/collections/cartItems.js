@@ -12,7 +12,7 @@ CartItems.allow({
   }
 });
 
-var checkCartItem = function(zone, now, cartItem) {
+checkCartItem = function(zone, now, cartItem) {
   if (cartItem.itemType === 'menuItem') {
     var menuItem = MenuItems.findOne(cartItem.itemId);
     if (!menuItem) {
