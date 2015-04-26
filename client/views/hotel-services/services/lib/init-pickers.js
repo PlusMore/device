@@ -55,7 +55,7 @@ initializeServicePickers = function(template, startMinutes, endMinutes) {
 
       var timepicker = template.timepicker.pickatime('picker');
 
-      var currentSelect = timepicker.get('select').pick;
+      var currentSelect = timepicker.component.item.select && timepicker.component.item.select.pick;
 
       if (!select.select) {
         timepicker.set('min', startTime.toDate());

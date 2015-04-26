@@ -3,7 +3,7 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-standard-app-packages
+meteor-platform
 accounts-base
 accounts-password
 less
@@ -23,7 +23,6 @@ mizzao:bootboxjs
 iron:router
 mrt:moment
 aldeed:collection2
-aldeed:autoform
 aldeed:simple-schema
 alanning:roles
 ian:accounts-ui-bootstrap-3
@@ -42,8 +41,9 @@ andruschka:bootstrap-image-gallery
 appcache
 nemo64:bootstrap
 plusmore:plus-more-icons
-plusmore:pickadate-default-theme
 patrickleet:enquire
 plusmore:reactive-responsive-helpers
 msavin:mongol
 dburles:collection-helpers
+aldeed:autoform@5.1.2
+plusmore:pickadate-default-theme
