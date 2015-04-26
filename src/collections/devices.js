@@ -14,19 +14,6 @@ Devices.allow({
   }
 });
 
-Schema.setupDevice = new SimpleSchema({
-  hotelId: {
-    type: String
-  },
-  replacement: {
-    type: Boolean,
-    label: 'Replacement device?'
-  },
-  roomId: {
-    type: String
-  }
-});
-
 Devices.helpers({
   room: function() {
     return Rooms.findOne(this.roomId);
