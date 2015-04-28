@@ -1,3 +1,5 @@
+// TODO: is this used?
+
 Meteor.methods({
   addInfoToDeviceAccount: function(requestData) {
     check(requestData, Schema.accountInfo);
