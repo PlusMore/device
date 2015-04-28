@@ -13,12 +13,13 @@ Template.onboardExistingUserGuestPassword.rendered = function () {
 };
 
 Template.onboardExistingUserGuestPassword.events({
-  'click #reset-password': function(e) {
+  'click #reset-password': function(e, tmpl) {
     e.preventDefault();
     var options = {
       email: Session.get('onboardAccountCreationUserEmail')
     };
     Accounts.forgotPassword(options);
+    tmpl.$("#reset-password").text("Email Sent!");
   }
 });
 
