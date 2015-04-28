@@ -12,6 +12,16 @@ Template.onboardExistingUserGuestPassword.rendered = function () {
   this.$('button[type=submit]:first').progressInitialize();
 };
 
+Template.onboardExistingUserGuestPassword.events({
+  'click #reset-password': function(e) {
+    e.preventDefault();
+    var options = {
+      email: Session.get('onboardAccountCreationUserEmail')
+    };
+    Accounts.forgotPassword(options);
+  }
+});
+
 AutoForm.hooks({
   existingGuestPassword: {
     onSubmit: function(insertDoc, updateDoc, currentDoc) {
@@ -23,7 +33,7 @@ AutoForm.hooks({
         password: insertDoc.password
       });
       Session.set('onboardAccountCreationOptions', accountOptions);
-      
+
       var parent = this.template.findParentTemplate('onboardUser');
       parent.$(parent.firstNode).trigger('onboard-step-existing-guest-password-complete');
     },
