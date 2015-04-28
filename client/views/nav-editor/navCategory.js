@@ -43,12 +43,12 @@ Template.editNavCategory.events({
 
 AutoForm.hooks({
   addNavCategory: {
-    onSuccess: function(operation, result, template) {
+    onSuccess: function(operation, result) {
       modal.close();
     }
   },
   editNavCategory: {
-    onSuccess: function(operation, result, template) {
+    onSuccess: function(operation, result) {
       modal.close();
     }
   }
