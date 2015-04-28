@@ -23,7 +23,7 @@ AutoForm.hooks({
         password: insertDoc.password
       });
       Session.set('onboardAccountCreationOptions', accountOptions);
-      
+
       var parent = this.template.findParentTemplate('onboardUser');
       parent.$(parent.firstNode).trigger('onboard-step-existing-guest-password-complete');
     },
@@ -32,11 +32,11 @@ AutoForm.hooks({
     // show/hide a "Please wait" message, etc. If these hooks are
     // not defined, then by default the submit button is disabled
     // during submission.
-    beginSubmit: function(formId, template) {
-      template.$('[type=submit]:first').progressStart();
+    beginSubmit: function() {
+      this.template.$('[type=submit]:first').progressStart();
     },
-    endSubmit: function(formId, template) {
-      template.$('[type=submit]:first').progressFinish();
+    endSubmit: function() {
+      this.template.$('[type=submit]:first').progressFinish();
     }
   }
 });
