@@ -21,7 +21,7 @@ Template.editAccountInfo.events({
 
 AutoForm.hooks({
   editAccountForm: {
-    onSuccess: function(operation, result, template) {
+    onSuccess: function(operation, result) {
       Session.set('editingAccountInfo', false);
     }
   }

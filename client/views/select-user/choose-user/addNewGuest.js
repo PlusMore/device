@@ -62,7 +62,7 @@ Template.addNewGuest.rendered = function () {
   var that = this;
   this.autorun(function() {
     var firstName = that.firstName.get() || "";
-    that.$('[name=firstName]').val(firstName);   
+    that.$('[name=firstName]').val(firstName);
   });
 
   this.autorun(function() {
@@ -90,7 +90,7 @@ Template.addNewGuest.events({
       tmpl.accountExists.set(false);
       tmpl.hasEmail.set(false);
       return;
-    } 
+    }
 
     Meteor.call('getProfile', email, function(err, userProfile) {
       if (err) return Errors.throw('Something went wrong.');
@@ -115,7 +115,7 @@ AutoForm.hooks({
   addNewGuestToStay: {
     onSubmit: function(insertDoc, updateDoc, currentDoc) {
       this.event.preventDefault();
-      
+
       var parent = this.template.findParentTemplate('chooseUser');
       var addNewGuestTmpl = Template.instance().findParentTemplate('addNewGuest');
 
@@ -132,11 +132,11 @@ AutoForm.hooks({
     // show/hide a "Please wait" message, etc. If these hooks are
     // not defined, then by default the submit button is disabled
     // during submission.
-    beginSubmit: function(formId, template) {
-      template.$('[type=submit]:first').progressStart();
+    beginSubmit: function() {
+      this.template.$('[type=submit]:first').progressStart();
     },
-    endSubmit: function(formId, template) {
-      template.$('[type=submit]:first').progressFinish();
+    endSubmit: function() {
+      this.template.$('[type=submit]:first').progressFinish();
     }
   }
 });

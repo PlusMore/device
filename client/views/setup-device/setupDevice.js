@@ -16,7 +16,7 @@ Template.setupDeviceForm.helpers({
     return hotelOptions;
   },
   roomOptions: function() {
-    var hotelId = AutoForm.getFieldValue('setupDeviceForm', 'hotelId');
+    var hotelId = Session.get('kioskSetupFormSelectedHotelId');
     var roomsCursor = Rooms.find({hotelId: hotelId}, {$sort: {name: 1}});
     var stays = Stays.find();
     var rooms = roomsCursor.fetch();
@@ -36,7 +36,7 @@ Template.setupDeviceForm.helpers({
     }
   },
   hotelSelected: function() {
-    return AutoForm.getFieldValue('setupDeviceForm', 'hotelId');
+    return !!Session.get('kioskSetupFormSelectedHotelId');
   }
 });
 
@@ -44,16 +44,29 @@ Template.setupDeviceForm.created = function() {
   var template = this;
 
   template.autorun(function() {
-    var selectedHotelId = AutoForm.getFieldValue('setupDeviceForm', 'hotelId');
-
-    Meteor.subscribe('roomsByHotelId', selectedHotelId);
-    Meteor.subscribe('activeStaysByHotelId', selectedHotelId);
+    // var selectedHotelId = AutoForm.getFieldValue('hotelId');
+    var selectedHotelId = Session.get('kioskSetupFormSelectedHotelId');
+    if (!!selectedHotelId) {
+      Meteor.subscribe('roomsByHotelId', selectedHotelId);
+      Meteor.subscribe('activeStaysByHotelId', selectedHotelId);
+    }
   });
 };
 
+Template.setupDeviceForm.events({
+  'change #select-hotel': function(e, tmpl) {
+    e.preventDefault();
+    if (tmpl.$(e.currentTarget).val() != "none") {
+      Session.set('kioskSetupFormSelectedHotelId', tmpl.$(e.currentTarget).val());
+    } else {
+      Session.set('kioskSetupFormSelectedHotelId', undefined);
+    }
+  }
+});
+
 AutoForm.hooks({
   setupDeviceForm: {
-    onSuccess: function(operation, deviceId, template) {
+    onSuccess: function(operation, deviceId) {
       // log out the current hotel staff
 
       // Session.keys = {};
@@ -73,7 +86,7 @@ AutoForm.hooks({
       }, 1000);
 
     },
-    onError: function(operation, error, template) {
+    onError: function(operation, error) {
       if (error.reason) Errors.throw(error.reason);
     }
   }
