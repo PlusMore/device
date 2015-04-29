@@ -72,5 +72,71 @@ Template.valetServices.events({
     } else {
       $(document).trigger('user-selected');
     }
+  },
+  'keyup form': function(e, tmpl) {
+    if (e.keyCode === 13) {
+      var requestButton = tmpl.$("#btn-request");
+      requestButton.progressStart();
+
+      var user = Meteor.user();
+      var selectedDate = Session.get('selectedDate');
+      var selectedMinutes = Session.get('selectedMinutes');
+      var reservationMoment = moment(selectedDate).startOf('day').add(selectedMinutes, 'minutes');
+
+      var ticketNumber = tmpl.$('[name=ticketNumber]').val() || undefined;
+
+      if (!ticketNumber) {
+        requestButton.progressError();
+        return Errors.throw('Ticket Number is required');
+      }
+
+
+      var request = {
+        type: 'valetServices',
+        handledBy: 'hotel',
+        date: reservationMoment.toDate(),
+        zone: Session.get('zone'),
+        options: {
+          ticketNumber: ticketNumber,
+        }
+      };
+
+      App.track('Hotel Service Request', {
+        "Requested At": new Date(),
+        "Request Date": request.date,
+        "Hotel Service": "Valet Services"
+      });
+
+      $(document).one('user-selected', function() {
+        $(document).off('user-selected');
+        $(document).off('cancel-user-selected');
+
+        Meteor.call('requestService', request, function(error, result) {
+          if (error) {
+            requestButton.progressError();
+
+            return Errors.throw('Error Requesting Service');
+          }
+
+          requestButton.progressFinish();
+          Meteor.setTimeout(function() {
+            Router.go('recent-orders');
+          }, 500);
+        });
+      });
+
+      $(document).one('cancel-user-selected', function() {
+        $(document).off('user-selected');
+        $(document).off('cancel-user-selected');
+        requestButton.progressError();
+        return;
+      });
+
+      if (!Meteor.user()) {
+        modal.show('selectUser');
+      } else {
+        $(document).trigger('user-selected');
+      }
+    }
   }
 });
