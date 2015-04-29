@@ -1,5 +1,4 @@
-Meteor.methods({
-  requestService: function(service) {
+requestService: function(service, stayId) {
     // Check that type is provided
     check(service.type, String);
 
@@ -50,7 +49,7 @@ Meteor.methods({
       throw new Meteor.Error(403, 'Unauthorized');
     }
 
-    var stay = Stays.findOne({users: user._id});
+    var stay = Stays.findOne(stayId);
     if (!stay) {
       throw new Meteor.Error(403, 'No current stay registered for user');
     }
@@ -115,4 +114,3 @@ Meteor.methods({
 
     return orderId;
   }
-});
