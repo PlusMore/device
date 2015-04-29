@@ -43,55 +43,31 @@ Router.route('/', function() {
 Router.route('/setup-device', function() {
   this.render('setupDevice');
 }, {
-  name: 'setupDevice',
-  waitOn: function() {
-    return subs.subscribe('userHotelData');
-  }
+  name: 'setupDevice'
 });
 
 Router.route('/orders/recent', function() {
   this.render('ordersRecent');
 }, {
-  name: 'recent-orders',
-  waitOn: function() {
-    return Meteor.subscribe('ordersRecent');
-  }
+  name: 'recent-orders'
 });
 
 Router.route('/orders/history', function() {
   this.render('ordersHistory');
 }, {
-  name: 'orders-history',
-  waitOn: function() {
-    return Meteor.subscribe('ordersHistory');
-  }
+  name: 'orders-history'
 });
 
 Router.route('/hotel-info', function() {
   this.render('hotelInformation');
 }, {
-  name: 'hotelInformation',
-  waitOn: function() {
-    var hotel = Hotels.findOne();
-    if (hotel) {
-      return [
-        subs.subscribe('hotelAmenities', hotel._id),
-        subs.subscribe('amenityDetails', hotel._id)
-      ];
-    }
-  }
+  name: 'hotelInformation'
 });
 
 Router.route('/nav-config', function() {
   this.render('navEditor');
 }, {
-  name: 'navEditor',
-  waitOn: function() {
-    return [
-      subs.subscribe('navCategories'),
-      subs.subscribe('navLinks')
-    ];
-  }
+  name: 'navEditor'
 });
 
 // see subscriptions triggered in main.js
@@ -138,31 +114,7 @@ Router.route('/room-service', function() {
     }
   });
 }, {
-  name: 'roomService',
-  waitOn: function() {
-    var stay = Stays.findOne();
-    var stayId = stay && stay._id;
-    var hotels = Hotels.find();
-    var hotel = Hotels.findOne();
-    var user = Meteor.user();
-    var onboarding = Session.get('onboarding');
-
-    var cartId = Meteor.default_connection._lastSessionId;
-    console.log('wait on room service');
-
-    if (stayId && !onboarding) {
-      console.log('cart is stayid');
-      cartId = stayId;
-    }
-
-    if (hotel) {
-      console.log('cart', cartId);
-      return [
-        Meteor.subscribe('hotelMenu', hotel._id),
-        Meteor.subscribe('cart', cartId)
-      ];
-    }
-  }
+  name: 'roomService'
 });
 
 // see subscriptions triggered in main.js
