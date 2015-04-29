@@ -1,3 +1,5 @@
+var yelp_base_url = "https://api.yelp.com/v2/";
+
 var getYelpOauthBinding = function(url) {
   var config = Accounts.loginServiceConfiguration.findOne({
     service: 'yelp'
