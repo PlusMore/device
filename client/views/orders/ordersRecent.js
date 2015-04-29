@@ -16,3 +16,7 @@ Template.ordersRecent.events({
     modal.show('selectUser');
   }
 });
+
+Template.ordersRecent.onCreated(function(){
+  this.subscribe('ordersRecent');
+});

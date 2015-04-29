@@ -16,3 +16,7 @@ Template.ordersHistory.events({
     modal.show('selectUser');
   }
 });
+
+Template.ordersHistory.onCreated(function() {
+  this.subscribe('ordersHistory');
+});

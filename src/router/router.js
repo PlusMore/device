@@ -49,19 +49,13 @@ Router.route('/setup-device', function() {
 Router.route('/orders/recent', function() {
   this.render('ordersRecent');
 }, {
-  name: 'recent-orders',
-  waitOn: function() {
-    return Meteor.subscribe('ordersRecent');
-  }
+  name: 'recent-orders'
 });
 
 Router.route('/orders/history', function() {
   this.render('ordersHistory');
 }, {
-  name: 'orders-history',
-  waitOn: function() {
-    return Meteor.subscribe('ordersHistory');
-  }
+  name: 'orders-history'
 });
 
 Router.route('/hotel-info', function() {
