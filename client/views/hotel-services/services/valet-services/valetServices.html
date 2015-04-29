@@ -15,32 +15,32 @@
             </small>
           </h3>
         </div>
+        <form data-js="request-valet-service" class="form-horizontal">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-xs-12">
+                <p class='lead'>Enter your ticket number, and select the time you would like your car to arrive.</p>
 
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-xs-12">
-              <p class='lead'>Enter your ticket number, and select the time you would like your car to arrive.</p>
-              <form class="form-horizontal">
-                <fieldset>
-                  <!-- Enter Ticket Number -->
-                  <div class="form-group">
-                    <label class="col-md-2 control-label" for="ticketNumber">Ticket #</label>
-                    <div class="col-md-6">
-                      <input type='text' id="ticketNumber" name="ticketNumber" class="form-control" />
+                  <fieldset>
+                    <!-- Enter Ticket Number -->
+                    <div class="form-group">
+                      <label class="col-md-2 control-label" for="ticketNumber">Ticket #</label>
+                      <div class="col-md-6">
+                        <input type='text' id="ticketNumber" name="ticketNumber" class="form-control" />
+                      </div>
                     </div>
-                  </div>
 
-                  {{> selectGeneric}}
-                </fieldset>
-              </form>
+                    {{> selectGeneric}}
+                  </fieldset>
+
+              </div>
             </div>
+
           </div>
-
-        </div>
-        <div class="modal-footer">
-          <button id="btn-request" name="btn-request" class="btn btn-default progress-button" data-loading="Requesting..." data-finished="Requested!">Request Service</button>
-        </div>
-
+          <div class="modal-footer">
+            <button id="btn-request" name="btn-request" class="btn btn-default progress-button" data-loading="Requesting..." data-finished="Requested!">Request Service</button>
+          </div>
+        </form>
       </div><!-- /.modal-content -->
     </div>
   </div>
