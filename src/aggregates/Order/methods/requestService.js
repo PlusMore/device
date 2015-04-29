@@ -1,5 +1,5 @@
 Meteor.methods({
-requestService: function(service, stayId) {
+  requestService: function(service, stayId) {
     // Check that type is provided
     check(service.type, String);
 
