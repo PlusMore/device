@@ -3,8 +3,13 @@
     {{#contentFor "title"}}
       Room Service
     {{/contentFor}}
-  
-   {{> roomServiceContent}}
+
+    {{#if Template.subscriptionsReady}}
+      {{> roomServiceContent}}
+    {{else}}
+      {{> loadingAnimation}}
+    {{/if}}
+
 
   {{/Layout}}
   <div id='jump-to-order' class="visible-xs animated somewhat-faster slideInRight centered">
@@ -16,9 +21,9 @@
   <div class="row animated somewhat-faster fadeInUp">
     <div class="col-sm-7 col-xs-no-padding">
       {{> menuCategories}}
-    </div>   
+    </div>
     <div class="col-sm-5 col-xs-no-padding">
       {{> cart}}
-    </div> 
+    </div>
   </div>
 </template>

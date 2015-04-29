@@ -123,31 +123,7 @@ Router.route('/room-service', function() {
     }
   });
 }, {
-  name: 'roomService',
-  waitOn: function() {
-    var stay = Stays.findOne();
-    var stayId = stay && stay._id;
-    var hotels = Hotels.find();
-    var hotel = Hotels.findOne();
-    var user = Meteor.user();
-    var onboarding = Session.get('onboarding');
-
-    var cartId = Meteor.default_connection._lastSessionId;
-    console.log('wait on room service');
-
-    if (stayId && !onboarding) {
-      console.log('cart is stayid');
-      cartId = stayId;
-    }
-
-    if (hotel) {
-      console.log('cart', cartId);
-      return [
-        Meteor.subscribe('hotelMenu', hotel._id),
-        Meteor.subscribe('cart', cartId)
-      ];
-    }
-  }
+  name: 'roomService'
 });
 
 // see subscriptions triggered in main.js
