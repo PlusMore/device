@@ -61,16 +61,7 @@ Router.route('/orders/history', function() {
 Router.route('/hotel-info', function() {
   this.render('hotelInformation');
 }, {
-  name: 'hotelInformation',
-  waitOn: function() {
-    var hotel = Hotels.findOne();
-    if (hotel) {
-      return [
-        subs.subscribe('hotelAmenities', hotel._id),
-        subs.subscribe('amenityDetails', hotel._id)
-      ];
-    }
-  }
+  name: 'hotelInformation'
 });
 
 Router.route('/nav-config', function() {
