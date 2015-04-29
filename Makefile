@@ -38,7 +38,7 @@ build:
 	APP_ENV=$(APP_ENV) \
 	SUBDOMAIN=$(SUBDOMAIN) \
 	VERSION=$(VERSION) \
-	meteor build ~/cordova-builds/$(APP_ENV) --server=https://$(SUBDOMAIN).plusmoretablets.com 
+	meteor build ~/cordova-builds/$(APP_ENV) --server=https://$(SUBDOMAIN).plusmoretablets.com
 	cd ~/cordova-builds/$(APP_ENV)/android/
 	jarsigner -digestalg SHA1 ~/cordova-builds/$(APP_ENV)/android/unaligned.apk $(SUBDOMAIN)
 	~/.meteor/android_bundle/android-sdk/build-tools/20.0.0/zipalign 4 ~/cordova-builds/$(APP_ENV)/android/unaligned.apk ~/cordova-builds/$(APP_ENV)/android/$(SUBDOMAIN)-$(VERSION).apk
