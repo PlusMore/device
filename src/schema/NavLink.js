@@ -1,25 +1,14 @@
-NavCategories = new Meteor.Collection('navCategories');
-
-NavCategories.allow({
-  insert: function(userId, doc) {
-    return Roles.userIsInRole(userId, ['admin']);
+Schema.NavLink = new SimpleSchema({
+  navCategoryId: {
+    type: String,
   },
-  update: function(userId, doc, fieldNames, modifier) {
-    return Roles.userIsInRole(userId, ['admin']);
-  },
-  remove: function(userId, doc) {
-    return Roles.userIsInRole(userId, ['admin']);
-  }
-});
-
-Schema.NavCategory = new SimpleSchema({
   name: {
     type: String,
-    label: "Category Name"
+    label: "Route Name"
   },
-  menuRank: {
+  linkRank: {
     type: Number,
-    label: "Menu Rank",
+    label: "Link Rank",
     allowedValues: [1, 2, 3, 4, 5, 6, 7],
     autoform: {
       options: [{
@@ -46,6 +35,14 @@ Schema.NavCategory = new SimpleSchema({
       }]
     }
   },
+  icon: {
+    type: String,
+    label: "Menu Icon"
+  },
+  routeName: {
+    type: String,
+    label: "Route Path"
+  },
   adminOnly: {
     type: Boolean,
     label: "Admin Only"
@@ -57,6 +54,14 @@ Schema.NavCategory = new SimpleSchema({
   mobileOnly: {
     type: Boolean,
     label: "Mobile Only"
+  },
+  hotelService: {
+    type: Boolean,
+    label: "For Hotel Service"
+  },
+  requiresHotelData: {
+    type: Boolean,
+    label: 'Requires Hotel Data'
   },
   responsiveHelper: {
     type: String,
@@ -74,6 +79,9 @@ Schema.NavCategory = new SimpleSchema({
     ],
     autoform: {
       options: [{
+        label: "",
+        value: undefined
+      }, {
         label: "hidden-xs",
         value: "hidden-xs"
       }, {
@@ -100,23 +108,14 @@ Schema.NavCategory = new SimpleSchema({
       }]
     }
   },
-  requiresHotelData: {
-    type: Boolean,
-    label: "Requires Hotel Data"
+  routeData: {
+    type: Object,
+    optional: true
+  },
+  "routeData.categoryId": {
+    type: String,
+    label: "Experience Category"
   }
 });
 
-NavCategories.attachSchema(Schema.NavCategory);
-
-Meteor.methods({
-  removeNavCategory: function(navCategoryId) {
-    check(navCategoryId, String);
-
-    return [
-      NavCategories.remove(navCategoryId),
-      NavLinks.remove({
-        navCategoryId: navCategoryId
-      })
-    ];
-  }
-});
+NavLinks.attachSchema(Schema.NavLink);
