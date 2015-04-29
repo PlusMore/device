@@ -1,28 +1,11 @@
-NavLinks = new Meteor.Collection('navLinks');
-
-NavLinks.allow({
-  insert: function(userId, doc) {
-    return false;
-  },
-  update: function(userId, doc, fieldNames, modifier) {
-    return true;
-  },
-  remove: function(userId, doc) {
-    return true;
-  }
-});
-
-Schema.NavLink = new SimpleSchema({
-  navCategoryId: {
-    type: String,
-  },
+Schema.NavCategory = new SimpleSchema({
   name: {
     type: String,
-    label: "Route Name"
+    label: "Category Name"
   },
-  linkRank: {
+  menuRank: {
     type: Number,
-    label: "Link Rank",
+    label: "Menu Rank",
     allowedValues: [1, 2, 3, 4, 5, 6, 7],
     autoform: {
       options: [{
@@ -49,14 +32,6 @@ Schema.NavLink = new SimpleSchema({
       }]
     }
   },
-  icon: {
-    type: String,
-    label: "Menu Icon"
-  },
-  routeName: {
-    type: String,
-    label: "Route Path"
-  },
   adminOnly: {
     type: Boolean,
     label: "Admin Only"
@@ -68,14 +43,6 @@ Schema.NavLink = new SimpleSchema({
   mobileOnly: {
     type: Boolean,
     label: "Mobile Only"
-  },
-  hotelService: {
-    type: Boolean,
-    label: "For Hotel Service"
-  },
-  requiresHotelData: {
-    type: Boolean,
-    label: 'Requires Hotel Data'
   },
   responsiveHelper: {
     type: String,
@@ -93,9 +60,6 @@ Schema.NavLink = new SimpleSchema({
     ],
     autoform: {
       options: [{
-        label: "",
-        value: undefined
-      }, {
         label: "hidden-xs",
         value: "hidden-xs"
       }, {
@@ -122,27 +86,10 @@ Schema.NavLink = new SimpleSchema({
       }]
     }
   },
-  routeData: {
-    type: Object,
-    optional: true
-  },
-  "routeData.categoryId": {
-    type: String,
-    label: "Experience Category"
+  requiresHotelData: {
+    type: Boolean,
+    label: "Requires Hotel Data"
   }
 });
 
-NavLinks.attachSchema(Schema.NavLink);
-
-Meteor.methods({
-  addNavLink: function(doc) {
-    if (doc.routeData) {
-      var category = Categories.findOne(doc.routeData.categoryId);
-      doc.name = category.name;
-      doc.icon = category.iconClass;
-    }
-    return [
-      NavLinks.insert(doc)
-    ];
-  }
-});
+NavCategories.attachSchema(Schema.NavCategory);

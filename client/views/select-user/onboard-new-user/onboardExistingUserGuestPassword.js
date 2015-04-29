@@ -12,6 +12,17 @@ Template.onboardExistingUserGuestPassword.rendered = function () {
   this.$('button[type=submit]:first').progressInitialize();
 };
 
+Template.onboardExistingUserGuestPassword.events({
+  'click #reset-password': function(e, tmpl) {
+    e.preventDefault();
+    var options = {
+      email: Session.get('onboardAccountCreationUserEmail')
+    };
+    Accounts.forgotPassword(options);
+    tmpl.$("#reset-password").text("Email Sent!");
+  }
+});
+
 AutoForm.hooks({
   existingGuestPassword: {
     onSubmit: function(insertDoc, updateDoc, currentDoc) {
