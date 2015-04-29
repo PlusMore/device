@@ -76,13 +76,7 @@ Router.route('/hotel-info', function() {
 Router.route('/nav-config', function() {
   this.render('navEditor');
 }, {
-  name: 'navEditor',
-  waitOn: function() {
-    return [
-      subs.subscribe('navCategories'),
-      subs.subscribe('navLinks')
-    ];
-  }
+  name: 'navEditor'
 });
 
 // see subscriptions triggered in main.js
