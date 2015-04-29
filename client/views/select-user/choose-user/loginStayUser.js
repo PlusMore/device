@@ -18,6 +18,19 @@ Template.loginStayUser.rendered = function () {
   this.$('button[type=submit]:first').progressInitialize();
 };
 
+Template.loginStayUser.events({
+  'click #reset-password': function(e, tmpl) {
+    e.preventDefault();
+    var userId = Session.get('selectedUserChoice');
+    var user = Meteor.users.findOne(userId);
+    var options = {
+      email: user.emails[0].address
+    };
+    Accounts.forgotPassword(options);
+    tmpl.$("#reset-password").text("Email Sent!");
+  }
+});
+
 AutoForm.hooks({
   loginStayUser: {
     onSubmit: function(insertDoc, updateDoc, currentDoc) {
