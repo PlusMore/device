@@ -1,9 +1,10 @@
-Template.setupDeviceForm.helpers({
+Template.setupDevice.helpers({
   setupDeviceSchema: function() {
     return Schema.setupDevice;
   },
   hotelOptions: function() {
-    var hotels = Hotels.find().fetch();
+    var hotelsCursor = Hotels.find();
+    var hotels = hotelsCursor.fetch();
     var hotelOptions = [];
 
     _.each(hotels, function(hotel) {
@@ -40,20 +41,20 @@ Template.setupDeviceForm.helpers({
   }
 });
 
-Template.setupDeviceForm.created = function() {
-  var template = this;
+Template.setupDevice.onCreated(function() {
+  var self = this;
+  self.subscribe('userHotelData');
 
-  template.autorun(function() {
-    // var selectedHotelId = AutoForm.getFieldValue('hotelId');
+  self.autorun(function() {
     var selectedHotelId = Session.get('kioskSetupFormSelectedHotelId');
     if (!!selectedHotelId) {
-      Meteor.subscribe('roomsByHotelId', selectedHotelId);
-      Meteor.subscribe('activeStaysByHotelId', selectedHotelId);
+      self.subscribe('roomsByHotelId', selectedHotelId);
+      self.subscribe('activeStaysByHotelId', selectedHotelId);
     }
   });
-};
+});
 
-Template.setupDeviceForm.events({
+Template.setupDevice.events({
   'change #select-hotel': function(e, tmpl) {
     e.preventDefault();
     if (tmpl.$(e.currentTarget).val() != "none") {

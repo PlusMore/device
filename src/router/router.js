@@ -43,10 +43,7 @@ Router.route('/', function() {
 Router.route('/setup-device', function() {
   this.render('setupDevice');
 }, {
-  name: 'setupDevice',
-  waitOn: function() {
-    return subs.subscribe('userHotelData');
-  }
+  name: 'setupDevice'
 });
 
 Router.route('/orders/recent', function() {
