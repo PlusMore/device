@@ -366,8 +366,8 @@ var initializePickers = function(template) {
   // alright, all the options have been calculated, and we told the pickers
   // how to handle dates and times being changed
   // now just initialize by passing in the options
-  template.datepicker = this.$('.datepicker').pickadate(datepickerOptions);
   template.timepicker = this.$('.timepicker').pickatime(timepickerOptions);
+  template.datepicker = this.$('.datepicker').pickadate(datepickerOptions);
 
   template.datepicker.pickadate('picker').on({
     open: App.pickerOpenedHax,

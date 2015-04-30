@@ -12,6 +12,7 @@ HotelServices.allow({
   }
 });
 
+// this should be in database
 HotelServices.friendlyServiceType = function(serviceType) {
   switch (serviceType) {
     case 'transportation':
