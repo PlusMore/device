@@ -19,13 +19,24 @@ Template.experienceModal.helpers({
   dynamicData: function() {
     return experienceModal.data();
   },
-  isVisibleClass: function() {
+  isBackdropVisibleClass: function() {
     if (!!experienceModal.template()) {
 
       if (experienceModal.hiding()) {
         return 'show in animated fadeOut';
       }
       return 'show in animated fadeIn';
+    } else {
+      return 'hidden';
+    }
+  },
+  isVisibleClass: function() {
+    if (!!experienceModal.template()) {
+
+      if (experienceModal.hiding()) {
+        return 'show in animated fadeOutRight';
+      }
+      return 'show in animated fadeInRight';
     } else {
       return 'hidden';
     }
