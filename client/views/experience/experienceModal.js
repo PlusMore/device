@@ -34,9 +34,9 @@ Template.experienceModal.helpers({
     if (!!experienceModal.template()) {
 
       if (experienceModal.hiding()) {
-        return 'show in animated fadeOutRight';
+        return 'show in animated fast fadeOut';
       }
-      return 'show in animated fadeInRight';
+      return 'show in animated fast fadeIn';
     } else {
       return 'hidden';
     }
