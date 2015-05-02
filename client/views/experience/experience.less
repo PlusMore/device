@@ -76,9 +76,11 @@
   .experience-content {
     color: #000;
 
-    height: auto;
-    top: inherit;
-    bottom: inherit;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
     & > .container, & > .container-fluid {
       & > .row {
@@ -113,6 +115,7 @@
       img {
         margin: 0 auto;
         display: block;
+        min-height: 100px;
       }
 
       p.text {
@@ -162,6 +165,10 @@
       }
     }
 
+  }
+
+  .map-container {
+    height: 450px;
   }
 }
 
@@ -270,6 +277,7 @@
   white-space: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
+  height: 291px;
 
   a {
     display: inline-block;

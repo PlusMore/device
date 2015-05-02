@@ -1,3 +1,37 @@
+Template.experience.created = function () {
+  var self = this;
+  self.rendered = new ReactiveVar(false);
+
+  self.autorun(function() {
+    var dataContext = experienceModal.data();
+    if (dataContext && dataContext._id) {
+      self.experienceSubscription = self.subscribe('experience', dataContext._id);
+    }
+  });
+
+  self.autorun(function() {
+    var subscriptionsReady = self.experienceSubscription.ready();
+    var templateRendered = self.rendered.get();
+    if (subscriptionsReady && templateRendered) {
+      Meteor.defer(function() {
+        self.iScroll.refresh();
+      });
+    }
+  })
+};
+
+Template.experience.rendered = function () {
+  var self = this;
+
+  self.rendered.set(true);
+  self.iScroll = new IScroll('.experience-content');
+};
+
+Template.experience.destroyed = function () {
+  var self = this;
+
+  self.iScroll.destroy()
+};
 var subs = new SubsManager();
 
 var closestWidth = function(containerWidth) {
@@ -5,7 +39,7 @@ var closestWidth = function(containerWidth) {
   // and we will support plusmore kiosk device sizes
   // other browsers will be whatever is closest to one of these sizes
 
-  // although our site is mobile first responsive, we need to 
+  // although our site is mobile first responsive, we need to
   // reverse it for serving the images, that way the images are scaled down
   // rather than scaled up
 
@@ -16,12 +50,12 @@ var closestWidth = function(containerWidth) {
     width = 1280;
   }
 
-  // ipad horizontal 
+  // ipad horizontal
   if (containerWidth <= 1024) {
     width = 1024;
   }
 
-  // android tablet vertical 
+  // android tablet vertical
   if (containerWidth <= 800) {
     width = 800;
   }
@@ -51,7 +85,7 @@ var closestWidth = function(containerWidth) {
 
 var closestHeight = function(containerWidth, containerHeight, aspectRatioNumerator) {
   // we can't be too specific with heights because there are too
-  // many variations, from browser chromes, and things like 
+  // many variations, from browser chromes, and things like
   // "your hotspot is on" so instead we will support an aspect ration
   // that will recursively shrink to fit to the viewport
   var width = closestWidth(containerWidth);
@@ -64,8 +98,8 @@ var closestHeight = function(containerWidth, containerHeight, aspectRatioNumerat
 
   var height = width * aspectRatioFormula;
 
-  // while the margin will cause the content to be offscreen or height 
-  // is offscreen, go down a size by recursively calling with 
+  // while the margin will cause the content to be offscreen or height
+  // is offscreen, go down a size by recursively calling with
   // at least 150 pixels should show
   while (contentOffsetTop(height) > (containerHeight * (5 / 8))) {
     height = closestHeight(width, containerHeight, aspectRatioNumerator - 1);
@@ -81,7 +115,10 @@ var contentOffsetTop = function(height) {
 
 Template.experience.helpers({
   experience: function() {
-    return Experiences.findOne(Session.get('currentExperienceId'));
+    var dataContext = experienceModal.data();
+    if (dataContext) {
+      return Experiences.findOne(dataContext._id);
+    }
   },
   stickBookNow: function() {
     return Session.get('stickBookNow');
@@ -131,17 +168,3 @@ var events = {};
 events[clickevent + " .js-back"] = handleBack;
 
 Template.experience.events(events);
-
-Meteor.startup(function() {
-  Tracker.autorun(function() {
-    var currentExperienceId = Session.get('currentExperienceId');
-
-    if (currentExperienceId) {
-      subscriptions.experience = subs.subscribe('experience', currentExperienceId);
-    } else {
-      if (subscriptions && subscriptions.experience && subscriptions.experience.stop) {
-        subscriptions.experience.stop();
-      }
-    }
-  });
-});

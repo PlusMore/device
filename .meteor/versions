@@ -86,6 +86,7 @@ percolatestudio:percolatestudio-mixpanel@0.5.0
 plusmore:pickadate-default-theme@3.5.5
 plusmore:plus-more-icons@1.0.0
 plusmore:reactive-responsive-helpers@1.1.0
+raix:iscroll@0.0.3
 random@1.0.3
 reactive-dict@1.1.0
 reactive-var@1.0.5

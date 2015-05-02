@@ -19,26 +19,20 @@
       <img class='experience-bg img-responsive' src="{{photoUrl}}/convert?{{bgImgWidth}}&{{bgImgHeight}}&fit=crop&cache=true" alt="">
     </div>
 
-    <div class="outer">
-      <div class="holder">
-        <section>
-          <div class="main scrollable">
-            <div class="experience-content">
-              <div class="container-fluid">
-                <div class="content-spacer" style="{{contentSpacerCss}}"></div>
-                {{#hiddenXs}}
-                  {{#if callToAction}}
-                    {{> callToAction}}
-                  {{/if}}
-                {{/hiddenXs}}
-                {{> experienceDetails}}
-                {{> experienceMap}}
-              </div>
-            </div>
-          </div>
-        </section>
+
+    <div class="experience-content">
+      <div class="container-fluid">
+        <div class="content-spacer" style="{{contentSpacerCss}}"></div>
+        {{#hiddenXs}}
+          {{#if callToAction}}
+            {{> callToAction}}
+          {{/if}}
+        {{/hiddenXs}}
+        {{> experienceDetails}}
+        {{> experienceMap}}
       </div>
     </div>
+
 
     {{#visibleXs}}
       {{#if callToAction}}
