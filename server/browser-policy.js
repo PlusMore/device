@@ -1,5 +1,4 @@
 Meteor.startup(function() {
-  BrowserPolicy.content.allowEval();
   // CDN
   BrowserPolicy.content.allowOriginForAll("https://*.filepicker.io");
   BrowserPolicy.content.allowOriginForAll("http://*.filepicker.io");
