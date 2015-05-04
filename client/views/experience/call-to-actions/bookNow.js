@@ -14,23 +14,38 @@ Template.bookNow.destroyed = function () {
 
 Template.bookNow.helpers({
   state: function () {
-    return Template.instance().state.get();
+    var templateInstance = Template.instance();
+    if (templateInstance && templateInstance.state) {
+      return templateInstance.state.get();
+    }
+    return '';
   },
   confirm: function () {
-    return Template.instance().state.get() === 'confirm';
+    var templateInstance = Template.instance();
+    if (templateInstance && templateInstance.state) {
+      return templateInstance.state.get() === 'confirm';
+    }
+
+    return false;
   },
   inputContainerClasses: function() {
     if (ResponsiveHelpers.isXs()) {
-      if (Template.instance().state.get() === 'confirm') {
-        return 'fadeInUpBig'
-      } else if (Template.instance().state.get() === 'hiding') {
-        return 'fadeOutDownBig'
-      } else {
-        return 'hidden'
+
+      var templateInstance = Template.instance();
+      if (templateInstance && templateInstance.state) {
+
+        if (templateInstance.state.get() === 'confirm') {
+          return 'fadeInUpBig'
+        } else if (templateInstance.state.get() === 'hiding') {
+          return 'fadeOutDownBig'
+        } else {
+          return 'hidden'
+        }
+
       }
-    } else {
-      return '';
     }
+
+    return '';
   },
   isXs: function() {
     return ResponsiveHelpers.isXs();
@@ -306,32 +321,6 @@ var initializePickers = function(template) {
       return true;
     }
   };
-
-
-  // here we are deciding which day to start the date picker at. If we are within
-  // the availability times for today, then the minumum available date should be today,
-  // if we are already outside of it, then the minumum should be tomorrow
-
-  // // if right now is before the first available time, then the start should be today
-  // if (moment() < startTime) {
-  //   // if it is today at 3pm, and reservations start
-  //   // at from 5pm, start at today in datepicker
-  //   datepickerOptions.min = true;
-  // } else if ((moment() > startTime) && (moment() < endTime)) {
-  //   // if we are inside of reservation hours
-  //   // then start datepicker at today
-  //   datepickerOptions.min = true;
-  //   // unless {{delay}} hours from now is past endTime, don't allow
-  //   // any more reservations
-  //   if (moment().add(delayHours, 'hours') > endTime) {
-  //     startTomorrow = true;
-  //     datepickerOptions.min = 1; // min is 1 day away
-  //   }
-  // } else {
-  //   // after hours, make datepicker start tomorrow
-  //   startTomorrow = true;
-  //   datepickerOptions.min = 1;
-  // }
 
   // trying something new, always set min to today, when user tries to book for
   // today, show a message saying there is no more availability
