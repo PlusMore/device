@@ -147,6 +147,7 @@ var getCategoryDelay = function(category) {
 
 var initializePickers = function(template) {
   var experience = Experiences.findOne(template.data._id);
+  console.log('initializing pickers for experience', experience);
 
   // the delay for this type of category in half hour intervals
   // a three hour delay, for example, is 6
