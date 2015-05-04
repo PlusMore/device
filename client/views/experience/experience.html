@@ -1,11 +1,11 @@
 <template name="experience">
   {{#with experience}}
-  <div class="experience {{modalOpen}}">  
+  <div class="experience {{modalOpen}}">
 
     <nav class="navbar navbar-fixed-top navbar-plusmore" role="navigation">
       <div class="container-fluid">
-        <i class="icon icon-back js-back">
-          <span class="text">Back</span>
+        <i class="icon icon-x js-back">
+          <span class="text">Close</span>
         </i>
 
         <h4 class="navbar-title">
@@ -28,7 +28,7 @@
                 <div class="content-spacer" style="{{contentSpacerCss}}"></div>
                 {{#hiddenXs}}
                   {{#if callToAction}}
-                    {{> callToAction}}  
+                    {{> callToAction}}
                   {{/if}}
                 {{/hiddenXs}}
                 {{> experienceDetails}}
@@ -42,7 +42,7 @@
 
     {{#visibleXs}}
       {{#if callToAction}}
-        {{> callToAction}}  
+        {{> callToAction}}
       {{/if}}
     {{/visibleXs}}
 
