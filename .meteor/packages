@@ -14,7 +14,6 @@ percolatestudio:percolatestudio-mixpanel
 mizzao:user-status
 natestrauser:animate-css
 lezed1:bootstrap-errors@0.3.1
-mrt:googlemaps@0.0.2
 oauth1
 accounts-oauth
 tinytest
@@ -47,4 +46,6 @@ msavin:mongol
 dburles:collection-helpers
 aldeed:autoform@5.1.2
 plusmore:pickadate-default-theme
+dburles:google-maps
+browser-policy
 meteorhacks:sikka
