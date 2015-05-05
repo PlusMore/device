@@ -1,5 +1,5 @@
 Meteor.startup(function() {
-  GoogleMaps.init({
+  GoogleMaps.load({
     'sensor': false, //optional
     'key': Meteor.settings.public.googlemaps, //optional
     'language': 'en' //optional

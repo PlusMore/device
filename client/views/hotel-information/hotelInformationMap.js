@@ -1,47 +1,33 @@
-var retry = 0;
-var initializeMap = function() {
-  if (typeof google !== 'undefined' && typeof google.maps !== 'undefined' && typeof google.maps.Map !== 'undefined') {
-    var mapOptions = {
-      zoom: 18,
-      disableDefaultUI: true,
-      zoomControl: true,
-      mapTypeControl: true,
-      // mapTypeId: 'hybrid'
-    };
-
-    if (typeof Session.get('hotelGeo') !== 'undefined') {
-      var geo = Session.get('hotelGeo');
-      var hotelLatLng = new google.maps.LatLng(geo.latitude, geo.longitude);
-    } else {
-      var hotel = Hotels.findOne();
-      var hotelLatLng = new google.maps.LatLng(hotel.geo.latitude, hotel.geo.longitude);
-      Session.set('hotelGeo', hotel.geo);
+Template.hotelInformationMap.helpers({
+  mapOptions: function() {
+    if (GoogleMaps.loaded()) {
+      // get hotel coords
+      if (typeof Session.get('hotelGeo') !== 'undefined') {
+        var geo = Session.get('hotelGeo');
+        var hotelLatLng = new google.maps.LatLng(geo.latitude, geo.longitude);
+      } else {
+        var hotel = Hotels.findOne();
+        var hotelLatLng = new google.maps.LatLng(hotel.geo.latitude, hotel.geo.longitude);
+        Session.set('hotelGeo', hotel.geo);
+      }
+      return {
+        zoom: 18,
+        disableDefaultUI: true,
+        zoomControl: true,
+        mapTypeControl: true,
+        center: hotelLatLng
+      }
     }
+  }
+});
 
-    if (typeof hotelMap !== 'undefined') {
-      hotelMap.unbindAll();
-      hotelMap.setCenter(hotelLatLng);
-      hotelMap.constructor(document.getElementById("hotel-map"), mapOptions);
-    } else {
-      hotelMap = new google.maps.Map(document.getElementById("hotel-map"), mapOptions);
-      hotelMap.setCenter(hotelLatLng);
-    }
-
+Template.hotelInformationMap.onCreated(function() {
+  GoogleMaps.ready('hotelMap', function(map) {
+    // Add a marker to the map once it's ready
     var marker = new google.maps.Marker({
-      position: hotelLatLng,
-      map: hotelMap,
+      position: map.options.center,
+      map: map.instance,
       icon: '/markers/hotel.png'
     });
-  } else if (retry < 5) {
-    Meteor.setTimeout(arguments.callee, 100);
-    retry++;
-  }
-};
-
-Template.hotelInformationMap.rendered = function() {
-  GoogleMaps.init({
-    'sensor': false, //optional
-    'key': Meteor.settings.public.googlemaps, //optional
-    'language': 'en' //optional
-  }, initializeMap);
-};
+  });
+});
