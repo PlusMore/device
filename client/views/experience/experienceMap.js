@@ -9,7 +9,8 @@ Template.experienceMap.helpers({
           disableDefaultUI: true,
           zoomControl: true,
           mapTypeControl: true,
-          center: experienceLatLng
+          center: experienceLatLng,
+          scrollwheel: false
         }
       }
     }
