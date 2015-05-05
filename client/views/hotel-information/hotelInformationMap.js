@@ -15,7 +15,8 @@ Template.hotelInformationMap.helpers({
         disableDefaultUI: true,
         zoomControl: true,
         mapTypeControl: true,
-        center: hotelLatLng
+        center: hotelLatLng,
+        scrollwheel: false
       }
     }
   }
