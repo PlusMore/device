@@ -176,13 +176,6 @@ var initializePickers = function(template) {
 
   var startTomorrow = false;
 
-  var checkoutDate = undefined;
-  var stay = Stays.findOne();
-
-  if (stay) {
-    checkoutDate = stay.checkoutDate;
-  }
-
   // timepicker options
   var timepickerOptions = {
     container: 'body',
@@ -224,7 +217,6 @@ var initializePickers = function(template) {
 
   var datepickerOptions = {
     container: 'body',
-    max: checkoutDate,
     format: 'dddd, mmmm d',
     clear: null,
     onSet: function(select) {
