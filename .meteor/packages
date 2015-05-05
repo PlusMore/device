@@ -45,7 +45,7 @@ plusmore:reactive-responsive-helpers
 msavin:mongol
 dburles:collection-helpers
 aldeed:autoform@5.1.2
-plusmore:pickadate-default-theme
+plusmore:pickadate-default-theme@=3.3.1
 dburles:google-maps
 browser-policy
 meteorhacks:sikka
