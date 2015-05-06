@@ -14,7 +14,7 @@ Meteor.methods({
     });
 
     this.unblock();
-    HotelGuestApp.Events.emit('order:cancelled-experience-reservation', {
+    HotelGuestApp.Events.emit('order:experience-reservation-cancelled', {
       orderId: orderId
     });
   }

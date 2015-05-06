@@ -1,4 +1,4 @@
-HotelGuestApp.Events.on('order:cancelled-experience-reservation', function(eventData) {
+HotelGuestApp.Events.on('order:experience-reservation-cancelled', function(eventData) {
   var order = Orders.findOne(eventData.orderId);
 
   // TODO: if notification preference is set, direct to the appropriate channel

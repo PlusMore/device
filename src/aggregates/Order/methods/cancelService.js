@@ -14,7 +14,7 @@ Meteor.methods({
     });
 
     this.unblock();
-    HotelGuestApp.Events.emit('order:cancelled-hotel-service-request', {
+    HotelGuestApp.Events.emit('order:hotel-service-request-cancelled', {
       orderId: orderId
     });
   }
