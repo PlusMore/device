@@ -1,7 +1,10 @@
 Meteor.methods({
-  'sendExperienceReservationCancelledEmail': function(reservation) {
+  'sendExperienceReservationCancelledEmail': function(order) {
     this.unblock();
+
     if (Meteor.server) {
+      var reservation = order.reservation;
+
       var experience = Experiences.findOne(reservation.experienceId);
       var when = moment(reservation.date).zone(reservation.zone);
       when = when.format('MMMM Do YYYY, h:mm a') + " (" + when.calendar() + ")";
