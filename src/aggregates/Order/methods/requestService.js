@@ -1,11 +1,27 @@
+Schema.requestService = new SimpleSchema({
+  type: {
+    type: String
+  },
+  handledBy: {
+    type: String
+  },
+  date: {
+    type: Date
+  },
+  zone: {
+    type: Number
+  }
+});
+
+
 Meteor.methods({
-  requestService: function(service, stayId) {
+  requestService: function(serviceRequest, stayId) {
     // Check that type is provided
-    check(service.type, String);
+    check(serviceRequest.type, String);
 
     // add any validation to schema for specific request types
-    var serviceSchema = _.clone(Schema.service._schema);
-    switch (service.type) {
+    var serviceSchema = _.clone(Schema.requestService._schema);
+    switch (serviceRequest.type) {
       case 'transportation':
         var transportationSchema = new SimpleSchema({
           transportationType: {
@@ -40,10 +56,10 @@ Meteor.methods({
         });
         break;
       default:
-        throw new Meteor.Error(500, 'Service type is not configured', service);
+        throw new Meteor.Error(500, 'Service type is not configured', serviceRequest);
     }
 
-    check(service, new SimpleSchema(serviceSchema));
+    check(serviceRequest, new SimpleSchema(serviceSchema));
 
     var user = Meteor.user();
     if (!user) {
@@ -79,9 +95,9 @@ Meteor.methods({
       roomId: room._id,
       hotelId: hotel._id,
       stayId: stay._id,
-      service: service,
+      service: serviceRequest,
       requestedDate: new Date(),
-      requestedZone: service.zone,
+      requestedZone: serviceRequest.zone,
       open: true,
       status: 'requested',
       userId: user._id
@@ -93,10 +109,10 @@ Meteor.methods({
 
     if (Meteor.isServer) {
       var url = stripTrailingSlash(Meteor.settings.apps.admin.url) + "/patron-order/{0}".format(orderId);
-      var when = moment(service.date).zone(service.zone);
+      var when = moment(serviceRequest.date).zone(serviceRequest.zone);
       when = when.format('MMMM Do YYYY, h:mm a') + " (" + when.calendar() + ")";
 
-      var friendlyServiceType = HotelServices.friendlyServiceType(service.type);
+      var friendlyServiceType = HotelServices.friendlyServiceType(serviceRequest.type);
 
       // for our information
       Email.send({
