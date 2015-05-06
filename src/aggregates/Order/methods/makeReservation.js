@@ -16,7 +16,7 @@ Schema.makeReservation = new SimpleSchema({
 
 // Make reservation requirements
 //
-// User: Most be a logged in user of PlusMore
+// User: Must be a logged in user of PlusMore
 //
 // Hotel: No hotel requirements to order, but if a user has a stay it is
 // useful to track that data for reporting purposes

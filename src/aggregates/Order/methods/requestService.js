@@ -13,57 +13,77 @@ Schema.requestService = new SimpleSchema({
   }
 });
 
+var getTypeOptionsSimpleSchema = function(serviceType) {
+  switch (serviceType) {
 
-Meteor.methods({
-  requestService: function(serviceRequest, stayId) {
-    // Check that type is provided
-    check(serviceRequest.type, String);
-
-    // add any validation to schema for specific request types
-    var serviceSchema = _.clone(Schema.requestService._schema);
-    switch (serviceRequest.type) {
+      case 'bellService':
+      case 'houseKeeping':
+      case 'wakeUpCall':
+        // Nothing extra needed
+        return false;
+        break;
       case 'transportation':
-        var transportationSchema = new SimpleSchema({
+        return new SimpleSchema({
           transportationType: {
             type: String
           }
         });
-        serviceSchema = _.extend(serviceSchema, {
-          options: {
-            type: transportationSchema
-          }
-        });
-        break;
-      case 'bellService':
-        // Nothing extra needed for bellService
-        break;
-      case 'houseKeeping':
-        // Nothing extra needed for houseKeeping
-        break;
-      case 'wakeUpCall':
-        // Nothing extra needed for wakeUpCall
         break;
       case 'valetServices':
-        var valetServicesSchema = new SimpleSchema({
+        return new SimpleSchema({
           ticketNumber: {
             type: String
           }
         });
-        serviceSchema = _.extend(serviceSchema, {
-          options: {
-            type: valetServicesSchema
-          }
-        });
         break;
       default:
+        console.log('The type of service requested has not been configured');
         throw new Meteor.Error(500, 'Service type is not configured', serviceRequest);
+        break;
+    }
+}
+
+// Request Service requirements
+//
+// User: Must be a logged in user of PlusMore
+// Stay: Has to have a valid stay
+// Room: Stay has to have a valid room
+// Hotel: Room needs a valid hotel
+//
+// Notifications: Should send a notification
+// - handled in notification event handlers
+
+Meteor.methods({
+  requestService: function(serviceRequest, stayId) {
+    console.log('A guest is attempting to request a hotel service', serviceRequest.type);
+
+    // ********** VALIDATION ***************
+
+    // check args
+    check(serviceRequest, Object);
+    check(stayId, String)
+
+    // Check that type is provided
+    check(serviceRequest.type, String);
+
+    // add any validation to schema for specific request types
+    var serviceSchemaJSON = _.clone(Schema.requestService._schema);
+    var serviceTypeOptionsSimpleSchema = getTypeOptionsSimpleSchema(serviceRequest.type);
+    var optionsSchemaJSON;
+    if (serviceTypeOptionsSimpleSchema) {
+      optionsSchemaJSON = {
+        options: {
+          type: serviceTypeOptionsSimpleSchema
+        }
+      }
+      serviceSchemaJSON = _.extend(serviceSchemaJSON, optionsSchemaJSON);
     }
 
-    check(serviceRequest, new SimpleSchema(serviceSchema));
+    check(serviceRequest, new SimpleSchema(serviceSchemaJSON));
 
     var user = Meteor.user();
     if (!user) {
-      throw new Meteor.Error(403, 'Unauthorized');
+      throw new Meteor.Error(403, 'PlusMore Members Only');
     }
 
     var stay = Stays.findOne(stayId);
@@ -72,26 +92,25 @@ Meteor.methods({
     }
 
     if (moment().zone(stay.zone) > moment(stay.checkoutDate).zone(stay.zone)) {
-      throw new Meteor.Error(500, 'Stay has ended.');
-    }
-
-    var hotel = Hotels.findOne(stay.hotelId);
-    if (!hotel) {
-      throw new Meteor.Error(500, 'Not a valid hotel');
+      throw new Meteor.Error(500, 'The provided stay has ended.');
     }
 
     var room = Rooms.findOne(stay.roomId);
     if (!room) {
-      throw new Meteor.Error(500, 'Not a valid room');
+      throw new Meteor.Error(500, 'Stay does not belong to a valid room');
     }
 
-    var device = Devices.findOne({roomId: room._id});
+    var hotel = Hotels.findOne(room.hotelId);
+    if (!hotel) {
+      throw new Meteor.Error(500, 'Room does not belong to a valid hotel');
+    }
+
+    // ************ END VALIDATION **************
 
     // valid service
     var order = {
       type: 'service',
-      handledBy: service.handledBy,
-      deviceId: device && device._id || 'No Device',
+      handledBy: serviceRequest.handledBy,
       roomId: room._id,
       hotelId: hotel._id,
       stayId: stay._id,
@@ -107,27 +126,9 @@ Meteor.methods({
 
     this.unblock();
 
-    if (Meteor.isServer) {
-      var url = stripTrailingSlash(Meteor.settings.apps.admin.url) + "/patron-order/{0}".format(orderId);
-      var when = moment(serviceRequest.date).zone(serviceRequest.zone);
-      when = when.format('MMMM Do YYYY, h:mm a') + " (" + when.calendar() + ")";
-
-      var friendlyServiceType = HotelServices.friendlyServiceType(serviceRequest.type);
-
-      // for our information
-      Email.send({
-        to: 'order-service@plusmoretablets.com',
-        from: "noreply@plusmoretablets.com",
-        subject: "Info: Device in {0} at {1} has requested hotel service.\n\n".format(room.name, hotel.name),
-        text: "This is an informational email and does not require your service\n\n" +
-          "Device in {0} at {1} has requested hotel service.\n\n".format(room.name, hotel.name) +
-          "Request Details:\n\n" +
-          "For: {0}\n".format(friendlyServiceType) +
-          "When: {0}\n".format(when) +
-          "\nTo view the status of this request, click the link below\n\n" +
-          url
-      });
-    }
+    HotelGuestApp.Events.emit('order:hotel-service-requested', {
+      orderId: orderId
+    });
 
     return orderId;
   }
