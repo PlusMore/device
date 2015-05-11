@@ -29,3 +29,7 @@ Stays.helpers({
     return false;
   }
 });
+
+Stays.currentStayForUserId = function (userId) {
+  return Stays.findOne({users: userId, active: true});
+}
