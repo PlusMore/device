@@ -7,7 +7,7 @@ APP_OPTIONS?=
 MONGO_URL?=mongodb://localhost:27017/plusmore
 MONGO_OPLOG_URL?=mongodb://localhost:27017/local
 CLUSTER_DISCOVERY_URL?=mongodb://localhost:27017/cluster
-CLUSTER_SERVICE?=emailService
+CLUSTER_SERVICE?=device
 SUBDOMAIN?=dev-device
 TAG?=
 
