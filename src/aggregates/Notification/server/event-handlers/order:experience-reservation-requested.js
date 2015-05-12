@@ -1,7 +1,7 @@
 // when a reservation request is made, send out a notification
 
 Meteor.startup(function() {
-  var emailer = PlusMore.Services.EmailService;
+  var emailer = Cluster.discoverConnection('emailService');
 
   HotelGuestApp.Events.on('order:experience-reservation-requested', function(eventData) {
     var order = Orders.findOne(eventData.orderId);
