@@ -30,6 +30,15 @@ Stays.helpers({
   }
 });
 
-Stays.currentStayForUserId = function (userId) {
+Stays.currentStayForUserId = function(userId) {
   return Stays.findOne({users: userId, active: true});
+}
+
+Stays.endStay = function(stayId) {
+  var hotelService = Cluster.discoverConnection('hotel');
+  hotelService.call('endStay', stayId, function(err, result) {
+    if (err) {
+      Errors.throw(err);
+    }
+  });
 }
