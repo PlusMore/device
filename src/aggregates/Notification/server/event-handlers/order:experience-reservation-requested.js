@@ -21,6 +21,7 @@ Meteor.startup(function() {
         } else {
           url = 'ERROR: Admin endpoint could not be reached. The url could not be generated. Please login to the admin application and search for the order.';
         }
+
         var when = moment(reservation.date).zone(reservation.zone);
         when = when.format('MMMM Do YYYY, h:mm a') + " (" + when.calendar() + ")";
 
