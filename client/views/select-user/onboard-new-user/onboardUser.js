@@ -58,7 +58,7 @@ Template.onboardUser.events({
       var stay = Stays.findOne();
       var stayId = stay._id;
 
-      Meteor.call('addUserToStay', stayId, function() {
+      Stays.addUserToStay(stayId, function(err, result) {
         Session.set('onboardStep', 'onboardUserFinished');
 
         Meteor.setTimeout(function() {
