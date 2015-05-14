@@ -14,8 +14,13 @@ Meteor.startup(function() {
         var experience = Experiences.findOne(reservation.experienceId);
 
         var adminEndpoint = Cluster.discovery.pickEndpoint('admin');
-        var url = stripTrailingSlash(adminEndpoint) + "/patron-order/{0}".format(orderId);
+        var url;
 
+        if (adminEndpoint) {
+          url = stripTrailingSlash(adminEndpoint) + "/patron-order/{0}".format(orderId);
+        } else {
+          url = 'ERROR: Admin endpoint could not be reached. The url could not be generated. Please login to the admin application and search for the order.';
+        }
         var when = moment(reservation.date).zone(reservation.zone);
         when = when.format('MMMM Do YYYY, h:mm a') + " (" + when.calendar() + ")";
 
@@ -41,7 +46,7 @@ Meteor.startup(function() {
           adminOrderUrl: url
         };
 
-        return emailer.call('sendExperienceReservationRequestedEmail', order);
+        return emailer.call('sendExperienceReservationRequestedEmail', options);
       }
     }
   });
