@@ -41,7 +41,12 @@ var onEngage = function(e) {
     console.log('show menu');
     e.stopImmediatePropagation();
     Menu.show();
+  } else {
+    console.log('hide menu');
+    e.stopImmediatePropagation();
+    Menu.hide();
   }
+
 };
 
 Template.welcomeContent.events({
