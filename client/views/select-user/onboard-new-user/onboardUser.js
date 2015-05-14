@@ -59,6 +59,10 @@ Template.onboardUser.events({
       var stayId = stay._id;
 
       Stays.addUserToStay(stayId, function(err, result) {
+        if (err) {
+          Errors.throw(err.reason);
+        }
+
         Session.set('onboardStep', 'onboardUserFinished');
 
         Meteor.setTimeout(function() {
@@ -93,7 +97,11 @@ Template.onboardUser.events({
       var stay = Stays.findOne();
       var stayId = stay._id;
 
-      Meteor.call('addUserToStay', stayId, function() {
+      Stays.addUserToStay(stayId, function(err, result) {
+        if (err) {
+          Errors.throw(err.reason);
+        }
+
         Session.set('onboardStep', 'onboardUserFinished');
 
         Meteor.setTimeout(function() {
