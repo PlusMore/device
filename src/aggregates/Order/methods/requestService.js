@@ -2,6 +2,9 @@ Schema.requestService = new SimpleSchema({
   type: {
     type: String
   },
+  serviceId: {
+    type: String
+  },
   handledBy: {
     type: String
   },

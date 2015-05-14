@@ -42,7 +42,6 @@ Template.houseKeeping.events({
       $(document).off('cancel-user-selected');
 
       Meteor.call('requestService', request, stay._id, function(error, result) {
-        debugger;
         if (error) {
           requestButton.progressError();
 
