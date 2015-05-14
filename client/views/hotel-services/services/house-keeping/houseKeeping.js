@@ -24,7 +24,8 @@ Template.houseKeeping.events({
     }
 
     var request = {
-      type: 'houseKeeping',
+      type: this.type,
+      serviceId: this._id,
       handledBy: 'hotel',
       date: reservationMoment.toDate(),
       zone: Session.get('zone')

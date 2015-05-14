@@ -25,7 +25,8 @@ var handleRequestService = function(e, tmpl, requestButton) {
   }
 
   var request = {
-    type: 'valetServices',
+    type: this.type,
+    serviceId: this._id,
     handledBy: 'hotel',
     date: reservationMoment.toDate(),
     zone: Session.get('zone'),

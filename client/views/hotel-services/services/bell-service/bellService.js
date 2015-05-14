@@ -24,7 +24,8 @@ Template.bellService.events({
     }
 
     var request = {
-      type: 'bellService',
+      type: this.type,
+      serviceId: this._id,
       handledBy: 'hotel',
       date: reservationMoment.toDate(),
       zone: Session.get('zone')

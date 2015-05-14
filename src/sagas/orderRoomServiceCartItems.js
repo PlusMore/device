@@ -33,6 +33,11 @@ Meteor.methods({
       throw new Meteor.Error(420, 'Not a valid hotel');
     }
 
+    var hotelService = HotelServices.find({hotelId: hotel._id, type: "roomService"});
+    if (!hotelService) {
+      throw new Meteor.Error(420, 'Not a valid hotel service');
+    }
+
     var cartItems = CartItems.find({
       cartId: cartId
     });
@@ -73,6 +78,7 @@ Meteor.methods({
 
     var service = {
       type: 'roomService',
+      serviceId: hotelService._id,
       orderedItems: orderedItems,
       orderSubtotal: orderedItems.subtotal,
       orderTax: orderedItems.tax,
