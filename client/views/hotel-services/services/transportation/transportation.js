@@ -39,7 +39,7 @@ Template.transportation.events({
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
 
-      var stay = Stays.findOne({users: user._id, active: true});
+      var stay = Stays.findOne({users: Meteor.userId(), active: true});
 
       if (!stay) {
         return Errors.throw('User does not have a valid stay.');
