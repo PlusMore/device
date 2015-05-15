@@ -1,3 +1,6 @@
+// 'authenticate' expects the calling service to implement 'getUserByToken'
+// /device/src/aggregates/Accounts/methods/getUserByToken.js
+
 PlusMore.Services.HotelService = Cluster.discoverConnection('hotel');
 
 if (Meteor.isClient) {
