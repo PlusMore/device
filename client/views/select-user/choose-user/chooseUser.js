@@ -110,21 +110,22 @@ Template.chooseUser.events({
         }
 
 
+        Meteor.defer(function() {
+          // add user to stay
+          var device = Devices.findOne(LocalStore.get('deviceId'));
+          var room = Rooms.findOne(device.roomId);
 
-        // add user to stay
-        var device = Devices.findOne(LocalStore.get('deviceId'));
-        var room = Rooms.findOne(device.roomId);
+          Stays.addUserToStay(room.stayId, function(err, result) {
+            if (err) {
+              Errors.throw(err.reason);
+            }
 
-        Stays.addUserToStay(room.stayId, function(err, result) {
-          if (err) {
-            Errors.throw(err.reason);
-          }
+            tmpl.step.set('chooseUserFinished');
 
-          tmpl.step.set('chooseUserFinished');
-
-          Meteor.setTimeout(function() {
-            tmpl.$(tmpl.firstNode).trigger('choose-user-complete');
-          }, 1000);
+            Meteor.setTimeout(function() {
+              tmpl.$(tmpl.firstNode).trigger('choose-user-complete');
+            }, 1000);
+          });
         });
 
       });
