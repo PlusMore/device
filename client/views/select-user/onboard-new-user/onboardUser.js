@@ -55,7 +55,6 @@ Template.onboardUser.events({
     Accounts.createUser(accountOptions, function(err) {
       if (err) return Errors.throw(err.message);
 
-
       Meteor.defer(function() {
 
         var stay = Stays.findOne();
@@ -99,19 +98,22 @@ Template.onboardUser.events({
         return Errors.throw(err.message);
       }
 
-      var stay = Stays.findOne();
-      var stayId = stay._id;
+      Meteor.defer(function() {
 
-      Stays.addUserToStay(stayId, function(err, result) {
-        if (err) {
-          Errors.throw(err.reason);
-        }
+        var stay = Stays.findOne();
+        var stayId = stay._id;
 
-        Session.set('onboardStep', 'onboardUserFinished');
+        Stays.addUserToStay(stayId, function(err, result) {
+          if (err) {
+            Errors.throw(err.reason);
+          }
 
-        Meteor.setTimeout(function() {
-          tmpl.$(tmpl.firstNode).trigger('onboard-complete');
-        }, 1000);
+          Session.set('onboardStep', 'onboardUserFinished');
+
+          Meteor.setTimeout(function() {
+            tmpl.$(tmpl.firstNode).trigger('onboard-complete');
+          }, 1000);
+        });
       });
     });
   },

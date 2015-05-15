@@ -1,5 +1,5 @@
 Stays = new Meteor.Collection('stays'); // could pass in hotelService when we move collection
-Stays.service = HotelService;
+Stays.service = PlusMore.Services.HotelService;
 
 Stays.allow({
   insert: function(userId, doc) {
