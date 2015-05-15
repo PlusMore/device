@@ -40,7 +40,7 @@ Stays.endStay = function(stayId, callback) {
     if (error) {
       callback && callback(error);
     } else {
-      callback && callback();
+      callback && callback(result);
     }
   });
 };
@@ -51,7 +51,7 @@ Stays.addUserToStay = function(stayId, callback) {
     if (error) {
       callback && callback(error);
     } else {
-      callback && callback();
+      callback && callback(result);
     }
   });
 };
@@ -61,7 +61,7 @@ Stays.stayOver = function(stayId, callback) {
     if (error) {
       callback && callback(error);
     } else {
-      callback && callback();
+      callback && callback(result);
     }
   });
 };
@@ -71,7 +71,7 @@ Stays.registerStay = function(deviceId, checkoutDate, callback) {
     if (error) {
       callback && callback(error);
     } else {
-      callback && callback();
+      callback && callback(result);
     }
   });
 };
