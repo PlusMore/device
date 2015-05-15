@@ -36,50 +36,42 @@ Stays.currentStayForUserId = function(userId) {
 };
 
 Stays.endStay = function(stayId, callback) {
-  Stays.service.call('endStay', stayId, function(err, result) {
-    if (err) {
-      return Errors.throw(err);
-    }
-
-    if (typeof callback === 'function') {
-      return callback(err, result);
+  Stays.service.call('endStay', stayId, function(error, result) {
+    if (error) {
+      callback && callback(error);
+    } else {
+      callback && callback();
     }
   });
 };
 
 Stays.addUserToStay = function(stayId, callback) {
   console.log('add user to stay');
-  Stays.service.call('addUserToStay', stayId, function(err, result) {
-    if (err) {
-      return Errors.throw(err);
-    }
-
-    if (typeof callback === 'function') {
-      return callback(err, result);
+  Stays.service.call('addUserToStay', stayId, function(error, result) {
+    if (error) {
+      callback && callback(error);
+    } else {
+      callback && callback();
     }
   });
 };
 
 Stays.stayOver = function(stayId, callback) {
-  Stays.service.call('stayOver', stayId, function(err, result) {
-    if (err) {
-      return Errors.throw(err);
-    }
-
-    if (typeof callback === 'function') {
-      return callback(err, result);
+  Stays.service.call('stayOver', stayId, function(error, result) {
+    if (error) {
+      callback && callback(error);
+    } else {
+      callback && callback();
     }
   });
 };
 
-Stays.registerStay = function(deviceId, checkoutDate) {
-  Stays.service.call('registerStayFromDevice', deviceId, checkoutDate, function(err, result) {
-    if (err) {
-      return Errors.throw(err);
-    }
-
-    if (typeof callback === 'function') {
-      return callback(err, result);
+Stays.registerStay = function(deviceId, checkoutDate, callback) {
+  Stays.service.call('registerStayFromDevice', deviceId, checkoutDate, function(error, result) {
+    if (error) {
+      callback && callback(error);
+    } else {
+      callback && callback();
     }
   });
 };

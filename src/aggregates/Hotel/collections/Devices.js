@@ -21,14 +21,12 @@ Devices.helpers({
   }
 });
 
-Devices.setupDevice = function(options) {
+Devices.setupDevice = function(options, callback) {
   Devices.service.call('setupDevice', options, function(err, result) {
-    if (err) {
-      return Errors.throw(err);
-    }
-
-    if (typeof callback === 'function') {
-      return callback(err, result);
+    if (error) {
+      callback && callback(error);
+    } else {
+      callback && callback();
     }
   });
 }
