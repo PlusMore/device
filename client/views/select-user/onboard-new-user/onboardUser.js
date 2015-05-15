@@ -55,20 +55,25 @@ Template.onboardUser.events({
     Accounts.createUser(accountOptions, function(err) {
       if (err) return Errors.throw(err.message);
 
-      var stay = Stays.findOne();
-      var stayId = stay._id;
 
-      Stays.addUserToStay(stayId, function(err, result) {
-        if (err) {
-          Errors.throw(err.reason);
-        }
+      Meteor.defer(function() {
 
-        Session.set('onboardStep', 'onboardUserFinished');
+        var stay = Stays.findOne();
+        var stayId = stay._id;
 
-        Meteor.setTimeout(function() {
-          tmpl.$(tmpl.firstNode).trigger('onboard-complete');
-        }, 1000);
+        Stays.addUserToStay(stayId, function(err, result) {
+          if (err) {
+            Errors.throw(err.reason);
+          }
+
+          Session.set('onboardStep', 'onboardUserFinished');
+
+          Meteor.setTimeout(function() {
+            tmpl.$(tmpl.firstNode).trigger('onboard-complete');
+          }, 1000);
+        });
       });
+
     });
   },
   'onboard-step-existing-guest-password-complete': function(e, tmpl) {

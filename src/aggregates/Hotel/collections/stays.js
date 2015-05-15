@@ -1,6 +1,5 @@
-var hotelService = Cluster.discoverConnection('hotel');
 Stays = new Meteor.Collection('stays'); // could pass in hotelService when we move collection
-Stays.service = hotelService;
+Stays.service = HotelService;
 
 Stays.allow({
   insert: function(userId, doc) {
@@ -36,25 +35,26 @@ Stays.currentStayForUserId = function(userId) {
   return Stays.findOne({users: userId, active: true});
 };
 
-Stays.endStay = function(stayId) {
+Stays.endStay = function(stayId, callback) {
   Stays.service.call('endStay', stayId, function(err, result) {
     if (err) {
       return Errors.throw(err);
     }
 
-    if (callback) {
+    if (typeof callback === 'function') {
       return callback(err, result);
     }
   });
 };
 
 Stays.addUserToStay = function(stayId, callback) {
+  console.log('add user to stay');
   Stays.service.call('addUserToStay', stayId, function(err, result) {
     if (err) {
       return Errors.throw(err);
     }
 
-    if (callback) {
+    if (typeof callback === 'function') {
       return callback(err, result);
     }
   });
@@ -66,7 +66,7 @@ Stays.stayOver = function(stayId, callback) {
       return Errors.throw(err);
     }
 
-    if (callback) {
+    if (typeof callback === 'function') {
       return callback(err, result);
     }
   });
