@@ -11,11 +11,6 @@ var handleRequestService = function(e, tmpl, requestButton) {
   var selectedDate = Session.get('selectedDate');
   var selectedMinutes = Session.get('selectedMinutes');
   var reservationMoment = moment(selectedDate).startOf('day').add(selectedMinutes, 'minutes');
-  var stay = Stays.findOne({users: user._id, active: true});
-
-  if (!stay) {
-    return Errors.throw('User does not have a valid stay.');
-  }
 
   var ticketNumber = tmpl.$('[name=ticketNumber]').val() || undefined;
 
@@ -25,7 +20,8 @@ var handleRequestService = function(e, tmpl, requestButton) {
   }
 
   var request = {
-    type: 'valetServices',
+    type: this.type,
+    serviceId: this._id,
     handledBy: 'hotel',
     date: reservationMoment.toDate(),
     zone: Session.get('zone'),
@@ -43,6 +39,12 @@ var handleRequestService = function(e, tmpl, requestButton) {
   $(document).one('user-selected', function() {
     $(document).off('user-selected');
     $(document).off('cancel-user-selected');
+
+    var stay = Stays.findOne({users: user._id, active: true});
+
+    if (!stay) {
+      return Errors.throw('User does not have a valid stay.');
+    }
 
     Meteor.call('requestService', request, stay._id, function(error, result) {
       if (error) {

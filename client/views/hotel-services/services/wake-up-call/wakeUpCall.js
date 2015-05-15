@@ -17,9 +17,9 @@ Template.wakeUpCall.events({
     var selectedDate = Session.get('selectedDate');
     var selectedMinutes = Session.get('selectedMinutes');
     var reservationMoment = moment(selectedDate).startOf('day').add(selectedMinutes, 'minutes');
-
     var request = {
-      type: 'wakeUpCall',
+      type: this.type,
+      serviceId: this._id,
       handledBy: 'hotel',
       date: reservationMoment.toDate(),
       zone: Session.get('zone')
