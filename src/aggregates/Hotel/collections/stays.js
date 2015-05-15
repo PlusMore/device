@@ -70,4 +70,16 @@ Stays.stayOver = function(stayId, callback) {
       return callback(err, result);
     }
   });
-}
+};
+
+Stays.registerStay = function(deviceId, checkoutDate) {
+  Stays.service.call('registerStayFromDevice', deviceId, checkoutDate, function(err, result) {
+    if (err) {
+      return Errors.throw(err);
+    }
+
+    if (typeof callback === 'function') {
+      return callback(err, result);
+    }
+  });
+};

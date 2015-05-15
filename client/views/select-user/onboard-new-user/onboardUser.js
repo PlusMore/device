@@ -19,7 +19,7 @@ Template.onboardUser.events({
     var checkoutDate = Session.get('checkoutDate');
     Session.set('loader', 'Verifying');
 
-    Meteor.call('registerStay', deviceId, checkoutDate, function(err, stayId) {
+    Stays.registerStay(deviceId, checkoutDate, function(err, stayId) {
       if (err) {
         Session.set('loader', undefined);
 
