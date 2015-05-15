@@ -24,7 +24,8 @@ Template.houseKeeping.events({
     }
 
     var request = {
-      type: 'houseKeeping',
+      type: this.type,
+      serviceId: this._id,
       handledBy: 'hotel',
       date: reservationMoment.toDate(),
       zone: Session.get('zone')
@@ -41,7 +42,6 @@ Template.houseKeeping.events({
       $(document).off('cancel-user-selected');
 
       Meteor.call('requestService', request, stay._id, function(error, result) {
-        debugger;
         if (error) {
           requestButton.progressError();
 

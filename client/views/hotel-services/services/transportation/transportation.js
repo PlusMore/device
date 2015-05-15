@@ -24,7 +24,8 @@ Template.transportation.events({
     }
 
     var request = {
-      type: 'transportation',
+      type: this.type,
+      serviceId: this._id,
       handledBy: 'hotel',
       date: reservationMoment.toDate(),
       zone: Session.get('zone'),
