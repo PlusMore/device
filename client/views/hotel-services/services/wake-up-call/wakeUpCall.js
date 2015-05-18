@@ -17,7 +17,6 @@ Template.wakeUpCall.events({
     var selectedDate = Session.get('selectedDate');
     var selectedMinutes = Session.get('selectedMinutes');
     var reservationMoment = moment(selectedDate).startOf('day').add(selectedMinutes, 'minutes');
-
     var request = {
       type: this.type,
       serviceId: this._id,
@@ -35,6 +34,7 @@ Template.wakeUpCall.events({
     $(document).one('user-selected', function() {
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
+
 
       var stay = Stays.findOne({users: Meteor.userId(), active: true});
 

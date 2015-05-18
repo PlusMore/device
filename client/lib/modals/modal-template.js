@@ -23,9 +23,9 @@ Template.modal.helpers({
     if (!!modal.template()) {
 
       if (modal.hiding()) {
-        return 'show in animated fadeOutUp';
+        return 'show in animated fadeOut';
       }
-      return 'show in animated fadeInDown';
+      return 'show in animated fadeIn';
     } else {
       return 'hidden';
     }

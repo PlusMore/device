@@ -8,6 +8,7 @@ MONGO_URL?=mongodb://localhost:27017/plusmore
 MONGO_OPLOG_URL?=mongodb://localhost:27017/local
 CLUSTER_DISCOVERY_URL?=mongodb://localhost:27017/cluster
 CLUSTER_SERVICE?=device
+CLUSTER_PUBLIC_SERVICES="hotel"
 SUBDOMAIN?=dev-device
 TAG?=
 
@@ -17,6 +18,7 @@ start:
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
 	CLUSTER_DISCOVERY_URL=$(CLUSTER_DISCOVERY_URL) \
 	CLUSTER_SERVICE=$(CLUSTER_SERVICE) \
+	CLUSTER_PUBLIC_SERVICES=$(CLUSTER_PUBLIC_SERVICES) \
 	meteor -p $(PORT) --settings ./config/$(APP_ENV)/settings.json --mobile-server $(HOST):$(PORT) $(APP_OPTIONS)
 
 ios:
@@ -25,6 +27,7 @@ ios:
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
 	CLUSTER_DISCOVERY_URL=$(CLUSTER_DISCOVERY_URL) \
 	CLUSTER_SERVICE=$(CLUSTER_SERVICE) \
+	CLUSTER_PUBLIC_SERVICES=$(CLUSTER_PUBLIC_SERVICES) \
 	meteor run --settings ./config/$(APP_ENV)/settings.json ios -p $(PORT) $(APP_OPTIONS)
 
 android:
@@ -41,6 +44,7 @@ android-device:
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
 	CLUSTER_DISCOVERY_URL=$(CLUSTER_DISCOVERY_URL) \
 	CLUSTER_SERVICE=$(CLUSTER_SERVICE) \
+	CLUSTER_PUBLIC_SERVICES=$(CLUSTER_PUBLIC_SERVICES) \
 	meteor run --settings ./config/$(APP_ENV)/settings.json android-device -p $(PORT) --mobile-server $(HOST):$(PORT) $(APP_OPTIONS)
 
 build:
@@ -60,6 +64,7 @@ ios-device:
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
 	CLUSTER_DISCOVERY_URL=$(CLUSTER_DISCOVERY_URL) \
 	CLUSTER_SERVICE=$(CLUSTER_SERVICE) \
+	CLUSTER_PUBLIC_SERVICES=$(CLUSTER_PUBLIC_SERVICES) \
 	meteor run --settings ./config/$(APP_ENV)/settings.json ios-device -p $(PORT) --mobile-server $(HOST):$(PORT) $(APP_OPTIONS)
 
 all-platforms:
@@ -68,6 +73,7 @@ all-platforms:
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
 	CLUSTER_DISCOVERY_URL=$(CLUSTER_DISCOVERY_URL) \
 	CLUSTER_SERVICE=$(CLUSTER_SERVICE) \
+	CLUSTER_PUBLIC_SERVICES=$(CLUSTER_PUBLIC_SERVICES) \
 	meteor run --settings ./config/$(APP_ENV)/settings.json ios-device android-device -p $(PORT) --mobile-server $(HOST):$(PORT) $(APP_OPTIONS)
 
 debug:
@@ -76,6 +82,7 @@ debug:
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
 	CLUSTER_DISCOVERY_URL=$(CLUSTER_DISCOVERY_URL) \
 	CLUSTER_SERVICE=$(CLUSTER_SERVICE) \
+	CLUSTER_PUBLIC_SERVICES=$(CLUSTER_PUBLIC_SERVICES) \
 	meteor debug -p $(PORT) --settings ./config/$(APP_ENV)/settings.json
 
 start-prod:
@@ -84,6 +91,7 @@ start-prod:
 	MONGO_OPLOG_URL=$(MONGO_OPLOG_URL) \
 	CLUSTER_DISCOVERY_URL=$(CLUSTER_DISCOVERY_URL) \
 	CLUSTER_SERVICE=$(CLUSTER_SERVICE) \
+	CLUSTER_PUBLIC_SERVICES=$(CLUSTER_PUBLIC_SERVICES) \
 	meteor -p $(PORT) --production --settings ./config/$(APP_ENV)/settings.json
 
 ddp:

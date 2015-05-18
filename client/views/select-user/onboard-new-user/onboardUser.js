@@ -19,7 +19,7 @@ Template.onboardUser.events({
     var checkoutDate = Session.get('checkoutDate');
     Session.set('loader', 'Verifying');
 
-    Meteor.call('registerStay', deviceId, checkoutDate, function(err, stayId) {
+    Stays.registerStay(deviceId, checkoutDate, function(err, stayId) {
       if (err) {
         Session.set('loader', undefined);
 
@@ -55,16 +55,24 @@ Template.onboardUser.events({
     Accounts.createUser(accountOptions, function(err) {
       if (err) return Errors.throw(err.message);
 
-      var stay = Stays.findOne();
-      var stayId = stay._id;
+      Meteor.defer(function() {
 
-      Meteor.call('addUserToStay', stayId, function() {
-        Session.set('onboardStep', 'onboardUserFinished');
+        var stay = Stays.findOne();
+        var stayId = stay._id;
 
-        Meteor.setTimeout(function() {
-          tmpl.$(tmpl.firstNode).trigger('onboard-complete');
-        }, 1000);
+        Stays.addUserToStay(stayId, function(err, result) {
+          if (err) {
+            Errors.throw(err.reason);
+          }
+
+          Session.set('onboardStep', 'onboardUserFinished');
+
+          Meteor.setTimeout(function() {
+            tmpl.$(tmpl.firstNode).trigger('onboard-complete');
+          }, 1000);
+        });
       });
+
     });
   },
   'onboard-step-existing-guest-password-complete': function(e, tmpl) {
@@ -90,15 +98,22 @@ Template.onboardUser.events({
         return Errors.throw(err.message);
       }
 
-      var stay = Stays.findOne();
-      var stayId = stay._id;
+      Meteor.defer(function() {
 
-      Meteor.call('addUserToStay', stayId, function() {
-        Session.set('onboardStep', 'onboardUserFinished');
+        var stay = Stays.findOne();
+        var stayId = stay._id;
 
-        Meteor.setTimeout(function() {
-          tmpl.$(tmpl.firstNode).trigger('onboard-complete');
-        }, 1000);
+        Stays.addUserToStay(stayId, function(err, result) {
+          if (err) {
+            Errors.throw(err.reason);
+          }
+
+          Session.set('onboardStep', 'onboardUserFinished');
+
+          Meteor.setTimeout(function() {
+            tmpl.$(tmpl.firstNode).trigger('onboard-complete');
+          }, 1000);
+        });
       });
     });
   },

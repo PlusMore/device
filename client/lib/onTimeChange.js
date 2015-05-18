@@ -2,7 +2,7 @@ var checkIfStayHasExpired = function(time, stay) {
   var now = moment(time).zone(stay.zone);
   var checkoutDate = moment(stay.checkoutDate).zone(stay.zone);
   if (now > checkoutDate) {
-    Meteor.call('stayOver', stay._id, function(err) {
+    Stays.stayOver(stay._id, function(err, result) {
       if (err) {
         return Errors.throw('Unable to end stay');
       }

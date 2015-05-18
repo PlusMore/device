@@ -22,7 +22,7 @@ Template.welcomeContent.helpers({
   city: function() {
     var hotel = Hotels.findOne();
 
-    if (hotel) {
+    if (hotel && hotel.geo) {
       return hotel.geo.city;
     }
 

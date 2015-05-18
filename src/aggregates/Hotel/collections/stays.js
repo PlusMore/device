@@ -1,4 +1,5 @@
-Stays = new Meteor.Collection('stays');
+Stays = new Meteor.Collection('stays'); // could pass in hotelService when we move collection
+Stays.service = PlusMore.Services.HotelService;
 
 Stays.allow({
   insert: function(userId, doc) {
@@ -30,6 +31,47 @@ Stays.helpers({
   }
 });
 
-Stays.currentStayForUserId = function (userId) {
+Stays.currentStayForUserId = function(userId) {
   return Stays.findOne({users: userId, active: true});
-}
+};
+
+Stays.endStay = function(stayId, callback) {
+  Stays.service.call('endStay', stayId, function(error, result) {
+    if (error) {
+      callback && callback(error);
+    } else {
+      callback && callback(result);
+    }
+  });
+};
+
+Stays.addUserToStay = function(stayId, callback) {
+  console.log('add user to stay');
+  Stays.service.call('addUserToStay', stayId, function(error, result) {
+    if (error) {
+      callback && callback(error);
+    } else {
+      callback && callback(result);
+    }
+  });
+};
+
+Stays.stayOver = function(stayId, callback) {
+  Stays.service.call('stayOver', stayId, function(error, result) {
+    if (error) {
+      callback && callback(error);
+    } else {
+      callback && callback(result);
+    }
+  });
+};
+
+Stays.registerStay = function(deviceId, checkoutDate, callback) {
+  Stays.service.call('registerStayFromDevice', deviceId, checkoutDate, function(error, result) {
+    if (error) {
+      callback && callback(error);
+    } else {
+      callback && callback(result);
+    }
+  });
+};
