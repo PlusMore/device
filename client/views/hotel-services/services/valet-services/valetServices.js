@@ -11,6 +11,7 @@ var handleRequestService = function(e, tmpl, requestButton) {
   var selectedDate = Session.get('selectedDate');
   var selectedMinutes = Session.get('selectedMinutes');
   var reservationMoment = moment(selectedDate).startOf('day').add(selectedMinutes, 'minutes');
+  var tip = Session.get('selectedTip');
 
   var ticketNumber = tmpl.$('[name=ticketNumber]').val() || undefined;
 
@@ -27,7 +28,8 @@ var handleRequestService = function(e, tmpl, requestButton) {
     zone: Session.get('zone'),
     options: {
       ticketNumber: ticketNumber,
-    }
+    },
+    tip: tip
   };
 
   App.track('Hotel Service Request', {

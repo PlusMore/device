@@ -17,13 +17,15 @@ Template.wakeUpCall.events({
     var selectedDate = Session.get('selectedDate');
     var selectedMinutes = Session.get('selectedMinutes');
     var reservationMoment = moment(selectedDate).startOf('day').add(selectedMinutes, 'minutes');
+    var tip = Session.get('selectedTip');
 
     var request = {
       type: this.type,
       serviceId: this._id,
       handledBy: 'hotel',
       date: reservationMoment.toDate(),
-      zone: Session.get('zone')
+      zone: Session.get('zone'),
+      tip: tip
     };
 
     App.track('Hotel Service Request', {

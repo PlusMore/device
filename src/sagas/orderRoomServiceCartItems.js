@@ -1,8 +1,9 @@
 Meteor.methods({
-  orderRoomServiceCartItems: function(now, zone, cartId) {
+  orderRoomServiceCartItems: function(now, zone, cartId, tip) {
     check(now, Date);
     check(cartId, String);
     check(zone, Number);
+    check(tip, Number);
 
     console.log('placing order for cart', cartId);
 
@@ -74,7 +75,7 @@ Meteor.methods({
 
     orderedItems.subtotal = total;
     orderedItems.tax = orderedItems.subtotal * 0.06; // lookup tax for state? Based on hotelId?
-    orderedItems.total = orderedItems.subtotal + orderedItems.tax;
+    orderedItems.total = orderedItems.subtotal + orderedItems.tax + tip;
 
     var service = {
       type: 'roomService',
@@ -83,7 +84,8 @@ Meteor.methods({
       orderSubtotal: orderedItems.subtotal,
       orderTax: orderedItems.tax,
       orderTotal: orderedItems.total,
-      zone: zone
+      zone: zone,
+      tip: tip
     };
 
     var order = {
