@@ -13,6 +13,10 @@ Schema.requestService = new SimpleSchema({
   },
   zone: {
     type: Number
+  },
+  tip: {
+    type: Number,
+    optional: true
   }
 });
 
