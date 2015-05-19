@@ -39,19 +39,26 @@
             </tr>
           {{/each}}
           <tr>
-              <td class="totalcol" colspan="2">SubTotal:</td>
-              <td colspan="1" class='text-align-right'>{{currency cartItems.subtotal}}</td>
-              <td></td>
+            <td class="totalcol" colspan="2">SubTotal:</td>
+            <td colspan="1" class='text-align-right'>{{currency cartItems.subtotal}}</td>
+            <td></td>
           </tr>
           <tr>
-              <td class="totalcol" colspan="2">Tax 6%:</td>
-              <td colspan="1" class='text-align-right'>{{currency cartItems.tax}}</td>
-              <td></td>
+            <td class="totalcol" colspan="2">Tax 6%:</td>
+            <td colspan="1" class='text-align-right'>{{currency cartItems.tax}}</td>
+            <td></td>
           </tr>
-          <tr>
-              <td class="totalcol" colspan="2">Total:</td>
-              <td colspan="1" class='text-align-right'>{{currency cartItems.total}}</td>
+          {{#if configuration.allowTips}}
+            <tr>
+              <td class="totalcol" colspan="2">Tip:</td>
+              <td colspan="1" class='text-align-right'>{{> roomServiceSelectTip}}</td>
               <td></td>
+            </tr>
+          {{/if}}
+          <tr>
+            <td class="totalcol" colspan="2">Total:</td>
+            <td colspan="1" class='text-align-right'>{{currency cartItems.total}}</td>
+            <td></td>
           </tr>
         </tbody>
       </table>

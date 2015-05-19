@@ -12,6 +12,7 @@ Template.cart.helpers({
     var cartId = stayId || Meteor.default_connection._lastSessionId;
     var cartItems = CartItems.find({cartId: cartId});
     var total = 0;
+    var tip = Session.get('selectedTip');
 
     cartItems.forEach(function(cartItem){
       var item;
@@ -26,7 +27,7 @@ Template.cart.helpers({
 
     shopCart.subtotal = total;
     shopCart.tax = shopCart.subtotal * 0.06; // lookup tax for state? Based on hotelId?
-    shopCart.total = shopCart.subtotal + shopCart.tax;
+    shopCart.total = shopCart.subtotal + shopCart.tax + tip;
     return shopCart;
   }
 });
@@ -124,6 +125,7 @@ Template.cart.events({
           callback:function(result) {
             var now = moment();
             var zone = now.zone();
+            var tip = Session.get('selectedTip');
 
             $(document).one('user-selected', function() {
               $(document).off('user-selected');
@@ -131,7 +133,7 @@ Template.cart.events({
               Session.set('modalOpen', false);
 
 
-              Meteor.call('orderRoomServiceCartItems', now.toDate(), zone, cartId, function(err, result) {
+              Meteor.call('orderRoomServiceCartItems', now.toDate(), zone, cartId, tip, function(err, result) {
                 if (err) {
                   return Errors.throw(err.message);
                 }
