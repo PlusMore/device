@@ -38,6 +38,9 @@ Template.setupDevice.helpers({
   },
   hotelSelected: function() {
     return !!Session.get('kioskSetupFormSelectedHotelId');
+  },
+  hotelServiceDDP: function() {
+    return PlusMore.Services.HotelService;
   }
 });
 

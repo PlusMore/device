@@ -1,4 +1,5 @@
 Devices = new Meteor.Collection('devices');
+Devices.service = PlusMore.Services.HotelService;
 
 // Allow/Deny
 
@@ -19,3 +20,13 @@ Devices.helpers({
     return Rooms.findOne(this.roomId);
   }
 });
+
+Devices.setupDevice = function(options, callback) {
+  Devices.service.call('setupDevice', options, function(err, result) {
+    if (error) {
+      callback && callback(error);
+    } else {
+      callback && callback();
+    }
+  });
+}

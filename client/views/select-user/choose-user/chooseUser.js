@@ -46,7 +46,7 @@ Template.chooseUser.events({
       Meteor.setTimeout(function() {
         tmpl.$(tmpl.firstNode).trigger('choose-user-complete');
       }, 1000);
-      
+
     });
   },
   'create-stay-user-password': function (e, tmpl) {
@@ -85,11 +85,11 @@ Template.chooseUser.events({
             }
 
             if (err.reason === 'User has no password set') {
-              
+
               if (Meteor.isServer) {
                 Accounts.sendResetPasswordEmail(Session.get('onboardAccountCreationUserId'));
               }
-              
+
               tmpl.$(tmpl.firstNode).trigger('onboard-complete');
               return Errors.throw('No password was set for current account. Please follow instructions sent to the email you provided to set a password. Sorry for any inconvenience.');
             }
@@ -110,16 +110,22 @@ Template.chooseUser.events({
         }
 
 
+        Meteor.defer(function() {
+          // add user to stay
+          var device = Devices.findOne(LocalStore.get('deviceId'));
+          var room = Rooms.findOne(device.roomId);
 
-        // add user to stay
-        var device = Devices.findOne(LocalStore.get('deviceId'));
-        var room = Rooms.findOne(device.roomId);
+          Stays.addUserToStay(room.stayId, function(err, result) {
+            if (err) {
+              Errors.throw(err.reason);
+            }
 
-        Meteor.call('addUserToStay', room.stayId, function() {
-          tmpl.step.set('chooseUserFinished');
-          Meteor.setTimeout(function() {
-            tmpl.$(tmpl.firstNode).trigger('choose-user-complete');
-          }, 1000);
+            tmpl.step.set('chooseUserFinished');
+
+            Meteor.setTimeout(function() {
+              tmpl.$(tmpl.firstNode).trigger('choose-user-complete');
+            }, 1000);
+          });
         });
 
       });
@@ -127,19 +133,27 @@ Template.chooseUser.events({
       Accounts.createUser(accountOptions, function(err) {
         if (err) return Errors.throw(err.message);
 
-        var device = Devices.findOne(LocalStore.get('deviceId'));
-        var room = Rooms.findOne(device.roomId);
+        Meteor.defer(function() {
+          var device = Devices.findOne(LocalStore.get('deviceId'));
+          var room = Rooms.findOne(device.roomId);
 
-        Meteor.call('addUserToStay', room.stayId, function() {
-          tmpl.step.set('chooseUserFinished');
-          Meteor.setTimeout(function() {
-            tmpl.$(tmpl.firstNode).trigger('choose-user-complete');
-          }, 1000);
+          Stays.addUserToStay(room.stayId, function(err, result) {
+            if (err) {
+              Errors.throw(err.reason);
+            }
+
+            tmpl.step.set('chooseUserFinished');
+
+            Meteor.setTimeout(function() {
+              tmpl.$(tmpl.firstNode).trigger('choose-user-complete');
+            }, 1000);
+          });
         });
-      });  
+
+      });
     }
 
-    
+
   },
   'choose-user-complete': function(e, tmpl) {
     tmpl.$(tmpl.firstNode).closest('.modal').trigger('hide-modal');
@@ -150,6 +164,6 @@ Template.chooseUser.events({
       tmpl.step.set(undefined);
       Session.set('selectedUserChoice', undefined);
     }, 1000);
-    
+
   }
 });

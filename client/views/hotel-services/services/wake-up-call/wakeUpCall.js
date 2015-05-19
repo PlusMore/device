@@ -19,7 +19,6 @@ Template.wakeUpCall.events({
     var reservationMoment = moment(selectedDate).startOf('day').add(selectedMinutes, 'minutes');
     var tip = Session.get('selectedTip');
     var hotelServiceData = this;
-
     var request = {
       type: hotelServiceData.type,
       serviceId: hotelServiceData._id,
