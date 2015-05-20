@@ -26,9 +26,14 @@ Template.cart.helpers({
     });
 
     shopCart.subtotal = total;
-    shopCart.tax = shopCart.subtotal * 0.06; // lookup tax for state? Based on hotelId?
+    var taxRate = Hotels.findOne(stay.hotelId).taxRate || 0.06;
+    shopCart.tax = Number(shopCart.subtotal * taxRate).toFixed(2);
     shopCart.total = shopCart.subtotal + shopCart.tax + tip;
     return shopCart;
+  },
+  taxRate: function() {
+    var hotel = Hotels.findOne();
+    return Number(hotel.taxRate * 100).toFixed(2);
   }
 });
 
