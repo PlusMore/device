@@ -74,7 +74,8 @@ Meteor.methods({
     });
 
     orderedItems.subtotal = total;
-    orderedItems.tax = orderedItems.subtotal * 0.06; // lookup tax for state? Based on hotelId?
+    var taxRate = hotel.taxRate || 0.06;
+    orderedItems.tax = Number(orderedItems.subtotal * taxRate).toFixed(2);
     orderedItems.total = orderedItems.subtotal + orderedItems.tax + tip;
 
     var service = {
