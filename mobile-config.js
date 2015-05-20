@@ -59,4 +59,6 @@ App.setPreference('StatusBarOverlaysWebView', 'false');
 App.setPreference('StatusBarBackgroundColor', '#000000');
 App.setPreference('StatusBarStyle', 'blackopaque');
 
+App.accessRule('https://*.plusmoretablets.com');
+
 
