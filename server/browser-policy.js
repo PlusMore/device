@@ -22,23 +22,28 @@ Meteor.startup(function() {
   ];
 
   _.each(trustedSecure, function(trustedDomain) {
-    allowDomainAsOrigin(trustedDomain, false)
+    allowDomainAsOrigin(trustedDomain, false);
   });
 
   _.each(trustedBoth, function(trustedDomain) {
-    allowDomainAsOrigin(trustedDomain, true)
+    allowDomainAsOrigin(trustedDomain, true);
   });
 
 });
 
 var allowDomainAsOrigin = function(domain, allowHttp) {
   if (allowHttp) {
-    origin = "http://" + domain; // this should only be allowed when over http, don't know how to do that though
+    var origin = "http://" + domain; // this should only be allowed when over http, don't know how to do that though
     BrowserPolicy.content.allowOriginForAll(origin);
+    var wsOrigin = "ws://" + domain;
+    BrowserPolicy.content.allowOriginForAll(wsOrigin);
   }
 
-  secureOrigin = "https://" + domain;
+  var secureOrigin = "https://" + domain;
   BrowserPolicy.content.allowOriginForAll(secureOrigin);
-}
+
+  var wssOrigin = "ws://" + domain;
+  BrowserPolicy.content.allowOriginForAll(wssOrigin);
+};
 
 

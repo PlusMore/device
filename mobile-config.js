@@ -61,4 +61,45 @@ App.setPreference('StatusBarStyle', 'blackopaque');
 
 App.accessRule('https://*.plusmoretablets.com');
 
+var trustedSecure = [
+  'fontastic.s3.amazonaws.com',
+  '*.filepicker.io',
+  '*.googleapis.com',
+  '*.gstatic.com',
+  '*.cloudfront.net',
+  '*.plusmoretablets.com',
+  '*.plusmore.io',
+  '*.yelp.com',
+  '*.kadira.io'
+];
+
+var trustedBoth = [
+  '*.mxpnl.com',
+  '*.yelpcdn.com'
+];
+
+_.each(trustedSecure, function(trustedDomain) {
+  accessRule(trustedDomain, false);
+});
+
+_.each(trustedBoth, function(trustedDomain) {
+  accessRule(trustedDomain, true);
+});
+
+var accessRule = function(domain, allowHttp) {
+  if (allowHttp) {
+    var origin = "http://" + domain; // this should only be allowed when over http, don't know how to do that though
+    App.accessRule(origin);
+    var wsOrigin = "ws://" + domain;
+    App.accessRule(wsOrigin);
+  }
+
+  var secureOrigin = "https://" + domain;
+  App.accessRule(secureOrigin);
+
+  var wssOrigin = "ws://" + domain;
+  App.accessRule(wssOrigin);
+};
+
+
 
