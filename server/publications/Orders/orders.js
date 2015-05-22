@@ -5,3 +5,7 @@ Meteor.publish('orders', function() {
     })
   ];
 });
+
+Meteor.startup(function() {
+  Orders._ensureIndex({userId: 1});
+});

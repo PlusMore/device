@@ -15,3 +15,7 @@ Meteor.publish('hotel', function(hotelId) {
     }
   }
 });
+
+Meteor.startup(function() {
+  HotelServices._ensureIndex({hotelId: 1});
+});
