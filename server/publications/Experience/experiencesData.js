@@ -51,3 +51,7 @@ Meteor.publish('experiencesData', function(categoryId, stateCode) {
     })
   ];
 });
+
+Meteor.startup(function() {
+  Experiences._ensureIndex({categoryId: 1});
+});
