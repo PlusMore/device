@@ -17,3 +17,7 @@ Meteor.publish('ordersRecent', function() {
     })
   ];
 });
+
+Meteor.startup(function() {
+  Orders._ensureIndex({userId: 1});
+});
