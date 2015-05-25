@@ -5,6 +5,12 @@ Template.cart.helpers({
     var cartId = stayId || Meteor.default_connection._lastSessionId;
     return CartItems.find({cartId: cartId}).count() > 0;
   },
+  emptyCartDisabled: function() {
+    var stay = Stays.findOne();
+    var stayId = stay && stay._id;
+    var cartId = stayId || Meteor.default_connection._lastSessionId;
+    return CartItems.find({cartId: cartId}).count() > 0 ? '' : 'disabled';
+  },
   cartItems: function(){
     var shopCart = [];
     var stay = Stays.findOne();
@@ -87,12 +93,11 @@ Template.cart.events({
             var stay = Stays.findOne();
             var stayId = stay && stay._id;
             var cartId = stayId || Meteor.default_connection._lastSessionId;
-            Meteor.call('emptyCart', cartId);
+            Meteor.call('emptyCart', cartId, function(err, res) {
+              Session.set('modalOpen', false);
+            });
           }
         }
-      },
-      callback: function() {
-        Session.set('modalOpen', false);
       }
     });
     return false;
