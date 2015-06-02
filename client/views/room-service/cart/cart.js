@@ -19,6 +19,7 @@ Template.cart.helpers({
     var cartItems = CartItems.find({cartId: cartId});
     var total = 0;
     var tip = Session.get('selectedTip');
+    var hotel = Hotels.findOne();
 
     cartItems.forEach(function(cartItem){
       var item;
@@ -32,8 +33,8 @@ Template.cart.helpers({
     });
 
     shopCart.subtotal = total;
-    var taxRate = Hotels.findOne(stay.hotelId).taxRate || 0.06;
-    shopCart.tax = Number(shopCart.subtotal * taxRate).toFixed(2);
+    var taxRate = hotel && hotel.taxRate || 0.06;
+    shopCart.tax = shopCart.subtotal * taxRate;
     shopCart.total = shopCart.subtotal + shopCart.tax + tip;
     return shopCart;
   },
