@@ -18,7 +18,7 @@ Template.cart.helpers({
     var cartId = stayId || Meteor.default_connection._lastSessionId;
     var cartItems = CartItems.find({cartId: cartId});
     var total = 0;
-    var tip = Session.get('selectedTip');
+    var tip = Session.get('selectedTip') || 0;
     var hotel = Hotels.findOne();
 
     cartItems.forEach(function(cartItem){

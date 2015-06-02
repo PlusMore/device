@@ -3,6 +3,7 @@ Meteor.methods({
     check(now, Date);
     check(cartId, String);
     check(zone, Number);
+    tip = tip || 0;
     check(tip, Number);
 
     console.log('placing order for cart', cartId);
@@ -75,7 +76,7 @@ Meteor.methods({
 
     orderedItems.subtotal = total;
     var taxRate = hotel.taxRate || 0.06;
-    orderedItems.tax = Number(orderedItems.subtotal * taxRate).toFixed(2);
+    orderedItems.tax = orderedItems.subtotal * taxRate;
     orderedItems.total = orderedItems.subtotal + orderedItems.tax + tip;
 
     var service = {
@@ -86,7 +87,8 @@ Meteor.methods({
       orderTax: orderedItems.tax,
       orderTotal: orderedItems.total,
       zone: zone,
-      tip: tip
+      tip: tip,
+      taxRate: taxRate
     };
 
     var order = {
