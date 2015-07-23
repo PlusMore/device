@@ -14,3 +14,8 @@ Template.navEditor.events({
     modal.show('addNavCategory', null);
   }
 });
+
+Template.navEditor.onCreated(function() {
+  this.subscribe('navCategories');
+  this.subscribe('navLinks');
+});

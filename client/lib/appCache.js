@@ -1,7 +1,10 @@
 Meteor.startup(function() {
   if (window.applicationCache) {
     window.applicationCache.onerror = function() {
-      document.location = document.location;
+      var confirmReload = confirm('The application encountered an error while updating. Please press OK to reload.');
+      if (confirmReload) {
+        document.location = document.location;
+      }
     };
   }
 });

@@ -46,19 +46,19 @@ Template.editNavLink.events({
 
 AutoForm.hooks({
   addNavLink: {
-    onSuccess: function(operation, result, template) {
+    onSuccess: function(operation, result) {
       modal.close();
     },
-    onError: function(operation, error, template) {
+    onError: function(operation, error) {
       console.log('error');
       console.log(error.message);
     }
   },
   editNavLink: {
-    onSuccess: function(operation, result, template) {
+    onSuccess: function(operation, result) {
       modal.close();
     },
-    onError: function(operation, error, template) {
+    onError: function(operation, error) {
       console.log('error');
       console.log(error.message);
     }

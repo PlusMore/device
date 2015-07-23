@@ -17,12 +17,16 @@ Template.houseKeeping.events({
     var selectedDate = Session.get('selectedDate');
     var selectedMinutes = Session.get('selectedMinutes');
     var reservationMoment = moment(selectedDate).startOf('day').add(selectedMinutes, 'minutes');
+    var tip = Session.get('selectedTip');
+    var hotelServiceData = this;
 
     var request = {
-      type: 'houseKeeping',
+      type: hotelServiceData.type,
+      serviceId: hotelServiceData._id,
       handledBy: 'hotel',
       date: reservationMoment.toDate(),
-      zone: Session.get('zone')
+      zone: Session.get('zone'),
+      tip: tip
     };
 
     App.track('Hotel Service Request', {
@@ -35,7 +39,13 @@ Template.houseKeeping.events({
       $(document).off('user-selected');
       $(document).off('cancel-user-selected');
 
-      Meteor.call('requestService', request, function(error, result) {
+      var stay = Stays.findOne({users: Meteor.userId(), active: true});
+
+      if (!stay) {
+        return Errors.throw('User does not have a valid stay.');
+      }
+
+      Meteor.call('requestService', request, stay._id, function(error, result) {
         if (error) {
           requestButton.progressError();
 

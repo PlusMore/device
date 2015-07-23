@@ -5,6 +5,12 @@ Template.cart.helpers({
     var cartId = stayId || Meteor.default_connection._lastSessionId;
     return CartItems.find({cartId: cartId}).count() > 0;
   },
+  emptyCartDisabled: function() {
+    var stay = Stays.findOne();
+    var stayId = stay && stay._id;
+    var cartId = stayId || Meteor.default_connection._lastSessionId;
+    return CartItems.find({cartId: cartId}).count() > 0 ? '' : 'disabled';
+  },
   cartItems: function(){
     var shopCart = [];
     var stay = Stays.findOne();
@@ -12,6 +18,8 @@ Template.cart.helpers({
     var cartId = stayId || Meteor.default_connection._lastSessionId;
     var cartItems = CartItems.find({cartId: cartId});
     var total = 0;
+    var tip = Session.get('selectedTip') || 0;
+    var hotel = Hotels.findOne();
 
     cartItems.forEach(function(cartItem){
       var item;
@@ -25,9 +33,14 @@ Template.cart.helpers({
     });
 
     shopCart.subtotal = total;
-    shopCart.tax = shopCart.subtotal * 0.06; // lookup tax for state? Based on hotelId?
-    shopCart.total = shopCart.subtotal + shopCart.tax;
+    var taxRate = hotel && hotel.taxRate || 0.06;
+    shopCart.tax = shopCart.subtotal * taxRate;
+    shopCart.total = shopCart.subtotal + shopCart.tax + tip;
     return shopCart;
+  },
+  taxRate: function() {
+    var hotel = Hotels.findOne();
+    return Number(hotel.taxRate * 100).toFixed(2);
   }
 });
 
@@ -86,12 +99,11 @@ Template.cart.events({
             var stay = Stays.findOne();
             var stayId = stay && stay._id;
             var cartId = stayId || Meteor.default_connection._lastSessionId;
-            Meteor.call('emptyCart', cartId);
+            Meteor.call('emptyCart', cartId, function(err, res) {
+              Session.set('modalOpen', false);
+            });
           }
         }
-      },
-      callback: function() {
-        Session.set('modalOpen', false);
       }
     });
     return false;
@@ -124,6 +136,7 @@ Template.cart.events({
           callback:function(result) {
             var now = moment();
             var zone = now.zone();
+            var tip = Session.get('selectedTip');
 
             $(document).one('user-selected', function() {
               $(document).off('user-selected');
@@ -131,7 +144,7 @@ Template.cart.events({
               Session.set('modalOpen', false);
 
 
-              Meteor.call('orderRoomServiceCartItems', now.toDate(), zone, cartId, function(err, result) {
+              Meteor.call('orderRoomServiceCartItems', now.toDate(), zone, cartId, tip, function(err, result) {
                 if (err) {
                   return Errors.throw(err.message);
                 }

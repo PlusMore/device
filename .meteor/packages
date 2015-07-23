@@ -3,7 +3,7 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-standard-app-packages
+meteor-platform
 accounts-base
 accounts-password
 less
@@ -14,7 +14,6 @@ percolatestudio:percolatestudio-mixpanel
 mizzao:user-status
 natestrauser:animate-css
 lezed1:bootstrap-errors@0.3.1
-mrt:googlemaps@0.0.2
 oauth1
 accounts-oauth
 tinytest
@@ -23,7 +22,6 @@ mizzao:bootboxjs
 iron:router
 mrt:moment
 aldeed:collection2
-aldeed:autoform
 aldeed:simple-schema
 alanning:roles
 ian:accounts-ui-bootstrap-3
@@ -39,11 +37,15 @@ coffeescript
 meteorhacks:subs-manager
 mquandalle:bower
 andruschka:bootstrap-image-gallery
-appcache
 nemo64:bootstrap
 plusmore:plus-more-icons
-plusmore:pickadate-default-theme
 patrickleet:enquire
 plusmore:reactive-responsive-helpers
 msavin:mongol
 dburles:collection-helpers
+patrickleet:autoform@=5.1.3
+plusmore:pickadate-default-theme@=3.3.1
+dburles:google-maps
+browser-policy
+raix:eventemitter
+meteorhacks:cluster

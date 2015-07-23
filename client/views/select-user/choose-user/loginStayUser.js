@@ -18,11 +18,24 @@ Template.loginStayUser.rendered = function () {
   this.$('button[type=submit]:first').progressInitialize();
 };
 
+Template.loginStayUser.events({
+  'click #reset-password': function(e, tmpl) {
+    e.preventDefault();
+    var userId = Session.get('selectedUserChoice');
+    var user = Meteor.users.findOne(userId);
+    var options = {
+      email: user.emails[0].address
+    };
+    Accounts.forgotPassword(options);
+    tmpl.$("#reset-password").text("Email Sent!");
+  }
+});
+
 AutoForm.hooks({
   loginStayUser: {
     onSubmit: function(insertDoc, updateDoc, currentDoc) {
       this.event.preventDefault();
-      
+
       var parent = this.template.findParentTemplate('chooseUser');
 
       var levent = jQuery.Event('login-stay-user');
@@ -35,11 +48,11 @@ AutoForm.hooks({
     // show/hide a "Please wait" message, etc. If these hooks are
     // not defined, then by default the submit button is disabled
     // during submission.
-    beginSubmit: function(formId, template) {
-      template.$('[type=submit]:first').progressStart();
+    beginSubmit: function() {
+      this.template.$('[type=submit]:first').progressStart();
     },
-    endSubmit: function(formId, template) {
-      template.$('[type=submit]:first').progressFinish();
+    endSubmit: function() {
+      this.template.$('[type=submit]:first').progressFinish();
     }
   }
 });

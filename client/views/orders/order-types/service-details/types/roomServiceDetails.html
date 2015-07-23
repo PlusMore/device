@@ -31,9 +31,15 @@
         <td class='text-align-right'>{{currency service.orderSubtotal}}</td>
       </tr>
       <tr>
-        <td class="totalcol text-align-right" colspan="2">Tax 6%:</td>
+        <td class="totalcol text-align-right" colspan="2">Tax:</td>
         <td class='text-align-right'>{{currency service.orderTax}}</td>
       </tr>
+      {{#if service.tip}}
+        <tr>
+          <td class="totalcol text-align-right" colspan="2">Tip:</td>
+          <td class='text-align-right'>{{currency service.tip}}</td>
+        </tr>
+      {{/if}}
       <tr>
         <td class="totalcol text-align-right" colspan="2">Total:</td>
         <td class='text-align-right'>{{currency service.orderTotal}}</td>

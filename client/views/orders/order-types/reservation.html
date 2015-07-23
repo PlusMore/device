@@ -1,18 +1,18 @@
 <template name="reservation">
   <header>
     <h3>
-      Reservation for {{experience.title}}
+      Reservation {{#if experience}}for {{experience.title}}{{else}}info is no longer available{{/if}}
       <small class="pull-right">
         {{orderStatus}}
       </small>
     </h3>
   </header>
-  
+
   {{#if isCancelled}}
     <div class="time-ago">
-      <span>Cancelled {{cancelledDateMomentAgo}}</span>  
+      <span>Cancelled {{cancelledDateMomentAgo}}</span>
     </div>
-    
+
   {{else}}
     <div class="reservation-details">
       <p>{{when}}</p>
@@ -63,5 +63,5 @@
         <h2 class="modal-title text-center animated fadeInRight">Please call {{phone}} to cancel your reservation at {{title}}. Thanks!</h2>
       </div>
     </div>
-  </div> 
+  </div>
 </template>

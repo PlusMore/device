@@ -25,28 +25,32 @@
           <div class="main scrollable">
             <div class="hotel-info-content">
               <div class="container-fluid">
-                <div class="content-spacer" style="{{contentSpacerCss}}"></div>
-                <div class="row first-row" id="info-header">
-                  <div class="col-xs-12">
-                    <h4>{{hotel.name}}</h4>
-                    <h5>{{hotel.geo.streetNumber}} {{hotel.geo.streetName}}<br>{{hotel.geo.city}}, {{hotel.geo.state}} {{hotel.geo.zip}}<br>{{hotel.phone}}</h5>
-                  </div>
-                </div>
-                <div class="row" id="description">
-                  <div class="col-xs-12">
-                    <div class="description">
-                      <p>{{hotel.description}}</p>
+                {{#if Template.subscriptionsReady}}
+                  <div class="content-spacer" style="{{contentSpacerCss}}"></div>
+                  <div class="row first-row" id="info-header">
+                    <div class="col-xs-12">
+                      <h4>{{hotel.name}}</h4>
+                      <h5>{{hotel.geo.streetNumber}} {{hotel.geo.streetName}}<br>{{hotel.geo.city}}, {{hotel.geo.state}} {{hotel.geo.zip}}<br>{{hotel.phone}}</h5>
                     </div>
                   </div>
-                </div>
-                <div class="row">
-                {{#each amenities}}
-                  <div class="col-xs-12 col-sm-4 amenity">
-                    {{> hotelAmenity}}
+                  <div class="row" id="description">
+                    <div class="col-xs-12">
+                      <div class="description">
+                        <p>{{hotel.description}}</p>
+                      </div>
+                    </div>
                   </div>
-                {{/each}}
-                </div>
-                {{> hotelInformationMap}}
+                  <div class="row">
+                  {{#each amenities}}
+                    <div class="col-xs-12 col-sm-4 amenity">
+                      {{> hotelAmenity}}
+                    </div>
+                  {{/each}}
+                  </div>
+                  {{> hotelInformationMap}}
+                {{else}}
+                  {{> loadingAnimation}}
+                {{/if}}
               </div>
             </div>
           </div>

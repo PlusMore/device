@@ -1,5 +1,5 @@
 <template name='cart'>
-  <div id='room-service-cart' class="modal-content inline" >
+  <div id='room-service-cart' class="modal-content inline animated fadeInRight" >
     <div class="modal-header">
       <h4 class="modal-title">
         Your Order
@@ -39,27 +39,34 @@
             </tr>
           {{/each}}
           <tr>
-              <td class="totalcol" colspan="2">SubTotal:</td>
-              <td colspan="1" class='text-align-right'>{{currency cartItems.subtotal}}</td>
-              <td></td>
+            <td class="totalcol" colspan="2">SubTotal:</td>
+            <td colspan="1" class='text-align-right'>{{currency cartItems.subtotal}}</td>
+            <td></td>
           </tr>
           <tr>
-              <td class="totalcol" colspan="2">Tax 6%:</td>
-              <td colspan="1" class='text-align-right'>{{currency cartItems.tax}}</td>
-              <td></td>
+            <td class="totalcol" colspan="2">Tax:</td>
+            <td colspan="1" class='text-align-right'>{{currency cartItems.tax}}</td>
+            <td></td>
           </tr>
-          <tr>
-              <td class="totalcol" colspan="2">Total:</td>
-              <td colspan="1" class='text-align-right'>{{currency cartItems.total}}</td>
+          {{#if configuration.allowTips}}
+            <tr>
+              <td class="totalcol" colspan="2">Tip:</td>
+              <td colspan="1" class='text-align-right'>{{> roomServiceSelectTip}}</td>
               <td></td>
+            </tr>
+          {{/if}}
+          <tr>
+            <td class="totalcol" colspan="2">Total:</td>
+            <td colspan="1" class='text-align-right'>{{currency cartItems.total}}</td>
+            <td></td>
           </tr>
         </tbody>
       </table>
 
     </div>
     <div class="modal-footer">
-      <a href="#" class="btn btn-reset">Empty</a>
-      <a id='place-order' href="#" class="btn btn-default">Place Order</a>
+      <a href="#" class="btn btn-reset" {{emptyCartDisabled}}>Empty</a>
+      <a id='place-order' href="#" class="btn btn-default" {{emptyCartDisabled}}>Place Order</a>
     </div>
-  </div><!-- /.modal-content -->  
+  </div><!-- /.modal-content -->
 </template>

@@ -3,7 +3,7 @@ var closestWidth = function(containerWidth) {
   // and we will support plusmore kiosk device sizes
   // other browsers will be whatever is closest to one of these sizes
 
-  // although our site is mobile first responsive, we need to 
+  // although our site is mobile first responsive, we need to
   // reverse it for serving the images, that way the images are scaled down
   // rather than scaled up
 
@@ -14,12 +14,12 @@ var closestWidth = function(containerWidth) {
     width = 1280;
   }
 
-  // ipad horizontal 
+  // ipad horizontal
   if (containerWidth <= 1024) {
     width = 1024;
   }
 
-  // android tablet vertical 
+  // android tablet vertical
   if (containerWidth <= 800) {
     width = 800;
   }
@@ -49,7 +49,7 @@ var closestWidth = function(containerWidth) {
 
 var closestHeight = function(containerWidth, containerHeight, aspectRatioNumerator) {
   // we can't be too specific with heights because there are too
-  // many variations, from browser chromes, and things like 
+  // many variations, from browser chromes, and things like
   // "your hotspot is on" so instead we will support an aspect ration
   // that will recursively shrink to fit to the viewport
   var width = closestWidth(containerWidth);
@@ -62,8 +62,8 @@ var closestHeight = function(containerWidth, containerHeight, aspectRatioNumerat
 
   var height = width * aspectRatioFormula;
 
-  // while the margin will cause the content to be offscreen or height 
-  // is offscreen, go down a size by recursively calling with 
+  // while the margin will cause the content to be offscreen or height
+  // is offscreen, go down a size by recursively calling with
   // at least 150 pixels should show
   while (contentOffsetTop(height) > (containerHeight * (5 / 8))) {
     height = closestHeight(width, containerHeight, aspectRatioNumerator - 1);
@@ -106,3 +106,9 @@ Template.hotelInformation.helpers({
     return 'height:' + offsetTop + 'px;';
   }
 });
+
+Template.hotelInformation.onCreated(function() {
+  var hotel = Hotels.findOne();
+  this.subscribe('hotelAmenities', hotel._id);
+  this.subscribe('amenityDetails', hotel._id);
+})

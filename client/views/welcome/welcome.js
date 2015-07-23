@@ -22,7 +22,7 @@ Template.welcomeContent.helpers({
   city: function() {
     var hotel = Hotels.findOne();
 
-    if (hotel) {
+    if (hotel && hotel.geo) {
       return hotel.geo.city;
     }
 
@@ -41,7 +41,12 @@ var onEngage = function(e) {
     console.log('show menu');
     e.stopImmediatePropagation();
     Menu.show();
+  } else {
+    console.log('hide menu');
+    e.stopImmediatePropagation();
+    Menu.hide();
   }
+
 };
 
 Template.welcomeContent.events({

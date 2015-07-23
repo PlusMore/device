@@ -1,0 +1,1 @@
+Stays._ensureIndex('users');
