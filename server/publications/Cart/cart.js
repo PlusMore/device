@@ -3,3 +3,7 @@ Meteor.publish('cart', function(cartId) {
     cartId: cartId
   });
 });
+
+Meteor.startup(function() {
+  CartItems._ensureIndex({cartId: 1});
+});

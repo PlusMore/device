@@ -23,10 +23,6 @@ Devices.helpers({
 
 Devices.setupDevice = function(options, callback) {
   Devices.service.call('setupDevice', options, function(err, result) {
-    if (error) {
-      callback && callback(error);
-    } else {
-      callback && callback();
-    }
+    return callback && callback(error, result);
   });
 }

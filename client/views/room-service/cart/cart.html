@@ -44,7 +44,7 @@
             <td></td>
           </tr>
           <tr>
-            <td class="totalcol" colspan="2">Tax 6%:</td>
+            <td class="totalcol" colspan="2">Tax:</td>
             <td colspan="1" class='text-align-right'>{{currency cartItems.tax}}</td>
             <td></td>
           </tr>
@@ -65,8 +65,8 @@
 
     </div>
     <div class="modal-footer">
-      <a href="#" class="btn btn-reset">Empty</a>
-      <a id='place-order' href="#" class="btn btn-default">Place Order</a>
+      <a href="#" class="btn btn-reset" {{emptyCartDisabled}}>Empty</a>
+      <a id='place-order' href="#" class="btn btn-default" {{emptyCartDisabled}}>Place Order</a>
     </div>
   </div><!-- /.modal-content -->
 </template>

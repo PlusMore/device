@@ -10,3 +10,7 @@ Meteor.publish('stayInfo', function(stayId) {
     })
   ];
 });
+
+Meteor.startup(function() {
+  Meteor.users._ensureIndex({stayId: 1});
+});
