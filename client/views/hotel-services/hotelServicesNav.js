@@ -1,3 +1,9 @@
+Template.hotelServicesNav.onRendered(function() {
+  if (ResponsiveHelpers.isXs()) {
+    this.$('.navbar-toggle').click()
+  }
+});
+
 Template.hotelServicesNav.helpers({
   activeHotelServiceClass: function(serviceName) {
     return Session.get('selectedService') === serviceName ? 'active' : '';

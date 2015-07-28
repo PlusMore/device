@@ -27,3 +27,11 @@ Meteor.publish('hotelMenu', function(hotelId) {
     ];
   }
 });
+
+Meteor.startup(function() {
+  MenuItems._ensureIndex({menuCategoryId: 1});
+});
+
+Meteor.startup(function() {
+  MenuCategories._ensureIndex({hotelId: 1});
+});

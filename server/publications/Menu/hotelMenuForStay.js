@@ -31,3 +31,11 @@ Meteor.publish('hotelMenuForStay', function(stayId) {
     }
   }
 });
+
+Meteor.startup(function() {
+  MenuCategories._ensureIndex({hotelId: 1});
+});
+
+Meteor.startup(function() {
+  MenuItems._ensureIndex({menuCategoryId: 1});
+});
