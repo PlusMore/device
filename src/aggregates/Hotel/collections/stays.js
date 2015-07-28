@@ -37,41 +37,25 @@ Stays.currentStayForUserId = function(userId) {
 
 Stays.endStay = function(stayId, callback) {
   Stays.service.call('endStay', stayId, function(error, result) {
-    if (error) {
-      callback && callback(error);
-    } else {
-      callback && callback(result);
-    }
+    return callback && callback(error, result);
   });
 };
 
 Stays.addUserToStay = function(stayId, callback) {
   console.log('add user to stay');
   Stays.service.call('addUserToStay', stayId, function(error, result) {
-    if (error) {
-      callback && callback(error);
-    } else {
-      callback && callback(result);
-    }
+    return callback && callback(error, result);
   });
 };
 
 Stays.stayOver = function(stayId, callback) {
   Stays.service.call('stayOver', stayId, function(error, result) {
-    if (error) {
-      callback && callback(error);
-    } else {
-      callback && callback(result);
-    }
+    return callback && callback(error, result);
   });
 };
 
 Stays.registerStay = function(deviceId, checkoutDate, callback) {
   Stays.service.call('registerStayFromDevice', deviceId, checkoutDate, function(error, result) {
-    if (error) {
-      callback && callback(error);
-    } else {
-      callback && callback(result);
-    }
+    return callback && callback(error, result);
   });
 };

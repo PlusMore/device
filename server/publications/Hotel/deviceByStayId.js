@@ -30,3 +30,15 @@ Meteor.publish('deviceByStayId', function(stayId) {
   }
 
 });
+
+Meteor.startup(function() {
+  Devices._ensureIndex({roomId: 1});
+});
+
+Meteor.startup(function() {
+  Rooms._ensureIndex({stayId: 1});
+});
+
+Meteor.startup(function() {
+  HotelServices._ensureIndex({hotelId: 1});
+});

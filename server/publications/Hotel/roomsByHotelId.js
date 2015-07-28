@@ -3,3 +3,7 @@ Meteor.publish('roomsByHotelId', function(hotelId) {
     hotelId: hotelId
   });
 });
+
+Meteor.startup(function() {
+  Rooms._ensureIndex({hotelId: 1});
+});

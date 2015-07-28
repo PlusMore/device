@@ -5,3 +5,7 @@ Meteor.publish('roomForStay', function(stayId) {
     })
   ];
 });
+
+Meteor.startup(function() {
+  Rooms._ensureIndex({stayId: 1});
+});

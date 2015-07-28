@@ -1,6 +1,6 @@
 Meteor.methods({
   emptyCart: function(cartId) {
-    CartItems.remove({
+    return CartItems.remove({
       cartId: cartId
     });
   }
